@@ -1,0 +1,16 @@
+{
+  "skill": "solution-search",
+  "package_version": "1.9.0",
+  "dependencies": ["workplanx"],
+  "modules": [
+    {
+      "id": "method",
+      "name": "Abstract search method",
+      "path": "references/method.md",
+      "type": "core",
+      "version": "1.4.0",
+      "description": "Verbs, domain-neutral ladder, abstraction chains, evidence rules, serendipity capture. No product names, no domain knowledge."
+    }
+  ],
+  "planned": []
+}

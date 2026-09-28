@@ -1,0 +1,24 @@
+{
+  "skill": "mission",
+  "package_version": "1.0.0",
+  "dependencies": ["workplanx", "coding", "loop", "fresh-eyes"],
+  "modules": [
+    {
+      "id": "decompose",
+      "name": "Card decomposition",
+      "path": "references/decompose.md",
+      "type": "core",
+      "version": "1.0.0",
+      "description": "The four-part test for a workable card, dependency-then-risk ordering, when the goal is too vague to split, and the special card shapes (spike, migration, loop, last mile). Read before cutting the board."
+    },
+    {
+      "id": "board",
+      "name": "Board and subagents",
+      "path": "references/board.md",
+      "type": "core",
+      "version": "1.0.0",
+      "description": "mission.md format, card lifecycle across board/done/dropped, per-card fresh-subagent dispatch and the supervisor-verifies rule, loop cards, and reporting."
+    }
+  ],
+  "planned": []
+}

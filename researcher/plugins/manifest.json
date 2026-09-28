@@ -1,0 +1,54 @@
+{
+  "skill": "researcher",
+  "skill_version": "1.2.0",
+  "dependencies": ["solution-search"],
+  "modules": [
+    {
+      "id": "sources",
+      "name": "Source checklist",
+      "path": "references/sources.md",
+      "type": "core",
+      "version": "1.0.0",
+      "description": "The three source classes and the channel checklist within each. Always loaded when the skill runs."
+    },
+    {
+      "id": "patterns",
+      "name": "Search patterns",
+      "path": "references/patterns.md",
+      "type": "core",
+      "version": "1.1.0",
+      "description": "How to search once inside a channel, abstraction chains, plus optional search engines. Always loaded when the skill runs."
+    },
+    {
+      "id": "source-log",
+      "name": "Source discovery log",
+      "path": "references/source-log.md",
+      "type": "core",
+      "version": "1.0.0",
+      "description": "Staging log for newly-found channels/hubs, pending promotion into sources.md. Written to after a session, not read as search instructions."
+    }
+  ],
+  "planned": [
+    {
+      "id": "session-tracker",
+      "name": "Session tracker",
+      "type": "plugin",
+      "status": "not built",
+      "description": "Running plan/todo file so a long or repeated research session doesn't lose track of what's been checked."
+    },
+    {
+      "id": "findings-memory",
+      "name": "Findings memory",
+      "type": "plugin",
+      "status": "not built",
+      "description": "Running log of past *findings* (distinct from source-log, which logs channels, not findings) so repeat runs on a similar topic don't re-surface the same thing as if it were new."
+    },
+    {
+      "id": "output-formatter",
+      "name": "Output formatter",
+      "type": "plugin",
+      "status": "not built",
+      "description": "Reshape the final report into a user-specified style/format. Should hook into the environment's existing output-style preference mechanism rather than duplicating that mechanism inside this skill."
+    }
+  ]
+}

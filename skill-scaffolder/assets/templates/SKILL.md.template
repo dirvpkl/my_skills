@@ -1,0 +1,24 @@
+---
+name: {{SKILL_NAME}}
+description: {{ONE-TO-TWO SENTENCES. State what the skill does AND the specific phrases/contexts that should trigger it. Be a little assertive about trigger conditions — under-triggering is the more common failure mode.}}
+version: 1.0.0
+---
+
+# {{SKILL_NAME}}
+
+{{One paragraph: what this skill is for, and a pointer to any references/ files it uses.}}
+
+- **references/{{example}}.md** — {{what it covers, when to read it}}
+- **plugins/manifest.json** — the list of active modules for this skill. Check this to see what's currently plugged in rather than assuming this file lists everything.
+
+## Trigger
+{{Explicit conditions for when this skill should engage. Include a "does NOT trigger on ___" line if there's an easy false-positive case to rule out.}}
+
+## Process
+{{The actual instructions. Keep this section under ~500 lines; if it's getting long, that's the signal to push detail into references/ instead of inlining it here.}}
+
+## Output format
+{{What the final result should look like, if applicable.}}
+
+## Extending this skill
+New capability goes into `references/` or `plugins/`, then gets registered in `plugins/manifest.json` — see `plugins/README.md`. This file doesn't hardcode a module list so it doesn't go stale as modules are added or removed.

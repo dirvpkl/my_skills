@@ -1,0 +1,7 @@
+{
+  "skill": "{{SKILL_NAME}}",
+  "package_version": "1.0.0",
+  "dependencies": [],
+  "modules": [],
+  "planned": []
+}

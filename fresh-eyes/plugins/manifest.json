@@ -1,0 +1,24 @@
+{
+  "skill": "fresh-eyes",
+  "package_version": "1.0.0",
+  "dependencies": ["workplanx", "coding"],
+  "modules": [
+    {
+      "id": "quality",
+      "name": "Quality mode",
+      "path": "references/quality.md",
+      "type": "core",
+      "version": "1.0.0",
+      "description": "Eight-point code checklist handed to the judge verbatim. Loaded in quality mode."
+    },
+    {
+      "id": "conformance",
+      "name": "Conformance mode",
+      "path": "references/conformance.md",
+      "type": "core",
+      "version": "1.0.0",
+      "description": "Plan-to-diff checking: requirement coverage, decision fidelity, scope creep, verification honesty. Loaded in conformance mode."
+    }
+  ],
+  "planned": []
+}

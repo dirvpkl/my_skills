@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Skill delivery artifacts (built on demand, not stored)
+*.zip
+*.skill
+
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local workplanx topic folders (per-task scratch, never committed)
+.workplanx/
