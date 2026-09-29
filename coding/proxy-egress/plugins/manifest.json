@@ -1,0 +1,32 @@
+{
+  "skill": "proxy-egress",
+  "package_version": "1.0.0",
+  "dependencies": ["security", "docker", "code-quality"],
+  "modules": [
+    {
+      "id": "client-matrix",
+      "name": "Client proxy matrix",
+      "path": "references/client-matrix.md",
+      "type": "reference",
+      "version": "1.0.0",
+      "description": "Per-library proxy behavior: which read the environment, which need an explicit address, which need SOCKS5, and the gotcha specific to each."
+    },
+    {
+      "id": "silent-fallbacks",
+      "name": "Silent fallbacks",
+      "path": "references/silent-fallbacks.md",
+      "type": "reference",
+      "version": "1.0.0",
+      "description": "Catalog of ways code reaches the internet without a proxy, with the grep patterns that find each, plus deployment-shaped traps."
+    },
+    {
+      "id": "verification",
+      "name": "Verification",
+      "path": "references/verification.md",
+      "type": "reference",
+      "version": "1.0.0",
+      "description": "Proving routing is real from inside a running container: exit IP, internal targets, client-applied check, and known failure signatures."
+    }
+  ],
+  "planned": []
+}
