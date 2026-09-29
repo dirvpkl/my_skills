@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.0] - 2026-09-29
+- Node.js env-proxy flag, TCP forwarder sidecar pattern, local-mode file download via shared volume, dummy-proxy test setup
+
+
 ## [1.0.3] - 2026-09-29
 - Cross-link with external-integrations; fixed sidecar help example and verification step 4 wording
 

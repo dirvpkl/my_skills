@@ -18,6 +18,7 @@ don't assume - some services use separate ports).
 | curl_cffi | no | yes | **wants a dict**; a string raises `AttributeError` |
 | Go `http.Client` (no Transport) | yes | no | setting a custom `Transport` opts out |
 | Go `http.Client` (custom Transport) | no | yes | you own the transport config |
+| Node.js `fetch` (undici) | no, unless `NODE_USE_ENV_PROXY=1` | flag or env | without the flag the env is silently ignored |
 | Telethon (sync) | no | yes, `proxy=` dict | needs `pysocks`, else drops the arg |
 | Telethon (async) | no | yes, `proxy=` dict | needs `python-socks`, else drops the arg |
 | python-telegram-bot | via `HTTPXRequest` | usually no | `HTTPXRequest(proxy=)` also overrides `NO_PROXY` |
@@ -80,6 +81,29 @@ which reads `HTTP_PROXY` / `HTTPS_PROXY` / `NO_PROXY`. That covers the whole
 project at zero code cost. Setting a custom `Transport` (or setting
 `Transport: &http.Transport{Proxy: nil}`) silently opts the client out of the
 environment - grep for `Transport:` when auditing.
+
+## Node.js
+
+The global `fetch` (undici) ignores `HTTP_PROXY` / `HTTPS_PROXY` /
+`NO_PROXY` unless env-proxy support is switched on - either with the
+`NODE_USE_ENV_PROXY=1` environment variable or the `--use-env-proxy` CLI
+flag. Without it the process connects directly no matter what the compose
+file sets, which is a silent fallback by default. This was verified live: the
+same request went direct without the flag and issued a proxy `CONNECT` with
+it, and `NO_PROXY` loopback entries were honoured only in the second case.
+
+Set the variable in compose next to the proxy variables - it is part of the
+proxy wiring, not app config:
+
+```yaml
+HTTP_PROXY: ${PROXY_URL:?set PROXY_URL in .env}
+HTTPS_PROXY: ${PROXY_URL:?set PROXY_URL in .env}
+NO_PROXY: ${NO_PROXY:?set NO_PROXY in .env}
+NODE_USE_ENV_PROXY: "1"
+```
+
+A fail-loud wrapper around `fetch` still adds value on top: it throws for an
+external URL when no proxy is configured, before any socket opens.
 
 ## Telethon
 
@@ -149,6 +173,33 @@ Not an environment read. Pass the proxy at context or launch:
 ```python
 browser = await playwright.chromium.launch(proxy={"server": proxy_url()})
 ```
+
+## Clients with no proxy support at all (TCP forwarders)
+
+Some clients speak raw TCP and offer no proxy knob of any kind - pushing
+RTMP via ffmpeg is the classic case (`-h protocol=rtmp` and `-h protocol=tcp`
+list no SOCKS option, and an HTTP proxy cannot carry RTMP anyway). For those,
+run a forwarding sidecar as additional infra transport: it listens on plain
+localhost ports inside the compose network and forwards the bytes through a
+SOCKS5 chain. `gost` is one compact binary that does exactly this:
+
+```sh
+# entrypoint splits the single PROXY_URL into a SOCKS5 chain (http->socks5:
+# raw TCP never goes over HTTP CONNECT), one listener per upstream platform
+socks=$(printf '%s' "$PROXY_URL" | sed -e 's|^http://|socks5://|')
+exec gost \
+  -L=tcp://:19351/a.rtmp.youtube.com:1935 \
+  -L=tcp://:19352/push.live.tiktok.com:1935 \
+  -F="$socks"
+```
+
+The sidecar publishes no ports - it only works inside the network. The app
+remaps destination hosts to the sidecar (`rtmp://rtmp-relay:19351/live2/KEY`,
+path and key untouched). An upstream host with no route must raise, never
+fall through to the original address - otherwise a typo silently streams to
+the wrong place or directly. Verified live by completing a real RTMP
+handshake through the chain with a throwaway key: bytes that arrive at the
+ingest server prove the whole path.
 
 ## Headless sidecars
 

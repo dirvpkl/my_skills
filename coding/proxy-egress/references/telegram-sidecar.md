@@ -111,6 +111,26 @@ healthcheck:
   start_period: 15s
 ```
 
+### Downloading files in local mode
+
+`getFile` in `--local` mode returns an **absolute server-side path** that
+embeds the token directory
+(`/var/lib/telegram-bot-api/<token>/documents/file_1.bin`), and the `/file/`
+route does not serve it back - every path variant answers `404`. This is by
+design: per the upstream docs, local mode hands you the path so the file is
+read from disk "without the need to download the file after a getFile
+request".
+
+So mount the same named volume into the consumer, read-only, and translate
+the prefix:
+
+- sidecar path: `/var/lib/telegram-bot-api/<token>/documents/file_1.bin`
+- consumer path: `/tgfiles/<token>/documents/file_1.bin`
+
+Keep the HTTP download as a fallback for non-local bases, and never log the
+`file_path` whole - it contains the bot token. Verified live by a full
+roundtrip (upload, disk read, byte comparison, message delete).
+
 ### Registry reachability
 
 `ghcr.io` is often unreachable from a build host. Pull through a mirror and

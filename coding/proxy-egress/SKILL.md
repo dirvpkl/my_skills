@@ -1,7 +1,7 @@
 ---
 name: proxy-egress
 description: Wire a project's outbound internet traffic through an authenticated proxy with no silent direct-connection fallbacks. Use when a task involves a proxy, PROXY_URL/HTTP_PROXY, egress routing, "route everything through the proxy", NO_PROXY, or auditing a codebase for paths that can reach the internet unbound. Covers per-client-library proxy behavior (httpx, aiohttp, requests, curl_cffi, Telethon, PTB, Go), how to hunt down silent fallbacks, and how to prove routing works in a live container.
-version: 1.0.3
+version: 1.1.0
 ---
 
 # proxy-egress

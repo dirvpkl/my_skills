@@ -1,3 +1,6 @@
+## [1.14.0] - 2026-09-29
+- coding/proxy-egress 1.1.0: Node.js env-proxy flag, TCP forwarder sidecar pattern, local-mode file download via shared volume, dummy-proxy test setup
+
 ## [1.13.3] - 2026-09-29
 - Route proxy/egress tasks to proxy-egress (default set + explicit route); cross-link with external-integrations
 

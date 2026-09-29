@@ -130,3 +130,12 @@ A test asserting the address was *read* proves little. What catches these bugs:
 - for protocol-requiring clients, a test that builds the client with warnings
   promoted to errors (catches the silently-dropped argument), plus a live
   connect in the deployed container, because construction alone is not proof.
+
+And one that keeps the suite green once fail-loud checks exist: tests that
+construct clients with external-looking fixture URLs would trip the startup
+assertion, since the test process has no proxy configured. Mirror production
+in the test setup instead - a `conftest.py` that defaults a dummy
+`HTTP_PROXY`/`HTTPS_PROXY` (and a production-like `NO_PROXY`) the same way
+compose does. The dummy is never dialled (transports are mocked); it only
+satisfies the assertion that production satisfies via the real variable. Never
+put real credentials there.
