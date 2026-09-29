@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.3] - 2026-09-29
+- Cross-link with external-integrations; fixed sidecar help example and verification step 4 wording
+
+
 ## [1.0.2] - 2026-09-29
 - Added references/telegram-sidecar.md: the Bot API image that can carry a proxy, the entrypoint splitting PROXY_URL into TDLib flags, volume ownership, and keeping the internal client-to-sidecar hop direct.
 

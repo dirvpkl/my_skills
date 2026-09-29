@@ -22,8 +22,7 @@ reachability question, not a guess:
 
 ```bash
 docker run --rm --entrypoint telegram-bot-api \
-  ghcr.io/astral-sh/uv:latest --help   # any image
-docker run --rm --entrypoint /hatchet/hatchet-admin ...  # pattern for reading a binary's help
+  ghcr.io/avbor/docker-telegram-bot-api:latest --help
 ```
 
 Concretely, the useful check is that its help output lists

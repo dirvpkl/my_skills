@@ -1,7 +1,7 @@
 ---
 name: proxy-egress
 description: Wire a project's outbound internet traffic through an authenticated proxy with no silent direct-connection fallbacks. Use when a task involves a proxy, PROXY_URL/HTTP_PROXY, egress routing, "route everything through the proxy", NO_PROXY, or auditing a codebase for paths that can reach the internet unbound. Covers per-client-library proxy behavior (httpx, aiohttp, requests, curl_cffi, Telethon, PTB, Go), how to hunt down silent fallbacks, and how to prove routing works in a live container.
-version: 1.0.2
+version: 1.0.3
 ---
 
 # proxy-egress
@@ -27,6 +27,12 @@ unbound.
 - **plugins/manifest.json** - the list of active modules for this skill. Check
   this to see what's currently plugged in rather than assuming this file lists
   everything.
+- **Pairs with `external-integrations`** when the proxy service connection
+  itself needs centralized retry, heartbeat, or Telegram topics - those live
+  there, not here. This skill owns the routing (env/explicit/SOCKS5,
+  fallbacks, verification); that one owns the connection hygiene. The
+  `coding` dispatcher loads both on proxy-wiring tasks (see its activation
+  manifest).
 
 ## Trigger
 Engages when the task is about proxying outbound traffic, enforcing mandatory

@@ -60,7 +60,10 @@ docker exec <container> sh -c 'env | grep -iE "^(http_proxy|no_proxy)="'
 
 Then, from inside:
 
-- **Go / curl** - `wget -qO- https://api.ipify.org` (Go honours the env).
+- **curl** - `curl -s https://api.ipify.org` (reads uppercase
+  `HTTP_PROXY` / `HTTPS_PROXY`).
+- **Go** - `wget -qO- https://api.ipify.org` (Go honours the environment;
+  wget here is just the available fetcher, not the thing under test).
 - **Python** - `httpx` and `requests` honour the env;
   `aiohttp` does not, so for that library call the code path that resolves the
   proxy and print what it returns, then exercise the real send.

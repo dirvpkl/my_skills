@@ -1,3 +1,6 @@
+## [1.13.3] - 2026-09-29
+- Route proxy/egress tasks to proxy-egress (default set + explicit route); cross-link with external-integrations
+
 ## [1.13.2] - 2026-09-29
 - coding/proxy-egress 1.0.2: Added references/telegram-sidecar.md: the Bot API image that can carry a proxy, the entrypoint splitting PROXY_URL into TDLib flags, volume ownership, and keeping the internal client-to-sidecar hop direct.
 
