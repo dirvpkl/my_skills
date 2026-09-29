@@ -1,3 +1,6 @@
+## [1.13.2] - 2026-09-29
+- coding/proxy-egress 1.0.2: Added references/telegram-sidecar.md: the Bot API image that can carry a proxy, the entrypoint splitting PROXY_URL into TDLib flags, volume ownership, and keeping the internal client-to-sidecar hop direct.
+
 ## [1.13.1] - 2026-09-29
 - coding/proxy-egress 1.0.1: Added the silent-fallbacks grep catalog, the failure-signature table, and the ask-where-the-proxy-lives rule.
 

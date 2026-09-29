@@ -1,6 +1,6 @@
 {
   "skill": "proxy-egress",
-  "package_version": "1.0.1",
+  "package_version": "1.0.2",
   "dependencies": ["security", "docker", "code-quality"],
   "modules": [
     {
@@ -10,6 +10,14 @@
       "type": "reference",
       "version": "1.0.0",
       "description": "Per-library proxy behavior: which read the environment, which need an explicit address, which need SOCKS5, and the gotcha specific to each."
+    },
+    {
+      "id": "telegram-sidecar",
+      "name": "Telegram Bot API sidecar",
+      "path": "references/telegram-sidecar.md",
+      "type": "reference",
+      "version": "1.0.0",
+      "description": "Self-hosted Bot API server: the image that can carry a proxy, the entrypoint splitting one PROXY_URL into TDLib's five flags, volume ownership, healthcheck, and keeping the internal client-to-sidecar hop direct."
     },
     {
       "id": "silent-fallbacks",

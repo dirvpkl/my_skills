@@ -1,7 +1,7 @@
 ---
 name: proxy-egress
 description: Wire a project's outbound internet traffic through an authenticated proxy with no silent direct-connection fallbacks. Use when a task involves a proxy, PROXY_URL/HTTP_PROXY, egress routing, "route everything through the proxy", NO_PROXY, or auditing a codebase for paths that can reach the internet unbound. Covers per-client-library proxy behavior (httpx, aiohttp, requests, curl_cffi, Telethon, PTB, Go), how to hunt down silent fallbacks, and how to prove routing works in a live container.
-version: 1.0.1
+version: 1.0.2
 ---
 
 # proxy-egress
@@ -16,6 +16,10 @@ unbound.
 - **references/client-matrix.md** - per-library proxy behavior. Read this
   before editing any client; the differences between libraries cause more
   bugs than the config does.
+- **references/telegram-sidecar.md** - the self-hosted Telegram Bot API server:
+  which image can carry a proxy, the entrypoint that splits one `PROXY_URL`
+  into TDLib's five flags, volume ownership, healthcheck, and how to point a
+  client at the local server without proxying the internal hop.
 - **references/silent-fallbacks.md** - the catalog of ways code bypasses a
   proxy, with the grep patterns that find each one.
 - **references/verification.md** - proving routing is real, from inside a
