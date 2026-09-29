@@ -34,9 +34,11 @@ This repo (`my_skills`) holds versioned agent skills. Every file in it is
 5. **Commits.** Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`,
    `refactor:`), one logical change per commit, English messages.
 6. **Deploy, don't hand-copy.** Install skills into a live agent with
-   `python scripts/deploy.py [--target DIR] [--skills a,b]`. `--dry-run` first
-   when unsure. Repo tooling (`README.md`, `AGENTS.md`, `scripts/`) is never
-   deployed — only skill folders.
+   `python scripts/deploy.py [--target DIR] [--skills a,b]`. Safe by default:
+   installs new skills, upgrades by version, skips identical ones, and
+   warns + skips on conflict without touching the destination (exit 1).
+   `--diff` shows what differs, `--force` overwrites, `--force --backup DIR`
+   moves the replaced copy aside first. `--dry-run` first when unsure.
 7. **New skills** go through `python scripts/new_skill.py <name>` (full layout)
    or `--minimal` for single-purpose ones, then get filled in, validated, and
    committed. See `skill-scaffolder` for the full method.
