@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.1] - 2026-09-29
+- Added the silent-fallbacks grep catalog, the failure-signature table, and the ask-where-the-proxy-lives rule.
+
+
 All notable changes to this skill are logged here. This tracks changes to the *skill itself* — not runtime data the skill produces or logs while doing its job (that belongs in a dedicated references/ file — see references/anti-patterns.md in skill-scaffolder for why these should stay separate).
 
 ## 1.0.0 — 2026-09-29

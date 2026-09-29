@@ -1,3 +1,6 @@
+## [1.13.1] - 2026-09-29
+- coding/proxy-egress 1.0.1: Added the silent-fallbacks grep catalog, the failure-signature table, and the ask-where-the-proxy-lives rule.
+
 # CHANGELOG — coding package
 
 History of changes to the skill package itself (structure, dispatch logic, sub-skill additions/removals). Not a log of project code changes (that's git history in whatever project is being worked on) and not a log of runtime data (this package doesn't produce any).
