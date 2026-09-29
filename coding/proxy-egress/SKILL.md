@@ -1,7 +1,7 @@
 ---
 name: proxy-egress
 description: Wire a project's outbound internet traffic through an authenticated proxy with no silent direct-connection fallbacks. Use when a task involves a proxy, PROXY_URL/HTTP_PROXY, egress routing, "route everything through the proxy", NO_PROXY, or auditing a codebase for paths that can reach the internet unbound. Covers per-client-library proxy behavior (httpx, aiohttp, requests, curl_cffi, Telethon, PTB, Go), how to hunt down silent fallbacks, and how to prove routing works in a live container.
-version: 1.1.0
+version: 1.1.1
 ---
 
 # proxy-egress
@@ -38,7 +38,8 @@ unbound.
 Engages when the task is about proxying outbound traffic, enforcing mandatory
 egress, or auditing for paths that can reach the internet without a proxy.
 Phrases: "through the proxy", "PROXY_URL", "HTTP_PROXY", "NO_PROXY", "egress",
-"route everything", "don't go direct", "no direct fallback", "proxy pool".
+"route everything", "don't go direct", "no direct fallback", "proxy pool"
+(routing traffic through one - building the pool service itself is below).
 
 Does NOT trigger on: a *consumer* of a proxy that already exists and is known
 to work (a single `httpx` client already reading `HTTP_PROXY` in a project with
@@ -92,6 +93,9 @@ Put a single `PROXY_URL` in the deployment env and derive everything from it.
 Rotation between exits is the proxy service's job, so the repository keeps no
 list of addresses unless a single project genuinely needs several credentials
 (then a small `proxies.txt` that is gitignored, with the same fail-loud rules).
+Repo-side rotation (round-robin pools, per-retry address picks) is the exception
+to this, not a second pattern: allowed only with an explicit reason on record
+(e.g. a downloader that must rotate per attempt), never as the default shape.
 
 Required form in compose, so an unset value fails validation before any
 container starts rather than surfacing as a direct connection later:
@@ -171,4 +175,5 @@ Report, per project: the inventory of egress paths and how each is wired
 (env / explicit / SOCKS5), the fail-loud points, what was verified live and how,
 and what remains blocked on a user decision. Name any pre-existing defect found
 along the way separately from the change itself, and never print proxy
-credentials in the report.
+credentials in the report unless the user explicitly asks for specific ones -
+then print only those.

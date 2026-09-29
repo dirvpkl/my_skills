@@ -33,7 +33,8 @@ Check SOCKS5 as well if the client needs it - same command with `socks5://`.
 Two distinct failures to tell apart: a service that does not know the login
 rejects the tunnel (`403`/`407` at CONNECT, i.e. the credential is not
 registered), while a transient network blip looks like a timeout. One retry
-before concluding anything. Never print the credential in a report.
+before concluding anything. Never print the credential in a report unless the
+user explicitly asks for it - then only the requested ones.
 
 ## 2-3. Config and startup
 

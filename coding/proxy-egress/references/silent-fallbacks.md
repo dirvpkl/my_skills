@@ -22,6 +22,12 @@ The fix is always the same: the value must come from a helper that raises when
 it is missing or blank, and the "no proxy" default disappears from the type.
 A parameter typed `str | None` where `None` reaches a client is the smell.
 
+Precision note for `requests`: a bare `proxies=None` is smell, not proof -
+`Session.request` normalizes it to `{}` and the environment still applies.
+Direct happens on a per-scheme `None` (`proxies={"http": None}`) or
+`trust_env=False`. So a `proxies=None` grep hit means "read the surrounding
+lines", while a per-scheme `None` or a disabled `trust_env` means "found it".
+
 ## Optional file that is the only source of addresses
 
 A pool file treated as optional means an unmounted or typo'd path yields an

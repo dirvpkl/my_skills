@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.1] - 2026-09-29
+- Fixed requests `proxies=None` claim: bare None behaves like omitted (env
+  applies); direct happens on per-scheme None or trust_env=False. Precision
+  note added to silent-fallbacks.
+- Rotation ownership clarified: repo-side rotation only with explicit reason.
+- Credential-print rule now allows explicitly requested credentials.
+- "proxy pool" trigger annotated as consumer-side (building the service is out
+  of scope).
+
 ## [1.1.0] - 2026-09-29
 - Node.js env-proxy flag, TCP forwarder sidecar pattern, local-mode file download via shared volume, dummy-proxy test setup
 

@@ -13,7 +13,7 @@ don't assume - some services use separate ports).
 |---|---|---|---|
 | httpx | yes, `trust_env` defaults true | no | explicit `proxy=` **overrides `NO_PROXY`** |
 | aiohttp | no, `trust_env` defaults false | yes, per request | env is silently ignored |
-| requests / cloudscraper | yes, but only when `proxies` is omitted | no | `proxies=None` means direct |
+| requests / cloudscraper | yes, for schemes absent from the mapping | no | per-scheme `None` means direct, bare `None` does not |
 | urllib3 / requests `ProxyManager` | no | yes | takes a dict |
 | curl_cffi | no | yes | **wants a dict**; a string raises `AttributeError` |
 | Go `http.Client` (no Transport) | yes | no | setting a custom `Transport` opts out |
@@ -55,11 +55,15 @@ async with session.post(url, data=payload, proxy=proxy_url()) as response:
 
 ## requests / cloudscraper
 
-Honors the environment only when the `proxies` argument is **omitted**. A
-caller that passes `proxies=None` explicitly gets a direct connection, and so
-does any code path that passes `proxies=` built from a missing value. Convert a
-bare URL into a per-scheme mapping in one helper and let the helper raise when
-no address is configured.
+Honors the environment for every scheme missing from the `proxies` mapping.
+`Session.request` normalizes with `proxies = proxies or {}`, so an explicitly
+passed `proxies=None` behaves exactly like omitting the argument - the
+environment still applies (verified against requests 2.33 sources). What
+actually goes direct: a per-scheme `None` value
+(`proxies={"http": None}`, which the environment will not backfill),
+`trust_env=False` anywhere in the chain, and any code path that passes
+`proxies=` built from a missing value. Convert a bare URL into a per-scheme
+mapping in one helper and let the helper raise when no address is configured.
 
 ## urllib3 / requests ProxyManager
 
