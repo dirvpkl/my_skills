@@ -1,7 +1,7 @@
 ---
 name: workplanx
 description: Task plan-and-log router — every non-trivial task gets a topic folder with plan/search/decision/gate files that later skills verify structurally, plus a fresh-eyes review at the end. Use at task start before any search or code.
-version: 1.4.0
+version: 1.4.1
 ---
 
 # workplanx

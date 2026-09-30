@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.1] - 2026-09-30
+- plan_gate.py: reconfigure stdout/stderr to UTF-8 before any output. The decision phase echoes the free-text user-pick line, which is routinely non-ASCII; on a Windows console with a non-UTF-8 codepage the print raised UnicodeEncodeError, so a green decision gate surfaced as a traceback and a non-zero exit.
+
+
 ## 1.4.0 — 2026-09-26
 - New file `log.md` in the topic folder — one section per skill: what it did, what it found, what it left out. The skill claimed "other skills log to the folder, not to chat" while owning no file where such a log could land; `gate.log` is the gate's own run history and never was that file.
 - `plugins/manifest.json` gains a top-level `dependencies` array (other skills in the collection that load alongside this one). `modules` answers "what's inside this skill", `dependencies` answers "which other skills come with it" — documented in SKILL.md so the two aren't conflated. This skill's own list is empty: it's the root, everything else depends on it.

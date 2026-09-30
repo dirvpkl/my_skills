@@ -78,6 +78,17 @@ def gate(d: Path, phase: str):
 
 
 def main() -> int:
+    # The decision phase echoes the user's `user-pick:` line, which is free text
+    # and routinely non-ASCII. On Windows a cp1252 console raises
+    # UnicodeEncodeError while printing it — the pick is found and then the
+    # report dies, so a passing gate looks like a crash. Reconfigure before any
+    # output; reconfigure is a no-op where the stream cannot be reconfigured.
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
+
     ap = argparse.ArgumentParser()
     ap.add_argument("--dir", required=False, default=".", help="topic folder")
     ap.add_argument(
