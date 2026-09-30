@@ -57,15 +57,35 @@ def parse_semver(v: str) -> tuple | None:
     return tuple(map(int, m.groups())) if m else None
 
 
+def _digest(p: Path) -> str:
+    """Content hash that ignores line endings for text files.
+
+    A repo checked out on Windows carries CRLF while a copy deployed on either
+    platform carries LF, so a byte-identical comparison reports a conflict for
+    every text file in the skill. That is noise, and it is not harmless noise:
+    the conflict path refuses to touch the destination, so a genuine fix to one
+    file cannot be deployed at all until the whole tree is forced.
+
+    Normalize newlines for anything that decodes as UTF-8 and contains no NUL;
+    hash raw bytes for everything else, so a real change in a binary asset — or
+    a change that is only that the file stopped being text — still registers.
+    """
+    raw = p.read_bytes()
+    try:
+        text = raw.decode("utf-8")
+    except UnicodeDecodeError:
+        return "raw:" + hashlib.sha256(raw).hexdigest()
+    if "\0" in text:
+        return "raw:" + hashlib.sha256(raw).hexdigest()
+    normalized = text.replace("\r\n", "\n").replace("\r", "\n")
+    return "text:" + hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+
+
 def tree_hashes(d: Path) -> dict:
     out = {}
     for p in sorted(d.rglob("*")):
         if p.is_file():
-            h = hashlib.sha256()
-            with open(p, "rb") as f:
-                for chunk in iter(lambda: f.read(65536), b""):
-                    h.update(chunk)
-            out[p.relative_to(d).as_posix()] = h.hexdigest()
+            out[p.relative_to(d).as_posix()] = _digest(p)
     return out
 
 

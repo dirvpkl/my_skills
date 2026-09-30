@@ -1,3 +1,6 @@
+## [1.14.1] - 2026-09-30
+- manifest: sync the proxy-egress module entry (1.1.0) with its own SKILL.md frontmatter (1.1.1), which scripts/validate.py was failing on. The package version moves so the change is deployable: same version plus differing files is a conflict deploy.py refuses.
+
 ## [1.14.0] - 2026-09-29
 - coding/proxy-egress 1.1.0: Node.js env-proxy flag, TCP forwarder sidecar pattern, local-mode file download via shared volume, dummy-proxy test setup
 

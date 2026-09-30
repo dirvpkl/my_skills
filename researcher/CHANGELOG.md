@@ -2,6 +2,10 @@
 
 All notable changes to this skill are logged here. This tracks changes to the *skill itself* (structure, behavior, modules) — not research findings (those go only in the report given to the user) and not newly-discovered research channels (those go in `references/source-log.md`).
 
+## 1.3.1 — 2026-09-30
+- `patterns`: add the binding SearXNG rules. The block existed only in the live skills dir, edited in place, which `AGENTS.md` forbids; synced back into the repo so the repo is the source of truth again. Covers: ask for the instance address per session instead of assuming it, never read or edit `settings.yml`, and `GET <instance>/config` as the read-only way to see the enabled engine set.
+- `manifest`: `skill_version` 1.2.0 -> 1.3.1, and the `patterns` module 1.1.0 -> 1.1.1. Both had drifted from the files they describe; `validate.py` compares module versions but never compared `skill_version` against `VERSION`, so that one sat unnoticed.
+
 ## 1.3.0 — 2026-09-26
 - `dependencies: ["solution-search"]` added to the manifest. The link was previously only prose in SKILL.md — a hand-maintained list in the core file, which is exactly what the manifest exists to replace. No research rule changed.
 - Flagged, not fixed: this skill's manifest uses `skill_version` while `manifest-format.md` mandates `package_version`. Renaming a field other tooling may read isn't a drive-by change — needs its own pass.

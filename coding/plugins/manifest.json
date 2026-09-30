@@ -1,6 +1,6 @@
 {
   "skill": "coding",
-  "package_version": "1.14.0",
+  "package_version": "1.14.1",
   "dependencies": ["workplanx", "solution-search", "fresh-eyes", "loop", "mission"],
   "modules": [
     {

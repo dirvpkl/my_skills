@@ -1,0 +1,15 @@
+# Skills are markdown + python. They are authored on Windows and deployed to a
+# live agent on any platform, so a byte-identical comparison of the repo working
+# copy against the deployed tree flags every text file whose line endings differ.
+# Normalize to LF in the repository so the two agree by construction; deploy.py
+# still compares tolerantly, because the working copy of an already-checked-out
+# tree keeps its endings until the next checkout.
+* text=auto eol=lf
+
+# Binary assets, if any are ever added, must never be line-ending touched.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.zip binary
