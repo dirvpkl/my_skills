@@ -72,7 +72,7 @@
       "name": "Proxy egress",
       "path": "proxy-egress/SKILL.md",
       "type": "core",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "description": "Mandatory outbound proxy with no silent direct fallbacks. Per-client-library proxy behavior, fallback hunting with grep patterns, live verification from inside a container. Asks where the proxy lives rather than hardcoding it."
     }
   ],
