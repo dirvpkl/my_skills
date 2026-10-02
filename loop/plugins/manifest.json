@@ -1,6 +1,6 @@
 {
   "skill": "loop",
-  "package_version": "1.0.0",
+  "package_version": "2.0.0",
   "dependencies": ["workplanx", "coding"],
   "modules": [
     {
@@ -8,16 +8,16 @@
       "name": "Loop contract",
       "path": "references/contract.md",
       "type": "core",
-      "version": "1.0.0",
-      "description": "The five ingredients, why context resets, and the loop.md file shape written into the topic folder. Read before the first iteration."
+      "version": "2.0.0",
+      "description": "The five ingredients (program, predicate, check, ledger, termination), command vs criterion checks, why context resets, and the loop.md file shape. Read before the first iteration."
     },
     {
       "id": "stop-signals",
       "name": "Stop signals",
       "path": "references/stop-signals.md",
       "type": "core",
-      "version": "1.0.0",
-      "description": "What wasting iterations looks like — goalpost-moving, activity without progress, wrong problem — and what is not a stop signal. The semantic layer loop_state.py cannot check."
+      "version": "2.0.0",
+      "description": "What wasting iterations looks like — goalpost-moving, activity without progress, wrong problem — and what is not a stop signal. The semantic layer loop_state.py cannot check. Read before a long loop."
     }
   ],
   "planned": []
