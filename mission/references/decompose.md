@@ -8,7 +8,7 @@ A card is ready to be worked when all four hold:
    the auth system" — "the auth flow's entry points are listed in
    `docs/auth.md` with a caller for each". If you can't write the condition,
    the card isn't decomposed yet.
-2. **It fits in a fresh context.** A subagent gets the card and nothing else. If
+2. **It fits in a fresh context.** A card session gets the card and nothing else. If
    the card only makes sense to someone who read the last three cards, either
    the card is too big or the ordering is wrong — probably the latter, and the
    fix is to write the dependency down.
@@ -42,7 +42,7 @@ Stop and ask. Three questions earn their cost:
 2. **What is explicitly out of scope?** Non-goals are what stop a mission from
    growing, and they're the hardest part to recover later.
 3. **What must not change?** The do-not-touch list (a live service, a public
-   API, a data store) belongs on the board before any subagent sees it.
+   API, a data store) belongs on the board before any card session sees it.
 
 If the user answers "you decide", propose a decomposition in chat and get a
 yes before building forty cards. Proceeding on an unconfirmed decomposition is
@@ -60,7 +60,7 @@ the expensive version of being helpful.
   the mission isn't allowed to end without it, it gets a card.
 - **A loop** — a card whose condition needs many iterations of the same unit is
   a `loop` card: it names the loop's condition, cap, and verify command, and
-  hands the engine over. Don't try to do it inside one subagent turn.
+  hands the engine over. Don't try to do it inside one card session.
 
 ## How many
 

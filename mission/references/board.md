@@ -1,4 +1,4 @@
-# The board, the cards, and the subagents
+# The board, the cards, and the sessions
 
 ## `mission.md` — one file in the topic folder
 
@@ -37,22 +37,27 @@ its result, not a description. "Tests pass" is a description; `pytest tests/api
 
 ## Dispatching a card
 
-- **Fresh subagent per card.** It gets: the card line, the mission's
-  `do_not_touch`, the project conventions, and the current state of the repo.
-  It does **not** get the mission's reasoning, the previous card's session, or
-  the text of the other cards. An agent that can see the whole board starts
-  optimizing for the board instead of the card.
+- **Fresh session per card.** Create it with `session.create`, drive it with
+  `session.send`, collect it with `session.messages`. It gets: the card line,
+  the mission's `do_not_touch`, the project conventions, and the current state
+  of the repo. It does **not** get the mission's reasoning, the previous
+  card's session, or the text of the other cards. An executor that can see
+  the whole board starts optimizing for the board instead of the card.
 - **Include the mission's done-condition for context only**, clearly marked as
-  context — a subagent that knows the goal makes better local choices, but must
+  context — a session that knows the goal makes better local choices, but must
   not redefine it.
 - **One card at a time by default.** Parallel cards are allowed when
   `depends:` says they're independent *and* they don't touch the same files.
-  When in doubt, serial: two agents editing one file produce a merge problem
-  that costs more than the parallelism saved.
-- **The subagent reports; the supervisor verifies.** Run the card's condition
-  yourself after the subagent finishes. Never mark a card done on the
-  subagent's report — that's the same trust mistake as a loop judging itself,
-  one level up.
+  When in doubt, serial: two sessions editing one file produce a merge problem
+  that costs more than the parallelism saved. Parallel still means separate
+  sessions, never two cards in one session.
+- **The card session reports; the orchestrator verifies.** Run the card's
+  condition yourself after the session finishes (read the result via
+  `session.messages`). Never mark a card done on the
+  card session's report — that's the same trust mistake as a loop judging
+  itself, one level up.
+- **Do not use subagents for cards** — they lock the orchestration cycle. The
+  orchestrator session dispatches and collects; card sessions execute.
 
 ## Cards that are loops
 
@@ -74,12 +79,12 @@ This is the mechanic worth naming, because it's the whole design: the goal
 becomes a visible board, the board is the only queue, and cards get moved
 across it as they finish. Whoever supervises — human or agent — sees the same
 state, and the state is on disk rather than in anyone's head. The card a person
-would have moved with a finger is the card a subagent claims with a tool call,
+would have moved with a finger is the card a session claims with `session.send`,
 and the reasons section is where a human writes "drop this, wrong assumption".
 
 ## Reporting
 
 Goal, done-condition, and the board's state. Per card: condition + evidence (or
 why it's open). Cards dropped, with reasons. Which cards needed a loop and how
-they ended. What the next human action is. Don't narrate subagent sessions — the
+they ended. What the next human action is. Don't narrate card sessions — the
 board already says what happened, and a session log is not a result.

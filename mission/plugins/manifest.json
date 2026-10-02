@@ -1,7 +1,7 @@
 {
   "skill": "mission",
-  "package_version": "1.0.0",
-  "dependencies": ["workplanx", "coding", "loop", "fresh-eyes"],
+  "package_version": "1.1.0",
+  "dependencies": ["workplanx", "coding", "loop"],
   "modules": [
     {
       "id": "decompose",
@@ -13,11 +13,11 @@
     },
     {
       "id": "board",
-      "name": "Board and subagents",
+      "name": "Board and sessions",
       "path": "references/board.md",
       "type": "core",
       "version": "1.0.0",
-      "description": "mission.md format, card lifecycle across board/done/dropped, per-card fresh-subagent dispatch and the supervisor-verifies rule, loop cards, and reporting."
+      "description": "mission.md format, card lifecycle across board/done/dropped, per-card fresh-session dispatch and the orchestrator-verifies rule, loop cards, and reporting."
     }
   ],
   "planned": []

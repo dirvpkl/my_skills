@@ -1,18 +1,18 @@
 ---
 name: mission
-description: Long-running objective decomposed into a board of cards, worked by subagents, each card verified on its own — the supervisor decomposes and judges, subagents execute. Use when the user gives a goal too big for one pass ("build X", "migrate Y", "research Z thoroughly") and it needs to run for hours across many steps, unattended. Not for a single task, not for retrying one failing thing (that's `loop`).
-version: 1.0.0
+description: Long-running objective decomposed into a board of cards, worked card-by-card in fresh sessions, each card verified on its own — the orchestrator decomposes and judges, card sessions execute. Use when the user gives a goal too big for one pass ("build X", "migrate Y", "research Z thoroughly") and it needs to run for hours across many steps, unattended. Not for a single task, not for retrying one failing thing (that's `loop`).
+version: 1.1.0
 ---
 
 # mission
 
 A mission is a goal that can't be finished in one pass. It gets decomposed into
-cards, worked one at a time by a fresh subagent each, and judged at the end by
-someone that didn't do the work.
+cards, worked one at a time in a fresh session each, and judged at the end by
+a context that didn't do the work.
 
 - **references/decompose.md** — how to split a goal into cards that are
   independently verifiable, and when the goal is too vague to split yet.
-- **references/board.md** — the board file format, card lifecycle, subagent
+- **references/board.md** — the board file format, card lifecycle, session
   dispatch, and the kanban/whiteboard mechanics.
 - **plugins/manifest.json** — active modules, check it.
 
@@ -23,7 +23,8 @@ someone that didn't do the work.
 - The user wants it to run unattended, or to come back to progress rather than
   a single answer.
 - Do NOT trigger on: one task that fits in a few iterations (that's `loop`), a
-  decision about what to build (`solution-search` + `workplanx`), or research
+  decision about what to build (compare 2-3 approaches with tradeoffs in
+  `workplanx`), or research
   that ends in one report (`researcher`).
 
 ## Relationship to `loop` and `workplanx`
@@ -38,7 +39,8 @@ They're three different scales and they stack:
   condition holds.
 
 A card that needs a loop gets one. A card that's a single step doesn't. A
-mission that has no cards left is done and goes to `fresh-eyes`.
+mission that has no cards left is done and goes to a final conformance review
+against the goal.
 
 ## Process
 
@@ -52,17 +54,22 @@ mission that has no cards left is done and goes to `fresh-eyes`.
    isn't a card, it's a wish that will absorb the whole mission's budget.
 3. **Write `mission.md`** into the `workplanx` topic folder: the goal, the
    done-condition for the whole thing, and the board (`references/board.md`).
-4. **Run a fresh-eyes `conformance` pass on the board before starting work.**
-   This is the cheap check that saves the expensive one: a reviewer with clean
-   context looking at "does this plan actually cover the goal". Fix the board,
-   then start.
-5. **Work cards in order, one subagent per card.** The subagent gets the card
-   and nothing else — not the mission's history, not the other cards' contents.
-   An agent that can see the whole board optimizes for the wrong thing.
-6. **After each card: the card's own verification, then the subagent's
-   freshness check.** Mark done only on evidence, never on the subagent's word.
-7. **When the board is empty:** `fresh-eyes` in `conformance` mode against the
-   original goal, and the mission's done-condition. Both. That's the same
+4. **Run a conformance pass on the board before starting work.** The
+   orchestrator or an independent session with clean context checks one
+   question: does this plan actually cover the goal. This is the cheap check
+   that saves the expensive one. Fix the board, then start.
+5. **Work cards in order, one full session per card.** Create the card session
+   with `session.create`, drive it with `session.send`, collect the result
+   with `session.messages`. The card session gets the card and nothing
+   else — not the mission's history, not the other cards' contents. An
+   executor that can see the whole board optimizes for the wrong thing. Do
+   not use subagents for cards — they lock the orchestration cycle; the
+   orchestrator session dispatches and collects, card sessions execute.
+6. **After each card: the card's own verification, then the session's
+   freshness check.** Mark done only on evidence, never on the card session's word.
+7. **When the board is empty:** a conformance review against the
+   original goal, and the mission's done-condition, by the orchestrator or an
+   independent session with clean context. Both. That's the same
    discipline `loop` applies per card, applied to the whole.
 8. **Report** per `references/board.md`.
 
@@ -89,4 +96,4 @@ mission that has no cards left is done and goes to `fresh-eyes`.
 Goal and its done-condition. Cards: done / open / dropped, each with its
 condition and the evidence behind the status. What the last failure was, what
 the next human action is. Never dress a stopped mission as a finished one, and
-don't narrate each subagent's session — the board is the record.
+don't narrate each card session — the board is the record.

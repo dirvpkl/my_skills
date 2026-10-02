@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.0] - 2026-10-03
+- Session orchestration: one full session per card (session.create/send/messages), subagents banned; conformance review by orchestrator or clean-context session; 2-3 approach tradeoffs in own words; drop unavailable deps
+
+
 ## 1.0.0 — 2026-09-26
 New skill: long-running objective decomposed into a board of cards, worked by subagents, judged at the end.
 - `references/decompose.md` — the four-part test for a workable card (own condition, fits a fresh context, one outcome, no human mid-card), dependency-then-risk ordering, when the goal is too vague to split, and the special card shapes: spike, migration, cleanup, loop, last mile.
