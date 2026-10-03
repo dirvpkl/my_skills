@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.0] - 2026-10-04
+- Full rewrite: always-loaded orchestrator rules, runtime path resolution, strictest-wins conflicts
+
+
 ## [1.1.0] - 2026-10-04
 - Rename safety to base, orchestrator-first with runtime path resolution
 
