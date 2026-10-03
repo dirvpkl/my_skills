@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.3.0] - 2026-10-04
+- Full rewrite: silence rule integrated into process, scope note in trigger, base wired
+
+
 ## [2.2.1] - 2026-10-04
 - Dialog rule scope: conversational sessions only, subagent reports are delivery
 

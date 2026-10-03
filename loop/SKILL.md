@@ -1,15 +1,15 @@
 ---
 name: loop
-description: Runs a task as repeated autonomous iterations until a fixed predicate holds or a stop rule fires — fresh context per iteration, state on disk instead of in conversation, progress from ledger evidence. The predicate check is a command and/or a pre-fixed criterion (tests and deploys are examples, not the core). Covers iterate-until-met, bounded retry with a hard cap, and stagnation detection. Use when the user asks to keep going until X holds, to converge a search, or to run unattended for N iterations. Fails loud at the cap.
-version: 2.2.1
+description: Runs a task as repeated autonomous iterations until a fixed predicate holds or a stop rule fires — fresh context per iteration, state on disk instead of in conversation, progress from ledger evidence, no user-facing answer until the verdict. The predicate check is a command and/or a pre-fixed criterion (tests and deploys are examples, not the core). Covers iterate-until-met, bounded retry with a hard cap, and stagnation detection. Use when the user asks to keep going until X holds, to converge a search, or to run unattended for N iterations. Fails loud at the cap.
+version: 2.3.0
 ---
 
 # loop
 
 One iteration does one unit of work, checks it against a fixed predicate,
 records evidence, and stops. The next iteration starts fresh and reads only
-what is on disk. That's the whole mechanism — there is no daemon, no
-scheduler, no plugin.
+what is on disk. The user hears nothing until the verdict — that's the
+whole mechanism. There is no daemon, no scheduler, no plugin.
 
 - **references/contract.md** — the five ingredients every loop needs (program,
   predicate, check, ledger, termination), command vs criterion checks, and the
@@ -36,6 +36,10 @@ either way; a wait that hits its cap fails loud instead of sleeping longer.
   retry (`external-integrations`), not an agent loop. The difference: a retry
   re-sends the same request; a loop re-asks the agent to do the next unit of
   work with what it learned.
+
+Scope note: the silence rule below binds conversational sessions. Subagent
+completion and progress reports are the delivery mechanism, not dialog ends —
+a subagent always reports when done, loop or no loop.
 
 ## Process
 
@@ -68,20 +72,15 @@ either way; a wait that hits its cap fails loud instead of sleeping longer.
    claim must carry evidence.
 6. New iteration: fresh context, read `loop.md` and the ledger, pick the next
    unit. Don't carry reasoning forward in prose; that's what the ledger is for.
-7. On `STOP`, report per `references/contract.md` — verdict, iterations used,
+   Polling waits sleep short between rounds (`Start-Sleep`,
+   `time.sleep`/`asyncio.sleep`) plus one re-check per round — never long
+   sleeps, the infrastructure kills them.
+7. Stay silent until `STOP`. No interim answers to the user while iterations
+   run — the only mid-loop message allowed is a stop-and-ask when the next
+   unit would be destructive or potentially harmful in any sense, or when a
+   stop signal from `references/stop-signals.md` fires.
+8. On `STOP`, report per `references/contract.md` — verdict, iterations used,
    what the predicate was, what the last check observed.
-
-## Dialog rule
-
-Do not end the user-facing dialog (answer the user) until `loop_state.py`
-says `STOP`, except when the next unit would be destructive or potentially
-harmful in any sense — then stop and ask first. Polling waits use short
-sleeps (`Start-Sleep`, `time.sleep`/`asyncio.sleep`) plus one re-check per
-round; never long sleeps.
-
-Scope: this rule binds conversational sessions. Subagent completion and
-progress reports are the delivery mechanism, not dialog ends — a subagent
-always reports when done, loop or no loop.
 
 ## Fail loud
 
