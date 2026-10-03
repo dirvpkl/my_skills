@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.5.0] - 2026-10-04
+- Wire base as mandatory dependency
+
+
 ## [1.4.1] - 2026-09-30
 - plan_gate.py: reconfigure stdout/stderr to UTF-8 before any output. The decision phase echoes the free-text user-pick line, which is routinely non-ASCII; on a Windows console with a non-UTF-8 codepage the print raised UnicodeEncodeError, so a green decision gate surfaced as a traceback and a non-zero exit.
 

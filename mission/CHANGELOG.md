@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.0] - 2026-10-04
+- Wire base as mandatory dependency
+
+
 ## [1.1.0] - 2026-10-03
 - Session orchestration: one full session per card (session.create/send/messages), subagents banned; conformance review by orchestrator or clean-context session; 2-3 approach tradeoffs in own words; drop unavailable deps
 

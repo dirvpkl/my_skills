@@ -1,7 +1,9 @@
 {
   "skill": "workplanx",
-  "package_version": "1.4.1",
-  "dependencies": [],
+  "package_version": "1.5.0",
+  "dependencies": [
+    "base"
+  ],
   "modules": [
     {
       "id": "layout",

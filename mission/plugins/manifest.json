@@ -1,7 +1,12 @@
 {
   "skill": "mission",
-  "package_version": "1.1.0",
-  "dependencies": ["workplanx", "coding", "loop"],
+  "package_version": "1.2.0",
+  "dependencies": [
+    "base",
+    "workplanx",
+    "coding",
+    "loop"
+  ],
   "modules": [
     {
       "id": "decompose",

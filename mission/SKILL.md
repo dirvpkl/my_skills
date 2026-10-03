@@ -1,7 +1,7 @@
 ---
 name: mission
 description: Long-running objective decomposed into a board of cards, worked card-by-card in fresh sessions, each card verified on its own — the orchestrator decomposes and judges, card sessions execute. Use when the user gives a goal too big for one pass ("build X", "migrate Y", "research Z thoroughly") and it needs to run for hours across many steps, unattended. Not for a single task, not for retrying one failing thing (that's `loop`).
-version: 1.1.0
+version: 1.2.0
 ---
 
 # mission
