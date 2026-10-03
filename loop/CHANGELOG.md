@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.2.0] - 2026-10-03
+- Dialog rule: no user answer until STOP except destructive/harmful; short-sleep polling note
+
+
 ## [2.1.0] - 2026-10-03
 - External-wait mode: references/wait.md (no-work rounds, short pauses, bounded cap) plus two-mode note in SKILL.md
 
