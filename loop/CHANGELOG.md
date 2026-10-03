@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.1.0] - 2026-10-03
+- External-wait mode: references/wait.md (no-work rounds, short pauses, bounded cap) plus two-mode note in SKILL.md
+
+
 ## [2.0.0] - 2026-10-03
 - Abstract core: fixed predicate with command-or-criterion check, evidence ledger, hardened stop rules; tests and deploys are examples, not the definition
 - Why: v1 targeted tests/deploys (a verify command whose exit code was the only judge), which excluded legitimate loops — converged search, stabilized answer, exhausted moves — where no command can decide. The loop's essence is iterating until a predicate holds, not until a command exits 0.

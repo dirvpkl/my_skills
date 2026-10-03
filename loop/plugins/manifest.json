@@ -1,6 +1,6 @@
 {
   "skill": "loop",
-  "package_version": "2.0.0",
+  "package_version": "2.1.0",
   "dependencies": ["workplanx", "coding"],
   "modules": [
     {
@@ -18,6 +18,14 @@
       "type": "core",
       "version": "2.0.0",
       "description": "What wasting iterations looks like — goalpost-moving, activity without progress, wrong problem — and what is not a stop signal. The semantic layer loop_state.py cannot check. Read before a long loop."
+    },
+    {
+      "id": "wait",
+      "name": "External wait",
+      "path": "references/wait.md",
+      "type": "core",
+      "version": "2.1.0",
+      "description": "Waiting on someone else's state: no work per round, short pause plus one status check, bounded rounds, fail loud at the cap. Read when the loop waits instead of working."
     }
   ],
   "planned": []

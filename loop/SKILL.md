@@ -1,7 +1,7 @@
 ---
 name: loop
 description: Runs a task as repeated autonomous iterations until a fixed predicate holds or a stop rule fires — fresh context per iteration, state on disk instead of in conversation, progress from ledger evidence. The predicate check is a command and/or a pre-fixed criterion (tests and deploys are examples, not the core). Covers iterate-until-met, bounded retry with a hard cap, and stagnation detection. Use when the user asks to keep going until X holds, to converge a search, or to run unattended for N iterations. Fails loud at the cap.
-version: 2.0.0
+version: 2.1.0
 ---
 
 # loop
@@ -16,7 +16,15 @@ scheduler, no plugin.
   `loop.md` file shape written into the topic folder.
 - **references/stop-signals.md** — the rationality catalogue: what "the agent is
   wasting iterations" actually looks like, and which ones stop the loop early.
+- **references/wait.md** — the external-wait mode: no work per round, only a
+  status check against someone else's state, with short pauses and a hard round cap.
 - **plugins/manifest.json** — active modules, check it.
+
+Two modes. *Work iterations* do one unit of work per pass — for "keep going
+until X holds through my effort". *External wait* does no work per round: it
+checks someone else's state (session statuses, a deploy, an external process)
+after a short pause — for "wait until they are ready". Rounds are bounded
+either way; a wait that hits its cap fails loud instead of sleeping longer.
 
 ## Trigger
 
