@@ -1,7 +1,7 @@
 ---
 name: loop
 description: Runs a task as repeated autonomous iterations until a fixed predicate holds or a stop rule fires — fresh context per iteration, state on disk instead of in conversation, progress from ledger evidence. The predicate check is a command and/or a pre-fixed criterion (tests and deploys are examples, not the core). Covers iterate-until-met, bounded retry with a hard cap, and stagnation detection. Use when the user asks to keep going until X holds, to converge a search, or to run unattended for N iterations. Fails loud at the cap.
-version: 2.2.0
+version: 2.2.1
 ---
 
 # loop
@@ -73,11 +73,15 @@ either way; a wait that hits its cap fails loud instead of sleeping longer.
 
 ## Dialog rule
 
-Do not end the dialog (answer the user) until `loop_state.py` says `STOP`,
-except when the next unit would be destructive or potentially harmful in any
-sense — then stop and ask first. Polling waits use short sleeps
-(`Start-Sleep`, `time.sleep`/`asyncio.sleep`) plus one re-check per round;
-never long sleeps.
+Do not end the user-facing dialog (answer the user) until `loop_state.py`
+says `STOP`, except when the next unit would be destructive or potentially
+harmful in any sense — then stop and ask first. Polling waits use short
+sleeps (`Start-Sleep`, `time.sleep`/`asyncio.sleep`) plus one re-check per
+round; never long sleeps.
+
+Scope: this rule binds conversational sessions. Subagent completion and
+progress reports are the delivery mechanism, not dialog ends — a subagent
+always reports when done, loop or no loop.
 
 ## Fail loud
 

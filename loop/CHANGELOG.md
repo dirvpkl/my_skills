@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.2.1] - 2026-10-04
+- Dialog rule scope: conversational sessions only, subagent reports are delivery
+
+
 ## [2.2.0] - 2026-10-03
 - Dialog rule: no user answer until STOP except destructive/harmful; short-sleep polling note
 
