@@ -1,7 +1,7 @@
 ---
 name: loop
 description: Runs a task as repeated autonomous iterations until a fixed predicate holds or a stop rule fires — fresh context per iteration, state on disk instead of in conversation, progress from ledger evidence, no user-facing answer until the verdict. The predicate check is a command and/or a pre-fixed criterion (tests and deploys are examples, not the core). Covers iterate-until-met, bounded retry with a hard cap, and stagnation detection. Use when the user asks to keep going until X holds, to converge a search, or to run unattended for N iterations. Fails loud at the cap.
-version: 2.4.1
+version: 2.4.2
 ---
 
 # loop
@@ -75,6 +75,9 @@ a subagent always reports when done, loop or no loop.
    Polling waits sleep short between rounds (`Start-Sleep`,
    `time.sleep`/`asyncio.sleep`) plus one re-check per round — never long
    sleeps, the infrastructure kills them.
+   Append the ledger line every iteration without exception: a missing line
+   is indistinguishable from a dead agent, and the orchestrator treats it
+   as one (ping once, then replace).
 7. Stay silent until `STOP`. No interim answers to the user while iterations
    run — the only mid-loop message allowed is a stop-and-ask when the next
    unit would be destructive or potentially harmful in any sense, or when a

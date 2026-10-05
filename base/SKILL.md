@@ -1,7 +1,7 @@
 ---
 name: base
 description: Base operating rules for the orchestrator and every agent, always loaded — delegate by default with minimum hands-on, resolve volatile paths at runtime, ask-first on destructive/secret/out-of-scope steps, data and host integrity first. Pairs with coding on any task that executes or delegates. Never skipped to save effort.
-version: 1.2.0
+version: 1.2.1
 ---
 
 # base
@@ -32,7 +32,14 @@ nothing executed is the only exemption.
    end. Hands-on only for the trivial (one edit, one check). An agent
    that never saw `base` follows nothing — name it and the live catalog
    path in every delegation prompt.
-2. **Resolve concreteness at runtime.** Catalog location, project paths,
+2. **Every delegation carries a log path and a heartbeat.** No agent
+   starts without `<project>/.workplanx/<topic>/log.md` named in its
+   prompt; the agent appends one line per unit of work (what it did,
+   evidence, blockers). Silence is data: if the log is stale past the
+   task's natural cadence, the agent is presumed stalled — ping once,
+   then replace. Session `idle` means nothing by itself; the ledger
+   is the only progress signal.
+3. **Resolve concreteness at runtime.** Catalog location, project paths,
    hosts, ports — all can change any second, so this file names *where
    the truth lives*, never the values: the live catalog is whatever the
    environment exposes at startup, fallback `%USERPROFILE%/.agents/skills`;

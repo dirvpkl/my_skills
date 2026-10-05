@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.1] - 2026-10-05
+- Delegation requires log path and heartbeat, stale log means stalled
+
+
 ## [1.2.0] - 2026-10-04
 - Full rewrite: always-loaded orchestrator rules, runtime path resolution, strictest-wins conflicts
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.4.2] - 2026-10-05
+- Missing ledger line equals dead agent
+
+
 ## [2.4.1] - 2026-10-05
 - Record active standing rules: merge, redeploy, push to own origin, orphan delete, one quota spend
 
