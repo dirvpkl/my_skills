@@ -1,7 +1,7 @@
 ---
 name: loop
 description: Runs a task as repeated autonomous iterations until a fixed predicate holds or a stop rule fires — fresh context per iteration, state on disk instead of in conversation, progress from ledger evidence, no user-facing answer until the verdict. The predicate check is a command and/or a pre-fixed criterion (tests and deploys are examples, not the core). Covers iterate-until-met, bounded retry with a hard cap, and stagnation detection. Use when the user asks to keep going until X holds, to converge a search, or to run unattended for N iterations. Fails loud at the cap.
-version: 2.4.0
+version: 2.4.1
 ---
 
 # loop
@@ -135,3 +135,13 @@ change (red suite, unhealthy stack, new scope) or the user revokes it;
 until then, re-asking is the failure mode this section prevents. Standing
 approvals never cover destructive, secret-touching, or out-of-scope steps —
 those ask every time, no exceptions.
+
+Standing rules currently in force (act, then report the result):
+- merge a green branch into its own main/master, delete the branch after
+- redeploy a healthy stack on merged code (rebuild as needed)
+- push merged commits to the branch's own origin remote when a stand or
+  downstream needs them (never to a new remote, never force-push)
+- delete a proven orphan (backup first): points without store refs, dead
+  anonymous volumes, superseded worktrees
+- one live quota spend per task when the task exists to spend it
+  (a Kaggle push, probe runs); further spends ask again
