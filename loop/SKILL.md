@@ -1,7 +1,7 @@
 ---
 name: loop
 description: Runs a task as repeated autonomous iterations until a fixed predicate holds or a stop rule fires — fresh context per iteration, state on disk instead of in conversation, progress from ledger evidence, no user-facing answer until the verdict. The predicate check is a command and/or a pre-fixed criterion (tests and deploys are examples, not the core). Covers iterate-until-met, bounded retry with a hard cap, and stagnation detection. Use when the user asks to keep going until X holds, to converge a search, or to run unattended for N iterations. Fails loud at the cap.
-version: 2.3.0
+version: 2.4.0
 ---
 
 # loop
@@ -123,3 +123,15 @@ Verdict and reason (predicate met / iteration cap / stagnation / stopped by
 rule), iterations used, the check's last output or evidence, and what the next
 human action is. Don't present a capped run as a success, and don't pad the
 report with a per-iteration narration.
+
+## Standing approvals
+
+The same proposal approved repeatedly becomes a standing rule, not a
+question. When the user says yes to the same kind of action for the third
+time (merge on green, redeploy a healthy stack, delete a proven orphan),
+write it down as `standing:` in the topic log and stop asking — act on it
+and report the result. A standing approval dies the moment its conditions
+change (red suite, unhealthy stack, new scope) or the user revokes it;
+until then, re-asking is the failure mode this section prevents. Standing
+approvals never cover destructive, secret-touching, or out-of-scope steps —
+those ask every time, no exceptions.

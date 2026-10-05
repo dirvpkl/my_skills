@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.4.0] - 2026-10-05
+- Standing approvals: repeated yes becomes standing rule, stop re-asking
+
+
 ## [2.3.0] - 2026-10-04
 - Full rewrite: silence rule integrated into process, scope note in trigger, base wired
 
