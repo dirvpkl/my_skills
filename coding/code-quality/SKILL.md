@@ -1,7 +1,7 @@
 ---
 name: code-quality
 description: Architecture, coding principles, and error-handling rules for any code write or edit — new features, refactors, and cleanup requests. Covers service separation (no god-files, no bundling worker logic into API services), no-hardcoding, DRY/KISS, fail-loud error handling, import/typing discipline, honest async signatures, single-source contracts, lint/format/type-check order, and proactive security flagging. Use this whenever code is being written or changed, not only when explicitly asked to "clean up" or "refactor."
-version: 1.5.0
+version: 1.6.0
 ---
 
 <!-- v1 - 2026-09-06 -->
@@ -69,6 +69,7 @@ Anything built or changed under this skill assumes the `logging` skill is alread
 - No single-use private helpers. A `def _helper(...)` called in exactly one place and only building a literal/dict must be inlined at the call site or replaced by a typed model. A helper is justified only when it is recursive, shared by ≥2 call sites, encapsulates private state, or is a test seam — single-use dict builders are not.
 - Contracts shared between two pieces of code (the shape of a function, what a message contains, what codes exist) are defined in exactly one place in code (a type, schema, or constant), and both sides reference it — never let each side describe the same shape independently in its own words. Independent descriptions drift silently while the code keeps running on the mismatch. This includes domain `Exception` classes, `BaseModel`/`TypedDict` schemas and `Enum`/`TypeAlias` definitions: they belong in the project's shared contracts module, not in service-local files. A service-local module owns only its own wiring, not the domain types it wires.
 - No sync/async adapters. Production code is async throughout, and tests are async too (async-pytest is already in place) — no bridging layer that lets a function "accept either." A signature always states honestly what it returns: a coroutine means the caller awaits it, a value means a value. A function designed to "accept whatever, sort it out inside" doesn't get written.
+- **Infrastructure is a black box.** Proxy services, message queues, databases, caches, object stores, LLMs, search indices, and any other infra component — the project adapts to the infra as it is. You do not modify infra behaviour to suit the project. Even if you know who owns/runs the infra, you treat it as an opaque contract: its config, limits, quirks, and failure modes are givens. If the project needs something the infra doesn't provide, you build an adapter / wrapper / sidecar in *project* code — you do not reach into the infra and change it. Analogy: you don't patch the MongoDB binary because you dislike its write concern defaults; you set the write concern in your client code or pick a different store. This rule is absolute — no "but it's our proxy, we can tweak it" exceptions.
 
 ## Error handling — fail loud
 This is the canonical definition of "fail loud" — `external-integrations` and `logging` both reference this section rather than redefining it; if either seems to say something different, this section wins.

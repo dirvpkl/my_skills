@@ -1,6 +1,6 @@
 {
   "skill": "coding",
-  "package_version": "1.15.0",
+  "package_version": "1.16.0",
   "dependencies": [
     "base",
     "workplanx",
@@ -47,8 +47,8 @@
       "name": "Code quality",
       "path": "code-quality/SKILL.md",
       "type": "core",
-      "version": "1.5.0",
-      "description": "Architecture, coding principles, fail-loud error handling, import/typing discipline (no unused params, no trivial wrappers, no single-use helpers, typed payloads, no exception-to-bool), single-source contracts (incl. Exceptions/BaseModels, no duplicated SERVICE_NAME), lint/format/type-check order, fresh-eyes review."
+      "version": "1.6.0",
+      "description": "Architecture, coding principles, fail-loud error handling, import/typing discipline (no unused params, no trivial wrappers, no single-use helpers, typed payloads, no exception-to-bool), single-source contracts (incl. Exceptions/BaseModels, no duplicated SERVICE_NAME), lint/format/type-check order, fresh-eyes review. Infrastructure black-box principle: project adapts to infra (proxy, queues, DBs, caches, LLMs) — never modifies infra behaviour."
     },
     {
       "id": "testing",
