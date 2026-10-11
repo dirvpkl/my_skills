@@ -6,10 +6,12 @@ version: 1.0.0
 
 # watchdog
 
-One tick supervises tracked worker sessions without human prompting. It reads
-only: session status, latest assistant message, and each session's log tail.
-It never does the workers' work and never edits project files — the only
-writes are its own tick line and, at most, one nudge per stalled session.
+One tick supervises tracked worker sessions without human prompting. It runs
+as a `loop` external-wait round (see that skill's `wait.md`): the predicate,
+check, cap, and ledger live in the loop file named below, and each tick does
+exactly one round — check, ledger line, `loop_state.py` verdict — then stops.
+It reads only: session status, latest assistant message, and each session's
+log tail. It never does the workers' work and never edits project files.
 
 - **references/tracked.md** — the live registry: which sessions are tracked,
   what each one owes, and its natural cadence. Read it every tick; a session
