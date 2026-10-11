@@ -1,7 +1,7 @@
 ---
 name: watchdog
 description: Independent supervision tick over tracked OpenChamber worker sessions — checks each session's status and latest verdict, nudges stalled ones once, reports GREEN/STALLED/BLOCKED. Runs on a schedule without the user or the orchestrator asking. Use when workers run unattended and callbacks do not arrive.
-version: 1.0.2
+version: 1.0.3
 ---
 
 # watchdog
@@ -55,6 +55,12 @@ log tail. It never does the workers' work and never edits project files.
 
 Per-session one-liners plus the list of exact human-needed inputs. Short, no
 narration.
+
+Terse mode: when the user signals exhaustion (tired, "can't read", one-word
+replies), drop everything except verdicts and the exact inputs needed from
+them — one short line per item, no background, no options lecture. A pending
+question is repeated at most every third tick, not every tick. If nothing is
+needed from the user, say exactly that in one line.
 
 ## Extending this skill
 

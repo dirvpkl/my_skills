@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.3] - 2026-10-11
+- Terse report mode for exhausted users.
+
+
 ## [1.0.2] - 2026-10-11
 - Move tracking registry out of references into state/.
 
