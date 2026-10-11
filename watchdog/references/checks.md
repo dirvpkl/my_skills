@@ -18,6 +18,10 @@ Classification:
 - WORKING — fresh ledger evidence within cadence.
 - STALLED — ledger stale past cadence. Nudge once with one concrete
   question, then leave it until next tick.
+- HUNG — `idle` + same last message + no ledger lines for 2+ ticks after
+  the nudge went unanswered. Hard-ping once, then presume hung and escalate
+  per the ladder in SKILL.md. A quiet session with a long but live task is
+  NOT hung — hung requires the nudge to have been ignored.
 - BLOCKED — the session names a human-only input (secret, decision, URL).
   Report the exact question verbatim; never retry or route around it.
 

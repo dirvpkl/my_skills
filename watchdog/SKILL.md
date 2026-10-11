@@ -1,7 +1,7 @@
 ---
 name: watchdog
 description: Independent supervision tick over tracked OpenChamber worker sessions — checks each session's status and latest verdict, nudges stalled ones once, reports GREEN/STALLED/BLOCKED. Runs on a schedule without the user or the orchestrator asking. Use when workers run unattended and callbacks do not arrive.
-version: 1.0.3
+version: 1.0.4
 ---
 
 # watchdog
@@ -34,7 +34,9 @@ log tail. It never does the workers' work and never edits project files.
    no new line past its natural cadence — `idle` alone means nothing.
 2. Classify each session: GREEN (verdict delivered), WORKING (fresh
    evidence within cadence), STALLED (stale past cadence — nudge once with a
-   concrete question, then leave it), BLOCKED (needs a human-only input:
+   concrete question, then leave it), HUNG (idle + same last message + no
+   ledger lines for 2+ ticks after a nudge went unanswered — see the
+   escalation ladder below), BLOCKED (needs a human-only input:
    secret, decision, remote URL — report the exact question, do not retry).
 3. Append one tick line per session to the tick log named in `tracked.md`
    (session, classification, evidence). No tick line = the watchdog itself
@@ -50,6 +52,18 @@ log tail. It never does the workers' work and never edits project files.
 - A nudge that would be destructive, secret-touching, or out of scope is not
   sent — the session is BLOCKED instead, with the exact question.
 - The tick never relaxes a worker's predicate or declares its work done.
+
+## Escalation ladder (stalled → hung → replaced)
+
+1. Nudge once: one concrete status question, nothing else.
+2. If the next tick still shows silence, hard-ping once: "answer in one
+   line or you are presumed hung" — still nothing destructive, still no new
+   task.
+3. If silence persists past the hard ping, presume HUNG and report it with
+   the evidence (last message id, last ledger line). Replacement (a fresh
+   session with the full task context + log path, old row retired) is
+   proposed, never done silently — a replaced session loses its context,
+   so the call needs the orchestrator's explicit go.
 
 ## Report
 
