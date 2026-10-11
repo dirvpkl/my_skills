@@ -17,7 +17,7 @@ by the user. History of past ticks lives in the tick log, not here.
 | ses_ee437538bffdfvyisEkLCNVw5C | C:\Users\orlando\Desktop\gws | idle unless tasked | — |
 | ses_ee4375496ffePNsl24zTJPJYQ5 | C:\Users\orlando\Desktop\strfk | idle unless tasked | — |
 | ses_ee4375485ffe5SmGKPASZFCx8b | C:\Users\orlando\Desktop\mscyaf | idle unless tasked | — |
-| ses_ee437538affetLoCP83Vr0tua6 | C:\Users\orlando\Desktop\sdstrs | BLOCKED: needs remote URL for push | human |
+| ses_ee437538affetLoCP83Vr0tua6 | C:\Users\orlando\Desktop\sdstrs | retired by user 2026-10-11 (push blocked: no remote; frozen) | — |
 | ses_ee437538bffeNjbFU2XNNoKKRp | C:\Users\orlando\Desktop\vbcdxl | frozen by user | — |
 | ses_ee4375486ffeWnwLrdWt5HjQRj | C:\Users\orlando\Desktop\vbcdpr | frozen by user | — |
 | ses_ee4378436ffezwI02P9cVbsoiu | C:\Users\orlando\Desktop\ampm | frozen by user (3 branches await merge) | — |
