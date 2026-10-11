@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.2] - 2026-10-11
+- Move tracking registry out of references into state/.
+
+
 ## [1.0.1] - 2026-10-11
 - Watchdog ticks run as loop external-wait rounds.
 

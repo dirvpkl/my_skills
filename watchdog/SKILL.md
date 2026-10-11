@@ -1,7 +1,7 @@
 ---
 name: watchdog
 description: Independent supervision tick over tracked OpenChamber worker sessions — checks each session's status and latest verdict, nudges stalled ones once, reports GREEN/STALLED/BLOCKED. Runs on a schedule without the user or the orchestrator asking. Use when workers run unattended and callbacks do not arrive.
-version: 1.0.1
+version: 1.0.2
 ---
 
 # watchdog
@@ -13,11 +13,11 @@ exactly one round — check, ledger line, `loop_state.py` verdict — then stops
 It reads only: session status, latest assistant message, and each session's
 log tail. It never does the workers' work and never edits project files.
 
-- **references/tracked.md** — the live registry: which sessions are tracked,
-  what each one owes, and its natural cadence. Read it every tick; a session
-  not listed here is not checked.
-- **references/checks.md** — how a check is performed (status, messages, log
-  tail) and what counts as progress.
+- **references/checks.md** — how a check is performed and how each verdict
+  is decided. Guidance only: no paths, no session IDs.
+- **state/tracked.md** — the live registry (runtime data, not a reference):
+  which sessions are tracked, what each one owes, and its natural cadence.
+  Read it every tick; a session not listed here is not checked.
 - **plugins/manifest.json** — active modules. Check it instead of assuming.
 
 ## Trigger
@@ -28,7 +28,7 @@ log tail. It never does the workers' work and never edits project files.
 
 ## Process
 
-1. Read `references/tracked.md`. For every listed session: `session.status`,
+1. Read `state/tracked.md`. For every listed session: `session.status`,
    then `session.messages` (`lastAssistant`, limit 1). Silence is data only
    against the session's cadence: a session is STALLED only when its log shows
    no new line past its natural cadence — `idle` alone means nothing.

@@ -1,16 +1,8 @@
 {
   "skill": "watchdog",
-  "package_version": "1.0.1",
+  "package_version": "1.0.2",
   "dependencies": ["loop", "workplanx"],
   "modules": [
-    {
-      "id": "tracked",
-      "name": "Tracked session registry",
-      "path": "references/tracked.md",
-      "type": "core",
-      "version": "1.0.0",
-      "description": "Live registry of supervised sessions: what each owes and its cadence."
-    },
     {
       "id": "checks",
       "name": "Supervision checks",
