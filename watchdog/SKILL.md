@@ -1,7 +1,7 @@
 ---
 name: watchdog
 description: Independent supervision tick over tracked OpenChamber worker sessions — checks each session's status and latest verdict, nudges stalled ones once, reports GREEN/STALLED/BLOCKED. Runs on a schedule without the user or the orchestrator asking. Use when workers run unattended and callbacks do not arrive.
-version: 1.0.4
+version: 1.0.5
 ---
 
 # watchdog
@@ -55,7 +55,11 @@ log tail. It never does the workers' work and never edits project files.
 
 ## Escalation ladder (stalled → hung → replaced)
 
-1. Nudge once: one concrete status question, nothing else.
+1. Nudge once: one concrete status question, nothing else. Nudges are
+   HARD by default: demand a one-line status plus one ledger line, and an
+   explicit continue ("answer and keep working"). A mid-work ping never
+   breaks anything — it lands as the next message the worker reads and
+   does not restart, kill, or redirect the task — so ping freely.
 2. If the next tick still shows silence, hard-ping once: "answer in one
    line or you are presumed hung" — still nothing destructive, still no new
    task.

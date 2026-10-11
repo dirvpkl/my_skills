@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.5] - 2026-10-12
+- Hard pings by default; mid-work ping is safe.
+
+
 ## [1.0.4] - 2026-10-11
 - Hang detection and nudge escalation ladder.
 
