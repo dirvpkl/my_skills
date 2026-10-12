@@ -28,5 +28,13 @@ Classification:
 - BLOCKED — the session names a human-only input (secret, decision, URL).
   Report the exact question verbatim; never retry or route around it.
 
-A nudge is a plain status question, never a new task, never destructive,
-never secret-touching.
+Message discipline (messages arrive with lag — live logs are always
+fresher than words):
+
+- Fetch with `lastAssistant` and read `createdAt`: a verdict older than
+  the live red log lines is STALE until re-verified, never GREEN.
+- Cross-verify every green verdict against the live tail by timestamps
+  before reporting it upward; on mismatch, hard-ping with the fresh
+  evidence attached instead of relaying the verdict.
+- A nudge is a plain status question, never a new task, never destructive,
+  never secret-touching.

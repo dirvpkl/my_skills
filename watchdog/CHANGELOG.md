@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.8] - 2026-10-12
+- Message discipline: stale verdicts vs live logs.
+
+
 ## [1.0.7] - 2026-10-12
 - Heartbeat cadence and fast BLOCKED reports.
 
