@@ -9,7 +9,10 @@ Per session, in this order:
    cadence from `tracked.md`.
 3. The session's log tail (project `.workplanx/<topic>/log.md`, last ~10
    lines) — the only progress signal. A fresh ledger line within cadence
-   means WORKING even when `status` is `idle`.
+   means WORKING even when `status` is `idle`. Inside long units the bar is
+   the heartbeat: no line for 15+ minutes while tasked = STALLED, even
+   mid-unit. A quiet session with a live heartbeat is WORKING, however long
+   the unit runs.
 
 Classification:
 

@@ -1,7 +1,7 @@
 ---
 name: watchdog
 description: Independent supervision tick over tracked OpenChamber worker sessions — checks each session's status and latest verdict, nudges stalled ones once, reports GREEN/STALLED/BLOCKED. Runs on a schedule without the user or the orchestrator asking. Use when workers run unattended and callbacks do not arrive.
-version: 1.0.6
+version: 1.0.7
 ---
 
 # watchdog
@@ -32,6 +32,10 @@ log tail. It never does the workers' work and never edits project files.
    then `session.messages` (`lastAssistant`, limit 1). Silence is data only
    against the session's cadence: a session is STALLED only when its log shows
    no new line past its natural cadence — `idle` alone means nothing.
+   Every delegation prompt carries a heartbeat rule: one ledger line per
+   unit of work AND at least one line every 15 minutes inside long units;
+   a worker that hits a wall reports BLOCKED immediately with the exact
+   missing input instead of sitting silent.
 2. Classify each session: GREEN (verdict delivered), WORKING (fresh
    evidence within cadence), STALLED (stale past cadence — nudge once with a
    concrete question, then leave it), HUNG (idle + same last message + no
