@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.6] - 2026-10-12
+- Delete the schedule task when supervision ends.
+
+
 ## [1.0.5] - 2026-10-12
 - Hard pings by default; mid-work ping is safe.
 
