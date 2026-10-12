@@ -1,7 +1,7 @@
 ---
 name: watchdog
 description: Independent supervision tick over tracked OpenChamber worker sessions — checks each session's status and latest verdict, nudges stalled ones once, reports GREEN/STALLED/BLOCKED. Runs on a schedule without the user or the orchestrator asking. Use when workers run unattended and callbacks do not arrive.
-version: 1.0.8
+version: 1.0.9
 ---
 
 # watchdog
@@ -56,6 +56,11 @@ log tail. It never does the workers' work and never edits project files.
 - A nudge that would be destructive, secret-touching, or out of scope is not
   sent — the session is BLOCKED instead, with the exact question.
 - The tick never relaxes a worker's predicate or declares its work done.
+- Predicates are event-based, never absence-based: "5 calm minutes" on a
+  system that drops connections by nature is an unprovable predicate and is
+  forbidden — proof is a successful round-trip (`/start` answered, probe
+  200), not an empty tail. An agent demanding repeated absence-proofs is
+  stopped and repredicated instead of funded for another round.
 - When the loop STOPs (condition met, cap honestly reported, or the user
   retires supervision), the schedule task that sends the ticks is deleted
   (`schedule.delete`) in the same pass — a supervision loop that outlives

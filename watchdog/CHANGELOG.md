@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.9] - 2026-10-13
+- Ban absence-proofs; event-based predicates only.
+
+
 ## [1.0.8] - 2026-10-12
 - Message discipline: stale verdicts vs live logs.
 
