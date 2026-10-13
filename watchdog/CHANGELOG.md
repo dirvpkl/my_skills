@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.11] - 2026-10-13
+- Hourly re-anchor: restate owes line to WORKING sessions idle 60+ min
+
+
 ## [1.0.10] - 2026-10-13
 - Message-fetch discipline: ids, timestamps, stale rules.
 

@@ -1,6 +1,6 @@
 {
   "skill": "watchdog",
-  "package_version": "1.0.10",
+  "package_version": "1.0.11",
   "dependencies": ["loop", "workplanx"],
   "modules": [
     {

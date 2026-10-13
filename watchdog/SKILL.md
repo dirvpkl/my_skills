@@ -1,7 +1,7 @@
 ---
 name: watchdog
 description: Independent supervision tick over tracked OpenChamber worker sessions — checks each session's status and latest verdict, nudges stalled ones once, reports GREEN/STALLED/BLOCKED. Runs on a schedule without the user or the orchestrator asking. Use when workers run unattended and callbacks do not arrive.
-version: 1.0.10
+version: 1.0.11
 ---
 
 # watchdog
@@ -45,7 +45,13 @@ log tail. It never does the workers' work and never edits project files.
 3. Append one tick line per session to the tick log named in `tracked.md`
    (session, classification, evidence). No tick line = the watchdog itself
    is dead.
-4. Report: one line per session (GREEN/STALLED/BLOCKED + evidence). Full
+4. Re-anchor WORKING sessions against drift: when the tick log shows no
+   re-anchor sent to a WORKING session for 60+ minutes, send that session
+   its one-line task restatement — the session's `owes` line from
+   `state/tracked.md`, nothing else. Never a new task, never destructive,
+   never secret-touching; the restatement forces a drifted agent to
+   re-read its instructions. Record every re-anchor in the tick log.
+5. Report: one line per session (GREEN/STALLED/BLOCKED + evidence). Full
    verdicts are quoted, never paraphrased into claims. A tick that finds
    everything GREEN still reports the tick — silence is not a report.
 

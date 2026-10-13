@@ -46,3 +46,6 @@ fresher than words):
   evidence attached instead of relaying the verdict.
 - A nudge is a plain status question, never a new task, never destructive,
   never secret-touching.
+- A re-anchor is a status question, not a new task: resend the session's
+  `owes` line only. Skip re-anchor for GREEN/BLOCKED sessions and within
+  15 minutes after a nudge.
