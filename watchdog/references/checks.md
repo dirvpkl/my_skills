@@ -3,10 +3,18 @@
 Per session, in this order:
 
 1. `session.status` — `idle` vs `busy`. Records activity, proves nothing
-   about progress. Never classify on this alone.
-2. `session.messages` with `lastAssistant: true`, limit 1 — the latest
-   verdict or progress note. Compare its timestamp against the session's
-   cadence from `tracked.md`.
+   about progress. Never classify on this alone. `busy` means mid-step:
+   do not conclude, come back next tick.
+2. `session.messages` with `lastAssistant: true`, limit 1 — then ALWAYS
+   read `id`, `createdAt`, `completedAt`. Rules:
+   - `completedAt: null` = still writing; the text is partial, never quote
+     it as a verdict.
+   - `createdAt` older than the task send time = stale; fetch deeper
+     (`limit 5`, role `all`) before concluding anything.
+   - A non-assistant role in the result = fetch deeper, the view slipped.
+   - One message is never the whole story: progress notes are not
+     verdicts; only a message that answers the tasked question with
+     evidence counts as a verdict.
 3. The session's log tail (project `.workplanx/<topic>/log.md`, last ~10
    lines) — the only progress signal. A fresh ledger line within cadence
    means WORKING even when `status` is `idle`. Inside long units the bar is

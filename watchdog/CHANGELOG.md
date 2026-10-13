@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.10] - 2026-10-13
+- Message-fetch discipline: ids, timestamps, stale rules.
+
+
 ## [1.0.9] - 2026-10-13
 - Ban absence-proofs; event-based predicates only.
 
