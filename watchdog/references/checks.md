@@ -1,11 +1,12 @@
 # checks.md — how a supervision check is performed
 
-Per session, in this order:
+Per session, in this order. `session.status` (`idle`/`busy`) is NEVER read:
+it records activity, proves nothing about progress, and MUST NOT appear in
+any classification evidence. Every verdict below is computed from two
+observables only — the session's latest assistant message and its ledger
+tail — compared against the previous tick's recorded values.
 
-1. `session.status` — `idle` vs `busy`. Records activity, proves nothing
-   about progress. Never classify on this alone. `busy` means mid-step:
-   do not conclude, come back next tick.
-2. `session.messages` with `lastAssistant: true`, limit 1 — then ALWAYS
+1. `session.messages` with `lastAssistant: true`, limit 1 — then ALWAYS
    read `id`, `createdAt`, `completedAt`. Rules:
    - `completedAt: null` = still writing; the text is partial, never quote
      it as a verdict.
@@ -17,19 +18,28 @@ Per session, in this order:
      evidence counts as a verdict.
 3. The session's log tail (project `.workplanx/<topic>/log.md`, last ~10
    lines) — the only progress signal. A fresh ledger line within cadence
-   means WORKING even when `status` is `idle`. Inside long units the bar is
+   means WORKING even when the session looks idle. Inside long units the bar is
    the heartbeat: no line for 15+ minutes while tasked = STALLED, even
    mid-unit. A quiet session with a live heartbeat is WORKING, however long
    the unit runs.
+3. Compare against the previous tick's recorded `(last_msg_id, ledger_tail)`:
+   when both are byte-identical to the previous tick, the session produced
+   no observable output since — that is the ONLY legal stagnation signal.
+   A single identical tick is noise (slow unit, lagging delivery); the
+   stall verdict requires the configured number of consecutive identical
+   ticks for that session's cadence (default: 2 past-cadence ticks).
 
 Classification:
 
 - GREEN — a final verdict was delivered (commit/push/redeploy confirmed or
-  honest FAIL with evidence).
+  honest FAIL with evidence). On GREEN the session leaves tracking in the
+  same tick — a delivered verdict needs no further waiting, and the loop
+  file's predicate decides done, not another round of watching.
 - WORKING — fresh ledger evidence within cadence.
-- STALLED — ledger stale past cadence. Nudge once with one concrete
+- STALLED — ledger stale past cadence, or the configured consecutive
+  identical ticks reached. Nudge once with one concrete
   question, then leave it until next tick.
-- HUNG — `idle` + same last message + no ledger lines for 2+ ticks after
+- HUNG — last message id AND ledger tail unchanged for 2+ ticks after
   the nudge went unanswered. Hard-ping once, then presume hung and escalate
   per the ladder in SKILL.md. A quiet session with a long but live task is
   NOT hung — hung requires the nudge to have been ignored.

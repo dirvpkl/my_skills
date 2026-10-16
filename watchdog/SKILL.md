@@ -1,7 +1,7 @@
 ---
 name: watchdog
-description: Independent supervision tick over tracked OpenChamber worker sessions — checks each session's status and latest verdict, nudges stalled ones once, reports GREEN/STALLED/BLOCKED. Runs on a schedule without the user or the orchestrator asking. Use when workers run unattended and callbacks do not arrive.
-version: 1.0.11
+description: Independent supervision tick over tracked OpenChamber worker sessions — compares each session's latest message and ledger tail against the previous tick, nudges stalled ones once, reports GREEN/STALLED/BLOCKED. Runs on a schedule without the user or the orchestrator asking. Use when workers run unattended and callbacks do not arrive.
+version: 1.1.0
 ---
 
 # watchdog
@@ -10,8 +10,9 @@ One tick supervises tracked worker sessions without human prompting. It runs
 as a `loop` external-wait round (see that skill's `wait.md`): the predicate,
 check, cap, and ledger live in the loop file named below, and each tick does
 exactly one round — check, ledger line, `loop_state.py` verdict — then stops.
-It reads only: session status, latest assistant message, and each session's
-log tail. It never does the workers' work and never edits project files.
+It reads only: the session's latest assistant message and its
+ledger tail, compared against the previous tick's recorded values.
+It never does the workers' work and never edits project files.
 
 - **references/checks.md** — how a check is performed and how each verdict
   is decided. Guidance only: no paths, no session IDs.
@@ -28,10 +29,14 @@ log tail. It never does the workers' work and never edits project files.
 
 ## Process
 
-1. Read `state/tracked.md`. For every listed session: `session.status`,
-   then `session.messages` (`lastAssistant`, limit 1). Silence is data only
-   against the session's cadence: a session is STALLED only when its log shows
-   no new line past its natural cadence — `idle` alone means nothing.
+1. Read `state/tracked.md`. For every listed session: `session.messages`
+   (`lastAssistant`, limit 1), then the session's ledger tail.
+   `session.status` is NEVER fetched — per `references/checks.md` it proves
+   nothing and must not appear in evidence. Silence is data only
+   against the session's cadence: a session is STALLED only when its ledger
+   shows no new line past its natural cadence OR its
+   `(last_msg_id, ledger_tail)` is byte-identical to the previous tick for
+   the configured consecutive ticks.
    Every delegation prompt carries a heartbeat rule: one ledger line per
    unit of work AND at least one line every 15 minutes inside long units;
    a worker that hits a wall reports BLOCKED immediately with the exact

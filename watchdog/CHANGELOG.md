@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.0] - 2026-10-16
+- status-blind ticks: never read session.status, stall only on identical (msg_id, ledger_tail), GREEN leaves tracking same tick
+
+
 ## [1.0.11] - 2026-10-13
 - Hourly re-anchor: restate owes line to WORKING sessions idle 60+ min
 
