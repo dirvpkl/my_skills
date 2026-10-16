@@ -1,6 +1,6 @@
 {
   "skill": "loop",
-  "package_version": "2.4.2",
+  "package_version": "2.5.0",
   "dependencies": [
     "base",
     "workplanx",
@@ -14,6 +14,14 @@
       "type": "core",
       "version": "2.0.0",
       "description": "The five ingredients (program, predicate, check, ledger, termination), command vs criterion checks, why context resets, and the loop.md file shape. Read before the first iteration."
+    },
+    {
+      "id": "schedule",
+      "name": "Schedule mechanics",
+      "path": "references/schedule.md",
+      "type": "core",
+      "version": "1.0.0",
+      "description": "The schedule as pure mechanics: WHEN to tick, never WHAT; supervision is mandatory for waits, named in the loop file."
     },
     {
       "id": "stop-signals",

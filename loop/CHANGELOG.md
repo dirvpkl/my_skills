@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.5.0] - 2026-10-16
+- schedule.md: schedule as pure cron mechanics, mandatory named supervision for waits
+
+
 ## [2.4.2] - 2026-10-05
 - Missing ledger line equals dead agent
 
