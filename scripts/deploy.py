@@ -262,11 +262,16 @@ def main() -> int:
                         show_diffs(src, dst, name)
                     continue
                 backup_dir = Path(args.backup) if args.backup else None
-                try:
-                    remove_destination(dst, backup_dir)
-                except OSError as e:
-                    print(f"ERROR deploying {name}: {e}", file=sys.stderr)
-                    return 1
+                if args.dry_run:
+                    repl = (f"backup -> {backup_dir}" if backup_dir
+                            else "delete destination")
+                    print(f"would replace {name}: {repl}")
+                else:
+                    try:
+                        remove_destination(dst, backup_dir)
+                    except OSError as e:
+                        print(f"ERROR deploying {name}: {e}", file=sys.stderr)
+                        return 1
             label = "would link" if args.dry_run else "link"
             print(f"{label} {name}: {src} -> {dst}")
             if args.dry_run:
