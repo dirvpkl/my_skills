@@ -15,7 +15,7 @@ Per-skill decision (safe by default, nothing is overwritten blindly):
 
 Usage:
     python scripts/deploy.py [--target DIR] [--skills a,b] [--dry-run]
-                             [--force] [--backup DIR] [--diff] [--link]
+                             [--force] [--backup DIR] [--diff] [--symlink]
 
 Exit 0 = installed/upgraded/skipped, all clean. Exit 1 = at least one
 conflict (listed, untouched) or a copy failure. Exit 2 = usage error
@@ -227,8 +227,8 @@ def main() -> int:
                     help="with --force: move replaced dirs to DIR/<name>-<timestamp> instead of deleting")
     ap.add_argument("--diff", action="store_true",
                     help="show unified diffs for conflicting text files")
-    ap.add_argument("--link", "--symlink", dest="link", action="store_true",
-                    help="create directory links (junction on Windows) instead of copying")
+    ap.add_argument("--symlink", "--link", dest="link", action="store_true",
+                    help="create directory symlinks/junctions instead of copying")
     args = ap.parse_args()
 
     available = sorted(
