@@ -22,3 +22,6 @@ desktop.ini
 
 # Local workplanx topic folders (per-task scratch, never committed)
 .workplanx/
+
+# Local deploy backups (created by scripts/deploy.py --backup, never committed)
+.deploy-backup/
