@@ -15,7 +15,7 @@ Per-skill decision (safe by default, nothing is overwritten blindly):
 
 Usage:
     python scripts/deploy.py [--target DIR] [--skills a,b] [--dry-run]
-                             [--force] [--backup DIR] [--diff]
+                             [--force] [--backup DIR] [--diff] [--link]
 
 Exit 0 = installed/upgraded/skipped, all clean. Exit 1 = at least one
 conflict (listed, untouched) or a copy failure. Exit 2 = usage error
@@ -27,6 +27,8 @@ import difflib
 import hashlib
 import os
 import re
+import stat
+import subprocess
 import shutil
 import sys
 import time
@@ -120,6 +122,79 @@ def show_diffs(src: Path, dst: Path, name: str):
         shown += 1
 
 
+def is_link_path(p: Path) -> bool:
+    """True for real OS symlinks and Windows directory junctions/reparse points."""
+    try:
+        st = p.lstat()
+    except FileNotFoundError:
+        return False
+    if stat.S_ISLNK(st.st_mode):
+        return True
+    # Windows reparse point (junction or symlink created without POSIX mode).
+    return bool(getattr(st, "st_file_attributes", 0) & 0x0400)
+
+
+def link_target(p: Path) -> Path | None:
+    try:
+        raw = os.readlink(str(p))
+    except OSError:
+        return None
+    if raw.startswith("\\\\?\\"):
+        raw = raw[4:]
+    target = Path(raw)
+    if not target.is_absolute():
+        target = p.parent / target
+    try:
+        return target.resolve(strict=False)
+    except OSError:
+        return target
+
+
+def same_link(dst: Path, src: Path) -> bool:
+    if not is_link_path(dst):
+        return False
+    t = link_target(dst)
+    if t is None:
+        return False
+    try:
+        return t == src.resolve(strict=False)
+    except OSError:
+        return t == src
+
+
+def remove_destination(dst: Path, backup_dir: Path | None = None) -> None:
+    """Remove a file/dir/link without following a junction into its target."""
+    if is_link_path(dst):
+        if os.name == "nt":
+            subprocess.run(["cmd", "/c", "rmdir", str(dst)],
+                          check=True, capture_output=True, text=True)
+        else:
+            os.unlink(dst)
+        return
+    if backup_dir is not None:
+        backup_dir.mkdir(parents=True, exist_ok=True)
+        bdst = backup_dir / (dst.name + "-" + time.strftime("%Y%m%d-%H%M%S"))
+        shutil.move(str(dst), str(bdst))
+        print(f"  backup: {dst} -> {bdst}")
+        return
+    if dst.is_dir() and not dst.is_symlink():
+        shutil.rmtree(dst)
+    else:
+        dst.unlink()
+
+
+def create_link(dst: Path, src: Path) -> None:
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    if os.name == "nt":
+        # Prefer a junction: needs no SeCreateSymbolicLink privilege.
+        subprocess.run(
+            ["cmd", "/c", "mklink", "/J", str(dst), str(src)],
+            check=True, capture_output=True, text=True,
+        )
+    else:
+        os.symlink(src, dst, target_is_directory=True)
+
+
 def decide(src: Path, dst: Path) -> tuple:
     """Return (action, detail). action in install/upgrade/skip/conflict."""
     if not dst.exists():
@@ -152,6 +227,8 @@ def main() -> int:
                     help="with --force: move replaced dirs to DIR/<name>-<timestamp> instead of deleting")
     ap.add_argument("--diff", action="store_true",
                     help="show unified diffs for conflicting text files")
+    ap.add_argument("--link", "--symlink", dest="link", action="store_true",
+                    help="create directory links (junction on Windows) instead of copying")
     args = ap.parse_args()
 
     available = sorted(
@@ -173,6 +250,36 @@ def main() -> int:
     conflicts, done = [], []
     for name in wanted:
         src, dst = ROOT / name, target / name
+        if args.link:
+            if same_link(dst, src):
+                print(f"skip {name}: already linked -> {src}")
+                continue
+            if dst.exists() or dst.is_symlink() or is_link_path(dst):
+                if not args.force:
+                    conflicts.append(name)
+                    print(f"CONFLICT {name}: destination exists and is not the same link - skipped")
+                    if args.diff and dst.exists():
+                        show_diffs(src, dst, name)
+                    continue
+                backup_dir = Path(args.backup) if args.backup else None
+                try:
+                    remove_destination(dst, backup_dir)
+                except OSError as e:
+                    print(f"ERROR deploying {name}: {e}", file=sys.stderr)
+                    return 1
+            label = "would link" if args.dry_run else "link"
+            print(f"{label} {name}: {src} -> {dst}")
+            if args.dry_run:
+                done.append(name)
+                continue
+            try:
+                create_link(dst, src)
+                done.append(name)
+            except (OSError, subprocess.CalledProcessError) as e:
+                print(f"ERROR deploying {name}: {e}", file=sys.stderr)
+                return 1
+            continue
+
         action, detail = decide(src, dst)
         forced = action == "conflict" and args.force
         if action == "conflict" and not args.force:

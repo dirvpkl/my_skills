@@ -42,6 +42,8 @@ def iter_skills():
         d = skill_md.parent
         if ".git" in d.parts:
             continue
+        if any(part.startswith(".") for part in d.relative_to(ROOT).parts):
+            continue
         if d == ROOT:
             continue
         yield d
@@ -57,6 +59,8 @@ def main() -> int:
     errors, warnings = [], []
 
     for d in iter_skills():
+        if any(part.startswith(".") for part in d.relative_to(ROOT).parts):
+            continue
         rel = d.relative_to(ROOT).as_posix()
         if only and d.name not in only and rel not in only:
             continue

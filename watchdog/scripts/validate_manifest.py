@@ -10,7 +10,7 @@ Checks:
   - "package_version" matches the root VERSION file
   - a module pointing at a SKILL.md has a "version" matching its frontmatter
   - every name in "dependencies" resolves to a real sibling skill folder
-    (a folder with a SKILL.md next to this one), and no skill lists itself
+    (a folder with a SKILL.md next to this one)
 
 Usage:
     python3 scripts/validate_manifest.py
@@ -50,6 +50,14 @@ def main() -> int:
     except json.JSONDecodeError as e:
         print(f"ERROR: manifest.json is not valid JSON: {e}", file=sys.stderr)
         return 1
+
+    if VERSION_PATH.exists():
+        declared = manifest.get("package_version")
+        on_disk = VERSION_PATH.read_text(encoding="utf-8").strip()
+        if declared is not None and declared != on_disk:
+            problems.append(
+                f"package_version '{declared}' != VERSION file '{on_disk}'"
+            )
 
     modules = manifest.get("modules", [])
     seen_ids = set()

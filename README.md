@@ -243,7 +243,8 @@ my_skills/
 
 - Versions are per-skill (`VERSION` + frontmatter, independently bumped);
   `coding` additionally carries a package version bumped whenever any
-  sub-skill's meaning changes.
+  sub-skill's meaning changes. `plugins/manifest.json` plus `VERSION` are the
+  authority; README version labels are descriptive and may lag.
 - After editing any skill file, run that skill's validator
   (`validate_manifest.py`, `check_versions.sh`, `plan_gate.py`) and log the
   bump in its `CHANGELOG.md`.
