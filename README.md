@@ -125,7 +125,7 @@ Sub-skills (rules live in each sibling folder, read before acting):
 
 ### fresh-eyes — clean-context judge
 
-A subagent that never saw the work reviews it. Two modes: `quality` (was it
+A fresh agent that never saw the work reviews it. Two modes: `quality` (was it
 done well — code checklist) vs `conformance` (was it done as decided —
 requirement by requirement). Beautiful-but-wrong fails conformance;
 right-but-sloppy fails quality.
@@ -183,12 +183,13 @@ arrive: reads each session's latest assistant message and ledger tail,
 compares them against the previous tick, nudges a stalled session once,
 reports GREEN / STALLED / BLOCKED / HUNG.
 
-- **Trigger:** a scheduled tick fires, or the user says "check the workers".
-  Never on new work arriving — that is the orchestrator's job.
+- **Trigger:** a tick fires — from a terminal (preferred) or a schedule — or
+  the user says "check the workers". Never on new work arriving — that is
+  the orchestrator's job.
 - **Mechanics:** each tick is one `loop` external-wait round; the live
   registry is `state/tracked.md`; verdicts are computed from two observables
   only (last message, ledger tail) — `session.status` is never read; a GREEN
-  session leaves tracking the same tick; when the loop STOPs, the schedule
+  session leaves tracking the same tick; when the loop STOPs, any schedule
   task that sends the ticks is deleted.
 - **Fail loud:** a session dropped without a delivered verdict is reported as
   DROPPED; absence-based predicates ("5 calm minutes") are forbidden — proof
