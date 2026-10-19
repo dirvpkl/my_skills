@@ -1,6 +1,6 @@
 {
   "skill": "loop",
-  "package_version": "2.5.0",
+  "package_version": "2.5.1",
   "dependencies": [
     "base",
     "workplanx",
@@ -17,11 +17,11 @@
     },
     {
       "id": "schedule",
-      "name": "Schedule mechanics",
+      "name": "Trigger mechanics",
       "path": "references/schedule.md",
       "type": "core",
-      "version": "1.0.0",
-      "description": "The schedule as pure mechanics: WHEN to tick, never WHAT; supervision is mandatory for waits, named in the loop file."
+      "version": "1.1.0",
+      "description": "Terminal first, schedule as the second option: WHEN to tick, never WHAT; supervision is mandatory for waits, named in the loop file."
     },
     {
       "id": "stop-signals",

@@ -1,7 +1,7 @@
 ---
 name: loop
 description: Runs a task as repeated autonomous iterations until a fixed predicate holds or a stop rule fires — fresh context per iteration, state on disk instead of in conversation, progress from ledger evidence, no user-facing answer until the verdict. The predicate check is a command and/or a pre-fixed criterion (tests and deploys are examples, not the core). Covers iterate-until-met, bounded retry with a hard cap, and stagnation detection. Use when the user asks to keep going until X holds, to converge a search, or to run unattended for N iterations. Fails loud at the cap.
-version: 2.5.0
+version: 2.5.1
 ---
 
 # loop
@@ -19,9 +19,10 @@ whole mechanism. There is no daemon, no scheduler, no plugin.
 - **references/wait.md** — the external-wait mode: no work per round, only a
   status check against someone else's state, with short pauses and a hard round cap.
   A wait over other sessions MUST name its watchdog supervision (see schedule.md).
-- **references/schedule.md** — the schedule as pure mechanics: WHEN to tick,
-  never WHAT; no task specifics in schedule entries; supervision is mandatory
-  for waits, named in the loop file (procedural link, not a manifest cycle).
+- **references/schedule.md** — trigger mechanics, terminal first: WHEN to
+  tick, never WHAT; no task specifics in trigger entries; supervision is
+  mandatory for waits, named in the loop file (procedural link, not a
+  manifest cycle).
 - **plugins/manifest.json** — active modules, check it.
 
 Two modes. *Work iterations* do one unit of work per pass — for "keep going
@@ -41,9 +42,9 @@ either way; a wait that hits its cap fails loud instead of sleeping longer.
   re-sends the same request; a loop re-asks the agent to do the next unit of
   work with what it learned.
 
-Scope note: the silence rule below binds conversational sessions. Subagent
+Scope note: the silence rule below binds conversational sessions. Agent
 completion and progress reports are the delivery mechanism, not dialog ends —
-a subagent always reports when done, loop or no loop.
+a dispatched agent always reports when done, loop or no loop.
 
 ## Process
 

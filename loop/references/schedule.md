@@ -1,9 +1,15 @@
-# Schedule — the loop's alarm clock, nothing more
+# Schedule — the loop's alarm clock
 
-A schedule wakes the loop; it never steers it. The schedule knows WHEN to
-run. Everything about WHAT and WHY lives in the loop file. A schedule entry
-that carries task specifics is a second source of truth — see
+A trigger wakes the loop; it never steers it — it only knows WHEN to run.
+Everything about WHAT and WHY lives in the loop file. A trigger entry that
+carries task specifics is a second source of truth — see
 `references/contract.md` on why that fails.
+
+Prefer the terminal: when anyone can run the tick (you, an agent session),
+just run it — nothing to schedule, nothing to clean up. A schedule is the
+second option, for ticks that must come with nobody at the terminal. Both
+are just triggers; the loop file is identical either way, and the rest of
+this file describes the schedule.
 
 ## What a schedule entry holds
 

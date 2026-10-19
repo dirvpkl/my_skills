@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.5.1] - 2026-10-19
+- Trigger mechanics: prefer terminal, schedule as the second option
+
+
 ## [2.5.0] - 2026-10-16
 - schedule.md: schedule as pure cron mechanics, mandatory named supervision for waits
 
