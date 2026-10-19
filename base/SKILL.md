@@ -1,7 +1,7 @@
 ---
 name: base
 description: Base operating rules for the orchestrator and every agent, always loaded — delegate by default with minimum hands-on, resolve volatile paths at runtime, ask-first on destructive/secret/out-of-scope steps, data and host integrity first. Pairs with coding on any task that executes or delegates. Never skipped to save effort.
-version: 1.2.2
+version: 1.2.3
 ---
 
 # base
@@ -25,13 +25,13 @@ nothing executed is the only exemption.
 
 ## Process
 
-1. **Delegate, don't do.** The orchestrator's hands stay minimum: a
-   quick bounded task goes to a subagent (blocks the stream, fine for
-   fast jobs); anything bigger goes to a separate session via the
-   sessions tool (`create`/`send`), fire-and-continue, collect at the
-   end. Hands-on only for the trivial (one edit, one check). An agent
-   that never saw `base` follows nothing — name it and the live catalog
-   path in every delegation prompt.
+1. **Delegate, don't do.** The orchestrator's hands stay minimum.
+   Prefer agents over subagents: the default is a separate agent — a
+   session via the sessions tool (`create`/`send`), fire-and-continue,
+   collect at the end; a subagent is only for a quick bounded ask.
+   Hands-on only for the trivial (one edit, one check). An agent that
+   never saw `base` follows nothing — name it and the live catalog path
+   in every delegation prompt.
 2. **Every delegation carries a log path and a heartbeat.** No agent
    starts without `<project>/.workplanx/<topic>/log.md` named in its
    prompt; the agent appends one line per unit of work (what it did,

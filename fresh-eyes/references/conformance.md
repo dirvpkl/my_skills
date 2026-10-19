@@ -1,6 +1,6 @@
 # Mode: conformance
 
-Hand this file's contents to the judge subagent verbatim, along with the
+Hand this file's contents to the judge agent verbatim, along with the
 `workplanx` topic folder. The judge did not do the work and was not in the
 planning conversation, so it can only compare artifacts to artifacts.
 

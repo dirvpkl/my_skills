@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.1] - 2026-10-19
+- Judge dispatch wording: prefer agents over subagents
+
+
 ## 1.0.0 — 2026-09-26
 Split out of three places that each described the same procedure.
 - New skill with two modes: `quality` (was the work done well) and

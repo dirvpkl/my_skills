@@ -30,5 +30,5 @@ stop-and-report, not 40 retried iterations.
 `coding` bundle is mandatory on code tasks (quality, testing, logging,
 security, process-tiers, docker, git-workflow, integrations,
 proxy-egress). `workplanx` gates start, `fresh-eyes` judges the diff,
-`loop` drives iterate-until-green. Name them in subagent prompts —
+`loop` drives iterate-until-green. Name them in agent prompts —
 undispatched skills don't exist for the reader.

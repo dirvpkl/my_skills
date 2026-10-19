@@ -1,7 +1,7 @@
 ---
 name: code-quality
 description: Architecture, coding principles, and error-handling rules for any code write or edit — new features, refactors, and cleanup requests. Covers service separation (no god-files, no bundling worker logic into API services), no-hardcoding, DRY/KISS, fail-loud error handling, import/typing discipline, honest async signatures, single-source contracts, lint/format/type-check order, and proactive security flagging. Use this whenever code is being written or changed, not only when explicitly asked to "clean up" or "refactor."
-version: 1.6.0
+version: 1.6.1
 ---
 
 <!-- v1 - 2026-09-06 -->
@@ -116,7 +116,7 @@ Format first, then lint:
 2. `uvx ruff check`, `uvx isort --check-only`, `uvx pyflakes` (lint checks)
 3. `uv run mypy`, `uv run pytest` (type-check, then tests)
 - Don't skip failing tests — investigate the cause.
-- For larger changes, run these checks via a sub-agent so the main context stays clean (routine delegation per `process-tiers` — no need to ask, it only checks and reports).
+- For larger changes, run these checks via a separate agent (prefer agents over subagents) so the main context stays clean (routine delegation per `process-tiers` — no need to ask, it only checks and reports).
 - `scripts/run_checks.sh` wraps this exact sequence (format → lint → typecheck → test) for Python projects — use it instead of running each command by hand so the order is never accidentally scrambled.
 - These are a floor, not the whole picture — see the `testing` skill for the UX-level pass that goes beyond them.
 

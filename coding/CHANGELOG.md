@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.16.2] - 2026-10-19
+- coding/code-quality 1.6.1: Larger-change checks: use a separate agent (prefer agents over subagents)
+
+
+## [1.16.1] - 2026-10-19
+- coding/process-tiers 1.1.2: Delegation wording: prefer agents over subagents
+
+
 History of changes to the coding skill package itself (structure, dispatch logic, sub-skill additions/removals). Not a log of project code changes (that's git history in whatever project is being worked on) and not a log of runtime data (this package doesn't produce any).
 
 ## [1.16.0] - 2026-10-08

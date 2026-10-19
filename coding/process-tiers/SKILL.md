@@ -1,7 +1,7 @@
 ---
 name: process-tiers
-description: How much ceremony a coding task needs — when to act without asking vs. propose a mini-design vs. write a plan file and wait for approval, how task size scales which parts of code-quality/testing apply, how to delegate to sub-agents (including deciding shared-code location before parallel work), and worked examples for resolving conflicts between skills. Use for every code task to calibrate autonomy level, not only when a conflict actually comes up.
-version: 1.1.1
+description: How much ceremony a coding task needs — when to act without asking vs. propose a mini-design vs. write a plan file and wait for approval, how task size scales which parts of code-quality/testing apply, how to delegate to other agents (prefer agents over subagents; shared-code location decided before parallel work), and worked examples for resolving conflicts between skills. Use for every code task to calibrate autonomy level, not only when a conflict actually comes up.
+version: 1.1.2
 ---
 
 # process-tiers
@@ -31,21 +31,23 @@ Not every code touch needs the full code-quality/testing pipeline (baseline capt
 - **Routine fix / small feature / big architectural**: full pipeline as described in `code-quality` and `testing` — no shortcuts.
 - If unsure which tier a task falls into, default to the heavier tier — don't downgrade to trivial to save effort.
 
-## Delegation (if running in a sub-agent system)
-Delegation has two independent axes — deciding this one doesn't decide the other:
+## Delegation
+Delegation has two independent axes — deciding this one doesn't decide the other.
+Prefer agents over subagents: a delegated unit gets its own agent (a session);
+a subagent is only for a quick bounded ask.
 
 **Axis 1 — main work delegation (a decision, made once, up front):**
-- Delegation of the main work to sub-agents is optional, not default. Don't auto-delegate just because the capability exists.
-- If a task is big/complex enough that delegation could plausibly help, ask the user first: work it directly yourself, or split it out to sub-agents? Give a short reason either way (e.g. context size, parallelizable reads, isolation).
-- Some models hold context well enough on their own that sub-agents add overhead/fragmentation without real benefit — don't assume delegation is always the better choice.
+- Delegation of the main work is optional, not default. Don't auto-delegate just because the capability exists.
+- If a task is big/complex enough that delegation could plausibly help, ask the user first: work it directly yourself, or split it out to separate agents? Give a short reason either way (e.g. context size, parallelizable reads, isolation).
+- Some models hold context well enough on their own that extra agents add overhead/fragmentation without real benefit — don't assume delegation is always the better choice.
 - If the user says to delegate, delegate (including reads). If they say to work directly, work directly. If they don't answer, default to working directly.
-- When delegating, give the sub-agent the full picture, not a one-line task description: the goal, relevant constraints, and which files/parts of the codebase matter. If a specific skill applies to the sub-agent's task (e.g. `code-quality`), include that skill's content directly in the task prompt rather than assuming the sub-agent will look it up on its own.
-- Before splitting work across parallel sub-agents, decide and state where shared code lives (e.g. "shared helpers go in `utils/`, only there") ahead of handing out tasks. If it's unclear where something shared should go, that's a stop-and-ask moment for the main agent — not something each sub-agent quietly resolves by writing its own copy.
+- When delegating, give the agent the full picture, not a one-line task description: the goal, relevant constraints, and which files/parts of the codebase matter. If a specific skill applies to the agent's task (e.g. `code-quality`), include that skill's content directly in the task prompt rather than assuming the agent will look it up on its own.
+- Before splitting work across parallel agents, decide and state where shared code lives (e.g. "shared helpers go in `utils/`, only there") ahead of handing out tasks. If it's unclear where something shared should go, that's a stop-and-ask moment for the main agent — not something each agent quietly resolves by writing its own copy.
 
 **Axis 2 — routine checks and review (always automatic, regardless of Axis 1):**
-- Lint/format/type/tests via sub-agent (to keep main context clean) and the `fresh-eyes` review are not "main work" — they run automatically every time a non-trivial change is made, with no question asked, independent of whatever was decided on Axis 1.
+- Lint/format/type/tests via a separate agent (to keep main context clean) and the `fresh-eyes` review are not "main work" — they run automatically every time a non-trivial change is made, with no question asked, independent of whatever was decided on Axis 1.
 - This holds even if the user chose "work it directly yourself" on Axis 1 — that answer was about who writes the code, not about whether review happens. Review always happens.
-- Those sub-agents only check and report back, they don't change code and don't talk to the user directly. The main agent is the one who relays findings to the user (see `code-quality`'s Security section — "flag it to the user" means the main agent surfaces it after triaging what the sub-agent reported, not that the sub-agent contacts the user itself).
+- Those agents only check and report back, they don't change code and don't talk to the user directly. The main agent is the one who relays findings to the user (see `code-quality`'s Security section — "flag it to the user" means the main agent surfaces it after triaging what the agent reported, not that the agent contacts the user itself).
 
 ## Conflict resolution — worked examples
 "Stop and ask" is the fallback rule when skills conflict or a situation isn't covered, but here's what that looks like concretely, so it doesn't turn into a wall of text every time:

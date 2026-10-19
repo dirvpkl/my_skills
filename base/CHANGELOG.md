@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.3] - 2026-10-19
+- Prefer agents over subagents in the delegation rule
+
+
 ## [1.2.2] - 2026-10-19
 - Process list: fix duplicated step number (step 3 appeared twice)
 

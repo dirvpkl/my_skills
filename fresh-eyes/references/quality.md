@@ -1,6 +1,6 @@
 # Mode: quality
 
-Hand this file's contents to the judge subagent verbatim, along with the
+Hand this file's contents to the judge agent verbatim, along with the
 `testing` skill's UX-pass section. The judge has not seen how the work was
 written or any reasoning behind it — it only sees the diff/result and this
 checklist.

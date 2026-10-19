@@ -1,7 +1,7 @@
 ---
 name: fresh-eyes
-description: Clean-context judging of finished work by a subagent that never saw how it was written — two modes: `quality` (was the work done well, against the code checklist) and `conformance` (was it done to the plan, requirement by requirement). Use after code + checks pass, before reporting done, and whenever a claim of "works" / "done" needs independent backing. Reports only — never fixes, never talks to the user.
-version: 1.0.0
+description: Clean-context judging of finished work by a fresh agent that never saw how it was written — two modes: `quality` (was the work done well, against the code checklist) and `conformance` (was it done to the plan, requirement by requirement). Use after code + checks pass, before reporting done, and whenever a claim of "works" / "done" needs independent backing. Reports only — never fixes, never talks to the user.
+version: 1.0.1
 ---
 
 # fresh-eyes
@@ -45,9 +45,10 @@ that catches scope drift.
    narration of how you did it.
 2. Pick the mode (or both) and hand over the matching reference file's
    contents **verbatim** — don't summarize it, don't pre-empt findings.
-3. Dispatch a subagent with clean context. It reports back; it does not edit
-   files, and it does not talk to the user.
-4. **Triage every finding yourself.** A subagent can send back nonsense. Check
+3. Dispatch a fresh agent with clean context — prefer an agent session over a
+   subagent. It reports back; it does not edit files, and it does not talk to
+   the user.
+4. **Triage every finding yourself.** An agent can send back nonsense. Check
    each one against what the user actually asked for and whether the technical
    claim is sound. Mark each `accept` or `reject` with a one-line reason.
 5. Only accepted findings reach the user, in the final report. Rejected ones
