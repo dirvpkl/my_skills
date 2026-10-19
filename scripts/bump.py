@@ -5,6 +5,11 @@ Updates SKILL.md frontmatter + VERSION file + manifest package_version and
 prepends a CHANGELOG.md entry. For a coding/* sub-skill the coding/ package
 version bumps too (repo rule), unless --no-package is passed.
 
+A coding/* sub-skill logs its bumps in the package CHANGELOG (entries are
+prefixed with the sub-skill path), so bump.py never creates a CHANGELOG.md
+for one; a sub-skill that already has its own (proxy-egress) still gets
+updated.
+
 Usage:
     python scripts/bump.py <skill> [--major|--minor|--patch] -m "message" [--no-package]
 
@@ -34,7 +39,8 @@ def bump_version(v: str, part: str) -> str:
     return f"{major}.{minor}.{patch + 1}"
 
 
-def bump_one(skill_dir: Path, part: str, message: str) -> str:
+def bump_one(skill_dir: Path, part: str, message: str,
+             create_changelog: bool = True) -> str:
     skill_md = skill_dir / "SKILL.md"
     if not skill_md.exists():
         print(f"ERROR: no SKILL.md in {skill_dir}", file=sys.stderr)
@@ -61,17 +67,18 @@ def bump_one(skill_dir: Path, part: str, message: str) -> str:
         manifest.write_text(m2, encoding="utf-8")
 
     changelog = skill_dir / "CHANGELOG.md"
-    today = datetime.date.today().isoformat()
-    entry = f"## [{new}] - {today}\n- {message}\n\n"
-    if changelog.exists():
-        old = changelog.read_text(encoding="utf-8")
-        if old.startswith("# Changelog\n"):
-            new_text = old.replace("# Changelog\n", f"# Changelog\n\n{entry}", 1)
+    if changelog.exists() or create_changelog:
+        today = datetime.date.today().isoformat()
+        entry = f"## [{new}] - {today}\n- {message}\n\n"
+        if changelog.exists():
+            old = changelog.read_text(encoding="utf-8")
+            if old.startswith("# Changelog\n"):
+                new_text = old.replace("# Changelog\n", f"# Changelog\n\n{entry}", 1)
+            else:
+                new_text = entry + old
         else:
-            new_text = entry + old
-    else:
-        new_text = "# Changelog\n\n" + entry
-    changelog.write_text(new_text, encoding="utf-8")
+            new_text = "# Changelog\n\n" + entry
+        changelog.write_text(new_text, encoding="utf-8")
     return new
 
 
@@ -88,12 +95,14 @@ def main() -> int:
     args = ap.parse_args()
 
     part = "major" if args.major else "minor" if args.minor else "patch"
+    rel = Path(args.skill).as_posix()
+    is_sub_skill = rel.startswith("coding/") and rel != "coding"
     skill_dir = ROOT / args.skill
-    new = bump_one(skill_dir, part, args.message)
+    new = bump_one(skill_dir, part, args.message,
+                   create_changelog=not is_sub_skill)
     print(f"{args.skill}: -> {new}")
 
-    rel = Path(args.skill).as_posix()
-    if rel.startswith("coding/") and rel != "coding" and not args.no_package:
+    if is_sub_skill and not args.no_package:
         pkg_new = bump_one(ROOT / "coding", part,
                            f"{rel} {new}: {args.message}")
         print(f"coding (package): -> {pkg_new}")
