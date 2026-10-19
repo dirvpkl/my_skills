@@ -12,7 +12,6 @@ user. History of past ticks lives in the tick log / loop ledger, not here.
 |---|---|---|---|
 | ses_ee437563cffeq71upLokZJZ34A | C:\Users\orlando\Desktop\fzz | idle unless tasked (ttm.sh/envs.sh stood down by user 2026-10-11) | — |
 | ses_ee4375496ffd5Xgic0FXg5P0L0 | C:\Users\orlando\Desktop\tppr | pool health watch (deadpool loop closed FAIL; free-only pool accepted) | ~15 min |
-| ses_ee437562dffemSkrBXjqd1pVYI | C:\Users\orlando\Desktop\ggfr | scheduled n8n fetch 200 (pool-dependent) | ~30 min |
 | ses_ee4375484ffeXvrmheRU3xyhXu | C:\Users\orlando\Desktop\DINA_SAS | idle unless tasked | — |
 | ses_ee437538bffdfvyisEkLCNVw5C | C:\Users\orlando\Desktop\gws | idle unless tasked | — |
 | ses_ee4375496ffePNsl24zTJPJYQ5 | C:\Users\orlando\Desktop\strfk | idle unless tasked | — |
