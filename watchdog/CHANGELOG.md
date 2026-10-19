@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.2] - 2026-10-19
+- Trigger wording: terminal preferred, schedule supported
+
+
 ## [1.1.1] - 2026-10-19
 - checks.md: fix duplicated step number in the check order (1,3,3 -> 1,2,3)
 

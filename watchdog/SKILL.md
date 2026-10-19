@@ -1,7 +1,7 @@
 ---
 name: watchdog
-description: Independent supervision tick over tracked OpenChamber worker sessions — compares each session's latest message and ledger tail against the previous tick, nudges stalled ones once, reports GREEN/STALLED/BLOCKED. Runs on a schedule without the user or the orchestrator asking. Use when workers run unattended and callbacks do not arrive.
-version: 1.1.1
+description: Independent supervision tick over tracked OpenChamber worker sessions — compares each session's latest message and ledger tail against the previous tick, nudges stalled ones once, reports GREEN/STALLED/BLOCKED. Runs from a terminal or a schedule (prefer terminal) without the user or the orchestrator asking. Use when workers run unattended and callbacks do not arrive.
+version: 1.1.2
 ---
 
 # watchdog
@@ -23,7 +23,8 @@ It never does the workers' work and never edits project files.
 
 ## Trigger
 
-- A scheduled tick fires (cron), or the user says "check the workers" / "loop".
+- A tick fires — from a terminal (preferred) or a schedule — or the user says
+  "check the workers" / "loop".
 - Does NOT trigger on new work arriving: a fresh user task is handled by the
   orchestrator, not by this skill. This skill only watches already-running work.
 
@@ -74,9 +75,10 @@ It never does the workers' work and never edits project files.
   stopped and repredicated instead of funded for another round.
 - When the loop STOPs (condition met, cap honestly reported, or the user
   retires supervision), the schedule task that sends the ticks is deleted
-  (`schedule.delete`) in the same pass — a supervision loop that outlives
-  its predicate spams the session forever. Stopping the ticks is part of
-  finishing, not a separate chore.
+  (`schedule.delete`) in the same pass — if the ticks came from a terminal,
+  they simply stop there. A supervision loop that outlives its predicate
+  spams the session forever. Stopping the ticks is part of finishing, not a
+  separate chore.
 
 ## Escalation ladder (stalled → hung → replaced)
 
