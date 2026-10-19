@@ -14,7 +14,7 @@ This repo (`my_skills`) holds versioned agent skills. Every file in it is
 - `<skill>/VERSION` + `<skill>/CHANGELOG.md` — per-skill versioning.
 - `scripts/` (repo root) — repo tooling: `validate.py`, `deploy.py`,
   `new_skill.py`, `bump.py`.
-- `coding/` is a package: dispatcher `SKILL.md` + 8 sub-skills, each versioned
+- `coding/` is a package: dispatcher `SKILL.md` + 9 sub-skills, each versioned
   independently, plus one package version at `coding/VERSION`.
 
 ## Ground rules

@@ -4,7 +4,7 @@ English only in every file. No exceptions (repo rule, see `../AGENTS.md`).
 
 - `SKILL.md` is the table of contents: trigger, process, dialog rule, fail-loud.
   Details live in `references/`, never duplicated inline.
-- `references/` holds `contract.md`, `stop-signals.md`, `wait.md`. Split along
+- `references/` holds `contract.md`, `schedule.md`, `stop-signals.md`, `wait.md`. Split along
   natural seams; add a TOC on top once a file passes ~300 lines.
 - `plugins/manifest.json` is the only module registry. If manifest and prose
   disagree, the manifest wins.

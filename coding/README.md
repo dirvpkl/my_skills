@@ -3,7 +3,7 @@
 Lives in `~/.agents/skills/coding/` (global, auto-loaded). Root `SKILL.md` is
 a pure dispatcher — it contains no process/quality/security rules itself,
 only routing logic and versioning bookkeeping. All actual rules live in
-8 sibling sub-skills, each a peer module registered in
+9 sibling sub-skills, each a peer module registered in
 `plugins/manifest.json`, not a hardcoded list in the dispatcher's prose.
 
 ```
@@ -43,9 +43,16 @@ coding/
 ├── logging/
 │   ├── SKILL.md
 │   └── VERSION
-└── external-integrations/
+├── external-integrations/
+│   ├── SKILL.md
+│   └── VERSION
+└── proxy-egress/
     ├── SKILL.md
-    └── VERSION
+    ├── VERSION
+    ├── CHANGELOG.md
+    ├── plugins/                    ← this sub-skill's own module registry
+    ├── references/                 ← proxy behavior, fallback hunting, live proof
+    └── scripts/                    ← validate_manifest.py
 ```
 
 ## How this is meant to work
@@ -57,13 +64,13 @@ coding/
 - **`plugins/manifest.json`** is the discovery file: every sub-skill, its
   path, its version, and whether it's `core` (always bundled) or `plugin`
   (optional). The dispatcher points here instead of hardcoding a sub-skill
-  list inline, so adding sub-skill #9 never means editing #1-8's mentions.
+  list inline, so adding a sub-skill never means editing the others' mentions.
 - Each sub-**`SKILL.md`** is self-contained enough to read on its own, but
   they cross-reference each other instead of repeating the same rule three
   times (e.g. "fail loud" is defined once in `code-quality`, the others
   just point back to it).
 - **`references/`** folders hold longer material a skill points to but
-  doesn't inline — e.g. the full fresh-eyes checklist, so its `SKILL.md`
+  doesn't inline — e.g. `external-integrations`' reference files — so its `SKILL.md`
   itself stays short.
 - **`scripts/`** folders hold small, boring, deterministic helpers — things
   an agent would otherwise reconstruct by hand every time (the exact check
@@ -74,7 +81,7 @@ coding/
 
 ## Adding a new sub-skill
 
-Same shape as the eight here: a folder, a `SKILL.md` with YAML frontmatter
+Same shape as the nine here: a folder, a `SKILL.md` with YAML frontmatter
 (`name`, `description`, `version`), a `VERSION` file matching that version,
 optional `references/` and `scripts/`. Then register it in
 `plugins/manifest.json` (see `plugins/README.md` for the exact steps) and
