@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.2] - 2026-10-19
+- Process list: fix duplicated step number (step 3 appeared twice)
+
+
 ## [1.2.1] - 2026-10-05
 - Delegation requires log path and heartbeat, stale log means stalled
 

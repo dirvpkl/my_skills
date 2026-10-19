@@ -1,7 +1,7 @@
 ---
 name: base
 description: Base operating rules for the orchestrator and every agent, always loaded — delegate by default with minimum hands-on, resolve volatile paths at runtime, ask-first on destructive/secret/out-of-scope steps, data and host integrity first. Pairs with coding on any task that executes or delegates. Never skipped to save effort.
-version: 1.2.1
+version: 1.2.2
 ---
 
 # base
@@ -46,14 +46,14 @@ nothing executed is the only exemption.
    project locations come from the session directory or the user's
    message. A path frozen here is already stale. Sibling skills are
    referenced by name only; their manifests describe their contents.
-3. **Ask before crossing a line.** Read `references/boundaries.md`
+4. **Ask before crossing a line.** Read `references/boundaries.md`
    before the first state-changing command and `references/data.md`
    before touching volumes, databases, hosts, or running tests. Unclear
    scope, a secret, a user-only decision, an external service, a down
    dependency, non-rotatable creds — stop that item, record the exact
    question, continue with the rest. Never route around the block, never
    do provisional work while waiting for a yes.
-4. **Run the full bundle.** `coding` (fail-loud, checks order
+5. **Run the full bundle.** `coding` (fail-loud, checks order
    format→lint→typecheck→tests, Conventional Commits) plus whatever the
    task needs (`workplanx` gates start, `fresh-eyes` judges the diff,
    `loop` drives iterate-until-green, `mission` decomposes goals).
