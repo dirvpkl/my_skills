@@ -1,3 +1,7 @@
+# Changelog
+
+History of changes to the coding skill package itself (structure, dispatch logic, sub-skill additions/removals). Not a log of project code changes (that's git history in whatever project is being worked on) and not a log of runtime data (this package doesn't produce any).
+
 ## [1.16.0] - 2026-10-08
 - code-quality 1.5.0 → 1.6.0: added **Infrastructure is a black box** principle — proxy services, message queues, databases, caches, object stores, LLMs, search indices, and any other infra component are treated as opaque contracts. The project adapts to infra as-is; no modifying infra behaviour to suit the project. Even if the agent knows who owns/runs the infra, it must not reach into it. If the project needs something the infra doesn't provide, build an adapter/wrapper/sidecar in project code. Analogy: you don't patch the MongoDB binary over write concern defaults; you set it in client code or pick a different store. Absolute — no "but it's our proxy, we can tweak it" exceptions.
 
@@ -18,10 +22,6 @@
 
 ## [1.13.1] - 2026-09-29
 - coding/proxy-egress 1.0.1: Added the silent-fallbacks grep catalog, the failure-signature table, and the ask-where-the-proxy-lives rule.
-
-# CHANGELOG — coding package
-
-History of changes to the skill package itself (structure, dispatch logic, sub-skill additions/removals). Not a log of project code changes (that's git history in whatever project is being worked on) and not a log of runtime data (this package doesn't produce any).
 
 ## 1.13.0 — 2026-09-26
 Two new siblings close the scale gap: until now the package had a dispatcher but nothing between "one task" and "start from scratch".
