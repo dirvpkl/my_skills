@@ -1,7 +1,7 @@
 ---
 name: skill-scaffolder
 description: Scaffold a new skill's file layout and restructure or extend an existing loose or flat skill into the same modular shape — SKILL.md + references/ + plugins/manifest.json + scripts/ + CHANGELOG.md + VERSION. Use when the user wants to create a new skill, turn a workflow/set of notes into a skill, reorganize existing skill files into proper modular structure, or add a reference module, script, or manifest entry to a skill that already exists. Not for evaluating or optimizing an existing well-formed skill's trigger accuracy — for that, defer to skill-creator if present.
-version: 1.0.0
+version: 1.0.1
 ---
 
 # skill-scaffolder
@@ -11,7 +11,8 @@ Scaffolds a new skill's file layout AND restructures/extends an existing loose o
 - **references/layout.md** — the full target directory layout, explained file by file.
 - **references/manifest-format.md** — the exact shape of `plugins/manifest.json` and how discovery works.
 - **references/anti-patterns.md** — mistakes to avoid, drawn from real cleanup work (ambiguous "mention it somewhere" instructions, hardcoded file lists, mixing logs with instructions).
-- **assets/templates/** — blank starting files to copy: `SKILL.md`, `manifest.json`, `CHANGELOG.md`, `validate_manifest.py`.
+- **plugins/manifest.json** — this skill's own module registry; check it instead of assuming the list above is everything (see `plugins/README.md`).
+- **assets/templates/** — blank starting files to copy: `SKILL.md`, `manifest.json`, `CHANGELOG.md`, `plugins-readme.md`, `validate_manifest.py`.
 - **scripts/scaffold.py** — generates the full directory structure with templates filled in, given a skill name.
 - **scripts/validate_manifest.py** — copied into every scaffolded skill; also runnable directly here to check a manifest before handing it off.
 

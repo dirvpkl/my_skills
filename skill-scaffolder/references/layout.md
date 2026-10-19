@@ -31,7 +31,7 @@ For any reference file over ~300 lines, add a table of contents at the top so a 
 
 **plugins/**
 - `manifest.json` — the discovery file. See `manifest-format.md` for its exact shape. Its purpose is to let SKILL.md say "check the manifest for what's currently active" instead of hardcoding a list of reference files inline — so adding module #4 never means editing module #1-3's descriptions again. It carries two independent keys: `modules` (files inside this skill) and `dependencies` (other skills in the collection that load with it). Both live here for the same reason — a list kept in SKILL.md prose is a list that rots.
-- `README.md` — short doc: how to add a module, how to remove/disable one, how to add a dependency, how to run the validator. Copy `assets/templates/plugins-readme-template.md` and adjust wording to the specific skill.
+- `README.md` — short doc: how to add a module, how to remove/disable one, how to add a dependency, how to run the validator. Copy `assets/templates/plugins-readme.md.template` and adjust wording to the specific skill.
 
 **scripts/**
 Executable code, for anything deterministic that shouldn't be re-derived by the model each time — validation, generation/scaffolding, data transforms. Scripts can be referenced and run without loading their contents into context, which is the point: heavy logic lives here instead of as prose instructions in SKILL.md.

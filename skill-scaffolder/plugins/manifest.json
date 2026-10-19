@@ -1,0 +1,40 @@
+{
+  "skill": "skill-scaffolder",
+  "package_version": "1.0.1",
+  "dependencies": [],
+  "modules": [
+    {
+      "id": "layout",
+      "name": "Target layout",
+      "path": "references/layout.md",
+      "type": "core",
+      "version": "1.0.0",
+      "description": "The full target directory layout explained file by file, with the progressive-disclosure reasoning behind splitting files."
+    },
+    {
+      "id": "manifest-format",
+      "name": "Manifest format",
+      "path": "references/manifest-format.md",
+      "type": "core",
+      "version": "1.0.0",
+      "description": "The exact shape of plugins/manifest.json: modules vs dependencies, field notes, and how to add or remove either."
+    },
+    {
+      "id": "anti-patterns",
+      "name": "Anti-patterns",
+      "path": "references/anti-patterns.md",
+      "type": "core",
+      "version": "1.0.0",
+      "description": "Concrete scaffolding mistakes from real cleanup work: ambiguous instructions, hardcoded module lists, ideas mixed into instructions."
+    },
+    {
+      "id": "scaffold",
+      "name": "Scaffolding script",
+      "path": "scripts/scaffold.py",
+      "type": "core",
+      "version": "1.0.0",
+      "description": "Generates the standard directory structure from assets/templates/ for a given skill name; --minimal for SKILL.md-only skills."
+    }
+  ],
+  "planned": []
+}
