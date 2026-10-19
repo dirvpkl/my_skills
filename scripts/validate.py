@@ -7,7 +7,9 @@ For every directory under the repo root that contains a SKILL.md:
   3. the skill's own scripts/validate_manifest.py (if present) passes.
 
 Missing VERSION/manifest is a warning, not an error (small skills are allowed
-a scaled-down layout per skill-scaffolder). Any mismatch is an error.
+a scaled-down layout per skill-scaffolder) — except a sub-skill registered in
+its parent package's manifest, which needs no manifest of its own. Any
+mismatch is an error.
 
 Usage:
     python scripts/validate.py [--skills a,b]
@@ -35,6 +37,21 @@ def frontmatter(path: Path) -> dict:
         if mm:
             out[mm.group(1)] = mm.group(2)
     return out
+
+
+def registered_in_parent(d: Path) -> bool:
+    """True when d is a sub-skill registered as a module of its parent package."""
+    if not (d.parent / "SKILL.md").exists():
+        return False
+    parent_manifest = d.parent / "plugins" / "manifest.json"
+    if not parent_manifest.exists():
+        return False
+    try:
+        data = json.loads(parent_manifest.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return False
+    want = f"{d.name}/SKILL.md"
+    return any(m.get("path") == want for m in data.get("modules", []))
 
 
 def iter_skills():
@@ -86,7 +103,7 @@ def main() -> int:
                 json.loads(manifest.read_text(encoding="utf-8"))
             except json.JSONDecodeError as e:
                 errors.append(f"{rel}: manifest.json invalid JSON: {e}")
-        else:
+        elif not registered_in_parent(d):
             warnings.append(f"{rel}: no plugins/manifest.json")
 
         checker = d / "scripts" / "validate_manifest.py"
