@@ -24,7 +24,7 @@ workplanx → solution-search → coding → testing → fresh-eyes
 Scale ladder (which driver owns the work):
 
 ```
-mission  — goal too big for one pass → board of verifiable cards, one subagent per card
+mission  — goal too big for one pass → board of verifiable cards, one fresh session per card
 loop     — one card / one condition → repeat iterations until a verify command passes
 workplanx — single task → topic folder + phase gate; no implementation before user pick
 ```
@@ -42,7 +42,24 @@ coding ──→ fresh-eyes          (both modes when the task came from a plan)
 
 ## Skill catalog
 
-### workplanx (v1.4.0) — plan-and-log router
+### base — always-loaded operating rules
+
+Runs under every task that executes or delegates, orchestrator and workers
+alike. Delegate by default with minimum hands-on, resolve volatile paths at
+runtime, ask-first on destructive/secret/out-of-scope steps, data and host
+integrity first. Never skipped to save effort.
+
+- **Trigger:** every task with execution or delegation; pure reading or
+  explaining is the only exemption.
+- **Mechanics:** delegation carries a log path and a heartbeat; the `coding`
+  bundle plus whatever the task needs (`workplanx` gates start, `fresh-eyes`
+  judges the diff, `loop` drives repetition, `mission` decomposes goals);
+  overlapping rules resolve toward the stricter one.
+- **Fail loud:** an unasked destructive op is the failure; a check reported
+  green without running is a lie; a hardcoded path that rotted is a process
+  failure.
+
+### workplanx — plan-and-log router
 
 Owns the topic folder. Every non-trivial task gets
 `<project>/.workplanx/<topic-slug>/` with files written strictly in order:
@@ -58,7 +75,7 @@ Owns the topic folder. Every non-trivial task gets
 - **Output:** topic folder with five files, each passing its phase gate.
 - **Not its job:** judging finished work — that is `fresh-eyes`.
 
-### solution-search (v1.9.0, aka brainstorm) — pre-decision approach search
+### solution-search (aka brainstorm) — pre-decision approach search
 
 Finds the way to do a thing before anyone does it. Any domain, digital or
 physical. Pure method, zero domain knowledge — concrete stacks/registries live
@@ -80,7 +97,7 @@ on the executing side, never here.
 - **Enforcement:** the binding check lives in `workplanx`'s build gate, not in
   this file's prose. Skip the search and the gate still blocks.
 
-### coding (v1.13.0) — dispatcher for the code package
+### coding — dispatcher for the code package
 
 A router, not a rulebook. Contains no quality/security rules itself — given a
 task, it decides which sub-skills load together as one combined obligation
@@ -94,19 +111,19 @@ first; repeat-until-green goes to `loop`; judging goes to `fresh-eyes`.
 
 Sub-skills (rules live in each sibling folder, read before acting):
 
-| Sub-skill | Ver | Scope |
-|---|---|---|
-| `code-quality` | 1.5.0 | Architecture (service separation, no god-files, real folder structure even for small scripts), no hardcoding (single config place, no hidden-config defaults), DRY/KISS, no pointless aliases/wrappers/single-use helpers, single-source contracts, typed domain payloads, honest async-only signatures, imports top-only with cost comments, no handwritten `isinstance` checks, fail-loud error handling (canonical definition: catch only with a real recovery action, no recatch-to-rethrow, no re-wrapping except mute-error/root-boundary, loud `NotImplementedError` stubs, validate-once-at-boundary), TDD for new code, baseline capture (`git stash` compare) before refactors, checks in order format → lint → typecheck → tests. Proactively flags security issues spotted mid-work, fixes nothing unasked. |
-| `testing` | 1.2.0 | Proof beyond the default suite: green tests are a floor, not verification. Coverage for every change (or an explicit check script + statement of incompleteness), UX pass from the real user entry point through real service boundaries, regression vs baseline via stash-compare, environment-vs-code failure classification (never conflate, never assume "probably the environment"), fair A/B comparisons (one variable at a time, negative result must be possible). The UX pass is the artifact handed to a `fresh-eyes` judge. |
-| `logging` | 1.2.1 | Base dependency, not a follow-up task: structured entries (labeled fields, one format across services, `structlog`-style default), one correlation ID generated at the entry point and carried through every service, fail-loud raises must also be *visible* (a raise dying in an unwatched container equals swallowing it), Telegram forum-topics alerts (`critical` / `info` / `service`, spammy-by-default). Never log secrets. |
-| `security` | 1.0.0 | Ask-first in plain language for secrets/`.env`, logs, browser profile data, out-of-project files — explicit yes only, no provisional work while waiting, no routing around client permission prompts. No silent fallbacks for secrets (missing key = loud fail). Exposed credentials flagged with an all-caps line, every time. System boundaries: no host apps, no unbounded searches, no out-of-project touches unasked. |
-| `process-tiers` | 1.1.1 | Calibrates ceremony: trivial edit → act; routine fix → act; small feature → one clarifying question or mini-design, wait for yes; big/architectural → plan file with bite-sized tasks, wait for approval. Weight of the quality/testing pipeline scales with tier (never downgrade to save effort). Delegation has two axes: main work (optional, ask user first, full context in prompt, shared-code location decided *before* parallel split) vs routine checks + `fresh-eyes` review (always automatic). On conflict or ambiguity: stop and ask one concrete yes/no with a proposed default. |
-| `docker` | 1.1.0 | Never publish container ports (`ports:`) without an explicit same-message ask; internal-only networking by service name by default; existing ports are not precedent for new ones. Every compose variable in required form `${VAR:?message}` — unset values fail validation before start, never ride in as empty strings. |
-| `git-workflow` | 1.0.0 | Work on `<type>/<what>` branches (ask before creating), Conventional Commits, always commit when done, merge only past checks + explicit approval. Never destructive ops or major dependency upgrades unasked. Every project keeps a current `.gitignore`. |
-| `external-integrations` | 1.6.0 | Wiring-only for a *decided* integration (no `user-pick:` = no wiring, route back to search). Centralized retry for a narrow set (rate limits, transient network errors) in one root-level helper with config-driven params — everything else fails loud immediately. Code is the last resort: wired solution must sit at the decided ladder level. Docs-first (Telegram topics always from `references/telegram-topics.md` + current Bot API check, never from memory). Long-running services get an uptime-kuma heartbeat as the mandatory observability floor. One test-seam wrapper per project max, at the client boundary only. |
-| `proxy-egress` | 1.0.0 | Mandatory outbound proxy with no silent direct fallbacks. Asks where the proxy service lives rather than hardcoding host/port/credential/path. One `PROXY_URL` in required form; rotation owned by the service; a `proxies.txt` only when a project genuinely needs several credentials. Per-client-library behavior matrix (httpx honors env, aiohttp ignores it, curl_cffi needs a dict, Telethon needs SOCKS5 plus `pysocks`/`python-socks` or it drops the argument with a warning, Go honors env until a custom `Transport` opts out). Fallback hunting with concrete grep patterns, and live verification from inside the container plus a failure-signature table. Treats the proxy service as a black box. |
+| Sub-skill | Scope |
+|---|---|
+| `code-quality` | Architecture (service separation, no god-files, real folder structure even for small scripts), no hardcoding (single config place, no hidden-config defaults), DRY/KISS, no pointless aliases/wrappers/single-use helpers, single-source contracts, typed domain payloads, honest async-only signatures, imports top-only with cost comments, no handwritten `isinstance` checks, fail-loud error handling (canonical definition: catch only with a real recovery action, no recatch-to-rethrow, no re-wrapping except mute-error/root-boundary, loud `NotImplementedError` stubs, validate-once-at-boundary), TDD for new code, baseline capture (`git stash` compare) before refactors, checks in order format → lint → typecheck → tests. Proactively flags security issues spotted mid-work, fixes nothing unasked. |
+| `testing` | Proof beyond the default suite: green tests are a floor, not verification. Coverage for every change (or an explicit check script + statement of incompleteness), UX pass from the real user entry point through real service boundaries, regression vs baseline via stash-compare, environment-vs-code failure classification (never conflate, never assume "probably the environment"), fair A/B comparisons (one variable at a time, negative result must be possible). The UX pass is the artifact handed to a `fresh-eyes` judge. |
+| `logging` | Base dependency, not a follow-up task: structured entries (labeled fields, one format across services, `structlog`-style default), one correlation ID generated at the entry point and carried through every service, fail-loud raises must also be *visible* (a raise dying in an unwatched container equals swallowing it), Telegram forum-topics alerts (`critical` / `info` / `service`, spammy-by-default). Never log secrets. |
+| `security` | Ask-first in plain language for secrets/`.env`, logs, browser profile data, out-of-project files — explicit yes only, no provisional work while waiting, no routing around client permission prompts. No silent fallbacks for secrets (missing key = loud fail). Exposed credentials flagged with an all-caps line, every time. System boundaries: no host apps, no unbounded searches, no out-of-project touches unasked. |
+| `process-tiers` | Calibrates ceremony: trivial edit → act; routine fix → act; small feature → one clarifying question or mini-design, wait for yes; big/architectural → plan file with bite-sized tasks, wait for approval. Weight of the quality/testing pipeline scales with tier (never downgrade to save effort). Delegation has two axes: main work (optional, ask user first, full context in prompt, shared-code location decided *before* parallel split) vs routine checks + `fresh-eyes` review (always automatic). On conflict or ambiguity: stop and ask one concrete yes/no with a proposed default. |
+| `docker` | Never publish container ports (`ports:`) without an explicit same-message ask; internal-only networking by service name by default; existing ports are not precedent for new ones. Every compose variable in required form `${VAR:?message}` — unset values fail validation before start, never ride in as empty strings. |
+| `git-workflow` | Work on `<type>/<what>` branches (ask before creating), Conventional Commits, always commit when done, merge only past checks + explicit approval. Never destructive ops or major dependency upgrades unasked. Every project keeps a current `.gitignore`. |
+| `external-integrations` | Wiring-only for a *decided* integration (no `user-pick:` = no wiring, route back to search). Centralized retry for a narrow set (rate limits, transient network errors) in one root-level helper with config-driven params — everything else fails loud immediately. Code is the last resort: wired solution must sit at the decided ladder level. Docs-first (Telegram topics always from `references/telegram-topics.md` + current Bot API check, never from memory). Long-running services get an uptime-kuma heartbeat as the mandatory observability floor. One test-seam wrapper per project max, at the client boundary only. |
+| `proxy-egress` | Mandatory outbound proxy with no silent direct fallbacks. Asks where the proxy service lives rather than hardcoding host/port/credential/path. One `PROXY_URL` in required form; rotation owned by the service; a `proxies.txt` only when a project genuinely needs several credentials. Per-client-library behavior matrix (httpx honors env, aiohttp ignores it, curl_cffi needs a dict, Telethon needs SOCKS5 plus `pysocks`/`python-socks` or it drops the argument with a warning, Go honors env until a custom `Transport` opts out). Fallback hunting with concrete grep patterns, and live verification from inside the container plus a failure-signature table. Treats the proxy service as a black box. |
 
-### fresh-eyes (v1.0.0) — clean-context judge
+### fresh-eyes — clean-context judge
 
 A subagent that never saw the work reviews it. Two modes: `quality` (was it
 done well — code checklist) vs `conformance` (was it done as decided —
@@ -122,7 +139,7 @@ right-but-sloppy fails quality.
 - **Explicitly not:** a replacement for running checks, an oracle (clean review
   proves nothing except a second pair of eyes found nothing), or the phase gate.
 
-### loop (v1.0.0) — bounded autonomous iteration
+### loop — bounded autonomous iteration
 
 One condition, repeated iterations, fresh context each time, state on disk.
 Covers iterate-until-green (tests, deploy, inference, build), bounded retry
@@ -141,26 +158,43 @@ with a hard cap, no-progress detection.
 - **Watch for:** editing the check instead of the thing; writing more code each
   pass while the failure stays identical (`references/stop-signals.md`).
 
-### mission (v1.0.0) — goal → board of cards → subagents
+### mission — goal → board of cards → sessions
 
 For objectives too big for one pass ("build X", "migrate Y", "research Z
-thoroughly", hours of unattended work). Supervisor decomposes and judges,
-subagents execute.
+thoroughly", hours of unattended work). Supervisor decomposes and judges, card sessions execute.
 
 - **Trigger:** multi-session goals. Not single tasks (that is `loop`), not
   what-to-build decisions (`solution-search` + `workplanx`), not one-shot
   research (`researcher`).
 - **Mechanics:** goal must be statable as "true when…"; every card carries its
   own verifiable condition; board (`mission.md`) gets a `fresh-eyes`
-  conformance pass *before* work starts; one subagent per card with the card
-  only (never whole-board context); done only on evidence. Stacks with the
+  conformance pass *before* work starts; one fresh session per card with the
+  card only (never whole-board context); done only on evidence. Stacks with the
   scale ladder: `mission` owns *what* the units are, `loop` drives one card,
   `workplanx` gates start, `fresh-eyes` closes.
 - **Fail loud:** open cards at stop = stopped run, never "mostly done"; cards
   never shrink their own conditions; systemic card failures mean re-cut the
   decomposition, not re-run.
 
-### researcher (v1.3.0) — open-ended research
+### watchdog — independent supervision tick
+
+One tick per run supervises tracked worker sessions when callbacks do not
+arrive: reads each session's latest assistant message and ledger tail,
+compares them against the previous tick, nudges a stalled session once,
+reports GREEN / STALLED / BLOCKED / HUNG.
+
+- **Trigger:** a scheduled tick fires, or the user says "check the workers".
+  Never on new work arriving — that is the orchestrator's job.
+- **Mechanics:** each tick is one `loop` external-wait round; the live
+  registry is `state/tracked.md`; verdicts are computed from two observables
+  only (last message, ledger tail) — `session.status` is never read; a GREEN
+  session leaves tracking the same tick; when the loop STOPs, the schedule
+  task that sends the ticks is deleted.
+- **Fail loud:** a session dropped without a delivered verdict is reported as
+  DROPPED; absence-based predicates ("5 calm minutes") are forbidden — proof
+  is an answered round-trip.
+
+### researcher — open-ended research
 
 Surfaces recent or non-obvious findings on a topic — new releases, niche tools,
 buried resources. Searches abstraction chains (topic → topic class → who else
@@ -183,7 +217,7 @@ picks stacks.
 - **Self-improvement:** newly discovered *sources* (not findings) go to
   `references/source-log.md`, folded into `references/sources.md` once proven.
 
-### skill-scaffolder (v1.0.0) — new-skill factory
+### skill-scaffolder — new-skill factory
 
 Builds a new skill (or restructures a loose one) into this same layout:
 `SKILL.md` + `references/` + `plugins/manifest.json` + `scripts/` +
@@ -226,17 +260,19 @@ as a table of contents pointing outward (~500 lines = signal to split).
 ```
 my_skills/
 ├── README.md
-├── coding/                  dispatcher + 8 sub-skills + package CHANGELOG/VERSION
+├── base/                   references/{boundaries,data}.md
+├── coding/                 dispatcher + 9 sub-skills + package CHANGELOG/VERSION
 │   ├── code-quality/  docker/  external-integrations/  git-workflow/
-│   ├── logging/  process-tiers/  security/  testing/
-│   └── scripts/             check_versions.sh, run_checks.sh, ...
-├── fresh-eyes/              references/{quality,conformance}.md
-├── loop/                    references/{contract,stop-signals}.md + loop_state.py
-├── mission/                 references/{decompose,board}.md
-├── researcher/              references/{sources,patterns,source-log}.md
-├── skill-scaffolder/        assets/templates + scripts/scaffold.py
-├── solution-search/         references/method.md
-└── workplanx/               references/layout.md + scripts/plan_gate.py
+│   ├── logging/  process-tiers/  proxy-egress/  security/  testing/
+│   └── scripts/            check_versions.sh, validate_manifest.py
+├── fresh-eyes/             references/{quality,conformance}.md
+├── loop/                   references/{contract,schedule,stop-signals,wait}.md + loop_state.py
+├── mission/                references/{decompose,board}.md
+├── researcher/             references/{sources,patterns,source-log}.md
+├── skill-scaffolder/       assets/templates + scripts/scaffold.py
+├── solution-search/        references/method.md
+├── watchdog/               references/checks.md + state/tracked.md
+└── workplanx/              references/layout.md + scripts/plan_gate.py
 ```
 
 ## Working with this repo
@@ -244,7 +280,8 @@ my_skills/
 - Versions are per-skill (`VERSION` + frontmatter, independently bumped);
   `coding` additionally carries a package version bumped whenever any
   sub-skill's meaning changes. `plugins/manifest.json` plus `VERSION` are the
-  authority; README version labels are descriptive and may lag.
+  only authority — this README deliberately carries no version numbers, so
+  there is nothing here to go stale.
 - After editing any skill file, run that skill's validator
   (`validate_manifest.py`, `check_versions.sh`, `plan_gate.py`) and log the
   bump in its `CHANGELOG.md`.
