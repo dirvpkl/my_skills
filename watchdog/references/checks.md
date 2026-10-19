@@ -16,7 +16,7 @@ tail — compared against the previous tick's recorded values.
    - One message is never the whole story: progress notes are not
      verdicts; only a message that answers the tasked question with
      evidence counts as a verdict.
-3. The session's log tail (project `.workplanx/<topic>/log.md`, last ~10
+2. The session's log tail (project `.workplanx/<topic>/log.md`, last ~10
    lines) — the only progress signal. A fresh ledger line within cadence
    means WORKING even when the session looks idle. Inside long units the bar is
    the heartbeat: no line for 15+ minutes while tasked = STALLED, even

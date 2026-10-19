@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.1] - 2026-10-19
+- checks.md: fix duplicated step number in the check order (1,3,3 -> 1,2,3)
+
+
 ## [1.1.0] - 2026-10-16
 - status-blind ticks: never read session.status, stall only on identical (msg_id, ledger_tail), GREEN leaves tracking same tick
 
