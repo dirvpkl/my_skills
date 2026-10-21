@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.10.0] - 2026-10-21
+- Brainstorm mode added: the stuck case (what could we do about this) gets its own mechanics - inventory the spendable assets, diverge into routes with measurable costs, keep rejected routes and say whether the reason still holds, close dead ends with their evidence, converge on a pick. New module references/brainstorm.md; the default find-the-technique mode is unchanged.
+
+
 ## 1.9.0 — 2026-09-26
 - `dependencies: ["workplanx"]` declared in the manifest. This skill's output only exists as files in a workplanx topic folder — that was already true, but the link was prose in SKILL.md, which is the list-that-rots pattern.
 - The ladder rank names in this file are now the collection's single vocabulary; `coding/external-integrations` deleted its own copy (1.6.0) rather than keeping a second list that could drift.

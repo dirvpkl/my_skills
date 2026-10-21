@@ -1,7 +1,7 @@
 ---
 name: solution-search
-description: Brainstorm (aka solution-search) — pre-decision approach search for any domain ("how to do X", "what to use for X", "find me a technique for X"): decompose into verbs, walk the less-make ladder top-down with URL evidence, propose 2-3 candidates with tradeoffs and one recommendation. Method only, no domain knowledge, produces a decision and never the thing itself. Use before anything is designed, built, or made.
-version: 1.9.0
+description: Brainstorm (aka solution-search) — pre-decision approach search for any domain ("how to do X", "what to use for X", "find me a technique for X"): decompose into verbs, walk the less-make ladder top-down with URL evidence, propose 2-3 candidates with tradeoffs and one recommendation. A second mode handles the stuck case ("what could we do about this", "run a brainstorm"): inventory the assets, diverge into routes with real costs, close the dead ends with their evidence, converge on a pick. Method only, no domain knowledge, produces a decision and never the thing itself. Use before anything is designed, built, or made.
+version: 1.10.0
 ---
 
 # solution-search (aka brainstorm)
@@ -12,6 +12,8 @@ concrete (stacks, registries, catalogs, fix lists) lives on the executing
 side, never here.
 
 - **references/method.md** — the abstract search method (verbs, ladders, chains).
+- **references/brainstorm.md** — the brainstorm mode: inventory, divergent
+  routes with real costs, closed dead ends, convergence to a pick.
 - **plugins/manifest.json** — active modules. Check it, don't assume this file
   lists everything.
 
@@ -21,11 +23,20 @@ side, never here.
   for <X>?" — any domain, digital or physical.
 - New capability, new component, or "we already made <X> ourselves, is there a
   better way?" — before design.
+- **Brainstorm mode** — "we are stuck, what could we do about this?", "run a
+  brainstorm", "what are our options?", or a blocker that the default mode
+  already came back empty on. Same skill, different shape: see
+  `references/brainstorm.md`.
 - Does NOT trigger on executing an already-chosen approach. That belongs to
   whichever skill implements, and it loads only after `decision.md` carries a
   user pick (see `workplanx`).
 
 ## Process
+
+Two modes. The default finds the technique; the brainstorm finds the routes.
+Both end in a pick, and neither executes.
+
+**Default mode (find the technique):**
 
 1. Decompose the task into verbs (`<verb-1>` + `<verb-2>` + ...). One verb =
    one search unit. Never search the whole task as one query. (Domain defaults,
@@ -47,6 +58,14 @@ side, never here.
    anything is made. This skill produces a decision, not the thing — no
    artifacts, no configs, no scaffolding.
 
+**Brainstorm mode (find the routes):** when the question is what to do about
+a dead end rather than which technique to use. Inventory the spendable assets
+first, then diverge into four to six routes (cost, risk, what it unblocks, a
+checkable condition each), keep the previously rejected routes and say whether
+their rejection still holds, close the dead ends with their evidence, then
+converge on 2-3 proposed routes with one recommendation and the `user-pick:`
+line. The mechanics are in `references/brainstorm.md`.
+
 ## Output format
 
 All output goes to the `workplanx` topic folder (see that skill's layout),
@@ -56,6 +75,9 @@ never only chat:
   `user-pick:` filled by transcribing the user's reply verbatim (never
   invented by the agent). That filled line is the entire handoff to whoever
   executes the decision — nothing else crosses over.
+- `brainstorm.md` (brainstorm mode only, this skill owns the file): the
+  inventory, the routes, the closed directions with their evidence, the
+  recommendation, and the open questions for the user.
 
 ## Where "nothing gets made yet" is actually enforced
 
