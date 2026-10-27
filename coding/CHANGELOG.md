@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.17.0] - 2026-10-27
+- coding/docker 1.3.0: Published host ports are always random ephemeral ports, never fixed defaults like 8080:8080; services inside the compose network stay unpublished
+
+
 ## [1.16.2] - 2026-10-19
 - coding/code-quality 1.6.1: Larger-change checks: use a separate agent (prefer agents over subagents)
 
