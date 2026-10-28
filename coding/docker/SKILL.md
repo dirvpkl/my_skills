@@ -1,7 +1,7 @@
 ---
 name: docker
-description: Docker networking defaults — never publish container ports to the host without an explicit, same-message ask; published ports always land on a random ephemeral host port (never a fixed default like `8080:8080`); internal-only service-to-service networking by default; required (`${VAR:?...}`) compose environment variables. Use whenever writing or editing docker-compose files or docker run commands.
-version: 1.3.0
+description: Docker networking defaults — never publish container ports to the host without an explicit, same-message ask; published ports always land on a random ephemeral host port (never a fixed default like `8080:8080`); internal-only service-to-service networking by default; required (`${VAR:?...}`) compose environment variables; unprefixed environment variable names with no project prefixes. Use whenever writing or editing docker-compose files or docker run commands.
+version: 1.5.0
 ---
 
 # docker
@@ -9,6 +9,7 @@ version: 1.3.0
 <!-- v1 - 2026-09-06 -->
 <!-- v1.1 - 2026-09-13: added compose env-var rule -- always ${VAR:?message}, never a bare ${VAR}. -->
 <!-- v1.3 - 2026-10-27: published host ports are always random ephemeral ports, never fixed defaults like 8080:8080; services inside the network stay unpublished. -->
+<!-- v1.4 - 2026-10-28: environment variables must be unprefixed — use NO_PROXY, BOT_TOKEN, HOST, etc., never PROJECT_NO_PROXY/PROJECT_BOT_TOKEN/PROJECT_HOST. -->
 
 ## Trigger
 Writing or editing docker-compose files or `docker run` commands. Bundled by the `coding` dispatcher whenever Docker config is touched — see its activation manifest.
@@ -22,6 +23,7 @@ Writing or editing docker-compose files or `docker run` commands. Bundled by the
 
 ## Compose environment variables
 - Every variable referenced in a compose file uses the required form `${VAR:?error message}` — never a bare `${VAR}`. An unset value must fail `up`/config validation before containers start, not silently ride into the container as an empty string.
+- Use unprefixed environment variable names with no project prefix — e.g. `NO_PROXY`, `BOT_TOKEN`, `HOST`, `PORT`, `DATABASE_URL`. Never create names like `<PROJECT>_NO_PROXY`, `<PROJECT>_BOT_TOKEN`, `<PROJECT>_HOST`. Keep them generic so they can be shared across services in the stack.
 
 ## Editing existing files
 - If you find existing `ports:` mappings while editing a compose file for an unrelated reason, leave them as-is — don't add new ones and don't remove existing ones without being asked.

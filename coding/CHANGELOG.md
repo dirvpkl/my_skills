@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.18.0] - 2026-10-28
+- coding/docker 1.5.0: Environment variables must be unprefixed (NO_PROXY, BOT_TOKEN, HOST, etc.), never project-prefixed
+
+
 ## [1.17.0] - 2026-10-27
 - coding/docker 1.3.0: Published host ports are always random ephemeral ports, never fixed defaults like 8080:8080; services inside the compose network stay unpublished
 
