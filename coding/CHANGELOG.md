@@ -1,9 +1,5 @@
 # Changelog
 
-## [1.19.0] - 2026-10-28
-- coding/security 1.2.0: Env vars unprefixed (no project prefixes); no defaults anywhere, fail loudly on missing values
-
-
 ## [1.18.0] - 2026-10-28
 - coding/docker 1.5.0: Environment variables must be unprefixed (NO_PROXY, BOT_TOKEN, HOST, etc.), never project-prefixed
 

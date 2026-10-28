@@ -1,13 +1,12 @@
 ---
 name: security
-description: Rules for secrets, credentials, env vars, logs, browser profiles, and any access outside the project directory — when to ask before touching something, and how to handle an exposed credential. Environment variables must be unprefixed (no project prefixes), defaults are never allowed. Use whenever a task could touch a secret, a file outside the project, log output, or browser session data, not only when the user explicitly says "security."
-version: 1.2.0
+description: Rules for secrets, credentials, logs, browser profiles, and any access outside the project directory — when to ask before touching something, and how to handle an exposed credential. Use whenever a task could touch a secret, a file outside the project, log output, or browser session data, not only when the user explicitly says "security."
+version: 1.0.0
 ---
 
 # security
 
 <!-- v1 - 2026-09-06 -->
-<!-- v1.1 - 2026-10-28: env vars must be unprefixed (NO_PROXY, BOT_TOKEN, HOST, etc.), no project/app/service prefixes; no silent fallback defaults for secrets or required config anywhere. -->
 
 ## Trigger
 Any code task that could touch secrets, credentials, logs, browser profile data, or files outside the project directory. Bundled by the `coding` dispatcher on every code write/edit — see its activation manifest.
@@ -19,8 +18,7 @@ If a task requires a secret, credential, or a file outside the project directory
 - Never read, print, or pass the contents of `.env` or similar secrets files without asking the user directly first and getting an explicit yes.
 - This includes indirect reads too (e.g. cat-ing it inside a script, echoing it, dumping it into a log) — same rule applies.
 - Never log secrets in code — redact sensitive values before any print/log statement.
-- No silent fallback defaults for secrets (`.env.get("key", "fallback")`, `${KEY:-KEY_DEFAULT}`) or any required configuration. If a key is missing, fail loudly instead of quietly substituting a placeholder (see `code-quality`'s fail-loud section, the canonical definition).
-- Environment variable names must be unprefixed with no project/app/service prefix — use generic names like `NO_PROXY`, `BOT_TOKEN`, `HOST`, `PORT`, `DATABASE_URL`, `API_KEY`. Never create names like `<PROJECT>_NO_PROXY`, `<APP>_BOT_TOKEN`, `<SERVICE>_HOST`. Applies to `.env`, docker-compose, shell, code, and any configuration. No defaults — required variables must be present and validated (e.g. `${VAR:?message}` in compose), and code must fail loudly on missing values.
+- No silent fallback defaults for secrets (`.env.get("key", "fallback")`, `${KEY:-KEY_DEFAULT}`). If a key is missing, fail loudly instead of quietly substituting a placeholder (see `code-quality`'s fail-loud section, the canonical definition).
 
 ## Logs
 - Never read log files/output without asking first, even for debugging. Ask, wait for permission, then read.
