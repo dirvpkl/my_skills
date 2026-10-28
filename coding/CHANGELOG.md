@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.19.0] - 2026-10-28
+- coding/code-quality 1.7.0: Env-var discipline: unprefixed names (NO_PROXY, BOT_TOKEN, HOST...), no project prefixes, no defaults anywhere
+
+
 ## [1.18.0] - 2026-10-28
 - coding/docker 1.5.0: Environment variables must be unprefixed (NO_PROXY, BOT_TOKEN, HOST, etc.), never project-prefixed
 

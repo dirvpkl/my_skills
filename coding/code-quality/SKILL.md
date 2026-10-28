@@ -1,7 +1,7 @@
 ---
 name: code-quality
-description: Architecture, coding principles, and error-handling rules for any code write or edit — new features, refactors, and cleanup requests. Covers service separation (no god-files, no bundling worker logic into API services), no-hardcoding, DRY/KISS, fail-loud error handling, import/typing discipline, honest async signatures, single-source contracts, lint/format/type-check order, and proactive security flagging. Use this whenever code is being written or changed, not only when explicitly asked to "clean up" or "refactor."
-version: 1.6.1
+description: Architecture, coding principles, and error-handling rules for any code write or edit — new features, refactors, and cleanup requests. Covers service separation (no god-files, no bundling worker logic into API services), no-hardcoding, unprefixed env-var names with no project prefixes and no defaults, DRY/KISS, fail-loud error handling, import/typing discipline, honest async signatures, single-source contracts, lint/format/type-check order, and proactive security flagging. Use this whenever code is being written or changed, not only when explicitly asked to "clean up" or "refactor."
+version: 1.7.0
 ---
 
 <!-- v1 - 2026-09-06 -->
@@ -9,6 +9,7 @@ version: 1.6.1
 <!-- v1.2 - 2026-09-15: added no-trivial-delegating-wrapper, no-unused-parameters (protocol-required _-prefix + shared TypeAlias). -->
 <!-- v1.3 - 2026-09-15: added no-single-use-helpers, typed domain payloads, expanded single-source contracts to Exceptions/BaseModels, no exception-to-bool adapters, no duplicated SERVICE_NAME literals. -->
 <!-- v1.5 - 2026-09-26: decoupling — fresh-eyes review section removed (moved to the `fresh-eyes` skill, checklist file deleted, security rule kept here as the only owner), tier rules removed from Working order (`process-tiers` owns them). Rules themselves unchanged. -->
+<!-- v1.7 - 2026-10-28: env-var discipline — unprefixed names (NO_PROXY, BOT_TOKEN, HOST, ...), no project prefixes, no defaults anywhere. Moved here from `security` (that was config hygiene, not access protection). -->
 <!-- Continues prior content that lived under a package-wide v3 marker before the coding package moved to per-skill versioning; see coding/CHANGELOG.md. -->
 
 # code-quality
@@ -54,6 +55,8 @@ Anything built or changed under this skill assumes the `logging` skill is alread
 - This rule covers retry parameters too (max attempts, backoff) — see `external-integrations`' centralized-handling section, which is the same no-hardcoding principle applied specifically to retry logic. Don't treat retry config as a special case exempt from this section.
 - A default argument that happens to match the real production value is hidden config — it's a config value that just isn't labeled as one. Move the value into config; the function signature only references it from there.
 - Every config value lives in exactly one place. The same value repeated in a second file/module is a bug even when the two copies currently agree — they will eventually drift, silently.
+- **Environment variable names are unprefixed** — no project/app/service prefixes. Use generic names (`NO_PROXY`, `BOT_TOKEN`, `HOST`, `PORT`, `DATABASE_URL`, `API_KEY`); never `<PROJECT>_NO_PROXY`, `<APP>_BOT_TOKEN`, `<SERVICE>_HOST`. Applies to `.env`, docker-compose, shell exports, code reads, and any config file.
+- **No defaults, anywhere.** A required env var or config value must be present and fail loudly when missing — compose `${VAR:?msg}`, code raises on a missing value — never a silent `${VAR:-fallback}`, `.env.get("key", "default")`, or a default argument standing in for real config. This is the same fail-loud principle applied to configuration; it covers secrets (see `security`) and plain config alike.
 - Service identity strings (e.g. `SERVICE_NAME = "<proj>-<role>-svc"`) live once per service in its own logging/config module and are imported — never re-declared as a literal in another module. Duplicate literals across two modules, or scattered string copies of the same name, violate this; import from the owning module instead.
 
 ## Principles
