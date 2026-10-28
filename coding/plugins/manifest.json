@@ -1,6 +1,6 @@
 {
   "skill": "coding",
-  "package_version": "1.18.0",
+  "package_version": "1.19.0",
   "dependencies": [
     "base",
     "workplanx",
@@ -23,8 +23,8 @@
       "name": "Security",
       "path": "security/SKILL.md",
       "type": "core",
-      "version": "1.0.0",
-      "description": "Secrets/.env, logs, browser profile data, out-of-project access, exposed-credential handling."
+      "version": "1.2.0",
+      "description": "Secrets/.env, env vars (unprefixed, no defaults), logs, browser profile data, out-of-project access, exposed-credential handling."
     },
     {
       "id": "docker",
