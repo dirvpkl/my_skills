@@ -29,6 +29,11 @@ not "how do we get it" but "why aren't we using it".
 
 - Generate more routes than will be proposed: four to six internally, two to
   three proposed.
+- If a concept-chain map exists in the topic folder (see the researcher
+  skill's chain technique), it seeds the diverge step: every top node is a
+  route candidate. A node still earns no standing until it carries a cost
+  and a checkable condition like any other route — the map widens where to
+  look, it never substitutes for evidence.
 - Routes that were already rejected stay in the pool. Each one states why it
   was rejected and **whether that reason still holds**. A rejection that
   expired - the blocker is gone, the cost dropped, the capability appeared -

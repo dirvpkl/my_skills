@@ -19,6 +19,10 @@ them per task, it does not copy them.
   they use. Follow the chain at least two hops before querying.
 - If the user's nouns survive unchanged into the query, the abstraction
   failed — generalize again.
+- User examples also smuggle a *role* (a source of material vs. a sales
+  channel vs. a tool). Name the class and the role of every user noun
+  separately, before querying — inheriting the role unexamined narrows the
+  search in the wrong direction. One line in the topic folder: class + role.
 - Each verb gets 2-3 queries at different abstraction levels, not one
   literal query.
 

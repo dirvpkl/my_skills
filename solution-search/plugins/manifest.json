@@ -1,23 +1,26 @@
 {
   "skill": "solution-search",
-  "package_version": "1.10.0",
-  "dependencies": ["workplanx"],
+  "package_version": "1.12.0",
+  "dependencies": [
+    "workplanx",
+    "spine"
+  ],
   "modules": [
     {
       "id": "method",
       "name": "Abstract search method",
       "path": "references/method.md",
       "type": "core",
-      "version": "1.4.0",
-      "description": "Verbs, domain-neutral ladder, abstraction chains, evidence rules, serendipity capture. No product names, no domain knowledge."
+      "version": "1.5.0",
+      "description": "Verbs, domain-neutral ladder, abstraction chains, class-and-role clarity for user examples, evidence rules, serendipity capture. No product names, no domain knowledge."
     },
     {
       "id": "brainstorm",
       "name": "Brainstorm mode",
       "path": "references/brainstorm.md",
       "type": "core",
-      "version": "1.0.0",
-      "description": "The stuck case: inventory the spendable assets, diverge into routes with measurable costs, close dead ends with their evidence, converge on a pick."
+      "version": "1.1.0",
+      "description": "The stuck case: inventory the spendable assets, diverge into routes with measurable costs (concept-chain maps seed the diverge, never substitute for evidence), close dead ends with their evidence, converge on a pick."
     }
   ],
   "planned": []

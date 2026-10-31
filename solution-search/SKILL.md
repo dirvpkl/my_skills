@@ -1,7 +1,7 @@
 ---
 name: solution-search
 description: Brainstorm (aka solution-search) — pre-decision approach search for any domain ("how to do X", "what to use for X", "find me a technique for X"): decompose into verbs, walk the less-make ladder top-down with URL evidence, propose 2-3 candidates with tradeoffs and one recommendation. A second mode handles the stuck case ("what could we do about this", "run a brainstorm"): inventory the assets, diverge into routes with real costs, close the dead ends with their evidence, converge on a pick. Method only, no domain knowledge, produces a decision and never the thing itself. Use before anything is designed, built, or made.
-version: 1.10.0
+version: 1.12.0
 ---
 
 # solution-search (aka brainstorm)

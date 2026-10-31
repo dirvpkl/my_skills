@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.12.0] - 2026-10-31
+- `spine` (new sibling skill, 1.0.0) added to dependencies: ideation turns now bundle the own-take quota, labeled wild-shots, and no reflexive agreement. No rule in this skill changed — the link lives only in the manifest, replacing prose.
+
+## [1.11.0] - 2026-10-31
+- `method` (1.4.0 -> 1.5.0): class-and-role clarity for user examples — an example illustrates a class and smuggles a role (source of material vs sales channel vs tool); name both separately before querying, one line in the topic folder. Session-learned: anchoring on the user's nouns produced candidates for the wrong role entirely.
+- `brainstorm` (1.0.0 -> 1.1.0): concept-chain maps from the topic folder seed the diverge step (every top node is a route candidate); a node earns no standing without a cost and a checkable condition — the map widens where to look, never substitutes for evidence.
 ## [1.10.0] - 2026-10-21
 - Brainstorm mode added: the stuck case (what could we do about this) gets its own mechanics - inventory the spendable assets, diverge into routes with measurable costs, keep rejected routes and say whether the reason still holds, close dead ends with their evidence, converge on a pick. New module references/brainstorm.md; the default find-the-technique mode is unchanged.
 
