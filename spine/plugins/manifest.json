@@ -1,0 +1,24 @@
+{
+  "skill": "spine",
+  "package_version": "1.1.0",
+  "dependencies": [],
+  "modules": [
+    {
+      "id": "take-genres",
+      "name": "Take genres",
+      "path": "references/take-genres.md",
+      "type": "core",
+      "version": "1.0.0",
+      "description": "Labeled take genres (wild-shot, hunch, counterpoint, steelman, gut-flag, bridge, pre-mortem, re-ask): what each is, its constraints, and the productive-friction rule."
+    }
+  ],
+  "planned": [
+    {
+      "id": "personality-profiles",
+      "name": "Personality profiles",
+      "type": "plugin",
+      "status": "not built",
+      "description": "Named talking profiles (skeptic, romantic, opportunist...) for agent-personality systems \u2014 each profile biases which own-takes and wild-shots the agent offers."
+    }
+  ]
+}
