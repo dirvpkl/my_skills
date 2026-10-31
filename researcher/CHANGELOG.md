@@ -2,6 +2,13 @@
 
 All notable changes to this skill are logged here. This tracks changes to the *skill itself* (structure, behavior, modules) — not research findings (those go only in the report given to the user) and not newly-discovered research channels (those go in `references/source-log.md`).
 
+## 1.4.0 — 2026-10-31
+- `concept-chains` (new module, 1.0.0): divergent expansion for open-ended topics — seed the class, walk association-norm / user-clickstream / paper-graph datasets for *retrieved* edges only, map nodes by hop distance, demand-check the top nodes, feed them forward as seeds for prisms and brainstorm routes. Carries the session-learned fallback rule: a down graph API (502) or rate-limited sibling (429) is a routing event, not a dead end — substitute and log. Tools named as tools (association norms, clickstream dumps, OpenAlex-class graphs, embedding search); no domain examples.
+- `patterns` (1.1.1 -> 1.2.0): pointer bullet to the chain technique.
+- `sources` (1.0.0 -> 1.1.0): four channel classes added — paper repositories (with the commercialization-check rule), verified-revenue registries (with the plausibility caveat), demand radars (search-trend services, video-trend hubs, autocomplete endpoints), provider retrospectives.
+- `source-log` (1.0.0 -> 1.1.0): eight staged entries promoted into sources/concept-chains and cleared from the log, per the promotion rule.
+- SKILL.md: chain bullet in Search methodology; example-vs-role rule (examples illustrate a class and smuggle a role — source of material vs sales channel vs tool — name both separately) in the framing section.
+
 ## 1.3.1 — 2026-09-30
 - `patterns`: add the binding SearXNG rules. The block existed only in the live skills dir, edited in place, which `AGENTS.md` forbids; synced back into the repo so the repo is the source of truth again. Covers: ask for the instance address per session instead of assuming it, never read or edit `settings.yml`, and `GET <instance>/config` as the read-only way to see the enabled engine set.
 - `manifest`: `skill_version` 1.2.0 -> 1.3.1, and the `patterns` module 1.1.0 -> 1.1.1. Both had drifted from the files they describe; `validate.py` compares module versions but never compared `skill_version` against `VERSION`, so that one sat unnoticed.

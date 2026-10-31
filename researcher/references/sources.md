@@ -24,6 +24,7 @@ This is a fixed checklist of channel *types*, grouped by the source class above.
 - **News/link aggregators (Google News, Hacker News, Lobste.rs)** — treat "new" listings as a radar (see `patterns.md`), not just as a place to search a specific query. Smaller/more niche aggregators like Lobste.rs matter precisely because low reach means something can be true and posted there without having "broken out" yet.
 - **GitHub / GitLab / Codeberg (discussion side)** — issues and discussions on relevant repos, which often surface real-world usage before it's written up anywhere.
 - **Async niche formats** — newsletters (Substack, Buttondown), computational notebooks (Observable, Kaggle Notebooks), and publicly shared Notion-style docs. Structurally distinct from forums/chats: no back-and-forth thread, often single-author, but still deliberately published — worth checking as their own format, not folded into "forums."
+- **Provider retrospectives** — "how we price it / why we shut it down / year in review" posts written by the operators themselves (vendor blogs, honest pricing teardowns). Early-stage market numbers and honest failure data appear here before any SEO write-up exists.
 - **Legacy/alternative code & mod hosts** — SourceForge (older projects that never migrated to GitHub and don't rank in current searches), Steam Workshop (mods/maps deliberately published by their creators), Itch.io (indie game/software publishing, broader than just mods). Worth checking specifically because mainstream searches skew toward GitHub/current platforms and miss what's parked on these.
 
 **Artifacts / residue**
@@ -37,6 +38,10 @@ This is a fixed checklist of channel *types*, grouped by the source class above.
 
 **Registries**
 - **Aggregators/registries** — structured, non-social listings maintained by infrastructure rather than opinion: API/provider directories (e.g. OpenRouter's model list), package registries, HuggingFace model/Spaces listings, pricing pages of the services themselves. These are the "not from people" source — check them, they exist. Not limited to AI/ML — apply this same logic to whatever niche the topic is in; the class is defined by "structured reference data," not by subject matter.
+- **Paper repositories** (arXiv and field-equivalents in non-CS domains) — primary source material for academic-anchored topics. Pair every paper-anchored finding with a commercialization check (who already shipped this, open-source implementations) before reporting it as an opportunity.
+- **Verified-revenue registries and micro-business listing marketplaces** — payment-provider-verified MRR leaderboards and audited business-for-sale listings show what actually gets paid for, and at what exit multiples. Self-reported figures on them still need a plausibility check — verification by a platform is not verification of honesty.
+- **Demand radars** — search-trend services (global and per-language: each major language market has its own), video/short-form trend hubs, and retail/marketplace autocomplete endpoints (what people actually type). Read as demand signal, not content; a spike is a hypothesis to verify at the primary source.
+- **Association, clickstream and paper-graph datasets** — double as sources and as a technique: they are the walking material for concept chains (see `concept-chains.md`).
 
 ## Adding a new channel here
 New channels discovered mid-session first go into `source-log.md`, not directly here — this file is the curated, proven checklist; `source-log.md` is the staging area. Promote an entry here once it's shown up as useful more than once.

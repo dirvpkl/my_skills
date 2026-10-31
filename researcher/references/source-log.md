@@ -23,3 +23,4 @@ One line per entry:
 2026-09-22 — ANY.RUN public report search — Artifacts-residue — surfaced while researching wearedevs safety — searching "<filename>" before downloading gives sandbox verdicts (JJSploit/Meduza, Solara/Lumma); verify the exact sample, some samples from shady mirrors
 2026-09-22 — weao/WhatExpsAre.Online status tracker+API — Registries — surfaced via user tip weao.dev — live successor of WhatExploitsAre.Online with API for auto-checking statuses before launching a batch
 2026-09-22 — nexomia.win executor UNC docs — Registries — surfaced via user tip — vendor with API docs, new, no reputation; watchlist
+2026-10-31 — batch promotion — eight entries from the "what to sell" sessions promoted into `sources.md` (arxiv, verified-revenue registries, verified business listings, provider retrospective posts, demand radars) and `concept-chains.md` (association norms, clickstream dumps, paper graphs, embedding search). See CHANGELOG 1.4.0.

@@ -1,7 +1,7 @@
 ---
 name: researcher
 description: Autonomous open-ended research for surfacing recent or non-obvious findings on a topic — new releases, niche tools, buried resources, underrated services. Searches abstraction chains (topic → topic class → who else solves it), not just literal queries. Hands pre-decision choices off to solution-search (brainstorm). Not a comparison of predefined options against criteria. Triggers only on explicit request to find/dig up/check what's new on a topic.
-version: 1.3.1
+version: 1.4.0
 ---
 
 # researcher
@@ -23,7 +23,7 @@ Only on explicit user request ("find what's new on X", "dig into topic X", "what
 Not a comparison of options against criteria. The goal is to surface genuinely useful findings on a topic — things the user likely doesn't already know. A finding qualifies if it's **recent** (new release, announcement, shift in the field) **or** **non-obvious** (niche, underrated, not what shows up in a five-second search) — ideally both. Skip anything that's common knowledge, a rehash, or something the user has almost certainly already seen given their background.
 
 ## Frame the topic broadly before narrowing
-Search the underlying category first, without user-supplied constraints like "free", "cheap", "best" baked into the query — those filter out things that qualify but don't market themselves that way. Apply constraints afterward, when filtering results, not before, when forming the query. If the topic has an alternate framing (e.g. "free LLM API providers" vs "cheap GPU inference clouds to self-host on"), treat both as separate angles worth running, not as the same search.
+Search the underlying category first, without user-supplied constraints like "free", "cheap", "best" baked into the query — those filter out things that qualify but don't market themselves that way. Apply constraints afterward, when filtering results, not before, when forming the query. If the topic has an alternate framing (e.g. "free LLM API providers" vs "cheap GPU inference clouds to self-host on"), treat both as separate angles worth running, not as the same search. User-supplied examples illustrate a *class* and often smuggle in a *role* (a source of material vs. a sales channel vs. a tool) — name the class and the role separately before querying; the role is a decision, never inherited from the example.
 
 ## Process — think out loud
 This skill runs autonomously, but every step gets narrated, not just the final report. At each move, say what's happening and why:
@@ -39,6 +39,7 @@ This isn't decoration — the reasoning itself needs to be visible and followabl
 - Prioritize primary sources (official announcements, repos, changelogs, pricing pages) over rewrites and SEO content. The Registries class (pricing pages, HF listings, package registries — see `references/sources.md`) is itself primary source material, not a rewrite; the distinction that matters is structured reference data vs. opinion/rehash content, not whether something looks like a "list."
 - Prefer recent material; if something older is included because it's genuinely non-obvious, say why it's still relevant now.
 - Don't stop at the first page of results. Vary query angles (different keywords, different channel types) before concluding there's nothing more.
+- Expand open-ended topics along concept chains (association norms, clickstream datasets, paper graphs, embedding-similar search) instead of intuition — the technique and its source classes live in `references/concept-chains.md`. Log which source each retrieved edge came from.
 - Stop condition, two levels:
   - **Per angle**: if 2-3 reformulations of the same query on the same channel keep returning the same results, that angle is exhausted — move to a different channel or source class, don't keep rephrasing the same search.
   - **Overall**: wrap up once every applicable source class (Contentsphere, Artifacts/residue, Registries) has been checked at least once for this topic and recent angle-switches aren't turning up anything new — not after a fixed number of searches.
