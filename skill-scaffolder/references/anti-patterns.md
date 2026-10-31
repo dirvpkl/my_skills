@@ -31,3 +31,7 @@ If a skill produces more than one kind of record, each kind gets its own file �
 ## 6. Delivering a `.skill` file where the client won't render it
 **The mistake**: assuming every client/interface treats the `.skill` extension as a recognizable, openable file type. In practice this has failed silently in some mobile clients — the file arrives but nothing opens it.
 **The fix**: default to packaging as a plain `.zip` unless the target environment is confirmed to handle `.skill` directly (see "Packaging" in SKILL.md).
+
+## 7. Session data or personal details inside a skill
+**The mistake**: a skill carrying verbatim quotes from a working session, user-specific examples, real project or product names, machine-local paths, or actual personal details — inside SKILL.md, a reference file, or the changelog. A skill is a portable artifact published to a collection: session content is meaningless to the next user and makes the skill non-portable, and personal details leak into something that ships.
+**The fix**: write every example at the abstraction the rule states — generalize it until it carries no trace of the session that produced it. Named tools and sibling-skill references in `references/` are fine (they are part of the method); concrete domains, names, quotes, and project details are not. Session-proven cases stay where sessions log — the planning folder's log, not the skill. If a rule was learned from a session, write the *lesson*, not the *story*.

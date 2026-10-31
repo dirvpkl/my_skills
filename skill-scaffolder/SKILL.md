@@ -1,7 +1,7 @@
 ---
 name: skill-scaffolder
 description: Scaffold a new skill's file layout and restructure or extend an existing loose or flat skill into the same modular shape — SKILL.md + references/ + plugins/manifest.json + scripts/ + CHANGELOG.md + VERSION. Use when the user wants to create a new skill, turn a workflow/set of notes into a skill, reorganize existing skill files into proper modular structure, or add a reference module, script, or manifest entry to a skill that already exists. Not for evaluating or optimizing an existing well-formed skill's trigger accuracy — for that, defer to skill-creator if present.
-version: 1.0.1
+version: 1.1.0
 ---
 
 # skill-scaffolder
