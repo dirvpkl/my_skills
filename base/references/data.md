@@ -11,10 +11,14 @@ creating — an empty DB is data loss shaped like a fresh start.
 
 ## Keep the host intact
 
-The host is shared with ~30 projects. No host-level Python/pip installs
-(use the project's venv/uv or a container), no port grabs without
-checking compose files, no stray background processes. Published ports
-(`ports:`) only with an explicit same-message ask.
+The host is shared with ~30 projects. Every Python action goes through
+`uv`, never the global interpreter: run with `uv run`, add deps with
+`uv add`/`uv pip`, and if the folder has no uv environment yet, make one
+(`uv venv`, then `uv sync`). Bare global `python`/`pip` is not the tool —
+no host-level installs on top of it, no falling back to it when uv is
+"missing". Also: no port grabs without checking compose files, no stray
+background processes. Published ports (`ports:`) only with an explicit
+same-message ask.
 
 ## Tests run in docker
 

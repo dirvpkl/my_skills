@@ -1,6 +1,6 @@
 {
   "skill": "base",
-  "package_version": "1.2.3",
+  "package_version": "1.3.0",
   "dependencies": ["coding", "workplanx", "mission"],
   "modules": [
     {
@@ -16,8 +16,8 @@
       "name": "Data preservation",
       "path": "references/data.md",
       "type": "core",
-      "version": "1.0.0",
-      "description": "Volume/DB backup before migrate, host integrity, tests run in docker, catalog-skills usage. Read before touching state or running tests."
+      "version": "1.1.0",
+      "description": "Volume/DB backup before migrate, host integrity (every Python action via uv venv, never global python/pip), tests run in docker, catalog-skills usage. Read before touching state or running tests."
     }
   ],
   "planned": []

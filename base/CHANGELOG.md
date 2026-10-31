@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.0] - 2026-10-31
+- Keep-the-host-intact: every Python action via uv venv, never global python/pip; create uv venv when the folder has none
+
+
 ## [1.2.3] - 2026-10-19
 - Prefer agents over subagents in the delegation rule
 
