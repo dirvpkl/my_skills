@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.0.0] - 2026-11-07
+- universal watcher: profile contracts (read/send/cadence/never), sessions profile preserved, new skills-reminder matcher profile (the 30-min tick)
+
+
 ## [1.1.2] - 2026-10-19
 - Trigger wording: terminal preferred, schedule supported
 

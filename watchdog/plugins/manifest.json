@@ -1,15 +1,23 @@
 {
   "skill": "watchdog",
-  "package_version": "1.1.2",
+  "package_version": "3.0.0",
   "dependencies": ["loop", "workplanx"],
   "modules": [
+    {
+      "id": "profiles",
+      "name": "Tick profile catalogue",
+      "path": "references/profiles.md",
+      "type": "core",
+      "version": "1.0.0",
+      "description": "The profile contract rule (read/send/cadence/state budgets, never list) and the built-in profiles: sessions and skills-reminder."
+    },
     {
       "id": "checks",
       "name": "Supervision checks",
       "path": "references/checks.md",
       "type": "core",
       "version": "1.0.0",
-      "description": "How a check runs and how GREEN/WORKING/STALLED/BLOCKED is decided."
+      "description": "Sessions-profile check mechanics: how a check runs and how GREEN/WORKING/STALLED/HUNG/BLOCKED is decided."
     }
   ],
   "planned": []
