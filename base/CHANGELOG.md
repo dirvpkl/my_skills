@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.5.0] - 2026-11-07
+- skills-reminder tick mandated for long-running/unattended work (watchdog 3.0.0 profile)
+
+
 ## [1.4.0] - 2026-11-07
 - runtime.toml convention: machine facts next to the live catalog, always readable, working-context values
 

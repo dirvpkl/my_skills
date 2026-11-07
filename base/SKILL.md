@@ -1,7 +1,7 @@
 ---
 name: base
 description: Base operating rules for the orchestrator and every agent, always loaded — delegate by default with minimum hands-on, resolve volatile paths at runtime, ask-first on destructive/secret/out-of-scope steps, data and host integrity first. Pairs with coding on any task that executes or delegates. Never skipped to save effort.
-version: 1.4.0
+version: 1.5.0
 ---
 
 # base
@@ -64,6 +64,9 @@ nothing executed is the only exemption.
    format→lint→typecheck→tests, Conventional Commits) plus whatever the
    task needs (`workplanx` gates start, `fresh-eyes` judges the diff,
    `loop` drives iterate-until-green, `mission` decomposes goals).
+   Long-running or unattended work also runs under `watchdog` — its
+   `skills-reminder` profile (30 min) is mandatory in principle and is set
+   up at task start, never remembered mid-work.
    Overlapping rules resolve toward the stricter one; a conflict that
    blocks work is a stop-and-ask, not a silent pick.
 
