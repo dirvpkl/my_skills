@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.5.0] - 2026-11-07
+- read SearXNG instance address from runtime.toml before asking
+
+
 All notable changes to this skill are logged here. This tracks changes to the *skill itself* (structure, behavior, modules) — not research findings (those go only in the report given to the user) and not newly-discovered research channels (those go in `references/source-log.md`).
 
 ## 1.4.0 — 2026-10-31
