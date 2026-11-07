@@ -1,7 +1,7 @@
 ---
 name: base
 description: Base operating rules for the orchestrator and every agent, always loaded — delegate by default with minimum hands-on, resolve volatile paths at runtime, ask-first on destructive/secret/out-of-scope steps, data and host integrity first. Pairs with coding on any task that executes or delegates. Never skipped to save effort.
-version: 1.3.0
+version: 1.4.0
 ---
 
 # base
@@ -46,6 +46,13 @@ nothing executed is the only exemption.
    project locations come from the session directory or the user's
    message. A path frozen here is already stale. Sibling skills are
    referenced by name only; their manifests describe their contents.
+   Local facts — ports, hosts, instance addresses, model IDs, working-context
+   tokens — live in `runtime.toml` next to the live skill catalog
+   (`%USERPROFILE%/.agents/skills/runtime.toml`; gitignored everywhere,
+   shape documented by `runtime.example.toml` in the repo root). Reading it
+   is always allowed: its values are declared working context for this
+   machine/context, not secrets. Ask the user only when the needed key is
+   missing.
 4. **Ask before crossing a line.** Read `references/boundaries.md`
    before the first state-changing command and `references/data.md`
    before touching volumes, databases, hosts, or running tests. Unclear

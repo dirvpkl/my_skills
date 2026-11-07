@@ -1,0 +1,24 @@
+# runtime.toml — working context for THIS machine/context.
+#
+# Lives next to the live skill catalog (%USERPROFILE%/.agents/skills/runtime.toml),
+# never in a repository: every runtime.toml is gitignored. This example ships
+# in the repo and documents the shape.
+#
+# Values here are declared working context, not secrets — things an agent may
+# read freely instead of asking the user. Anything genuinely sensitive goes
+# behind a pointer instead of a value:
+#   token = "env:SEARXNG_TOKEN"      # read from the environment
+#   token = "keyring:service-name"   # read from the OS keyring
+#   token = "ask:"                   # ask the user at runtime
+
+[searxng]
+url = "http://127.0.0.1:8888"
+
+[crawler]
+host = "127.0.0.1"
+port = 4040
+
+[hotplug]
+# Written by the watchdog skills-reminder tick, never by the worker.
+# Skills the tick should keep pushing into active work.
+skills = []

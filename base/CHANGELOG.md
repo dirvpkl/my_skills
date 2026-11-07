@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.0] - 2026-11-07
+- runtime.toml convention: machine facts next to the live catalog, always readable, working-context values
+
+
 ## [1.3.0] - 2026-10-31
 - Keep-the-host-intact: every Python action via uv venv, never global python/pip; create uv venv when the folder has none
 

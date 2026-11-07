@@ -25,3 +25,7 @@ desktop.ini
 
 # Local deploy backups (created by scripts/deploy.py --backup, never committed)
 .deploy-backup/
+
+# Machine/context runtime facts (ports, hosts, working-context tokens).
+# Lives next to the live skill catalog; shape documented by runtime.example.toml.
+runtime.toml
