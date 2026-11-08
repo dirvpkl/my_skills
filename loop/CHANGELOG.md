@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.6.0] - 2026-11-08
+- directive description: imperative trigger + negative constraint (trigger reliability sweep)
+
+
 ## [2.5.1] - 2026-10-19
 - Trigger mechanics: prefer terminal, schedule as the second option
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.6.0] - 2026-11-08
+- directive description: imperative trigger + negative constraint (trigger reliability sweep)
+
+
 ## [1.5.0] - 2026-11-07
 - read SearXNG instance address from runtime.toml before asking
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.20.0] - 2026-11-08
+- directive description: imperative trigger + negative constraint (trigger reliability sweep)
+
+
 ## [1.19.0] - 2026-10-28
 - coding/code-quality 1.7.0: Env-var discipline: unprefixed names (NO_PROXY, BOT_TOKEN, HOST...), no project prefixes, no defaults anywhere
 

@@ -1,7 +1,7 @@
 ---
 name: coding
-description: Dispatcher for the coding skill package — routes to the right sub-skills (git-workflow, security, docker, process-tiers, code-quality, testing, logging, external-integrations, proxy-egress) for a given task. Use when writing, editing, or reviewing code.
-version: 1.19.0
+description: Dispatcher for the coding skill package — routes to the right sub-skills (git-workflow, security, docker, process-tiers, code-quality, testing, logging, external-integrations, proxy-egress) for a given task. ALWAYS invoke this skill on any task that writes, edits, reviews, or runs code, or touches infrastructure. Do not write or fix code without loading the sub-skills it routes to — use this skill first.
+version: 1.20.0
 ---
 
 # coding (dispatcher)

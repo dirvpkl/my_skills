@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.0] - 2026-11-08
+- directive description: imperative trigger + negative constraint (trigger reliability sweep)
+
+
 ## [1.0.1] - 2026-10-19
 - Judge dispatch wording: prefer agents over subagents
 

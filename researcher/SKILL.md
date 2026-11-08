@@ -1,7 +1,7 @@
 ---
 name: researcher
-description: Autonomous open-ended research for surfacing recent or non-obvious findings on a topic — new releases, niche tools, buried resources, underrated services. Searches abstraction chains (topic → topic class → who else solves it), not just literal queries. Hands pre-decision choices off to solution-search (brainstorm). Not a comparison of predefined options against criteria. Triggers only on explicit request to find/dig up/check what's new on a topic.
-version: 1.5.0
+description: Autonomous open-ended research for surfacing recent or non-obvious findings on a topic — new releases, niche tools, buried resources, underrated services. Searches abstraction chains (topic → topic class → who else solves it), not just literal queries. Hands pre-decision choices off to solution-search (brainstorm). ALWAYS invoke this skill when the user explicitly asks to find, dig up, or check what's new on a topic. Do not answer such requests from memory or with a bare one-shot web search — use this skill first. Not a comparison of predefined options against criteria.
+version: 1.6.0
 ---
 
 # researcher

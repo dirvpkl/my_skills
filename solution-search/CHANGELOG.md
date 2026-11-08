@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.13.0] - 2026-11-08
+- directive description: imperative trigger + negative constraint (trigger reliability sweep)
+
+
 ## [1.12.0] - 2026-10-31
 - `spine` (new sibling skill, 1.0.0) added to dependencies: ideation turns now bundle the own-take quota, labeled wild-shots, and no reflexive agreement. No rule in this skill changed — the link lives only in the manifest, replacing prose.
 

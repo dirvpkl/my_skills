@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.0] - 2026-11-08
+- directive description: imperative trigger + negative constraint (trigger reliability sweep)
+
+
 ## [1.2.0] - 2026-10-04
 - Wire base as mandatory dependency
 

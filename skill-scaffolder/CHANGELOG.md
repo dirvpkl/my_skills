@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.0] - 2026-11-08
+- directive description: imperative trigger + negative constraint (trigger reliability sweep)
+
+
 ## [1.1.0] - 2026-10-31
 - references/anti-patterns (1.0.0 -> 1.1.0): new anti-pattern 7 — no session data or personal details inside a skill; write the lesson, not the story; session-proven cases stay in the planning folder's log.
 
