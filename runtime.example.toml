@@ -14,9 +14,14 @@
 [searxng]
 url = "http://127.0.0.1:8888"
 
-[crawler]
-host = "127.0.0.1"
-port = 4040
+[crawl4ai]
+url = "http://127.0.0.1:11235"
+api_token = "env:CRAWL4AI_API_TOKEN"
+
+[omniroute]
+# LLM router; /v1/* needs a client key issued by omniroute itself.
+url = "http://127.0.0.1:20128"
+api_key = "ask:omniroute client key"
 
 [hotplug]
 # Written by the watchdog skills-reminder tick, never by the worker.
