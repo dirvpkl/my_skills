@@ -13,10 +13,12 @@ project = many folders, never one shared log. `.workplanx/` is gitignored.
   ladder level), fit/no-fit, pick. Zero URLs fails — except the documented
   zero-candidate path (queries logged, no suitable candidates → decided as
   `<own-make>` with the query log as reason). Optional `serendipity:` block.
-- `decision.md` — max 2-3 candidates with tradeoffs, one recommendation,
-  `user-pick:` line. The agent transcribes the user's reply verbatim into
-  this line — never invents it. No implementation starts before this line is
-  filled.
+- `decision.md` — max 2-3 candidates with tradeoffs, one recommendation, a
+  `counter:` line (the best case against that recommendation, written before
+  the pick is requested — the duel-lite check: a recommendation that cannot
+  survive its own counter is not ready), then the `user-pick:` line. The
+  agent transcribes the user's reply verbatim into this line — never invents
+  it. No implementation starts before this line is filled.
 - `log.md` — what each skill did on this task, one section per skill: what it
   did, what it found, what it deliberately left out. Append-only, never
   rewritten. This is the file that makes "other skills log to the folder, not
@@ -24,6 +26,11 @@ project = many folders, never one shared log. `.workplanx/` is gitignored.
 - `gate.log` — appended output of every `plan_gate.py` run (green or red +
   fixes). History, not a rewrite. Not a substitute for `log.md`: this is the
   gate's run history, not the work.
+- `afterword.md` — optional, written once at pass end, before `fresh-eyes`:
+  what worked, what to add, what was missing, cool-to-have, and one labeled
+  wild-shot. This is the collection audit's input (see `watchdog`'s
+  `collection-audit` profile). The gate ignores it as an extra but scans it
+  for dangling `[[links]]`.
 
 ## Contracts
 
@@ -39,6 +46,10 @@ project = many folders, never one shared log. `.workplanx/` is gitignored.
   written before solution-search 1.8.0 keep validating.
 - Phases: `plan` → `search` → `decision` → `build`. `code` is a legacy alias
   for `build`, accepted by `plan_gate.py` only — write `build` in new folders.
+- `[[wiki-links]]` — topic files may reference other topics and skills as
+  `[[target]]`; a target resolves when `<project>/.workplanx/<target>/` or
+  `<project>/<target>/` exists. The gate warns (never fails) on dangling
+  targets. Link when it helps the next reader, not for completeness.
 - **Other skills may add their own files** to the topic folder (a loop's
   contract and ledger, for example). The gate checks only the five core files
   and ignores extras, which is deliberate: a second gate policing another

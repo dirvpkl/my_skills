@@ -1,7 +1,7 @@
 ---
 name: workplanx
 description: Task plan-and-log router — every non-trivial task gets a topic folder with plan/search/decision/gate files that later skills verify structurally, plus a fresh-eyes review at the end. ALWAYS invoke this skill at task start, before any search or code, on any non-trivial task (new feature, integration, replacement, multi-step fix). Do not start working without a topic folder and do not keep task logs in chat — use this skill first.
-version: 1.6.0
+version: 1.7.0
 ---
 
 # workplanx
@@ -27,9 +27,13 @@ folder, and the gate verifies the folder's shape (not the agent's words).
    Fallback outside a project: `%TEMP%/opencode-workplanx/<topic-slug>/`.
 2. Files inside (see `references/layout.md` for contracts):
    `plan.md` → `search.md` → `decision.md` → `log.md` → `gate.log`. In that
-   order. Nothing gets built before `decision.md` has a user pick — that is
-   what the `build` phase gate checks, not something the agent is trusted to
-   remember.
+   order. `decision.md` carries a `counter:` line — the best case against
+   the agent's own recommendation, written before the `user-pick:` is
+   requested (duel-lite: adversarial self-review, not a second agent).
+   Cross-references between topic files and skills use `[[target]]`; the
+   gate warns on dangling ones. Nothing gets built before `decision.md` has
+   a user pick — that is what the `build` phase gate checks, not something
+   the agent is trusted to remember.
 3. After each phase, run `scripts/plan_gate.py --dir <topic-dir> --phase <phase>`
    (`plan` | `search` | `decision` | `build`; `code` is a legacy alias for
    `build`). Red gate = stop and write the user, don't proceed silently.
@@ -40,8 +44,10 @@ folder, and the gate verifies the folder's shape (not the agent's words).
 5. Later skills (`solution-search`, `coding`) read and extend the same folder —
    they never start a second log elsewhere.
 6. Judging finished work is not this skill's job — when the work is done and
-   checks passed, `fresh-eyes` runs. This skill only owns the folder, the
-   gate, and the log.
+   checks passed, the pass closes with `afterword.md` (what worked, what to
+   add, what was missing, cool-to-have, one labeled wild-shot), then
+   `fresh-eyes` runs. The afterword is the collection audit's input. This
+   skill only owns the folder, the gate, and the log.
 
 ## Output format
 

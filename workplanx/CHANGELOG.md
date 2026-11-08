@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.7.0] - 2026-11-08
+- counter: line (duel-lite) + [[wiki-links]] convention + afterword.md; gate warns on missing counter and dangling links
+
+
 ## [1.6.0] - 2026-11-08
 - directive description: imperative trigger + negative constraint (trigger reliability sweep)
 

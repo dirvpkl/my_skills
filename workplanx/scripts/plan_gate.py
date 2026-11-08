@@ -70,6 +70,20 @@ def gate(d: Path, phase: str):
             results.append((FAIL, "decision", "decision.md has no user pick — stop, write the user"))
         else:
             results.append((PASS, "decision", f"user pick: {pick[:60]}"))
+            if not re.search(r"^\s*counter\s*:", decision, re.M | re.I):
+                results.append((WARN, "decision", "no counter: line — best case against the recommendation missing (duel-lite)"))
+
+    body = plan + search + decision + _read(d, "log.md") + _read(d, "afterword.md")
+    links = re.findall(r"\[\[([^\]]+)\]\]", body)
+    if links:
+        root = d.parent.parent if d.parent.name == ".workplanx" else d.parent
+        dangling = [
+            t for t in links
+            if not ((root / ".workplanx" / t).exists() or (root / t).exists())
+        ]
+        if dangling:
+            more = f" (+{len(dangling) - 1} more)" if len(dangling) > 1 else ""
+            results.append((WARN, "wiki-links", f"dangling [[{dangling[0]}]]{more}"))
 
     if phase == "build" and not (d / "gate.log").exists():
         results.append((WARN, "gate.log", "no gate.log history yet — append this run"))
