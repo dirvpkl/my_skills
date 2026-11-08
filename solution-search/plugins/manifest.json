@@ -1,6 +1,6 @@
 {
   "skill": "solution-search",
-  "package_version": "1.14.0",
+  "package_version": "1.15.0",
   "dependencies": [
     "workplanx",
     "spine"

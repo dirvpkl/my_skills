@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.2.0] - 2026-11-08
+- collection-audit aggregates un-executed harvest blocks; on-demand harvest of topic-less sessions
+
+
 ## [3.1.0] - 2026-11-08
 - collection-audit profile: walks topics/skills tree/git log, proposes one patch set, one-shot by default
 

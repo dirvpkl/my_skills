@@ -63,8 +63,10 @@ patch set — add / fix drift / retire dead. Model judgment: yes.
 - Sends: one audit report — proposals only: skills worth creating, rules
   drifting between sibling skills, dead skills (no trace across recent
   topics), dangling `[[wiki-links]]`, descriptions not matching the
-  directive template. Never edits repo files, never executes its own
-  proposals.
+  directive template; un-executed `harvest:` blocks from recent topics are
+  aggregated into the same patch set. On demand ("harvest now") it
+  harvests the current session's residue into proposals even without a
+  topic folder. Never edits repo files, never executes its own proposals.
 - Cadence: rare (weekly default); mostly on demand ("прогони ревизию").
 - Never: edits skills, commits, deploys. A proposal the user approves is
   executed by a normal task, not by the audit itself.

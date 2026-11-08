@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.8.0] - 2026-11-08
+- full harvest: afterword carries a harvest: block of skill-patch proposals, user-bump gated
+
+
 ## [1.7.0] - 2026-11-08
 - counter: line (duel-lite) + [[wiki-links]] convention + afterword.md; gate warns on missing counter and dangling links
 

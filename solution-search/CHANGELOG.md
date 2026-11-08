@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.15.0] - 2026-11-08
+- fog volleys must differ in essence, not three variants of one shot
+
+
 ## [1.14.0] - 2026-11-08
 - fog mode (shot-in-the-dark): up to 3 labeled wild-shot volleys for inarticulate ideas, spine cap waived by explicit request
 

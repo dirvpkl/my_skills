@@ -1,7 +1,7 @@
 ---
 name: solution-search
 description: Brainstorm (aka solution-search) — pre-decision approach search for any domain ("how to do X", "what to use for X", "find me a technique for X"): decompose into verbs, walk the less-make ladder top-down with URL evidence, propose 2-3 candidates with tradeoffs and one recommendation. A second mode handles the stuck case ("what could we do about this", "run a brainstorm"): inventory the assets, diverge into routes with real costs, close the dead ends with their evidence, converge on a pick. ALWAYS invoke this skill before anything is designed, built, or made, and whenever the user asks how to do or what to use for something. Do not pick a stack or start building without the user's pick from this skill's candidates — use this skill first. Method only, no domain knowledge, produces a decision and never the thing itself.
-version: 1.14.0
+version: 1.15.0
 ---
 
 # solution-search (aka brainstorm)
@@ -75,7 +75,9 @@ articulate. Do not ask them to describe it — reacting to misses is easier
 than describing from scratch. Fire up to three concrete candidate
 interpretations per round, each a labeled wild-shot (spine's
 one-wild-shot-per-turn cap is waived here by the user's explicit request for
-volleys), and let them correct the misses. Corrections are data: each round
+volleys), and let them correct the misses. Shots within a volley must
+differ in essence — three variants of one interpretation are one shot read
+three times and leak nothing. Corrections are data: each round
 narrows the fog; when a real question remains, the default mode takes over
 with its verbs and ladder. Stop after two fruitless rounds and ask one
 direct question instead — volleys that keep missing are interrogation in

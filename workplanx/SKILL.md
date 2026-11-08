@@ -1,7 +1,7 @@
 ---
 name: workplanx
 description: Task plan-and-log router — every non-trivial task gets a topic folder with plan/search/decision/gate files that later skills verify structurally, plus a fresh-eyes review at the end. ALWAYS invoke this skill at task start, before any search or code, on any non-trivial task (new feature, integration, replacement, multi-step fix). Do not start working without a topic folder and do not keep task logs in chat — use this skill first.
-version: 1.7.0
+version: 1.8.0
 ---
 
 # workplanx
@@ -46,7 +46,12 @@ folder, and the gate verifies the folder's shape (not the agent's words).
 6. Judging finished work is not this skill's job — when the work is done and
    checks passed, the pass closes with `afterword.md` (what worked, what to
    add, what was missing, cool-to-have, one labeled wild-shot), then
-   `fresh-eyes` runs. The afterword is the collection audit's input. This
+   `fresh-eyes` runs. The afterword carries the harvest: a `harvest:` block
+   listing 0-N concrete skill patches born in this pass — a rule from the
+   conversation plus the skill it belongs to (`none` is a legitimate
+   harvest). Proposals wait for the user's bump and are then executed as
+   normal edits; this skill never applies them itself. The afterword is the
+   collection audit's input. This
    skill only owns the folder, the gate, and the log.
 
 ## Output format
