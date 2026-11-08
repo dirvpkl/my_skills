@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.14.0] - 2026-11-08
+- fog mode (shot-in-the-dark): up to 3 labeled wild-shot volleys for inarticulate ideas, spine cap waived by explicit request
+
+
 ## [1.13.0] - 2026-11-08
 - directive description: imperative trigger + negative constraint (trigger reliability sweep)
 

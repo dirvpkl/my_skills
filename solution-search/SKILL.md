@@ -1,7 +1,7 @@
 ---
 name: solution-search
 description: Brainstorm (aka solution-search) — pre-decision approach search for any domain ("how to do X", "what to use for X", "find me a technique for X"): decompose into verbs, walk the less-make ladder top-down with URL evidence, propose 2-3 candidates with tradeoffs and one recommendation. A second mode handles the stuck case ("what could we do about this", "run a brainstorm"): inventory the assets, diverge into routes with real costs, close the dead ends with their evidence, converge on a pick. ALWAYS invoke this skill before anything is designed, built, or made, and whenever the user asks how to do or what to use for something. Do not pick a stack or start building without the user's pick from this skill's candidates — use this skill first. Method only, no domain knowledge, produces a decision and never the thing itself.
-version: 1.13.0
+version: 1.14.0
 ---
 
 # solution-search (aka brainstorm)
@@ -27,6 +27,10 @@ side, never here.
   brainstorm", "what are our options?", or a blocker that the default mode
   already came back empty on. Same skill, different shape: see
   `references/brainstorm.md`.
+- **Fog mode (shot-in-the-dark)** — the user says they have an idea but
+  cannot describe it, or the request is deliberately vague ("there's
+  something here, I don't know what"). React, don't interrogate: see
+  Process, fog mode.
 - Does NOT trigger on executing an already-chosen approach. That belongs to
   whichever skill implements, and it loads only after `decision.md` carries a
   user pick (see `workplanx`).
@@ -66,6 +70,17 @@ their rejection still holds, close the dead ends with their evidence, then
 converge on 2-3 proposed routes with one recommendation and the `user-pick:`
 line. The mechanics are in `references/brainstorm.md`.
 
+**Fog mode (shot-in-the-dark):** when the user has an idea they cannot
+articulate. Do not ask them to describe it — reacting to misses is easier
+than describing from scratch. Fire up to three concrete candidate
+interpretations per round, each a labeled wild-shot (spine's
+one-wild-shot-per-turn cap is waived here by the user's explicit request for
+volleys), and let them correct the misses. Corrections are data: each round
+narrows the fog; when a real question remains, the default mode takes over
+with its verbs and ladder. Stop after two fruitless rounds and ask one
+direct question instead — volleys that keep missing are interrogation in
+disguise.
+
 ## Output format
 
 All output goes to the `workplanx` topic folder (see that skill's layout),
@@ -78,6 +93,8 @@ never only chat:
 - `brainstorm.md` (brainstorm mode only, this skill owns the file): the
   inventory, the routes, the closed directions with their evidence, the
   recommendation, and the open questions for the user.
+- Fog volleys live in chat only — they are reactive, not artifacts; the
+  converged question continues in the normal mode with its own files.
 
 ## Where "nothing gets made yet" is actually enforced
 
