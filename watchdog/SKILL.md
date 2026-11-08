@@ -1,7 +1,7 @@
 ---
 name: watchdog
-description: Universal supervision tick — watches something without doing its work, one loop wait-round per tick, behavior set by a profile (what it may read, what it may send, cadence). Built-in profiles: sessions (worker-session supervision — GREEN/WORKING/STALLED/BLOCKED, nudges, escalation ladder) and skills-reminder (the 30-minute matcher that argues named skills into a working agent — "you are doing X, skill Y is exactly for this"). ALWAYS invoke this skill to set up any recurring supervision tick or skill reminder; do not hand-roll scheduled nudges.
-version: 3.0.0
+description: Universal supervision tick — watches something without doing its work, one loop wait-round per tick, behavior set by a profile (what it may read, what it may send, cadence). Built-in profiles: sessions (worker-session supervision — GREEN/WORKING/STALLED/BLOCKED, nudges, escalation ladder), skills-reminder (the 30-minute matcher that argues named skills into a working agent — "you are doing X, skill Y is exactly for this"), and collection-audit (the stocktaking that walks topic folders, the skills tree, and git history, then proposes one patch set: add / fix drift / retire dead). ALWAYS invoke this skill to set up any recurring supervision tick, skill reminder, or collection audit; do not hand-roll scheduled nudges.
+version: 3.1.0
 ---
 
 # watchdog

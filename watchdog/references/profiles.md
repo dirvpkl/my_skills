@@ -51,6 +51,26 @@ Model judgment: yes.
 - Stop: the watched work ends or the user retires the tick — schedule task
   deleted in the same pass.
 
+## collection-audit
+
+The collection's stocktaking ("ревизия"): walks the residue and proposes one
+patch set — add / fix drift / retire dead. Model judgment: yes.
+
+- Reads: every `.workplanx/<topic>/` in the active project (plan, decision,
+  log, followups, `afterword.md` files), the skills tree (`SKILL.md` +
+  `plugins/manifest.json` of each installed skill), `git log` for the
+  collection repo, and the session history when reachable.
+- Sends: one audit report — proposals only: skills worth creating, rules
+  drifting between sibling skills, dead skills (no trace across recent
+  topics), dangling `[[wiki-links]]`, descriptions not matching the
+  directive template. Never edits repo files, never executes its own
+  proposals.
+- Cadence: rare (weekly default); mostly on demand ("прогони ревизию").
+- Never: edits skills, commits, deploys. A proposal the user approves is
+  executed by a normal task, not by the audit itself.
+- Stop: one-shot by default — the report delivered is the tick done; no
+  schedule task unless the user asks for recurring audits.
+
 ## Adding a profile
 
 Write it here (read budget, send budget, cadence, state, never list),

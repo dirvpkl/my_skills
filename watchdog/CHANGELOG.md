@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.1.0] - 2026-11-08
+- collection-audit profile: walks topics/skills tree/git log, proposes one patch set, one-shot by default
+
+
 ## [3.0.0] - 2026-11-07
 - universal watcher: profile contracts (read/send/cadence/never), sessions profile preserved, new skills-reminder matcher profile (the 30-min tick)
 

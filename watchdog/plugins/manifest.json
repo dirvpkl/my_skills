@@ -1,6 +1,6 @@
 {
   "skill": "watchdog",
-  "package_version": "3.0.0",
+  "package_version": "3.1.0",
   "dependencies": ["loop", "workplanx"],
   "modules": [
     {
@@ -8,8 +8,8 @@
       "name": "Tick profile catalogue",
       "path": "references/profiles.md",
       "type": "core",
-      "version": "1.0.0",
-      "description": "The profile contract rule (read/send/cadence/state budgets, never list) and the built-in profiles: sessions and skills-reminder."
+      "version": "1.1.0",
+      "description": "The profile contract rule (read/send/cadence/state budgets, never list) and the built-in profiles: sessions, skills-reminder, collection-audit."
     },
     {
       "id": "checks",
