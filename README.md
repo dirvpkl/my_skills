@@ -21,6 +21,10 @@ workplanx → solution-search → coding → testing → fresh-eyes
 (plan+gate)  (pick approach)   (build)  (prove)    (judge)
 ```
 
+Think-first requests ("давай подумаем", "обсудим идею", "как сделать X") enter
+through `thinking` — one dispatcher that loads the `solution-search + workplanx
++ spine` pack as a single obligation.
+
 Scale ladder (which driver owns the work):
 
 ```
@@ -96,6 +100,24 @@ on the executing side, never here.
   Produces a decision, never the thing — no artifacts, no scaffolding.
 - **Enforcement:** the binding check lives in `workplanx`'s build gate, not in
   this file's prose. Skip the search and the gate still blocks.
+
+### thinking — think-first dispatcher
+
+One trigger for the think-first pack: loads `solution-search` + `workplanx` +
+`spine` together instead of three separate matches. Two lanes: idea talk
+(spine stance, no folder, no gate — ceremony at talk level is a routing
+violation) and real pre-decision (topic folder + `user-pick:` gate before
+anything is built). Near-miss counterexamples included: "оцени мои проектики"
+is idea talk, judging finished work is `fresh-eyes`, executing a decided
+approach is `coding`.
+
+- **Trigger:** "давай подумаем", "побрейнштормим", "обсудим идею", "как сделать
+  X", "brainstorm", "help me think", weighing options aloud in any domain.
+  Never judging finished work (`fresh-eyes`) or executing a decided plan
+  (`coding`).
+- **Mechanics:** router only — no rules live here; division of labor is fixed
+  (spine = stance, solution-search = method, workplanx = artifact path + gate).
+  Handoff after a green gate goes by scale: `coding` / `mission` / `loop`.
 
 ### coding — dispatcher for the code package
 
@@ -272,6 +294,7 @@ my_skills/
 ├── researcher/             references/{sources,patterns,source-log}.md
 ├── skill-scaffolder/       assets/templates + scripts/scaffold.py
 ├── solution-search/        references/method.md
+├── thinking/               dispatcher: think-first bundle (solution-search + workplanx + spine)
 ├── watchdog/               references/checks.md + state/tracked.md
 └── workplanx/              references/layout.md + scripts/plan_gate.py
 ```

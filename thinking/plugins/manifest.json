@@ -1,0 +1,12 @@
+{
+  "skill": "thinking",
+  "package_version": "1.0.0",
+  "dependencies": [
+    "base",
+    "workplanx",
+    "solution-search",
+    "spine"
+  ],
+  "modules": [],
+  "planned": []
+}
