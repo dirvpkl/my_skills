@@ -1,12 +1,13 @@
 ---
 name: thinking
-description: Dispatcher for the think-first bundle — loads solution-search + workplanx + spine together for any request to think, brainstorm, or decide an approach before building. ALWAYS invoke this skill when the user says "давай подумаем", "побрейнштормим", "обсудим идею", "как лучше сделать X", "brainstorm", "help me think", "what are our options", "is there a better way", or starts weighing approaches/ideas aloud in any domain — even without an explicit "think" word. Not for judging finished work (fresh-eyes) or executing a decided approach (coding).
-version: 1.0.0
+description: Dispatcher for the think-first bundle — loads solution-search + workplanx + spine together for any request to think, brainstorm, or decide an approach before building. ALWAYS invoke this skill when the user says "давай подумаем", "побрейнштормим", "подумай", "можешь поискать чето", "надо чтобы ты…", "обсудим идею", "как лучше сделать X", "brainstorm", "help me think", "what are our options", "is there a better way", or starts weighing approaches/ideas aloud in any domain — even without an explicit "think" word. NOT for bare opinion requests with no think/search ask ("оцени мои проектики" → answer with a spine stance, no skill) and not for judging finished work (fresh-eyes) or executing a decided approach (coding).
+version: 1.1.0
 ---
 
 # thinking (dispatcher)
 
 <!-- v1 - 2026-11-11: initial release. Router only — no rules live here; the three siblings carry them. -->
+<!-- v1.1 - 2026-11-11: owner trigger family added ("подумай", "можешь поискать чето", "надо чтобы ты…"); bare opinion requests ("оцени мои проектики") explicitly routed OUT to a spine stance, not this skill. -->
 
 This file is a router, not a rulebook. It contains no method, no stance rules, no
 gate logic — those live in the sibling skills it loads. Its only job is: given a
@@ -63,8 +64,9 @@ findings in as a one-line "what to decide + which verbs" handoff.
 
 ## Near-miss counterexamples
 
-- "оцени мои проектики" (idea-level chat about projects that exist) → this
-  skill's idea-talk lane with a spine stance. NOT `fresh-eyes` — nothing was
-  built for it to judge. NOT a `workplanx` folder — no decision is pending.
+- "оцени мои проектики" (bare opinion request, no think/search ask) → answer
+  directly with a spine stance; NOT this skill — the owner sets this skill's
+  trigger family as "подумай", "можешь поискать чето", "надо чтобы ты…".
+  NOT `fresh-eyes` either — nothing was built for it to judge.
 - "оцени этот дифф / готовый проект" → `fresh-eyes`, not here.
 - "сделай X по решению из вчера" → `coding`; the `user-pick:` already exists.
