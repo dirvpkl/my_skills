@@ -1,7 +1,7 @@
 ---
 name: base
-description: Base operating rules for the orchestrator and every agent, always loaded — delegate by default with minimum hands-on, resolve volatile paths at runtime, ask-first on destructive/secret/out-of-scope steps, data and host integrity first. Pairs with coding on any task that executes or delegates. Never skipped to save effort.
-version: 1.5.0
+description: Base operating rules for the orchestrator and every agent, always loaded — delegate by default with minimum hands-on, resolve volatile paths at runtime, ask-first on destructive/secret/out-of-scope steps, data and host integrity first. Pairs with coding on any task that executes or delegates; pure reading/explaining with nothing executed is the only exemption. Never skipped to save effort: when a request routes to another skill, that skill loads on top of base, never instead of it.
+version: 1.6.0
 ---
 
 # base

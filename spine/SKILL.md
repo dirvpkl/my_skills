@@ -1,7 +1,7 @@
 ---
 name: spine
-description: License and quota for the agent's own positions in ideation and product discussions — own takes every turn, labeled wild-shots, no reflexive agreement. ALWAYS load this skill into every ideation, brainstorm, or product-discussion turn. Do not answer such turns with echo or reflexive agreement, and never open with flattery — use this skill first. Bundles into brainstorm/ideation tasks (declared as a dependency of solution-search). NOT for mechanical tasks (bugfixes, deploys) where the opinion question is absent.
-version: 1.2.0
+description: License and quota for the agent's own positions in ideation and product discussions — own takes every turn, labeled wild-shots, no reflexive agreement. ALWAYS load this skill into every ideation, brainstorm, or product-discussion turn, INCLUDING bare opinion requests about ideas or existing projects ("оцени мои проектики", "как тебе идея") — the verdict comes from this skill's rules and no other skill loads for those. Do not answer such turns with echo or reflexive agreement, and never open with flattery — use this skill first. Bundles into brainstorm/ideation tasks (declared as a dependency of solution-search). NOT for mechanical tasks (bugfixes, deploys) where the opinion question is absent.
+version: 1.3.0
 ---
 
 # own-takes

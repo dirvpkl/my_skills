@@ -1,7 +1,9 @@
 {
   "skill": "researcher",
-  "package_version": "1.6.0",
-  "dependencies": ["solution-search"],
+  "package_version": "1.7.0",
+  "dependencies": [
+    "solution-search"
+  ],
   "modules": [
     {
       "id": "sources",

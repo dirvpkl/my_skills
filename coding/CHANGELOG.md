@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.21.0] - 2026-11-11
+- Package bump: trigger contract sweep across all 9 sub-skills (descriptions only; no rule changes).
+
+## [1.21.0] - 2026-11-11
+- Trigger contract sweep: description rewritten as a use-when / not-for / sibling contract with literal user phrases; rules and body unchanged.
+
 ## [1.20.0] - 2026-11-08
 - directive description: imperative trigger + negative constraint (trigger reliability sweep)
 
