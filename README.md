@@ -63,6 +63,20 @@ integrity first. Never skipped to save effort.
   green without running is a lie; a hardcoded path that rotted is a process
   failure.
 
+### chords — personal shortcut bindings
+
+The user's shorthand phrases map straight to skills, bundles, or actions —
+one editable table (`references/bindings.md`); one phrase, the whole stack
+sounds. Row edits are data: no version bump, no gate.
+
+- **Trigger:** a bound phrase ("думалки", "пока не зелёное", "что сделано?",
+  "разложи на карточки") or talk about bindings ("what are my shortcuts",
+  "add a shortcut", "unbind X"). NOT a music skill — actual chord questions
+  are answered directly.
+- **Mechanics:** resolve same-turn and step aside — load the target as if the
+  user had typed /name; explicit /commands and skill names always win;
+  unknown binding = one line "not bound", offer to add, never guess.
+
 ### workplanx — plan-and-log router
 
 Owns the topic folder. Every non-trivial task gets
@@ -283,7 +297,9 @@ as a table of contents pointing outward (~500 lines = signal to split).
 ```
 my_skills/
 ├── README.md
+├── FOR_HARNESS_AGENTS.md   verbatim source for ~/.zcode/AGENTS.md (see "Working with this repo")
 ├── base/                   references/{boundaries,data}.md
+├── chords/                 references/bindings.md — personal shortcut bindings
 ├── coding/                 dispatcher + 9 sub-skills + package CHANGELOG/VERSION
 │   ├── code-quality/  docker/  external-integrations/  git-workflow/
 │   ├── logging/  process-tiers/  proxy-egress/  security/  testing/
@@ -312,3 +328,9 @@ my_skills/
 - Prose never duplicates the manifest: add modules/references by editing
   `references/` + registering in `plugins/manifest.json`, not by rewriting
   `SKILL.md` lists.
+- `FOR_HARNESS_AGENTS.md` is the versioned source of the user-scope harness
+  instructions — the file ZCode injects into every workspace from
+  `~/.zcode/AGENTS.md` (Windows: `C:\Users\<you>\.zcode\AGENTS.md`). After
+  editing it, install by copy: `cp FOR_HARNESS_AGENTS.md ~/.zcode/AGENTS.md`.
+  It is deliberately NOT named `AGENTS.md` — a repo-root `AGENTS.md` would be
+  picked up as this repository's own instructions instead.
