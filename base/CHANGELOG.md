@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.7.0] - 2026-11-12
+- Repo pre-flight (owner ruling 2026-11-12: "всегда проверять гит ли в папке"): `git rev-parse --is-inside-work-tree` + `git status --porcelain` before the first state-changing command in any project folder; another session's uncommitted work is flagged and routed around, never mixed into commits. Parallel/risky repo work happens in a dedicated git worktree by default — the owner never has to ask.
+
 ## [1.6.0] - 2026-11-11
 - Trigger contract sweep: description rewritten as a use-when / not-for / sibling contract with literal user phrases; rules and body unchanged.
 - trigger-log module registered (`references/trigger-log.md`): append-only log of observed trigger misses, folded back into descriptions (researcher/source-log pattern); seeded with the two 2026-11-11 session misses.

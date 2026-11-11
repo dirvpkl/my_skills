@@ -1,7 +1,7 @@
 ---
 name: base
 description: Base operating rules for the orchestrator and every agent, always loaded — delegate by default with minimum hands-on, resolve volatile paths at runtime, ask-first on destructive/secret/out-of-scope steps, data and host integrity first. Pairs with coding on any task that executes or delegates; pure reading/explaining with nothing executed is the only exemption. Never skipped to save effort: when a request routes to another skill, that skill loads on top of base, never instead of it.
-version: 1.6.0
+version: 1.7.0
 ---
 
 # base
@@ -53,14 +53,22 @@ nothing executed is the only exemption.
    is always allowed: its values are declared working context for this
    machine/context, not secrets. Ask the user only when the needed key is
    missing.
-4. **Ask before crossing a line.** Read `references/boundaries.md`
+4. **Check the repo before touching it.** In any project folder, the first
+   state-changing command comes only after `git rev-parse --is-inside-work-tree`
+   plus `git status --porcelain`: know the branch, the dirty files, and whose
+   work is in flight. Another session's uncommitted changes are never mixed
+   into your commits — flag them and route around them. For parallel sessions
+   or risky changes on one repo, work in a dedicated git worktree
+   (`git worktree add`), not the shared checkout. The owner never has to ask
+   for either check.
+5. **Ask before crossing a line.** Read `references/boundaries.md`
    before the first state-changing command and `references/data.md`
    before touching volumes, databases, hosts, or running tests. Unclear
    scope, a secret, a user-only decision, an external service, a down
    dependency, non-rotatable creds — stop that item, record the exact
    question, continue with the rest. Never route around the block, never
    do provisional work while waiting for a yes.
-5. **Run the full bundle.** `coding` (fail-loud, checks order
+6. **Run the full bundle.** `coding` (fail-loud, checks order
    format→lint→typecheck→tests, Conventional Commits) plus whatever the
    task needs (`workplanx` gates start, `fresh-eyes` judges the diff,
    `loop` drives iterate-until-green, `mission` decomposes goals).
