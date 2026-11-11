@@ -17,8 +17,9 @@ set -uo pipefail
 ROOT_DIR="${1:-$(dirname "$0")/..}"
 MANIFEST="$ROOT_DIR/plugins/manifest.json"
 
-if ! command -v python3 >/dev/null 2>&1; then
-  echo "ERROR: python3 not found — this script needs it to parse plugins/manifest.json."
+PY="$(command -v python3 || command -v python || true)"
+if [[ -z "$PY" ]]; then
+  echo "ERROR: neither python3 nor python found — this script needs one to parse plugins/manifest.json."
   exit 1
 fi
 
@@ -27,7 +28,7 @@ if [[ ! -f "$MANIFEST" ]]; then
   exit 1
 fi
 
-python3 - "$ROOT_DIR" "$MANIFEST" <<'PYEOF'
+"$PY" - "$ROOT_DIR" "$MANIFEST" <<'PYEOF'
 import json
 import re
 import sys
