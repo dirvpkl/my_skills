@@ -1,6 +1,6 @@
 {
   "skill": "workplanx",
-  "package_version": "1.8.0",
+  "package_version": "1.8.1",
   "dependencies": [
     "base"
   ],
@@ -10,8 +10,8 @@
       "name": "Topic folder layout",
       "path": "references/layout.md",
       "type": "core",
-      "version": "1.2.0",
-      "description": "Folder shape, phase list, and per-file contracts incl. log.md action log, zero-candidate path, domain-neutral ladder vocabulary, and verbatim user-pick transcription."
+      "version": "1.2.1",
+      "description": "Folder shape, phase list, and per-file contracts incl. log.md action log, zero-candidate path, domain-neutral ladder vocabulary, verbatim user-pick transcription (same line only)."
     },
     {
       "id": "plan-gate",

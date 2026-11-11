@@ -43,6 +43,9 @@ project = many folders, never one shared log. `.workplanx/` is gitignored.
 - URLs must look like URLs (`https://<host>/<path>`). Reachability is not
   checked here (that's the reviewer's job) — shape is.
 - `decision.md` without `user-pick:` blocks the build phase.
+- The gate reads only the text on the **same line** after `user-pick:` — put
+  the pick on that line, never on the next one; a pick written below the
+  colon silently fails the decision phase (regex is single-line).
 - Ladder levels are domain-neutral (`<hosted>` / `<open-project>` /
   `<component>` / `<template>` / `<own-make>`, see `solution-search`). The gate
   still accepts the older `library` / `oss` / `own-code` spellings so folders

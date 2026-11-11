@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.1] - 2026-11-11
+- layout.md contract: the decision gate reads only the same line after
+  `user-pick:` — pick text must sit on that line (harvest from the
+  11-11-captcha-traceless-story pass; a next-line pick silently failed the gate)
+
 ## [1.8.0] - 2026-11-08
 - full harvest: afterword carries a harvest: block of skill-patch proposals, user-bump gated
 

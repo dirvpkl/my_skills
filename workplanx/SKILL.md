@@ -1,7 +1,7 @@
 ---
 name: workplanx
 description: Task plan-and-log router — every non-trivial task gets a topic folder with plan/search/decision/gate files that later skills verify structurally, plus a fresh-eyes review at the end. ALWAYS invoke this skill at task start, before any search or code, on any non-trivial task (new feature, integration, replacement, multi-step fix). Do not start working without a topic folder and do not keep task logs in chat — use this skill first.
-version: 1.8.0
+version: 1.8.1
 ---
 
 # workplanx
