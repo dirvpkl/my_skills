@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.16.0] - 2026-11-11
+- Trigger contract sweep: description rewritten as a use-when / not-for / sibling contract with literal user phrases; rules and body unchanged.
+
 ## [1.15.0] - 2026-11-08
 - fog volleys must differ in essence, not three variants of one shot
 

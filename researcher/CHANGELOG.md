@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.7.0] - 2026-11-11
+- Trigger contract sweep: description rewritten as a use-when / not-for / sibling contract with literal user phrases; rules and body unchanged.
+
 ## [1.6.0] - 2026-11-08
 - directive description: imperative trigger + negative constraint (trigger reliability sweep)
 

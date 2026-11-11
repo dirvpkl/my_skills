@@ -1,5 +1,8 @@
 # Changelog
 
+## [3.3.0] - 2026-11-11
+- Trigger contract sweep: description rewritten as a use-when / not-for / sibling contract with literal user phrases; rules and body unchanged.
+
 ## [3.2.0] - 2026-11-08
 - collection-audit aggregates un-executed harvest blocks; on-demand harvest of topic-less sessions
 

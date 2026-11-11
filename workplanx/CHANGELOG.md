@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.9.0] - 2026-11-11
+- Trigger contract sweep: description rewritten as a use-when / not-for / sibling contract with literal user phrases; rules and body unchanged.
+
 ## [1.8.1] - 2026-11-11
 - layout.md contract: the decision gate reads only the same line after
   `user-pick:` — pick text must sit on that line (harvest from the
