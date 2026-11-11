@@ -1,7 +1,7 @@
 ---
 name: chords
-description: Personal shortcut bindings — the user's shorthand phrases map straight to skills, bundles, or actions. Invoke when the user uses a bound phrase ("думалки", "пока не зелёное", "что сделано?", "разложи на карточки") or asks to see, add, change, or remove bindings ("какие шорткаты", "what are my shortcuts", "add a shortcut", "запомни шорткат", "unbind X"). A binding is a key chord — one phrase, the whole stack sounds. NOT a music skill; actual chord/music questions are answered directly.
-version: 1.0.0
+description: Personal shortcut bindings — the user's shorthand phrases map straight to skills, bundles, or actions. ALWAYS invoke this skill when the user uses a bound phrase ("думалки", "пока не зелёное", "что сделано?", "разложи на карточки") or asks to see, add, change, or remove bindings ("какие шорткаты", "what are my shortcuts", "add a shortcut", "запомни шорткат", "unbind X"). A binding is a key chord — one phrase, the whole stack sounds. NOT a music skill; actual chord/music questions are answered directly.
+version: 1.1.0
 ---
 
 # chords
