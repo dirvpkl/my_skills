@@ -11,7 +11,7 @@ as bindings.
 
 | phrase (RU / EN aliases) | target | kind | note |
 |---|---|---|---|
-| "думалки", "побрейнштормим", "давай подумаем", "подумай", "можешь поискать чето" | thinking | skill | owner-canonical trigger family: "подумай / поискай / надо чтобы ты…" |
+| "думалки", "побрейнштормим", "давай подумаем", "подумай", "можешь поискать" | thinking | skill | owner-canonical trigger family: "подумай / поискай / надо чтобы ты…"; substring match covers "можешь поискать чето/скиллы/..." |
 | "перепроверь себя", "перепроверь", "чекни потом", "double-check it" | fresh-eyes | skill | finished work only |
 | "пока не зелёное", "until green", "крутись" | loop | skill | iterate until the condition holds |
 | "разложи на карточки", "это большая цель" | mission | skill | multi-session decomposition |
