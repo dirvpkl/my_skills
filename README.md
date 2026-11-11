@@ -334,3 +334,9 @@ my_skills/
   editing it, install by copy: `cp FOR_HARNESS_AGENTS.md ~/.zcode/AGENTS.md`.
   It is deliberately NOT named `AGENTS.md` — a repo-root `AGENTS.md` would be
   picked up as this repository's own instructions instead.
+- Trigger health: `python scripts/trigger_check.py --lint` mechanically checks
+  every description as a trigger contract (literal phrases, negative trigger,
+  no vague filler); `--battery` prints a fresh-agent routing prompt from
+  descriptions only; `--answers FILE` gates it at ≥90%. Observed misses go to
+  `base/references/trigger-log.md` (append-only queue), then fold back into
+  descriptions — the log is the queue, the descriptions are the fix.
