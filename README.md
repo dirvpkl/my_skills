@@ -121,9 +121,9 @@ One trigger for the think-first pack: loads `solution-search` + `workplanx` +
 `spine` together instead of three separate matches. Two lanes: idea talk
 (spine stance, no folder, no gate — ceremony at talk level is a routing
 violation) and real pre-decision (topic folder + `user-pick:` gate before
-anything is built). Near-miss counterexamples included: "оцени мои проектики"
-is idea talk, judging finished work is `fresh-eyes`, executing a decided
-approach is `coding`.
+anything is built). Near-miss counterexamples included: bare opinion requests
+("оцени мои проектики") get a direct spine-stance answer, no skill; judging
+finished work is `fresh-eyes`; executing a decided approach is `coding`.
 
 - **Trigger:** "давай подумаем", "побрейнштормим", "обсудим идею", "как сделать
   X", "brainstorm", "help me think", weighing options aloud in any domain.
