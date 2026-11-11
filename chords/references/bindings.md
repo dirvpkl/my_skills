@@ -11,9 +11,8 @@ as bindings.
 
 | phrase (RU / EN aliases) | target | kind | note |
 |---|---|---|---|
-| "думалки", "побрейнштормим", "давай подумаем" | thinking | skill | redundant by design — thinking's own trigger covers it; kept because it is the user's word |
-| "оцени мои проектики", "как тебе идеи" | thinking | skill | idea-talk lane, NOT fresh-eyes (fixed 2026-11-11) |
-| "оцени работу", "судейский", "review it" | fresh-eyes | skill | finished work only |
+| "думалки", "побрейнштормим", "давай подумаем", "подумай", "можешь поискать чето" | thinking | skill | owner-canonical trigger family: "подумай / поискай / надо чтобы ты…" |
+| "перепроверь себя", "перепроверь", "чекни потом", "double-check it" | fresh-eyes | skill | finished work only |
 | "пока не зелёное", "until green", "крутись" | loop | skill | iterate until the condition holds |
 | "разложи на карточки", "это большая цель" | mission | skill | multi-session decomposition |
 | "покопай что нового", "find what's new" | researcher | skill | explicit research request only |
