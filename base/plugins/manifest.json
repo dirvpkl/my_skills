@@ -1,7 +1,11 @@
 {
   "skill": "base",
-  "package_version": "1.5.0",
-  "dependencies": ["coding", "workplanx", "mission"],
+  "package_version": "1.6.0",
+  "dependencies": [
+    "coding",
+    "workplanx",
+    "mission"
+  ],
   "modules": [
     {
       "id": "boundaries",
@@ -18,6 +22,14 @@
       "type": "core",
       "version": "1.1.0",
       "description": "Volume/DB backup before migrate, host integrity (every Python action via uv venv, never global python/pip), tests run in docker, catalog-skills usage. Read before touching state or running tests."
+    },
+    {
+      "id": "trigger-log",
+      "name": "Trigger log",
+      "path": "references/trigger-log.md",
+      "type": "core",
+      "version": "1.0.0",
+      "description": "Append-only log of observed trigger misses (utterance, fired, should, resolution). The queue; the descriptions are the fix."
     }
   ],
   "planned": []
