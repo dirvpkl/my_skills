@@ -17,5 +17,5 @@ as bindings.
 | "разложи на карточки", "это большая цель" | mission | skill | multi-session decomposition |
 | "покопай что нового", "find what's new" | researcher | skill | explicit research request only |
 | "что сделано?", "отчитайся", "recap" | Recap the session in base's Report shape: what was done, what was refused/asked, next human action — no skill loads | action | the user asks this between work bursts |
-| "гит ворктри", "worktree", "ворктри" | coding | skill | routes to the git-workflow sub-skill (branches/worktrees live there); no standalone worktree skill exists |
+| "гит ворктри", "worktree", "ворктри" | coding | skill | routes to the git-workflow sub-skill; automatic since base 1.7.0 (repo pre-flight + worktree preference) |
 | "надо написать", "что-то написать", "напиши доку", "напиши мд", "write it up" | coding | skill | ANY writing task — even plain .md — routes to coding (owner rule 2026-11-12) |
