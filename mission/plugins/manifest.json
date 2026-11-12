@@ -1,6 +1,6 @@
 {
   "skill": "mission",
-  "package_version": "1.4.1",
+  "package_version": "1.4.2",
   "dependencies": [
     "base",
     "workplanx",

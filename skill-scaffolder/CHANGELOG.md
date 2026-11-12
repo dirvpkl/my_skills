@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.2] - 2026-11-12
+- validator template: missing-runtime.toml diagnostic and non-table [skills] guard
+
+
 ## [1.3.1] - 2026-11-12
 - manifest contract: dependencies_runtime field in validator, templates, and manifest-format reference
 

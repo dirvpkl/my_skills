@@ -1,7 +1,7 @@
 ---
 name: mission
 description: Long-running objective decomposed into a board of cards, worked card-by-card in fresh sessions, each card verified on its own — the orchestrator decomposes and judges, card sessions execute. ALWAYS invoke this skill when the user gives a goal too big for one pass ("build X", "migrate Y", "research Z thoroughly", "разложи на карточки", "это большая цель", "делаем по этапам") that needs hours across many steps, unattended. Do not attack such a goal in a single session or improvise the decomposition — use this skill first. Not for a single task, not for retrying one failing thing (that's `loop`).
-version: 1.4.1
+version: 1.4.2
 ---
 
 # mission

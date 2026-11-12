@@ -44,9 +44,21 @@ def frontmatter_version(path: Path) -> str | None:
     return v.group(1) if v else None
 
 
-def runtime_external_roots(problems: list) -> list[str]:
-    """External skill roots from runtime.toml; a broken file is a problem, never silence."""
+def runtime_external_roots(problems: list, required: bool = False) -> list[str]:
+    """External skill roots from runtime.toml; a broken file is a problem, never silence.
+
+    required=True is used when the manifest actually declares
+    dependencies_runtime: then an absent file is an error naming the fix,
+    not an empty list whose later "none declared" hides the real cause.
+    """
     if not RUNTIME_TOML.exists():
+        if required:
+            problems.append(
+                f"runtime.toml not found at {RUNTIME_TOML} — create it "
+                f"(shape: runtime.example.toml in the skill-collection repo) "
+                f"with [skills] external_roots listing the directories that "
+                f"hold the declared runtime dependencies"
+            )
         return []
     try:
         import tomllib
@@ -58,7 +70,14 @@ def runtime_external_roots(problems: list) -> list[str]:
     except Exception as e:
         problems.append(f"runtime.toml is not valid TOML: {RUNTIME_TOML}: {e}")
         return []
-    roots = data.get("skills", {}).get("external_roots", [])
+    roots_tbl = data.get("skills", {})
+    if not isinstance(roots_tbl, dict):
+        problems.append(
+            f"runtime.toml [skills] must be a table (got {type(roots_tbl).__name__}): "
+            f"{RUNTIME_TOML}"
+        )
+        return []
+    roots = roots_tbl.get("external_roots", [])
     if not isinstance(roots, list):
         problems.append(
             f"runtime.toml [skills] external_roots must be a list of paths: {RUNTIME_TOML}"
@@ -131,7 +150,10 @@ def main() -> int:
 
     runtime_deps = manifest.get("dependencies_runtime", [])
     if runtime_deps:
-        roots = [Path(r).expanduser() for r in runtime_external_roots(problems)]
+        roots = [
+            Path(r).expanduser()
+            for r in runtime_external_roots(problems, required=True)
+        ]
         for dep in runtime_deps:
             if dep == SKILL_ROOT.name:
                 problems.append(f"skill '{dep}' depends on itself")

@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.11.1] - 2026-11-12
+- validate_manifest.py: missing-runtime.toml diagnostic and non-table [skills] guard
+
+
 ## [1.11.0] - 2026-11-12
 - document dependencies_runtime: out-of-collection load-along skills resolve via runtime.toml external roots
 

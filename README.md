@@ -327,7 +327,8 @@ my_skills/
   `[skills] external_roots` entry exists on disk), dependency resolution
   (`dependencies` against sibling skill folders, `dependencies_runtime`
   against the runtime roots), skill files (frontmatter
-  name/description/version vs `VERSION`, module paths, `type` core/plugin,
+  name/description/version vs `VERSION`, module paths, `type`
+  core/plugin/reference,
   module versions vs frontmatter), and double-bracket wiki-links across
   skill markdown (dangling = warning). After editing any skill file, also
   run that skill's own validator (`validate_manifest.py`,

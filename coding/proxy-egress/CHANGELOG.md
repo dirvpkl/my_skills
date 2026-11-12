@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.3] - 2026-11-12
+- validate_manifest.py: missing-runtime.toml diagnostic and non-table [skills] guard
+
+
 ## [1.1.2] - 2026-11-12
 - validate_manifest.py: module type vocabulary (core/plugin/reference) and runtime dependency resolution
 

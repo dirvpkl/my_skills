@@ -1,7 +1,7 @@
 ---
 name: thinking
 description: Dispatcher for the think-first bundle — loads solution-search + workplanx + spine together for any request to think, brainstorm, or decide an approach before building. ALWAYS invoke this skill when the user says "давай подумаем", "побрейнштормим", "подумай", "можешь поискать чето", "надо чтобы ты…", "обсудим идею", "как лучше сделать X", "brainstorm", "help me think", "what are our options", "is there a better way", or starts weighing approaches/ideas aloud in any domain — even without an explicit "think" word. NOT for bare opinion requests with no think/search ask ("оцени мои проектики" → answer with a spine stance, no skill) and not for judging finished work (fresh-eyes) or executing a decided approach (coding).
-version: 1.1.1
+version: 1.1.2
 ---
 
 # thinking (dispatcher)

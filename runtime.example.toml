@@ -29,8 +29,10 @@ api_key = "ask:omniroute client key"
 skills = []
 
 [skills]
-# External roots for plugins/manifest.json `dependencies_runtime` names —
-# searched after the collection root; one skill folder per root entry.
-# scripts/validate.py checks the roots exist, and a runtime dependency that
-# resolves in none of them fails validation loudly, naming every root tried.
+# External roots for plugins/manifest.json `dependencies_runtime` names.
+# These names resolve ONLY against these roots — never against the collection
+# root (that is what plain `dependencies` is for); one skill folder per root
+# entry. scripts/validate.py checks the roots exist, and a runtime dependency
+# that resolves in none of them fails validation loudly, naming every root
+# tried.
 external_roots = ["~/.zcode/skills"]

@@ -77,8 +77,22 @@ def iter_skills():
 
 
 def check_runtime_toml() -> tuple[list, list]:
-    """runtime.toml: absent = WARN (unconfigured machine), broken = error."""
+    """runtime.toml: absent = WARN (unconfigured machine), broken = error.
+
+    Also parses the committed runtime.example.toml — it documents the shape
+    every operator copies, so a syntax error in it is an error even though
+    the file is only an example.
+    """
     errors, warnings = [], []
+    example = ROOT / "runtime.example.toml"
+    if example.exists():
+        try:
+            import tomllib
+            tomllib.loads(example.read_text(encoding="utf-8"))
+        except ModuleNotFoundError:
+            pass
+        except Exception as e:
+            errors.append(f"runtime.example.toml is not valid TOML: {e}")
     if not RUNTIME_TOML.exists():
         warnings.append(
             f"runtime.toml not found ({RUNTIME_TOML}) — external skill roots "
@@ -95,7 +109,14 @@ def check_runtime_toml() -> tuple[list, list]:
     except Exception as e:
         errors.append(f"runtime.toml is not valid TOML: {e}")
         return errors, warnings
-    roots = data.get("skills", {}).get("external_roots", [])
+    skills_tbl = data.get("skills", {})
+    if not isinstance(skills_tbl, dict):
+        errors.append(
+            f"runtime.toml [skills] must be a table "
+            f"(got {type(skills_tbl).__name__})"
+        )
+        return errors, warnings
+    roots = skills_tbl.get("external_roots", [])
     if not isinstance(roots, list):
         errors.append("runtime.toml [skills] external_roots must be a list of paths")
         return errors, warnings

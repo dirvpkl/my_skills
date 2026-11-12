@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.22.1] - 2026-11-12
+- validator diagnostics: name the missing runtime.toml fix, guard non-table [skills]
+
+
 ## [1.22.0] - 2026-11-12
 - dependencies_runtime field: ponytail resolves through runtime.toml external roots
 
