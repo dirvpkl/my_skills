@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.10.0] - 2026-11-11
+- Rule 5 (owner's voice): every owner directive/ruling/wish for the active
+  topic is appended to log.md verbatim, dated — not only skill-generated
+  entries. Born from the owner's ask 2026-11-11 («даже мои мысли — все в
+  workplanx»).
+
 ## [1.9.0] - 2026-11-11
 - Trigger contract sweep: description rewritten as a use-when / not-for / sibling contract with literal user phrases; rules and body unchanged.
 

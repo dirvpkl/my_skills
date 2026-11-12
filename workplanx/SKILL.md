@@ -1,7 +1,7 @@
 ---
 name: workplanx
 description: Task plan-and-log router — every non-trivial task gets a topic folder with plan/search/decision/gate files that later skills verify structurally, plus a fresh-eyes review at the end. ALWAYS invoke this skill at task start, before any search or code, on any non-trivial task (new feature, integration, replacement, multi-step fix — "давай сделаем", "реализуй", "make it happen" once a pick exists). Do not start working without a topic folder and do not keep task logs in chat — use this skill first. Trivial one-line edits are the only exemption.
-version: 1.9.0
+version: 1.10.0
 ---
 
 # workplanx
@@ -41,9 +41,17 @@ folder, and the gate verifies the folder's shape (not the agent's words).
    it found, what it left out. One entry per skill, not one per action, so the
    log stays readable at 200 skills. This is what "log to the folder" means;
    `gate.log` is only the gate's own run history and is not a substitute.
-5. Later skills (`solution-search`, `coding`) read and extend the same folder —
+5. **The owner's voice lands in the folder, not only in chat.** Every owner
+   message that carries a directive, a ruling, a correction, or a wish for
+   the active topic (including mid-task asides, walk-away authorizations,
+   and "потом сделай" thoughts) gets appended to `log.md` verbatim, quoted,
+   with a date — same day it arrives. Skill-generated entries log what the
+   agent did; this rule logs what the owner SAID. A ruling that lives only
+   in the chat transcript is lost to the next session; the folder is the
+   memory. Chat stays for the conversation — the folder stays the record.
+6. Later skills (`solution-search`, `coding`) read and extend the same folder —
    they never start a second log elsewhere.
-6. Judging finished work is not this skill's job — when the work is done and
+7. Judging finished work is not this skill's job — when the work is done and
    checks passed, the pass closes with `afterword.md` (what worked, what to
    add, what was missing, cool-to-have, one labeled wild-shot), then
    `fresh-eyes` runs. The afterword carries the harvest: a `harvest:` block
