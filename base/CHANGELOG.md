@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.7.1] - 2026-11-12
+- validate_manifest.py: dependencies_runtime resolution and module type check
+
+
 ## [1.7.0] - 2026-11-12
 - Repo pre-flight (owner ruling 2026-11-12: "всегда проверять гит ли в папке"): `git rev-parse --is-inside-work-tree` + `git status --porcelain` before the first state-changing command in any project folder; another session's uncommitted work is flagged and routed around, never mixed into commits. Parallel/risky repo work happens in a dedicated git worktree by default — the owner never has to ask.
 

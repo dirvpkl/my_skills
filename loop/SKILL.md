@@ -1,7 +1,7 @@
 ---
 name: loop
 description: Runs a task as repeated autonomous iterations until a fixed predicate holds or a stop rule fires — fresh context per iteration, state on disk instead of in conversation, progress from ledger evidence, no user-facing answer until the verdict. The predicate check is a command and/or a pre-fixed criterion (tests and deploys are examples, not the core). Covers iterate-until-met, bounded retry with a hard cap, and stagnation detection. ALWAYS invoke this skill when the user asks to keep going until X holds ("пока не зелёное", "until green", "крутись", "keep going until"), to converge a search, to run unattended for N iterations, or to retry with learning between rounds. Do not hand-roll while-loops or repeat rounds without a fixed predicate and ledger — use this skill first. Fails loud at the cap.
-version: 2.7.0
+version: 2.7.1
 ---
 
 # loop

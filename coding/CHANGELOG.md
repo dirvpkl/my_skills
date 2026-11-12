@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.22.0] - 2026-11-12
+- dependencies_runtime field: ponytail resolves through runtime.toml external roots
+
+
 ## [1.21.0] - 2026-11-11
 - Package bump: trigger contract sweep across all 9 sub-skills (descriptions only; no rule changes).
 

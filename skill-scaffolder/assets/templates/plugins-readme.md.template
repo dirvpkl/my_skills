@@ -3,7 +3,7 @@
 Discovery mechanism for this skill's modules. `SKILL.md` points here instead of hardcoding a list of reference files, so adding or removing a module never requires editing the core file.
 
 ## How discovery works
-`manifest.json` lists every active module (`type: "core"` — part of the base skill — or `type: "plugin"` — added later) plus a `planned` list of reserved-but-not-built ideas.
+`manifest.json` lists every active module (`type: "core"` — part of the base skill; `type: "plugin"` — added later; `type: "reference"` — a pure reference-doc module in a nested package manifest) plus a `planned` list of reserved-but-not-built ideas.
 
 ## Adding a module
 1. Add the file under `references/` or `plugins/`.

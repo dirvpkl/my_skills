@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.1] - 2026-11-12
+- manifest contract: dependencies_runtime field in validator, templates, and manifest-format reference
+
+
 ## [1.3.0] - 2026-11-11
 - Trigger contract sweep: description rewritten as a use-when / not-for / sibling contract with literal user phrases; rules and body unchanged.
 

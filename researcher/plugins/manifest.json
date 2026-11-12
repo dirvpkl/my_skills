@@ -1,6 +1,6 @@
 {
   "skill": "researcher",
-  "package_version": "1.7.0",
+  "package_version": "1.7.1",
   "dependencies": [
     "solution-search"
   ],

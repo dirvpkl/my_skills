@@ -1,7 +1,7 @@
 ---
 name: workplanx
 description: Task plan-and-log router — every non-trivial task gets a topic folder with plan/search/decision/gate files that later skills verify structurally, plus a fresh-eyes review at the end. ALWAYS invoke this skill at task start, before any search or code, on any non-trivial task (new feature, integration, replacement, multi-step fix — "давай сделаем", "реализуй", "make it happen" once a pick exists). Do not start working without a topic folder and do not keep task logs in chat — use this skill first. Trivial one-line edits are the only exemption.
-version: 1.10.0
+version: 1.11.0
 ---
 
 # workplanx
@@ -75,6 +75,15 @@ that relationship is written: `SKILL.md` never lists dependency names inline,
 because a hand-maintained list in prose is exactly what rots. `modules` answers
 "what files are inside this skill", `dependencies` answers "which other skills
 come with it" — different questions, don't merge them.
+
+`dependencies_runtime` is the sibling array for skills that load alongside but
+live OUTSIDE the collection (harness built-ins and the like). Those names are
+never resolved against the collection: `scripts/validate_manifest.py` resolves
+them through the external roots declared in `runtime.toml` (`[skills]
+external_roots`, next to the live catalog; shape documented in the repo's
+`runtime.example.toml`). Same rule as `dependencies` — the manifest is the only
+place the names are written, and a name that resolves nowhere fails
+validation loudly, listing every root it tried.
 
 ## Extending this skill
 

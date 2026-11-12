@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.2] - 2026-11-12
+- validate_manifest.py: module type vocabulary (core/plugin/reference) and runtime dependency resolution
+
+
 ## [1.1.1] - 2026-09-29
 - Fixed requests `proxies=None` claim: bare None behaves like omitted (env
   applies); direct happens on per-scheme None or trust_env=False. Precision

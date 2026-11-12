@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.3.1] - 2026-11-12
+- validate_manifest.py: dependencies_runtime resolution and module type check
+
+
 ## [3.3.0] - 2026-11-11
 - Trigger contract sweep: description rewritten as a use-when / not-for / sibling contract with literal user phrases; rules and body unchanged.
 

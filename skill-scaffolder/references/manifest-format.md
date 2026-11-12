@@ -11,6 +11,7 @@ Without it, a growing skill tends toward one of two failure modes: either SKILL.
   "skill": "skill-name",
   "package_version": "1.0.0",
   "dependencies": ["other-skill", "another-skill"],
+  "dependencies_runtime": ["external-builtin-skill"],
   "modules": [
     {
       "id": "short-identifier",
@@ -38,6 +39,7 @@ Without it, a growing skill tends toward one of two failure modes: either SKILL.
 
 - **`modules`** — what's *inside this skill*: reference docs, or (package-level) nested sub-skills. Read them when this skill runs.
 - **`dependencies`** — *other skills in the collection* that load alongside this one. Read them when this skill runs too, but they live in their own folders with their own `SKILL.md`.
+- **`dependencies_runtime`** — skills that load alongside this one but live *outside the collection* (harness built-ins and the like). Same "what loads with me" question as `dependencies`, different address space: those names are never resolved against the collection root. `validate_manifest.py` resolves them through the external roots declared in `runtime.toml` (`[skills] external_roots`, next to the live skill catalog — machine-local and gitignored; the repo's `runtime.example.toml` documents the shape). Optional; same shape rules as `dependencies` (names only, no self-reference), and a name that resolves in no declared root fails loudly, listing every root it searched.
 
 Putting a sibling skill into `modules` doesn't work and shouldn't be made to: the validator requires `path`/`type`/`version` and checks that the path exists, and a sibling skill has none of those. Conversely, a dependency has no manifest entry here — it's owned by its own skill.
 
@@ -57,7 +59,7 @@ This format supports two different granularities, and a skill should pick one an
 - Decide which level applies before scaffolding a manifest, and say so explicitly in the dispatcher's `SKILL.md` (see the `coding` package's own "Skill versioning" section for a worked example of the package-level case). Mixing the two — some entries pointing at reference docs, others at sub-skill `SKILL.md` files, in the same manifest — defeats the point of having one flat, predictable shape.
 
 ### Field notes
-- **`type`**: `"core"` for modules that are always loaded as part of the base skill (the original reference files it shipped with), `"plugin"` for optional modules added later. This distinction matters for anyone reading the manifest to understand what's foundational vs. what's an add-on.
+- **`type`**: `"core"` for modules that are always loaded as part of the base skill (the original reference files it shipped with), `"plugin"` for optional modules added later, `"reference"` for pure reference-doc modules in a nested package manifest (e.g. `proxy-egress`'s behavior matrix and verification docs). This distinction matters for anyone reading the manifest to understand what's foundational vs. what's an add-on — and the validator rejects any other value instead of letting a typo pass as metadata.
 - **`modules`** only lists things that exist as real files right now. Anything not yet built goes in **`planned`** instead, with `"status": "not built"` — this keeps aspirational ideas visibly separate from what's actually active, so a reader (human or model) never mistakes a planned idea for something they can currently rely on.
 - **`path`** is relative to the skill's root folder (the folder containing SKILL.md), not to `plugins/`.
 - Keep `description` to one line. If a module needs more explanation than that, the explanation belongs in the module's own file, not in the manifest.
@@ -74,8 +76,13 @@ This format supports two different granularities, and a skill should pick one an
 2. Say in your own SKILL.md *why* it loads alongside this one and what each skill owns — the manifest records the link, the prose records the division of labor. One without the other is the failure mode: a link nobody can act on, or a dependency with no documented reason.
 3. Run `scripts/validate_manifest.py` — it fails if the name doesn't resolve to a real sibling skill folder, or if a skill lists itself.
 
+## Adding a runtime dependency
+1. Add the external skill's folder name to the `dependencies_runtime` array — a name only, never a path.
+2. Confirm the directory holding it is declared in this machine's `runtime.toml` under `[skills] external_roots` (create the file from the repo's `runtime.example.toml` if this machine has none).
+3. Run `scripts/validate_manifest.py` — it fails if the name resolves in no declared root, naming every root it searched.
+
 ## Removing or disabling a module
 Delete the `modules` entry (or move it to a `disabled` array using the same shape, if it should stay documented but inactive — some skills prefer this over deletion so the history of what was tried isn't lost). Leave the underlying file in place unless it's genuinely obsolete; keeping an unused file around costs nothing, but a manifest entry pointing at a deleted file breaks validation.
 
 ## Validating
-`scripts/validate_manifest.py` (copied into every scaffolded skill from `assets/templates/`) checks: valid JSON, every module's `path` exists on disk, no duplicate `id`s, and all required fields present on every module. Run it after any manual edit to the manifest.
+`scripts/validate_manifest.py` (copied into every scaffolded skill from `assets/templates/`) checks: valid JSON, every module's `path` exists on disk, no duplicate `id`s, all required fields present, `type` in core/plugin/reference, `package_version` against the `VERSION` file, module versions against SKILL.md frontmatter, `dependencies` against sibling skill folders, and `dependencies_runtime` names against the `runtime.toml` external roots. Run it after any manual edit to the manifest; `scripts/validate.py` at the repo root wraps every skill's validator and additionally checks `runtime.toml` itself and double-bracket wiki-links across skill markdown.

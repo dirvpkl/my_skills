@@ -1,6 +1,6 @@
 {
   "skill": "fresh-eyes",
-  "package_version": "1.2.0",
+  "package_version": "1.2.1",
   "dependencies": [
     "workplanx",
     "coding"

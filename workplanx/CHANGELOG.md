@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.11.0] - 2026-11-12
+- document dependencies_runtime: out-of-collection load-along skills resolve via runtime.toml external roots
+
+
 ## [1.10.0] - 2026-11-11
 - Rule 5 (owner's voice): every owner directive/ruling/wish for the active
   topic is appended to log.md verbatim, dated — not only skill-generated

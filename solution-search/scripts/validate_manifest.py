@@ -7,10 +7,14 @@ Checks:
   - every module's "path" exists on disk, relative to the skill root
   - no duplicate module ids
   - required fields are present on every module entry
+  - a module's "type" is one of core / plugin / reference
   - "package_version" matches the root VERSION file
   - a module pointing at a SKILL.md has a "version" matching its frontmatter
   - every name in "dependencies" resolves to a real sibling skill folder
     (a folder with a SKILL.md next to this one)
+  - every name in "dependencies_runtime" resolves through an external root
+    declared in runtime.toml ([skills] external_roots, next to the live
+    skill catalog); an unresolved name fails loudly, listing every root tried
 
 Usage:
     python3 scripts/validate_manifest.py
@@ -26,7 +30,9 @@ SKILL_ROOT = Path(__file__).resolve().parent.parent
 MANIFEST_PATH = SKILL_ROOT / "plugins" / "manifest.json"
 VERSION_PATH = SKILL_ROOT / "VERSION"
 COLLECTION_ROOT = SKILL_ROOT.parent
+RUNTIME_TOML = Path.home() / ".agents" / "skills" / "runtime.toml"
 REQUIRED_FIELDS = ["id", "name", "path", "type", "version", "description"]
+MODULE_TYPES = ("core", "plugin", "reference")
 
 
 def frontmatter_version(path: Path) -> str | None:
@@ -36,6 +42,29 @@ def frontmatter_version(path: Path) -> str | None:
         return None
     v = re.search(r"^version\s*:\s*(\S+)\s*$", m.group(1), re.M)
     return v.group(1) if v else None
+
+
+def runtime_external_roots(problems: list) -> list[str]:
+    """External skill roots from runtime.toml; a broken file is a problem, never silence."""
+    if not RUNTIME_TOML.exists():
+        return []
+    try:
+        import tomllib
+    except ModuleNotFoundError:
+        problems.append("python >= 3.11 required to read runtime.toml (tomllib missing)")
+        return []
+    try:
+        data = tomllib.loads(RUNTIME_TOML.read_text(encoding="utf-8"))
+    except Exception as e:
+        problems.append(f"runtime.toml is not valid TOML: {RUNTIME_TOML}: {e}")
+        return []
+    roots = data.get("skills", {}).get("external_roots", [])
+    if not isinstance(roots, list):
+        problems.append(
+            f"runtime.toml [skills] external_roots must be a list of paths: {RUNTIME_TOML}"
+        )
+        return []
+    return [str(r) for r in roots]
 
 
 def main() -> int:
@@ -72,6 +101,12 @@ def main() -> int:
             problems.append(f"duplicate module id: '{mod['id']}'")
         seen_ids.add(mod["id"])
 
+        if mod["type"] not in MODULE_TYPES:
+            problems.append(
+                f"module '{mod['id']}' type '{mod['type']}' must be one of "
+                f"{', '.join(MODULE_TYPES)}"
+            )
+
         mod_path = SKILL_ROOT / mod["path"]
         if not mod_path.exists():
             problems.append(
@@ -93,6 +128,20 @@ def main() -> int:
             )
         if dep == SKILL_ROOT.name:
             problems.append(f"skill '{dep}' depends on itself")
+
+    runtime_deps = manifest.get("dependencies_runtime", [])
+    if runtime_deps:
+        roots = [Path(r).expanduser() for r in runtime_external_roots(problems)]
+        for dep in runtime_deps:
+            if dep == SKILL_ROOT.name:
+                problems.append(f"skill '{dep}' depends on itself")
+            found = any((root / dep / "SKILL.md").exists() for root in roots)
+            if not found:
+                searched = ", ".join(str(r) for r in roots) or "none declared"
+                problems.append(
+                    f"runtime dependency '{dep}' has no SKILL.md in any external root "
+                    f"(runtime.toml [skills] external_roots searched: {searched})"
+                )
 
     if problems:
         print("Manifest validation FAILED:", file=sys.stderr)

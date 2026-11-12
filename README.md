@@ -322,9 +322,17 @@ my_skills/
   sub-skill's meaning changes. `plugins/manifest.json` plus `VERSION` are the
   only authority — this README deliberately carries no version numbers, so
   there is nothing here to go stale.
-- After editing any skill file, run that skill's validator
-  (`validate_manifest.py`, `check_versions.sh`, `plan_gate.py`) and log the
-  bump in its `CHANGELOG.md`.
+- **Run the checker before any commit: `python scripts/validate.py` from the
+  repo root.** It checks the local `runtime.toml` (parses; every
+  `[skills] external_roots` entry exists on disk), dependency resolution
+  (`dependencies` against sibling skill folders, `dependencies_runtime`
+  against the runtime roots), skill files (frontmatter
+  name/description/version vs `VERSION`, module paths, `type` core/plugin,
+  module versions vs frontmatter), and double-bracket wiki-links across
+  skill markdown (dangling = warning). After editing any skill file, also
+  run that skill's own validator (`validate_manifest.py`,
+  `check_versions.sh`, `plan_gate.py`) and log the bump in its
+  `CHANGELOG.md`.
 - Prose never duplicates the manifest: add modules/references by editing
   `references/` + registering in `plugins/manifest.json`, not by rewriting
   `SKILL.md` lists.
