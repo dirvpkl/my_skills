@@ -1,7 +1,7 @@
 ---
 name: base
 description: Base operating rules for the orchestrator and every agent, always loaded — delegate by default with minimum hands-on, resolve volatile paths at runtime, ask-first on destructive/secret/out-of-scope steps, data and host integrity first. Pairs with coding on any task that executes or delegates; pure reading/explaining with nothing executed is the only exemption. Never skipped to save effort — when a request routes to another skill, that skill loads on top of base, never instead of it.
-version: 1.10.0
+version: 1.11.0
 ---
 
 # base
@@ -12,8 +12,6 @@ what never happens.
 
 - **references/boundaries.md** — scope limits, secrets, external services
   as black boxes, never-do list.
-- **references/data.md** — data preservation, host integrity, tests in
-  docker, catalog usage.
 - **plugins/manifest.json** — active modules and what this skill loads
   with. Check it instead of assuming.
 
@@ -71,8 +69,9 @@ nothing executed is the only exemption.
    (`git worktree add`), not the shared checkout. The owner never has to ask
    for either check.
 5. **Ask before crossing a line.** Read `references/boundaries.md`
-   before the first state-changing command and `references/data.md`
-   before touching volumes, databases, hosts, or running tests. Unclear
+   before the first state-changing command; load `boundaries` before
+   touching volumes, databases, hosts, or running tests (its
+   `references/data.md`). Unclear
    scope, a secret, a user-only decision, an external service, a down
    dependency, non-rotatable creds — stop that item, record the exact
    question, continue with the rest. Never route around the block, never

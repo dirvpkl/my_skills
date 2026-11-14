@@ -11,7 +11,7 @@ creating — an empty DB is data loss shaped like a fresh start.
 
 ## Keep the host intact
 
-The host is shared with ~30 projects. Every Python action goes through
+The host is shared: many projects live on it. Every Python action goes through
 `uv`, never the global interpreter: run with `uv run`, add deps with
 `uv add`/`uv pip`, and if the folder has no uv environment yet, make one
 (`uv venv`, then `uv sync`). Bare global `python`/`pip` is not the tool —
@@ -29,10 +29,3 @@ proves nothing about the deployed artifact. Environment-vs-code
 failures are distinguished per `testing` — a broken daemon is a
 stop-and-report, not 40 retried iterations.
 
-## Use the catalog
-
-`coding` bundle is mandatory on code tasks (quality, testing, logging,
-security, process-tiers, docker, git-workflow, integrations,
-proxy-egress). `workplanx` gates start, `fresh-eyes` judges the diff,
-`loop` drives iterate-until-green. Name them in agent prompts —
-undispatched skills don't exist for the reader.

@@ -1,6 +1,6 @@
 {
   "skill": "boundaries",
-  "package_version": "1.0.1",
+  "package_version": "1.1.0",
   "dependencies": [],
   "modules": [
     {
@@ -10,6 +10,14 @@
       "type": "reference",
       "version": "1.0.0",
       "description": "The owner's sensitive-data memo preserved verbatim: chat/transcript golden rule, form-not-values output hygiene, mask() helper, Docker leak vectors, the pre-output checklist (section 7)."
+    },
+    {
+      "id": "data",
+      "name": "Data preservation",
+      "path": "references/data.md",
+      "type": "core",
+      "version": "1.1.0",
+      "description": "Volume/DB backup before migrate, host integrity (every Python action via uv venv, never global python/pip), tests run in docker. Read before touching state or running tests."
     }
   ],
   "planned": []

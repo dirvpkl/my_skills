@@ -1,7 +1,7 @@
 ---
 name: boundaries
 description: Rules for secrets, credentials, logs, chat/transcript hygiene, browser profiles, and any access outside the project directory — when to ask before touching something, how to handle an exposed credential, and how to keep sensitive data out of chat output. Loads on ANY task that could touch a secret, sensitive data, log output, chat output, browser session data, or a file outside the project — NOT only code. Trigger phrases — "sensitive data".
-version: 1.0.1
+version: 1.1.0
 ---
 
 # boundaries
@@ -36,6 +36,8 @@ Applies whenever a rule above requires user permission (out-of-project files, se
 If a secret/credential gets exposed anywhere during the session (seen in command output, a file, a log, pasted by the user, etc.), flag it: end that response with a short, all-caps line naming which credential was exposed. Do this every time it happens, not just once.
 
 ## Chat & transcript hygiene
+Data preservation and host integrity live in `references/data.md` — read it before touching volumes, databases, hosts, or running tests.
+
 The memo's golden rule is a hard rule: **anything already in the chat or transcript is compromised.** Not "private, but careful" — compromised. Dialogue can be logged, stored, indexed, so the only question before every output is: "if a stranger reads this, what can they do with it?" The memo lives verbatim in `references/sensitive-data-memo.md`.
 
 - Before showing any command output in chat, print the FORM, not the values — result / code / errors / field presence / lengths, never field values carrying identifiers or tokens. Pipe raw output through a filter first (the memo's curl example). A URL with `?token=...` is a leaked token; Bearer headers count too.

@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.11.0] - 2026-11-15
+- references/data.md moved to `boundaries` (owner ruling: data/host
+  integrity is a boundaries concern). Process item 5 repointed; the
+  manifest data module removed; the "use the catalog" section died with
+  the move — it duplicated Process item 6.
+
 ## [1.10.0] - 2026-11-15
 - English-only rule moved here from AGENTS.md (owner: base is always
   loaded, duplication was pointless): everything written for a project is

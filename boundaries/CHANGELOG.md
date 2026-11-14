@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0] - 2026-11-15
+- Data preservation moved in from base (owner: data/host integrity is a
+  boundaries concern, not base): volumes/DB backup before migrate, host
+  integrity (uv venv, never global python/pip), tests in docker. The
+  "use the catalog" section was dropped — it duplicated base Process
+  item 6.
+
 ## [1.0.1] - 2026-11-14
 - Scaffolding (conformance pass): added minimal `plugins/manifest.json` — the sensitive-data memo is a registered module, and future memo extensions land there as new modules instead of new hand-written path references in SKILL.md. VERSION/CHANGELOG already existed; version bumped for the manifest addition.
 
