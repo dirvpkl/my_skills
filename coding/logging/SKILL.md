@@ -31,9 +31,9 @@ Writing or reviewing code that logs something, raises/handles errors that should
 - No private-helper + public-wrapper forwarding pair. A processor that only forwards to a same-named helper with no added logic is a `No trivial delegating wrapper` violation — keep one function with the processor signature and inline the logic; don't keep two names for one transformation.
 - No dangling processor params. If a processor doesn't use `logger`/`method_name`, name them `_logger`/`_method_name` and document ` # why: structlog Processor protocol` — see `code-quality` `No unused parameters` (`ruff` `ARG001/ARG002` must stay green). Bare `logger: Any` that is never read is not allowed.
 
-## Telegram as a logging/alerting channel
-- If the project already has a Telegram bot, use it as a channel for logs/alerts rather than building separate notification infra from scratch — send meaningful events/errors there instead of only writing to a log file nobody checks.
-- Forum topics, not one chat and not bare admin DMs: `critical` (crashes, security, needs-human-now), `info` (mandatory operational events — spammy by default, off only on explicit user opt-out), `service` (stats/noise, aggregated). Wiring details (thread IDs, levels, call shape) live in `external-integrations/references/telegram-topics.md` — that file is canonical, this section only states the levels.
+## External log channels (concept)
+- If the project already has an external alert channel (messenger topics, heartbeat monitor, anything pushing events outside stdout/file), use it for logs/alerts instead of building separate notification infra — meaningful events belong where a human actually looks.
+- Concept here, wiring elsewhere: what gets pushed and at what severity is this skill's concern; HOW it is wired belongs to `external-integrations`, whose references/ hold the canonical examples (owner rule: skill bodies stay concept-level, concrete examples live in files read beside them). Spam default: operational events flow generously by default, throttled only on explicit owner opt-out.
 
 ## Report
 When adding logging to something, note where it logs to (stdout/file/Telegram) and what's covered vs. what's still silent.

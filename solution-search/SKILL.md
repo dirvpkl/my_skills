@@ -1,6 +1,6 @@
 ---
 name: solution-search
-description: Brainstorm (aka solution-search) — pre-decision approach search for any domain ("how to do X", "what to use for X", "find me a technique for X", "как сделать X", "чем заменить", "is there a better way"): decompose into verbs, walk the less-make ladder top-down with URL evidence, propose 2-3 candidates with tradeoffs and one recommendation. A second mode handles the stuck case ("what could we do about this", "run a brainstorm"): inventory the assets, diverge into routes with real costs, close the dead ends with their evidence, converge on a pick. ALWAYS invoke this skill before anything is designed, built, or made, and whenever the user asks how to do or what to use for something. Do not pick a stack or start building without the user's pick from this skill's candidates — use this skill first. Method only, no domain knowledge, produces a decision and never the thing itself. The think-first dispatcher `thinking` loads this skill as part of its bundle — after thinking fires, this skill is already loaded; do not re-invoke it separately.
+description: Brainstorm (aka solution-search) — pre-decision approach search for any domain ("how to do X", "what to use for X", "find me a technique for X", "как сделать X", "чем заменить", "is there a better way") — decompose into verbs, walk the less-make ladder top-down with URL evidence, propose 2-3 candidates with tradeoffs and one recommendation. A second mode handles the stuck case ("what could we do about this", "run a brainstorm") — inventory the assets, diverge into routes with real costs, close the dead ends with their evidence, converge on a pick. ALWAYS invoke this skill before anything is designed, built, or made, and whenever the user asks how to do or what to use for something. Do not pick a stack or start building without the user's pick from this skill's candidates — use this skill first. Method only, no domain knowledge, produces a decision and never the thing itself. The think-first dispatcher `thinking` loads this skill as part of its bundle — after thinking fires, this skill is already loaded; do not re-invoke it separately. Owner phrasings also trigger — «солюшн серчер», «солюшн серч», «солюшнсерчер».
 version: 1.16.2
 ---
 
@@ -34,6 +34,8 @@ side, never here.
 - Does NOT trigger on executing an already-chosen approach. That belongs to
   whichever skill implements, and it loads only after `decision.md` carries a
   user pick (see `workplanx`).
+- Owner summon register also counts: «юзни солюшнсерчер», «брейншторминг»,
+  «юзани на последок» — same skill, any spelling.
 
 ## Process
 

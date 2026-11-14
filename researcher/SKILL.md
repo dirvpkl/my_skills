@@ -1,6 +1,6 @@
 ---
 name: researcher
-description: Autonomous open-ended research for surfacing recent or non-obvious findings on a topic — new releases, niche tools, buried resources, underrated services. Searches abstraction chains (topic → topic class → who else solves it), not just literal queries. Hands pre-decision choices off to solution-search (brainstorm). ALWAYS invoke this skill when the user explicitly asks to find, dig up, or check what's new on a topic ("покопай что нового", "копни тему", "find what's new", "what's new in X"). Do not answer such requests from memory or with a bare one-shot web search — use this skill first. Not a comparison of predefined options against criteria.
+description: Autonomous open-ended research for surfacing recent or non-obvious findings on a topic — new releases, niche tools, buried resources, underrated services. Searches abstraction chains (topic → topic class → who else solves it), not just literal queries. Hands pre-decision choices off to solution-search (brainstorm). ALWAYS invoke this skill when the user explicitly asks to find, dig up, or check what's new on a topic ("покопай что нового", "копни тему", "find what's new", "what's new in X"). Do not answer such requests from memory or with a bare one-shot web search — use this skill first. Not a comparison of predefined options against criteria. Owner phrasings also trigger — «я хочу, чтобы ты ресерчил», «поресерчить», «поищи еще сервисов/сайтов», «ресерчь новые сайты», «ресерчь», «погугли про это», «поищи в интернете про это».
 version: 1.7.2
 ---
 
@@ -15,6 +15,7 @@ Core behavior lives here. Everything else this skill draws on — channel checkl
 
 ## Trigger
 Only on explicit user request ("find what's new on X", "dig into topic X", "what's the current state of X"). Does not trigger itself on unfamiliar errors or knowledge gaps during other tasks.
+The owner's imperative form counts as explicit: «ресерчь новые сайты» (often paired with «подключай думалку»).
 
 ## Handoff to solution-search (brainstorm)
 `solution-search` is declared in this skill's `dependencies` — it loads alongside this one rather than being looked up by name at runtime. If the research question is really a pre-decision choice ("what should we build this with", "is there something ready for X") — research the abstraction chains, then hand the topic to `solution-search`: it decomposes into verbs, walks the ladder with URL evidence, and returns candidates with a user pick. Researcher surfaces findings; it never picks stacks or writes decisions. The handoff is one line in the report: what to decide + which verbs it splits into.
@@ -32,6 +33,7 @@ This skill runs autonomously, but every step gets narrated, not just the final r
 - What came back — a real lead, noise, or nothing — and what that changes about the next move.
 - When switching angles or channels, say what didn't work about the previous one.
 - When two sources disagree, say so as it's noticed, not just in the final report.
+- Before concluding "nobody built it" / "the slot is empty": run one verb-tool query per the verb-radar method in `solution-search` references (thing + verb + tool-class) — the ManyCP lesson: the occupied slot was invisible to object-search.
 
 This isn't decoration — the reasoning itself needs to be visible and followable step by step, not just the output at the end.
 

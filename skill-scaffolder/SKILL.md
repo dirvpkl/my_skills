@@ -1,6 +1,6 @@
 ---
 name: skill-scaffolder
-description: Scaffold a new skill's file layout and restructure or extend an existing loose or flat skill into the same modular shape — SKILL.md + references/ + plugins/manifest.json + scripts/ + CHANGELOG.md + VERSION. ALWAYS invoke this skill when creating a new skill ("создай скилл", "turn this into a skill", "new skill for X"), reorganizing skill files into proper modular structure, or adding a reference module, script, or manifest entry to a skill that already exists. Do not hand-assemble a skill folder or invent its layout — use this skill first. Not for evaluating or optimizing an existing well-formed skill's trigger accuracy — for that, defer to skill-creator if present.
+description: Scaffold a new skill's file layout and restructure or extend an existing loose or flat skill into the same modular shape — SKILL.md + references/ + plugins/manifest.json + scripts/ + CHANGELOG.md + VERSION. ALWAYS invoke this skill when creating a new skill ("создай скилл", "turn this into a skill", "new skill for X"), reorganizing skill files into proper modular structure, or adding a reference module, script, or manifest entry to a skill that already exists. Do not hand-assemble a skill folder or invent its layout — use this skill first. Not for evaluating or optimizing an existing well-formed skill's trigger accuracy — for that, defer to skill-creator if present. Owner phrasings also trigger — «хочу скилл подготовить», «допили скиллы», «поправь скилл».
 version: 1.3.2
 ---
 
@@ -40,6 +40,8 @@ skill-name/
 ```
 Not every skill needs all of these — see "Scaling the layout down" below. But when in doubt, this is the full shape, and it's easier to omit an empty folder than to retrofit one in later.
 
+Every scaffolded skill ships `references\examples.md` (3–5 good/bad pairs with rationales) — the owner's convention: examples teach HOW the skill applies; scaled-down skills may fold the pairs into SKILL.md itself.
+
 ## Process
 1. **Understand what the skill is for.** Ask (or infer from conversation) what the skill should do, when it should trigger, and roughly how it should work — same intent-capture as any skill-writing task. Don't skip straight to file structure before this is clear; structure follows content, not the other way around.
 2. **Check for existing material.** If the user already has a draft (a single .md file, a doc, a set of loose notes) — read it fully before scaffolding. Restructuring existing content is the common case, not writing from zero.
@@ -52,6 +54,23 @@ Not every skill needs all of these — see "Scaling the layout down" below. But 
 
 ## Separating instructions from history from logs
 This is the single most common mess in ad-hoc skills, worth calling out on its own: a skill's core instructions (SKILL.md), its own change history (CHANGELOG.md), and any *runtime data it produces or logs while doing its job* (a findings log, a discovered-sources log, a session tracker) are three different things and belong in three different places. A single ambiguous line like "mention a good find at the end" invites confusion about which of these three it means. When scaffolding, if the skill's job involves producing or accumulating any kind of log, give it its own named file in `references/` (or a dedicated `state/` folder if it's meant to be read back and updated across runs) with a short doc at the top of that file saying explicitly what does and doesn't belong there — see `references/anti-patterns.md` for a concrete before/after.
+
+## Commands and chords (harness-agnostic)
+
+A skill's `name` IS its explicit command in any harness that maps `/<name>`
+to the skill invocation — no extra wiring exists at the skill level, and
+none belongs here. Two trigger layers live above the skill, both
+harness-agnostic data, not code:
+
+- **Chords** (the `chords` skill's `references/bindings.md`) — the owner's
+  phrasal triggers, substring-matched, routing to a skill, a bundle of
+  skills, or a plain action. When scaffolding a skill, suggest 2–3 owner
+  phrasings for that table and record the canonical `/<name>` form in the
+  row's note — an explicit /command always wins over a chord on collision.
+- **Slash commands** — harness-native config. The skill never embeds
+  harness-specific command setup (registration paths, client files); if the
+  current harness needs command registration, point the owner to that
+  harness's own docs. The skill stays portable.
 
 ## Scaling the layout down
 Not every skill needs the full shape:

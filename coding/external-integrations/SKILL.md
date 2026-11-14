@@ -76,19 +76,20 @@ This skill ships no checker of its own — the rules above are verified by:
 What used to be script checks now lives as plain rules in this file and in
 `references/telegram-topics.md` — read them, don't grep around them.
 
-## Telegram forum topics — wiring only
+## External channels — wiring only
 
-The three levels (`critical` / `info` / `service`) and the spam policy are
-defined once, in `logging`. This file only owns how a thread ID gets wired and
-called, and the canonical copy-paste example is
-`references/telegram-topics.md`. Don't restate the level rules here — that's
-how two lists end up disagreeing about what's mandatory.
+External log/alert channels (messenger topics, heartbeat monitors) are the
+wiring half of `logging` — that skill owns what gets pushed and at what
+severity, this one owns HOW. Concrete examples live in `references/`
+(`telegram-topics.md` is the canonical copy-paste wiring), never inline in
+a skill body: the agent reads the whole skill folder anyway, so the
+example file is the single place the specifics live.
 
-- Thread routing is by `message_thread_id`, markdown via `parse_mode`. Don't
-  re-derive this from memory — start from `references/telegram-topics.md`, put
-  thread IDs in config (not code), adapt text only.
-- Telegram sending itself goes through the established bot lib with centralized
-  retry (see below) — never a hand-rolled `requests.post` to `api.telegram.org`.
+- Start from the reference file, put IDs in config (not code), adapt text
+  only — don't re-derive wiring from memory; freestyled params drift.
+- Channel sending goes through the established client lib with centralized
+  retry (see below) — never a hand-rolled `requests.post` to the platform
+  API.
 
 ## Uptime-kuma heartbeat (long-running services)
 

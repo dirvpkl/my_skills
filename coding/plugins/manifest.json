@@ -1,34 +1,21 @@
 {
   "skill": "coding",
-  "package_version": "1.22.1",
+  "package_version": "1.22.2",
   "dependencies": [
     "base",
     "workplanx",
     "solution-search",
     "fresh-eyes",
     "loop",
-    "mission"
+    "mission",
+    "boundaries",
+    "proxy-egress",
+    "git-workflow"
   ],
   "dependencies_runtime": [
     "ponytail"
   ],
   "modules": [
-    {
-      "id": "git-workflow",
-      "name": "Git workflow",
-      "path": "git-workflow/SKILL.md",
-      "type": "core",
-      "version": "1.0.0",
-      "description": "Commit discipline, branching, merge gating, .gitignore hygiene, dependency-upgrade caution."
-    },
-    {
-      "id": "security",
-      "name": "Security",
-      "path": "security/SKILL.md",
-      "type": "core",
-      "version": "1.0.0",
-      "description": "Secrets/.env, logs, browser profile data, out-of-project access, exposed-credential handling."
-    },
     {
       "id": "docker",
       "name": "Docker networking",
@@ -76,14 +63,6 @@
       "type": "core",
       "version": "1.6.0",
       "description": "Wiring-only for a decided integration (retry, docs-first, Telegram topics, heartbeat, portrait defaults). No search, no stack picks."
-    },
-    {
-      "id": "proxy-egress",
-      "name": "Proxy egress",
-      "path": "proxy-egress/SKILL.md",
-      "type": "core",
-      "version": "1.1.3",
-      "description": "Mandatory outbound proxy with no silent direct fallbacks. Per-client-library proxy behavior, fallback hunting with grep patterns, live verification from inside a container. Asks where the proxy lives rather than hardcoding it."
     }
   ],
   "planned": []

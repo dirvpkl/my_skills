@@ -64,3 +64,31 @@ project = many folders, never one shared log. `.workplanx/` is gitignored.
   described.
 - Topic slug: `<date>-<short-topic>` (e.g. `09-22-<topic>`). Keep it
   filesystem-safe, lowercase, hyphens.
+
+## Hashtag vocabulary
+
+Single-word `#tags` agents may drop inline in any topic file (log.md,
+decision.md, afterword.md, plan/search notes). They are rg-searchable
+markers for the recap collector — `rg -n "#gem" <project>/.workplanx/` —
+not decoration: write one where the thing it names actually happens.
+
+- `#gem` — a unique find that passed the stock test.
+- `#wildshot` — labeled intuition, not evidence.
+- `#slot` — a lost fragment awaiting owner recall; recorded so nothing is
+  lost.
+- `#harvest` — a skill patch born in this pass.
+- `#open` — an open question for the owner.
+- `#decision` — an owner verdict.
+
+## Owner-message logging (agent-driven)
+
+The owner ruled (2026-11-14): no per-message harness hook — the AGENT does
+the logging itself, as turn hygiene. After an owner message that carries a
+decision, ruling, task or verbatim-worth material, pipe it through
+`scripts/log_owner_message.py` (message on stdin) — it appends verbatim to
+`$WORKPLANX_TOPIC/log.md` when the session pins a topic, else to
+`<project>/.workplanx/_inbox/<date>.md` (the session inbox). Direct append
+works too; the script just keeps the format uniform. The inbox is a
+first-class source for recap and handoff — read it before claiming what a
+session did or decided. (The harness hook registration was removed the same
+day by owner ruling; the script stays as the agent's tool.)

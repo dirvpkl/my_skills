@@ -21,6 +21,14 @@
       "type": "core",
       "version": "1.1.0",
       "description": "The stuck case: inventory the spendable assets, diverge into routes with measurable costs (concept-chain maps seed the diverge, never substitute for evidence), close dead ends with their evidence, converge on a pick."
+    },
+    {
+      "id": "verb-radar",
+      "name": "Verb radar (folded)",
+      "path": "references/verb-radar.md",
+      "type": "core",
+      "version": "1.0.0",
+      "description": "Search the tool of the verb, not the thing (folded from the radar skill 2026-11-14 per owner: combine with brainstorm/solution-search). Founding case: references/case-verb-radar.md."
     }
   ],
   "planned": []

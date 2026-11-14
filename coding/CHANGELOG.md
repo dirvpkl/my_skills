@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.22.2] - 2026-11-14
+- Split: `security` -> top-level `boundaries` skill (same rules, universal scope, extended with the owner's sensitive-data memo kept verbatim in its references/); `proxy-egress` -> top-level skill (Trigger gained the owner's proxy nuance: not always needed — ask; coding + autonomous = always proxy); `git-workflow` -> top-level skill (project-agnostic trigger: any version-controlled work, not only code). All three removed from `modules` and added to `dependencies` — they remain mandatory for coding (owner condition). In-package modules now: docker, process-tiers, code-quality, testing, logging, external-integrations.
+
 ## [1.22.1] - 2026-11-12
 - validator diagnostics: name the missing runtime.toml fix, guard non-table [skills]
 

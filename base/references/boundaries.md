@@ -2,6 +2,13 @@
 
 Read before the first state-changing command.
 
+> The full operational security ruleset (secrets/.env/logs/browser data/
+> out-of-scope protocol/exposed-credential flags + the chat & transcript
+> hygiene memo) lives in the `boundaries` skill — load it whenever a task
+> could touch any of those. This file keeps the base-level principles that
+> are always loaded; the skill is the ruleset. One source per rule: base
+> = principles, skill = operations.
+
 ## Assigned scope only
 
 Work inside the projects named in the task. Anything else — sibling

@@ -1,0 +1,1 @@
+2026-11-14T12:42:43.802659 UnicodeEncodeError('utf-8', '## [12:42] owner\r\n\r\nÑ‚ÐµÑ\udc81Ñ‚ Ñ…ÑƒÐºÐ°, Ñ\udc81Ð¾Ð»Ð½Ñ‹ÑˆÐºÐ¾\r\n\r\n', 25, 26, 'surrogates not allowed')
