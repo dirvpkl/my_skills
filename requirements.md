@@ -13,18 +13,17 @@ skill: `[Skill](where-from)` — what it is for — plus replacement notes.
   skill/action ("think it through", "what's done?"). Replaces
   "remember my habits".
 
-## Think-first (thinking package)
+## Think-first (loaded by the think-first chord)
 
-- [thinking](./thinking/SKILL.md) — dispatcher for think-first skills;
-  carries no rules itself, loads the trio below in one bundle.
-  (NOTE: folder deleted 2026-11-14, folded into the think-first
-  mega-bundle chord — entry kept for history, link is dead.)
 - [solution-search](./solution-search/SKILL.md) — the method for finding
   an approach: verbs, the less-make ladder, URL evidence, 2-3 candidates.
 - [spine](./spine/SKILL.md) — own position in ideation: a take every
   turn, labeled wild-shots, no reflexive agreement or flattery.
 - [workplanx](./workplanx/SKILL.md) — topic folder
   (plan/search/decision/log/gate) + the owner's voice in the log (1.10.0).
+
+(replaced: [thinking] dispatcher — folder deleted 2026-11-14, folded
+into the think-first mega-bundle chord; history in _graveyard.)
 
 ## Code (coding package)
 
@@ -65,6 +64,13 @@ skill: `[Skill](where-from)` — what it is for — plus replacement notes.
   card-by-card in card sessions.
 - [loop](./loop/SKILL.md) — run a task in iterations until a green
   predicate.
+- [handoff](./handoff/SKILL.md) — context handover between agents: one
+  self-sufficient file so a fresh agent continues without the conversation.
+- [recap](./recap/SKILL.md) — project recap collector: rebuilds the
+  story from records (workplanx topics, chat thread), not from memory.
+- [skill-scaffolder](./skill-scaffolder/SKILL.md) — scaffolds a new
+  skill's file layout (SKILL.md + manifest + references + VERSION) and
+  restructures loose skills into the modular shape.
 - [researcher](./researcher/SKILL.md) — autonomous research for new/niche
   findings on a topic.
 - [watchdog](./watchdog/SKILL.md) — supervision tick over a
@@ -73,6 +79,13 @@ skill: `[Skill](where-from)` — what it is for — plus replacement notes.
   stock gate + six criteria (lens/staleness/actionability/cost/verifiability),
   verdict blocks. Replaces nothing; researcher finds — roi prices what was
   found.
+
+## Domain-specific
+
+- [davinci-editing](./davinci-editing/SKILL.md) — rules for driving
+  DaVinci Resolve Studio via davinci-resolve-mcp: preflight, rollback
+  points, destructive operations only with explicit confirmation. Loads
+  on any Resolve task.
 
 ## Built-in, outside the collection folder
 
