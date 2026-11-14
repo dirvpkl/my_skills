@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0] - 2026-11-15
+- Lean manifest convention (owner ruling: the manifest must not duplicate
+  what the project already contains): {skill, dependencies, planned} only —
+  modules, package_version and dependencies_runtime are gone. Validator
+  shipping removed (repo-wide scripts/validate.py is the one validator);
+  scaffold.py stops copying it; manifest-format.md rewritten.
+
 ## [1.3.2] - 2026-11-12
 - validator template: missing-runtime.toml diagnostic and non-table [skills] guard
 

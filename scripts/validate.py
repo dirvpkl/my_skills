@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Repo-wide skill validation.
+"""Repo-wide skill validation — the ONE validator (owner ruling 2026-11-15:
+per-skill validate_manifest.py copies are deleted; this walk does all checks).
 
 For every directory under the repo root that contains a SKILL.md:
   1. frontmatter has name, description, version;
   2. VERSION file (if present) matches the frontmatter version;
-  3. the skill's own scripts/validate_manifest.py (if present) passes.
-
-Repo-side checks that run alongside the per-skill walk:
-  4. a skill's own runtime.toml (next to its SKILL.md, gitignored) parses,
-     and a skill declaring dependencies_runtime has [skills] external_roots
-     pointing at existing directories (absent file without such a
-     declaration is fine: the skill simply needs no runtime values);
+  3. plugins/manifest.json (if present) follows the LEAN shape:
+     {skill, dependencies, planned} — no modules, no package_version,
+     no dependencies_runtime (legacy keys = WARN); every dependency
+     resolves to a sibling skill folder; planned entries carry an id;
+  4. the skill's own runtime.toml (if present) parses — per-skill machine
+     values, gitignored;
   5. double-bracket wiki-links in skill markdown resolve to a topic or
      repo directory (dangling = WARN, workplanx semantics; backticked
      mentions are documentation, not links, and are skipped — so are
@@ -29,11 +29,11 @@ Exit 0 = clean, 1 = problems found.
 import argparse
 import json
 import re
-import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+LEGACY_MANIFEST_KEYS = ("modules", "package_version", "dependencies_runtime")
 
 
 def frontmatter(path: Path) -> dict:
@@ -50,18 +50,13 @@ def frontmatter(path: Path) -> dict:
 
 
 def registered_in_parent(d: Path) -> bool:
-    """True when d is a sub-skill registered as a module of its parent package."""
-    if not (d.parent / "SKILL.md").exists():
-        return False
-    parent_manifest = d.parent / "plugins" / "manifest.json"
-    if not parent_manifest.exists():
-        return False
-    try:
-        data = json.loads(parent_manifest.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        return False
-    want = f"{d.name}/SKILL.md"
-    return any(m.get("path") == want for m in data.get("modules", []))
+    """True when d is a sub-skill nested under a parent skill folder.
+
+    The parent folder carrying a SKILL.md is the whole registration since
+    the lean-manifest convention (2026-11-15) removed module lists — the
+    folder layout is the module list.
+    """
+    return (d.parent / "SKILL.md").exists()
 
 
 def iter_skills():
@@ -76,15 +71,51 @@ def iter_skills():
         yield d
 
 
+def check_manifest(d: Path, rel: str) -> tuple[list, list]:
+    """LEAN manifest shape: {skill, dependencies, planned} only.
+
+    dependencies resolve to sibling skill folders; legacy keys
+    (modules/package_version/dependencies_runtime) warn — the convention
+    is dead since 2026-11-15.
+    """
+    errors, warnings = [], []
+    manifest = d / "plugins" / "manifest.json"
+    if not manifest.exists():
+        return errors, warnings
+    try:
+        data = json.loads(manifest.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as e:
+        return [f"{rel}: manifest.json invalid JSON: {e}"], []
+
+    for key in LEGACY_MANIFEST_KEYS:
+        if key in data:
+            warnings.append(
+                f"{rel}: manifest has legacy key '{key}' — lean shape since "
+                f"2026-11-15 is {{skill, dependencies, planned}}"
+            )
+    if "skill" in data and data["skill"] != d.name:
+        errors.append(f"{rel}: manifest 'skill' is '{data['skill']}' but the folder is '{d.name}'")
+    deps = data.get("dependencies", [])
+    if not isinstance(deps, list):
+        errors.append(f"{rel}: manifest 'dependencies' must be a list")
+    for dep in deps:
+        if not (d.parent / dep / "SKILL.md").exists():
+            errors.append(f"{rel}: manifest dependency has no skill folder: '{dep}'")
+    planned = data.get("planned", [])
+    if not isinstance(planned, list):
+        errors.append(f"{rel}: manifest 'planned' must be a list")
+    for entry in planned:
+        if not isinstance(entry, dict) or not entry.get("id"):
+            errors.append(f"{rel}: manifest planned entry missing 'id'")
+    return errors, warnings
+
+
 def check_skill_runtime(d: Path) -> tuple[list, list]:
     """A skill's own runtime.toml: values live per-skill, not at the root.
 
-    A skill whose manifest declares dependencies_runtime NEEDS the file —
-    its absence is an error (the declared names cannot resolve). Without
-    such a declaration an absent file is fine; a present file must parse,
-    and its [skills] external_roots (if present) must exist on disk. The
-    tracked runtime.example.toml beside the skill documents the shape, so
-    a syntax error in it is an error too.
+    Present file must parse; absent is fine (the skill simply needs no
+    runtime values). The tracked runtime.example.toml beside the skill
+    documents the shape, so a syntax error in it is an error too.
     """
     errors, warnings = [], []
     runtime = d / "runtime.toml"
@@ -97,23 +128,7 @@ def check_skill_runtime(d: Path) -> tuple[list, list]:
             pass
         except Exception as e:
             errors.append(f"{d.name}/runtime.example.toml is not valid TOML: {e}")
-
-    declared = False
-    manifest = d / "plugins" / "manifest.json"
-    if manifest.exists():
-        try:
-            declared = bool(json.loads(manifest.read_text(encoding="utf-8"))
-                            .get("dependencies_runtime"))
-        except json.JSONDecodeError:
-            pass  # the manifest check above already reports this
-
     if not runtime.exists():
-        if declared:
-            errors.append(
-                f"{d.name}: manifest declares dependencies_runtime but "
-                f"{d.name}/runtime.toml is missing — create it (shape: "
-                f"{d.name}/runtime.example.toml) with [skills] external_roots"
-            )
         return errors, warnings
     try:
         import tomllib
@@ -121,24 +136,9 @@ def check_skill_runtime(d: Path) -> tuple[list, list]:
         warnings.append("python >= 3.11 (tomllib) — cannot verify runtime.toml")
         return errors, warnings
     try:
-        data = tomllib.loads(runtime.read_text(encoding="utf-8"))
+        tomllib.loads(runtime.read_text(encoding="utf-8"))
     except Exception as e:
         errors.append(f"{d.name}/runtime.toml is not valid TOML: {e}")
-        return errors, warnings
-    skills_tbl = data.get("skills", {})
-    if skills_tbl and not isinstance(skills_tbl, dict):
-        errors.append(
-            f"{d.name}/runtime.toml [skills] must be a table "
-            f"(got {type(skills_tbl).__name__})"
-        )
-        return errors, warnings
-    roots = skills_tbl.get("external_roots", []) if isinstance(skills_tbl, dict) else []
-    if not isinstance(roots, list):
-        errors.append(f"{d.name}/runtime.toml [skills] external_roots must be a list of paths")
-        return errors, warnings
-    for r in roots:
-        if not Path(str(r)).expanduser().is_dir():
-            errors.append(f"{d.name}/runtime.toml external root does not exist: {r}")
     return errors, warnings
 
 
@@ -198,22 +198,12 @@ def main() -> int:
         else:
             warnings.append(f"{rel}: no VERSION file (scaled-down layout?)")
 
-        manifest = d / "plugins" / "manifest.json"
-        if manifest.exists():
-            try:
-                json.loads(manifest.read_text(encoding="utf-8"))
-            except json.JSONDecodeError as e:
-                errors.append(f"{rel}: manifest.json invalid JSON: {e}")
-        elif not registered_in_parent(d):
+        if not (d / "plugins" / "manifest.json").exists() and not registered_in_parent(d):
             warnings.append(f"{rel}: no plugins/manifest.json")
 
-        checker = d / "scripts" / "validate_manifest.py"
-        if checker.exists():
-            r = subprocess.run([sys.executable, str(checker)],
-                               capture_output=True, text=True)
-            if r.returncode != 0:
-                errors.append(f"{rel}: own validate_manifest.py failed:\n{r.stderr.strip()}")
-
+        m_errors, m_warnings = check_manifest(d, rel)
+        errors.extend(m_errors)
+        warnings.extend(m_warnings)
         rt_errors, rt_warnings = check_skill_runtime(d)
         errors.extend(rt_errors)
         warnings.extend(rt_warnings)

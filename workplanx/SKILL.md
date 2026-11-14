@@ -1,7 +1,7 @@
 ---
 name: workplanx
 description: Task plan-and-log router — every non-trivial task gets a topic folder with plan/search/decision/gate files that later skills verify structurally, plus a fresh-eyes review at the end. ALWAYS invoke this skill at task start, before any search or code, on any non-trivial task (new feature, integration, replacement, multi-step fix — "let's do it", "implement it", "make it happen" once a pick exists). Do not start working without a topic folder and do not keep task logs in chat — use this skill first. Trivial one-line edits are the only exemption.
-version: 1.11.1
+version: 1.12.0
 ---
 
 # workplanx
@@ -10,7 +10,10 @@ Owns the topic folder. Other skills don't log to chat — they log to the
 folder, and the gate verifies the folder's shape (not the agent's words).
 
 - **references/layout.md** — folder shape + per-file contracts.
-- **plugins/manifest.json** — active modules, check it.
+- **references/trigger-log.md** — append-only log of observed trigger
+  misses (utterance, fired, should, resolution): the queue, the
+  descriptions are the fix. Base's trigger-log moved here 2026-11-15 —
+  trigger accounting is workplanx's domain.
 
 ## Trigger
 
@@ -76,21 +79,12 @@ is reported in chat so the user can inspect it.
 
 ## Declaring other skills as dependencies
 
-`plugins/manifest.json` has a top-level `dependencies` array — names of other
-skills in the collection that load alongside this one. It is the only place
-that relationship is written: `SKILL.md` never lists dependency names inline,
-because a hand-maintained list in prose is exactly what rots. `modules` answers
-"what files are inside this skill", `dependencies` answers "which other skills
-come with it" — different questions, don't merge them.
-
-`dependencies_runtime` is the sibling array for skills that load alongside but
-live OUTSIDE the collection (harness built-ins and the like). Those names are
-never resolved against the collection: `scripts/validate_manifest.py` resolves
-them through the external roots declared in this skill's own `runtime.toml`
-(`[skills] external_roots`; tracked shape in the skill's
-`runtime.example.toml`). Same rule as `dependencies` — the manifest is the only
-place the names are written, and a name that resolves nowhere fails
-validation loudly, listing every root it tried.
+`plugins/manifest.json` declares exactly one thing: the `dependencies`
+array — names of other collection skills that load alongside this one.
+That is the only place the relationship is written; the folder layout
+itself is the module list (lean shape 2026-11-15: no modules, no
+package_version, no dependencies_runtime). A name that resolves to no
+sibling skill folder fails the repo validator loudly.
 
 ## Extending this skill
 

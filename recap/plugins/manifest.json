@@ -1,19 +1,7 @@
 {
   "skill": "recap",
-  "package_version": "1.0.0",
   "dependencies": [
     "base"
-  ],
-  "dependencies_runtime": [],
-  "modules": [
-    {
-      "id": "recap-form",
-      "name": "Recap form",
-      "path": "references/recap-form.md",
-      "type": "core",
-      "version": "1.0.0",
-      "description": "The fixed recap form: the record sources in order, the retelling structure, and the must-not-forget hashtag layer."
-    }
   ],
   "planned": []
 }

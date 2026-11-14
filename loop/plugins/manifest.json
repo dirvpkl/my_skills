@@ -1,24 +1,8 @@
 {
   "skill": "loop",
-  "package_version": "2.0.0",
-  "dependencies": ["workplanx", "coding"],
-  "modules": [
-    {
-      "id": "contract",
-      "name": "Loop contract",
-      "path": "references/contract.md",
-      "type": "core",
-      "version": "2.0.0",
-      "description": "The five ingredients (program, predicate, check, ledger, termination), command vs criterion checks, why context resets, and the loop.md file shape. Read before the first iteration."
-    },
-    {
-      "id": "stop-signals",
-      "name": "Stop signals",
-      "path": "references/stop-signals.md",
-      "type": "core",
-      "version": "2.0.0",
-      "description": "What wasting iterations looks like — goalpost-moving, activity without progress, wrong problem — and what is not a stop signal. The semantic layer loop_state.py cannot check. Read before a long loop."
-    }
+  "dependencies": [
+    "workplanx",
+    "coding"
   ],
   "planned": []
 }

@@ -1,28 +1,9 @@
 {
   "skill": "base",
-  "package_version": "1.11.0",
   "dependencies": [
     "coding",
     "workplanx",
     "mission"
-  ],
-  "modules": [
-    {
-      "id": "boundaries",
-      "name": "Scope boundaries",
-      "path": "references/boundaries.md",
-      "type": "core",
-      "version": "1.0.0",
-      "description": "Assigned scope only, external services as black boxes, ask-first secrets, never-do list. Read before the first state-changing command."
-    },
-    {
-      "id": "trigger-log",
-      "name": "Trigger log",
-      "path": "references/trigger-log.md",
-      "type": "core",
-      "version": "1.0.0",
-      "description": "Append-only log of observed trigger misses (utterance, fired, should, resolution). The queue; the descriptions are the fix."
-    }
   ],
   "planned": []
 }

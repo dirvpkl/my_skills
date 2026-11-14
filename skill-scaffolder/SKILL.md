@@ -1,7 +1,7 @@
 ---
 name: skill-scaffolder
 description: Scaffold a new skill's file layout and restructure or extend an existing loose or flat skill into the same modular shape — SKILL.md + references/ + plugins/manifest.json + scripts/ + CHANGELOG.md + VERSION. ALWAYS invoke this skill when creating a new skill ("create a skill", "turn this into a skill", "new skill for X"), reorganizing skill files into proper modular structure, or adding a reference module, script, or manifest entry to a skill that already exists. Do not hand-assemble a skill folder or invent its layout — use this skill first. Not for evaluating or optimizing an existing well-formed skill's trigger accuracy — for that, defer to skill-creator if present.
-version: 1.3.2
+version: 1.4.0
 ---
 
 # skill-scaffolder
@@ -12,9 +12,9 @@ Scaffolds a new skill's file layout AND restructures/extends an existing loose o
 - **references/manifest-format.md** — the exact shape of `plugins/manifest.json` and how discovery works.
 - **references/anti-patterns.md** — mistakes to avoid, drawn from real cleanup work (ambiguous "mention it somewhere" instructions, hardcoded file lists, mixing logs with instructions).
 - **plugins/manifest.json** — this skill's own module registry; check it instead of assuming the list above is everything (see `plugins/README.md`).
-- **assets/templates/** — blank starting files to copy: `SKILL.md`, `manifest.json`, `CHANGELOG.md`, `plugins-readme.md`, `validate_manifest.py`.
+- **assets/templates/** — blank starting files to copy: `SKILL.md`, `manifest.json` (lean: skill/dependencies/planned), `CHANGELOG.md`, `plugins-readme.md`.
 - **scripts/scaffold.py** — generates the full directory structure with templates filled in, given a skill name.
-- **scripts/validate_manifest.py** — copied into every scaffolded skill; also runnable directly here to check a manifest before handing it off.
+- Validation is repo-wide: `python -I scripts/validate.py --skills <name>` at the collection root (per-skill validator copies were removed 2026-11-15).
 
 ## Trigger
 - User wants to create a new skill from scratch.
@@ -48,8 +48,8 @@ Every scaffolded skill ships `references\examples.md` (3–5 good/bad pairs with
 3. **Decide the module split.** One SKILL.md always. Beyond that, split into `references/*.md` files along natural seams — e.g. "where to look" vs. "how to look" (see the researcher skill as a worked example), or by domain/variant (aws.md / gcp.md / azure.md style) if the skill covers multiple parallel cases. Don't split prematurely — a skill that's genuinely one coherent flow doesn't need `references/` at all.
 4. **Scaffold the files.** Either run `scripts/scaffold.py <skill-name>` to generate the skeleton with templates filled in, or build it by hand using `assets/templates/` as a starting point — either is fine, script is just faster for the boilerplate. When EXTENDING an existing skill, skip the skeleton: read its `plugins/manifest.json` first, create the new file in the right folder, register it in the manifest, bump per repo rules.
 5. **Write SKILL.md last, pointing outward.** The core file should read like a table of contents with process/trigger/format info, not contain everything inline. If SKILL.md is approaching ~500 lines, that's the signal to push more into `references/` — see `references/layout.md` for the progressive-disclosure reasoning behind this. When extending, keep every module pointer a manifest reference, never a second hand-written list (see `references/anti-patterns.md` §2).
-6. **Set up the manifest, even for a simple skill.** Even a skill with just one or two reference files benefits from `plugins/manifest.json` from day one — it costs almost nothing now and means the *next* addition doesn't require restructuring later. See `references/manifest-format.md` for the exact shape. Two different questions live there and must not be merged: `modules` = what's inside this skill, `dependencies` = which *other* skills load alongside it. If this skill hands off to a sibling skill, that name goes in `dependencies` — never as a hand-written list in this file, which is the failure mode the manifest exists to prevent.
-7. **Validate before handing off.** Run `scripts/validate_manifest.py` inside the new skill folder. Fix anything it flags.
+6. **Set up the manifest, even for a simple skill.** The manifest is LEAN (2026-11-15): `{skill, dependencies, planned}` — the folder layout is the module list, versions live in VERSION, and there is no dependencies_runtime. What the manifest owns: `dependencies` = which other collection skills load alongside this one; `planned` = reserved future pieces. See `references/manifest-format.md` for the exact shape.
+7. **Validate before handing off.** Run `python -I scripts/validate.py --skills <name>` from the collection root. Fix anything it flags.
 8. **Package and present.** If a file-presentation tool is available, zip the skill folder and present it (see "Packaging" below). Skills should be delivered as a folder/zip the user can inspect or install, not just described in chat.
 
 ## Separating instructions from history from logs

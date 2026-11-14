@@ -78,8 +78,6 @@ def scaffold(skill_name: str, out_dir: Path, minimal: bool) -> Path:
 
     scripts_dir = skill_dir / "scripts"
     scripts_dir.mkdir()
-    validator = (TEMPLATES_DIR / "validate_manifest.py.template").read_text(encoding="utf-8")
-    (scripts_dir / "validate_manifest.py").write_text(validator, encoding="utf-8")
 
     print(f"Scaffolded skill at {skill_dir}:")
     for p in sorted(skill_dir.rglob("*")):

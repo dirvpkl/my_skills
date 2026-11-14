@@ -1,27 +1,8 @@
 {
   "skill": "roi",
-  "package_version": "1.0.0",
   "dependencies": [
     "base",
     "workplanx"
-  ],
-  "modules": [
-    {
-      "id": "criteria",
-      "name": "Six criteria",
-      "path": "references/criteria.md",
-      "type": "core",
-      "version": "1.0.0",
-      "description": "The six criteria with weights and rubric: stock gate (hard rule), lens-test, staleness/half-life, actionability, production cost (inverted), verifiability multiplier; plus the run algorithm and the ROI_CONTROL_* config."
-    },
-    {
-      "id": "output-format",
-      "name": "Verdict block",
-      "path": "references/output-format.md",
-      "type": "core",
-      "version": "1.0.0",
-      "description": "One verdict block per finding, the aggregate pass summary, the UNVERIFIED block, and stock_test.py's exit-code contract."
-    }
   ],
   "planned": [
     {

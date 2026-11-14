@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.0] - 2026-11-15
+- references/boundaries.md merged into the `boundaries` skill (owner:
+  duplicates are forbidden) — base depends on the skill now, the file is
+  gone. references/trigger-log.md moved to `workplanx` (trigger misses
+  are its domain). Dependencies narrowed to workplanx + boundaries:
+  coding and mission dropped from base's manifest.
+
 ## [1.11.0] - 2026-11-15
 - references/data.md moved to `boundaries` (owner ruling: data/host
   integrity is a boundaries concern). Process item 5 repointed; the

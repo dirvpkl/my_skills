@@ -1,7 +1,7 @@
 ---
 name: base
 description: Base operating rules for the orchestrator and every agent, always loaded — delegate by default with minimum hands-on, resolve volatile paths at runtime, ask-first on destructive/secret/out-of-scope steps, data and host integrity first. Pairs with coding on any task that executes or delegates; pure reading/explaining with nothing executed is the only exemption. Never skipped to save effort — when a request routes to another skill, that skill loads on top of base, never instead of it.
-version: 1.11.0
+version: 1.12.0
 ---
 
 # base
@@ -10,10 +10,8 @@ Always loaded, never optional. The orchestrator and every agent run
 under this file plus the `coding` bundle. It says how work is run and
 what never happens.
 
-- **references/boundaries.md** — scope limits, secrets, external services
-  as black boxes, never-do list.
-- **plugins/manifest.json** — active modules and what this skill loads
-  with. Check it instead of assuming.
+- **plugins/manifest.json** — what loads alongside (dependencies).
+  Check it instead of assuming.
 
 ## Trigger
 
@@ -68,10 +66,9 @@ nothing executed is the only exemption.
    or risky changes on one repo, work in a dedicated git worktree
    (`git worktree add`), not the shared checkout. The owner never has to ask
    for either check.
-5. **Ask before crossing a line.** Read `references/boundaries.md`
-   before the first state-changing command; load `boundaries` before
-   touching volumes, databases, hosts, or running tests (its
-   `references/data.md`). Unclear
+5. **Ask before crossing a line.** Load `boundaries` before the first
+   state-changing command; its `references/data.md` comes before touching
+   volumes, databases, hosts, or running tests. Unclear
    scope, a secret, a user-only decision, an external service, a down
    dependency, non-rotatable creds — stop that item, record the exact
    question, continue with the rest. Never route around the block, never

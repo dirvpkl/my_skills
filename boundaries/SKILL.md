@@ -1,7 +1,7 @@
 ---
 name: boundaries
 description: Rules for secrets, credentials, logs, chat/transcript hygiene, browser profiles, and any access outside the project directory — when to ask before touching something, how to handle an exposed credential, and how to keep sensitive data out of chat output. Loads on ANY task that could touch a secret, sensitive data, log output, chat output, browser session data, or a file outside the project — NOT only code. Trigger phrases — "sensitive data".
-version: 1.1.0
+version: 1.2.0
 ---
 
 # boundaries
@@ -46,6 +46,29 @@ The memo's golden rule is a hard rule: **anything already in the chat or transcr
 - Docker: `env_file:` in compose is fine (values are substituted, nobody reads the file); `docker logs` is a leak vector — anything a library logged spills out on the first view; after a secret change, restart (re-reads .env silently) rather than rebuild; after a leak, rebuild doesn't help — the secret lived in the old container's stdout. Revoke.
 - Leak protocol, in this order: revoke immediately (a dead token in logs is just garbage), issue the new value into the file — not the chat — and restart, figure out what else lived in that same output (another token? card? phone?), only then investigate how it leaked and add a filter. Reversing the order means you forget to revoke.
 - Before every "show the output in chat" moment, run the memo's checklist (section 7): token/key/password present? personal data present (phone, card number, name, address)? anything usable even once? filter applied (form, not values)? if it leaks anyway — is it revocable? (a token is, a card number is not).
+
+## Assigned scope only
+
+Work inside the projects named in the task. Anything else — sibling
+projects, home directories, host apps, other checkouts — is out of scope
+until the user explicitly adds it. Read-only inspection of a sibling to
+diagnose (e.g. checking whether a proxy router is up) is allowed;
+changing it is not.
+
+## External services are black boxes
+
+If the bug lives in an external service (proxy provider, hosted API,
+tunnel, VPS side), do not go there unasked. Diagnose up to the boundary,
+report the evidence, stop. Rationale: credentials there may be
+non-rotatable, and a "fix" can lock the user out.
+
+## Never-do list (no exceptions without explicit yes)
+
+- `rm -rf`, `docker down -v`, volume prune, `DROP DATABASE`, disk format.
+- Host package installs, firewall/network changes, reboot, cron edits.
+- Force-push, history rewrites, `git reset --hard` on uncommitted work.
+- Committing `.env`, keys, cookies, or chat exports.
+- Editing files outside the assigned projects.
 
 ## System boundaries
 - Don't touch host-machine apps (VLC, Chrome, singbox, etc.). Docker/Python/Node/dev tooling is fine.

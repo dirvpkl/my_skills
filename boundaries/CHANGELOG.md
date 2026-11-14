@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0] - 2026-11-15
+- Merged in from base (owner: no duplicates — one source per rule): assigned
+  scope (with the read-only-diagnosis nuance), external services as black
+  boxes, the never-do list. The secrets principles were already covered by
+  the permission rule and the .env section; base now depends on this skill
+  instead of carrying its own boundaries file.
+
 ## [1.1.0] - 2026-11-15
 - Data preservation moved in from base (owner: data/host integrity is a
   boundaries concern, not base): volumes/DB backup before migrate, host

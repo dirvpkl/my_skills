@@ -2,12 +2,6 @@
 
 Good vs bad pairs, each with a one-line rationale. Read beside SKILL.md.
 
-## Delegation carries a log path
-
-**Good:** `Session for the parser refactor: append to <project>/.workplanx/11-14-parser/log.md, one line per unit of work.`
-**Bad:** "Go fix the parser, report back when done."
-Rationale: the log path is the only progress signal — silence past the natural cadence means stalled, and without a path there is no signal.
-
 ## Resolve paths at runtime
 
 **Good:** catalog location read from what the environment exposes at startup, fallback `%USERPROFILE%/.agents/skills`; local facts checked in `runtime.toml`.
@@ -32,11 +26,27 @@ Rationale: one unclear item does not authorize provisional work or a silent rout
 **Bad:** "All done!" with the two skipped tests unmentioned.
 Rationale: a skipped check reported green is a lie, not a pass.
 
-## Mode recognition — read the chat before choosing the stack
+## Run the bundle, not just the code
 
-**Good:** owner's message carries a ruling → piped verbatim into the workplanx sink (`log_owner_message.py` / inbox) the same turn.
-**Bad:** "I'll remember that" — a ruling that lives only in the chat transcript is lost to the next session.
-Rationale: the folder is the memory; the agent's recall is not.
+**Good:** code task → `coding` bundle loads (quality, testing, logging), checks run format→lint→typecheck→tests. **Bad:** a "quick fix" that edits and reports done, checks skipped.
+Rationale: undispatched skills don't exist for the reader — the bundle is the standard, not an option.
+
+## A failed skill load is recovered
+
+**Good:** Skill invocation fails → resolve the catalog at runtime, Read the SKILL.md from disk, follow it as loaded content; ask only if it exists nowhere. **Bad:** "skill unavailable" and the task quietly dies.
+Rationale: execution outranks the broken loader — a manual load counts as loaded.
+
+## Write English into the repo
+
+**Good:** mid-Russian chat, the fix lands in tracked files — English everywhere, even comments. **Bad:** a Russian sentence slips into a tracked file outside the allowed zones.
+Rationale: the collection is public-facing and portable; the chat's language stops at chat.
+
+## External service stays a black box
+
+**Good:** the bug looks like the tunnel → diagnose up to the boundary, report evidence, stop. **Bad:** ssh into the VPS "just to check" — unasked.
+Rationale: credentials there may be non-rotatable; a "fix" can lock the user out.
+
+## Mode recognition — read the chat before choosing the stack
 
 **Good:** owner pastes another agent's spec + "чудо" as a queue message → process the queue, load the stack the spec implies, no re-asking what was already answered.
 **Bad:** answering the previous reply's open question first, or "what do you want me to do with this?" when the spec already says it.

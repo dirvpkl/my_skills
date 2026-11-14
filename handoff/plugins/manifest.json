@@ -1,27 +1,7 @@
 {
   "skill": "handoff",
-  "package_version": "1.0.0",
   "dependencies": [
     "base"
-  ],
-  "dependencies_runtime": [],
-  "modules": [
-    {
-      "id": "handoff-form",
-      "name": "Handoff form",
-      "path": "references/handoff-form.md",
-      "type": "core",
-      "version": "1.0.0",
-      "description": "The fixed handoff-file form and the zero-context verification checklist: every reference resolvable, every term defined, absolute paths only."
-    },
-    {
-      "id": "examples",
-      "name": "Examples",
-      "path": "references/examples.md",
-      "type": "reference",
-      "version": "1.0.0",
-      "description": "Good/bad handoff pairs: what a self-sufficient handoff looks like versus a chat-dependent one."
-    }
   ],
   "planned": []
 }

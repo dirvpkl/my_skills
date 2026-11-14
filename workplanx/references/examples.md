@@ -31,3 +31,15 @@ Rationale: a recommendation that can't survive its own counter isn't ready — a
 **Good:** afterword's `harvest:` block lists patches (rule + target skill), the pass ends, patches are applied only after the owner's bump.
 **Bad:** agent edits another skill's SKILL.md mid-pass because the rule "obviously belongs there."
 Rationale: the pass proposes, the owner applies — self-applied harvest is how a collection drifts out of consistency.
+
+## Delegation carries a log path
+
+**Good:** `Session for the parser refactor: append to <project>/.workplanx/11-14-parser/log.md, one line per unit of work.`
+**Bad:** "Go fix the parser, report back when done."
+Rationale: the log path is the only progress signal — silence past the natural cadence means stalled, and without a path there is no signal.
+
+## The owner's voice sinks verbatim
+
+**Good:** owner's message carries a ruling → piped verbatim into the workplanx sink (`log_owner_message.py` / inbox) the same turn.
+**Bad:** "I'll remember that" — a ruling that lives only in the chat transcript is lost to the next session.
+Rationale: the folder is the memory; the agent's recall is not.

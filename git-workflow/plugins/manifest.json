@@ -1,10 +1,7 @@
 {
   "skill": "git-workflow",
-  "package_version": "1.1.0",
   "dependencies": [
     "base"
   ],
-  "dependencies_runtime": [],
-  "modules": [],
   "planned": []
 }

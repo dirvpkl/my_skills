@@ -1,6 +1,5 @@
 {
   "skill": "coding",
-  "package_version": "1.22.2",
   "dependencies": [
     "base",
     "workplanx",
@@ -11,59 +10,6 @@
     "boundaries",
     "proxy-egress",
     "git-workflow"
-  ],
-  "dependencies_runtime": [
-    "ponytail"
-  ],
-  "modules": [
-    {
-      "id": "docker",
-      "name": "Docker networking",
-      "path": "docker/SKILL.md",
-      "type": "core",
-      "version": "1.5.0",
-      "description": "Port-publishing defaults, internal-only networking, and required (${VAR:?...}) compose env vars."
-    },
-    {
-      "id": "process-tiers",
-      "name": "Process tiers",
-      "path": "process-tiers/SKILL.md",
-      "type": "core",
-      "version": "1.1.2",
-      "description": "Decide-vs-ask, task-size tiers, delegation to other agents (prefer agents over subagents; shared-code location upfront), conflict-resolution worked examples, reporting shape."
-    },
-    {
-      "id": "code-quality",
-      "name": "Code quality",
-      "path": "code-quality/SKILL.md",
-      "type": "core",
-      "version": "1.7.0",
-      "description": "Architecture, coding principles, fail-loud error handling, unprefixed env-var names with no project prefixes and no defaults, import/typing discipline (no unused params, no trivial wrappers, no single-use helpers, typed payloads, no exception-to-bool), single-source contracts (incl. Exceptions/BaseModels, no duplicated SERVICE_NAME), lint/format/type-check order, fresh-eyes review. Infrastructure black-box principle: project adapts to infra (proxy, queues, DBs, caches, LLMs) — never modifies infra behaviour."
-    },
-    {
-      "id": "testing",
-      "name": "Testing",
-      "path": "testing/SKILL.md",
-      "type": "core",
-      "version": "1.2.0",
-      "description": "Coverage, UX-level pass, service-boundary respect, baseline regression checks, fair comparisons, environment-vs-code failure triage."
-    },
-    {
-      "id": "logging",
-      "name": "Logging",
-      "path": "logging/SKILL.md",
-      "type": "core",
-      "version": "1.2.1",
-      "description": "Structured logging, one Processor TypeAlias and correlation ID across services, no wrapper-forwarding processors, Telegram as an alert channel."
-    },
-    {
-      "id": "external-integrations",
-      "name": "External integrations",
-      "path": "external-integrations/SKILL.md",
-      "type": "core",
-      "version": "1.6.0",
-      "description": "Wiring-only for a decided integration (retry, docs-first, Telegram topics, heartbeat, portrait defaults). No search, no stack picks."
-    }
   ],
   "planned": []
 }

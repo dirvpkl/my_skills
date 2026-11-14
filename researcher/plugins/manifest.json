@@ -1,42 +1,7 @@
 {
   "skill": "researcher",
-  "package_version": "1.7.2",
   "dependencies": [
     "solution-search"
-  ],
-  "modules": [
-    {
-      "id": "sources",
-      "name": "Source checklist",
-      "path": "references/sources.md",
-      "type": "core",
-      "version": "1.1.0",
-      "description": "The three source classes and the channel checklist within each: paper repositories, verified-revenue registries, demand radars, provider retrospectives, and the chain-walking datasets pointer. Always loaded when the skill runs."
-    },
-    {
-      "id": "patterns",
-      "name": "Search patterns",
-      "path": "references/patterns.md",
-      "type": "core",
-      "version": "1.2.0",
-      "description": "How to search once inside a channel: sort-by-new, abstraction chains, concept-chain expansion pointer, plus optional search engines and binding SearXNG rules. Always loaded when the skill runs."
-    },
-    {
-      "id": "concept-chains",
-      "name": "Concept chains",
-      "path": "references/concept-chains.md",
-      "type": "core",
-      "version": "1.0.0",
-      "description": "Divergent-expansion technique for open-ended topics: seed the class, walk association/clickstream/paper-graph datasets for real edges, map nodes by hop distance, demand-check top nodes, feed forward. Includes per-source fallback rules (a down graph API is a routing event, not a dead end)."
-    },
-    {
-      "id": "source-log",
-      "name": "Source discovery log",
-      "path": "references/source-log.md",
-      "type": "core",
-      "version": "1.1.0",
-      "description": "Staging log for newly-found channels/hubs, pending promotion into sources.md. Written to after a session, not read as search instructions."
-    }
   ],
   "planned": [
     {

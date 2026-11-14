@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.12.0] - 2026-11-15
+- Trigger-log moved in from base (owner ruling): trigger misses are
+  workplanx's domain — the queue lives here, fixes fold into skill
+  descriptions. The dependencies_runtime paragraph dropped with the
+  mechanism.
+
 ## [1.11.1] - 2026-11-12
 - validate_manifest.py: missing-runtime.toml diagnostic and non-table [skills] guard
 
