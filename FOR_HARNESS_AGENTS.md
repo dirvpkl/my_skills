@@ -1,7 +1,13 @@
-# User defaults
+# For harness agents
 
-Personal defaults that apply to every workspace. Project rules live in each repo's AGENTS.md; broad preferences live here.
+One rule, before anything else:
 
-- Session start: invoke Skill(base) first, before anything else. Base is always loaded, never optional — its rules govern every task, including pure-talk turns. Pure reading/explaining with nothing executed is the only exemption.
-- Think-first requests ("давай подумаем", "побрейнштормим", "обсудим идею", "как сделать X", weighing options aloud) fire the «думалка» chord — load solution-search + workplanx + spine together (one combined obligation); idea-talk answers from spine alone, a real pre-decision opens the workplanx topic + gate before any build.
-- All projects and everything written for them — code, comments, docs, READMEs, skill files — are exclusively in English, regardless of the conversation language.
+**Invoke Skill(base) first — it is always loaded, never optional, and
+governs every task including talk-only turns. Everything you must follow
+is written there and in the skills it names.**
+
+- Skills are RE-READ FROM DISK every time they matter — never answer a
+  skill question from memory; the catalog changes under you.
+- The collection and everything written for it (code, comments, docs,
+  READMEs, skill files) is English-only, regardless of the conversation
+  language.
