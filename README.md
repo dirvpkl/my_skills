@@ -1,18 +1,18 @@
 # skills — my skills
 
-Personal skill collection (one folder = one skill: SKILL.md +
-plugins/manifest.json). This root also holds **requirements.md**: a
-dependency registry in Python-requirements format — what exists, where
-it comes from, why, and whether it already replaces something else.
-Update it whenever a skill is added or removed; the README is about the
-collection's layout, requirements is about the roster and its links.
+Personal skill collection: one folder = one skill (SKILL.md +
+plugins/manifest.json + references/ + VERSION + CHANGELOG.md).
 
-## Folders
+## Root files
 
-- `<skill>/SKILL.md` — the skill itself; `<skill>/plugins/manifest.json` —
-  its modules and dependencies; `<skill>/references/` — the skill's data
-  (for example, chords keeps its bindings table in references/bindings.md).
-- `runtime.toml` — settings for the collection's runner.
+- `AGENTS.md` — how agents work in this repo: the editing rules.
+- `instructions_for_harness.md` — the one-line pointer harnesses inject
+  into prompts: invoke Skill(base) first; everything is in base.
+- `requirements.md` — external skills only (vendored / built-in), with
+  upstream links; collection-internal skills are not listed — the folder
+  layout is the roster.
+- Runtime values are per-skill: `<skill>/runtime.toml` (gitignored), shape
+  documented by `<skill>/runtime.example.toml` (tracked).
 
 ## How skills teach
 
@@ -26,6 +26,6 @@ never a fence for thought. (Owner principle, 2026-11-14.)
 
 Some skills live outside my_skills, built into the host
 (`~/.zcode/skills/`), and get wired in through package dependencies.
-**What lives there and why — see requirements.md** (section
-"Built-in, outside the collection folder"): pony and REA with reasons
-and replacement notes, so this file stays lean.
+**What lives there and why — see requirements.md**: ponytail,
+frontend-design, REA with sources and replacement notes, so this file
+stays lean.
