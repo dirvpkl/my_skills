@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.9.0] - 2026-11-15
+- Skill-load failure fallback (owner ruling 2026-11-15): a failed harness
+  Skill load is recovered, never a stop — resolve the catalog at runtime
+  (environment-exposed, fallback `%USERPROFILE%/.agents/skills`), Read the
+  SKILL.md from disk and follow it as loaded content, search other harness
+  roots and instructions, ask the user only when the skill exists nowhere.
+  Execution outranks the broken loader; interrupting the current flow to
+  recover is allowed. Fail-loud line added.
+- VERSION file synced (was stale at 1.7.2 while frontmatter said 1.8.0).
+
+## [1.8.0] - 2026-11-14
+- Released without a changelog entry at the time; per the 2026-11-14
+  handoff it carried the subagent-revival rule in Process item 2. The
+  VERSION file also missed this release — both synced retroactively by
+  1.9.0.
+
 ## [1.7.2] - 2026-11-12
 - validate_manifest.py: missing-runtime.toml diagnostic and non-table [skills] guard
 

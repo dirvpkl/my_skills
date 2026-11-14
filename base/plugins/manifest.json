@@ -1,6 +1,6 @@
 {
   "skill": "base",
-  "package_version": "1.7.2",
+  "package_version": "1.9.0",
   "dependencies": [
     "coding",
     "workplanx",

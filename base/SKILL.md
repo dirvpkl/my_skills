@@ -1,7 +1,7 @@
 ---
 name: base
 description: Base operating rules for the orchestrator and every agent, always loaded — delegate by default with minimum hands-on, resolve volatile paths at runtime, ask-first on destructive/secret/out-of-scope steps, data and host integrity first. Pairs with coding on any task that executes or delegates; pure reading/explaining with nothing executed is the only exemption. Never skipped to save effort — when a request routes to another skill, that skill loads on top of base, never instead of it.
-version: 1.8.0
+version: 1.9.0
 ---
 
 # base
@@ -93,6 +93,18 @@ nothing executed is the only exemption.
    up at task start, never remembered mid-work.
    Overlapping rules resolve toward the stricter one; a conflict that
    blocks work is a stop-and-ask, not a silent pick.
+7. **A failed skill load is recoverable — recover it, then proceed.**
+   When the harness's Skill invocation fails (skill not listed, not
+   registered, load error), the task is not blocked: skill execution
+   outranks the broken loader, and interrupting the current flow to
+   recover is allowed. Ladder, in order: resolve the skill's location
+   at runtime (the catalog the environment exposes, fallback
+   `%USERPROFILE%/.agents/skills`), Read its `SKILL.md` directly from
+   disk and follow it as loaded content; not there — check the harness's
+   other skill roots and the instructions already in context; ask the
+   user only when the skill exists nowhere. A manual load counts as
+   loaded: the rest of the process applies as normal, including
+   re-reading the file from disk on the next use.
 
 ## Fail loud
 
@@ -101,6 +113,8 @@ nothing executed is the only exemption.
 - An external service touched unasked is a breach, even with good intent.
 - A hardcoded path that rotted is a process failure — resolve at
   runtime.
+- A task abandoned because a skill failed to load is the failure —
+  recover it (Process item 7), never a silent give-up.
 
 ## Report
 
