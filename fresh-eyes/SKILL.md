@@ -1,6 +1,6 @@
 ---
 name: fresh-eyes
-description: Clean-context judging of finished work by a fresh agent that never saw how it was written — two modes — `quality` (was the work done well, against the code checklist) and `conformance` (was it done to the plan, requirement by requirement). ALWAYS invoke this skill when code and checks have passed and before reporting done, and whenever a claim of "works" / "done" needs independent backing — user phrases "перепроверь себя", "перепроверь", "чекни потом", "double-check it" land here whenever finished work exists to judge. Do not report work as finished on the author agent's own word — use this skill first. Reports only — never fixes, never talks to the user. NOT for bare opinion requests with nothing built ("оцени мои проектики" — answer with a spine stance, no skill). Owner phrasings also trigger — «фреш айс», «скилл про итоговое ревью», «нужен ревью», «не забудь фреш айс».
+description: Clean-context judging of finished work by a fresh agent that never saw how it was written — two modes — `quality` (was the work done well, against the code checklist) and `conformance` (was it done to the plan, requirement by requirement). ALWAYS invoke this skill when code and checks have passed and before reporting done, and whenever a claim of "works" / "done" needs independent backing — user phrases like "double-check it" land here whenever finished work exists to judge. Do not report work as finished on the author agent's own word — use this skill first. Reports only — never fixes, never talks to the user. NOT for bare opinion requests with nothing built (answer with a spine stance, no skill).
 version: 1.2.2
 ---
 
@@ -24,8 +24,9 @@ procedure lives; other skills point here, none of them restate it.
   plan-conformant and that claim hasn't been checked by something that didn't
   do the work.
 - Never on a trivial edit (typo, rename, comment) — there is nothing to judge.
-- The owner's close-of-pass summons — «нужен ревью», «не забудь фреш айс»,
-  «ревью, что-то осталось?» — same trigger: finished work is on the table.
+- The owner's close-of-pass summons — a review request, a fresh-eyes
+  reminder, "anything left over?" — same trigger: finished work is on
+  the table.
 
 ## Pick the mode
 

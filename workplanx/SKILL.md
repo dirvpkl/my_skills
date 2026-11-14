@@ -1,6 +1,6 @@
 ---
 name: workplanx
-description: Task plan-and-log router — every non-trivial task gets a topic folder with plan/search/decision/gate files that later skills verify structurally, plus a fresh-eyes review at the end. ALWAYS invoke this skill at task start, before any search or code, on any non-trivial task (new feature, integration, replacement, multi-step fix — "давай сделаем", "реализуй", "make it happen" once a pick exists). Do not start working without a topic folder and do not keep task logs in chat — use this skill first. Trivial one-line edits are the only exemption. Owner phrasings also trigger — «не забудь воркпланх», «воркпланх был?», «запиши в воркпланх», «пиши все в вокпланх».
+description: Task plan-and-log router — every non-trivial task gets a topic folder with plan/search/decision/gate files that later skills verify structurally, plus a fresh-eyes review at the end. ALWAYS invoke this skill at task start, before any search or code, on any non-trivial task (new feature, integration, replacement, multi-step fix — "let's do it", "implement it", "make it happen" once a pick exists). Do not start working without a topic folder and do not keep task logs in chat — use this skill first. Trivial one-line edits are the only exemption.
 version: 1.11.1
 ---
 
@@ -16,9 +16,9 @@ folder, and the gate verifies the folder's shape (not the agent's words).
 
 - Any non-trivial task (new feature, integration, replacement, multi-step fix).
 - Does NOT trigger on trivial edits (typo, rename, comment, no logic change).
-- «Пиши все в вокпланх» (owner spelling variant, this dialog 2026-11-14) — the
-  sink directive: output the owner would otherwise read as chat text goes into
-  this topic's files instead.
+- The "write everything into workplanx" directive (owner spelling variants,
+  this dialog 2026-11-14) — the sink directive: output the owner would
+  otherwise read as chat text goes into this topic's files instead.
 - `workplanx` is in the `dependencies` list of every other skill in the
   collection. A skill that doesn't create a topic folder isn't skipping
   ceremony, it's breaking its own declared dependency.
@@ -47,7 +47,7 @@ folder, and the gate verifies the folder's shape (not the agent's words).
 5. **The owner's voice lands in the folder, not only in chat.** Every owner
    message that carries a directive, a ruling, a correction, or a wish for
    the active topic (including mid-task asides, walk-away authorizations,
-   and "потом сделай" thoughts) gets appended to `log.md` verbatim, quoted,
+   and "do it later" thoughts) gets appended to `log.md` verbatim, quoted,
    with a date — same day it arrives. No pinned topic, or the message is
    session-general: pipe it verbatim through `scripts/log_owner_message.py`
    (message on stdin) — it lands in `<project>/.workplanx/_inbox/<date>.md`,

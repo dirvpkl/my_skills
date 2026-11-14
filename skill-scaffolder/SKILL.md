@@ -1,6 +1,6 @@
 ---
 name: skill-scaffolder
-description: Scaffold a new skill's file layout and restructure or extend an existing loose or flat skill into the same modular shape — SKILL.md + references/ + plugins/manifest.json + scripts/ + CHANGELOG.md + VERSION. ALWAYS invoke this skill when creating a new skill ("создай скилл", "turn this into a skill", "new skill for X"), reorganizing skill files into proper modular structure, or adding a reference module, script, or manifest entry to a skill that already exists. Do not hand-assemble a skill folder or invent its layout — use this skill first. Not for evaluating or optimizing an existing well-formed skill's trigger accuracy — for that, defer to skill-creator if present. Owner phrasings also trigger — «хочу скилл подготовить», «допили скиллы», «поправь скилл».
+description: Scaffold a new skill's file layout and restructure or extend an existing loose or flat skill into the same modular shape — SKILL.md + references/ + plugins/manifest.json + scripts/ + CHANGELOG.md + VERSION. ALWAYS invoke this skill when creating a new skill ("create a skill", "turn this into a skill", "new skill for X"), reorganizing skill files into proper modular structure, or adding a reference module, script, or manifest entry to a skill that already exists. Do not hand-assemble a skill folder or invent its layout — use this skill first. Not for evaluating or optimizing an existing well-formed skill's trigger accuracy — for that, defer to skill-creator if present.
 version: 1.3.2
 ---
 

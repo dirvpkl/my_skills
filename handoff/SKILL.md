@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: Structured context handover between agents — writes a self-sufficient handoff file so a FRESH agent (new session, zero chat history) can continue the work without the conversation. ALWAYS invoke when the owner says «хендофф», «выгрузка для другого агента», «сводка для агента», «передай другому агенту», "handoff", or when handing a task to another session. Complements /compact (which summarizes for the SAME session) — a handoff serves a DIFFERENT agent. NOT a project recap for the owner (recap) and NOT a value score (roi). Owner phrasings also trigger — «хэндоф», «выжимка для передачи другому агенту», «записка для другого агента», «briefing для следующего агента», «я другому агенту пихну», «я создам с новым агентом чат», «спека для другого агента».
+description: Structured context handover between agents — writes a self-sufficient handoff file so a FRESH agent (new session, zero chat history) can continue the work without the conversation. ALWAYS invoke when the owner says "handoff", or in any phrasing for handing a task to another session (export for another agent, a summary or spec for another agent). Complements /compact (which summarizes for the SAME session) — a handoff serves a DIFFERENT agent. NOT a project recap for the owner (recap) and NOT a value score (roi).
 version: 1.0.0
 ---
 
@@ -10,8 +10,9 @@ The next agent does not inherit this conversation. A handoff is the
 bridge: one file that carries everything the fresh agent needs to continue
 without asking the owner to re-explain.
 
-Owner phrasings that summon this file: «я другому агенту пихну», «я создам с
-новым агентом чат», «запиши все-все-все» — all three mean this handoff file.
+Owner requests that summon this file: "I'll shove this at another agent",
+"I'll start a chat with a new agent", "write down absolutely everything" —
+all three mean this handoff file.
 
 ## Hard rule — self-sufficiency
 

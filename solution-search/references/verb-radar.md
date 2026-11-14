@@ -5,7 +5,7 @@ The founding case that proves the whole thing: `case-manycp.md`.
 ## 1. Input
 
 A thing (noun): a product class, project, or idea — from the active
-research pass or the owner's phrase ("кто ещё это делает?" about X). If
+research pass or the owner's phrase ("who else does this?" about X). If
 the owner names a specific product, name its class first (ampm →
 "API as a product, cross-listed on marketplaces").
 
@@ -104,9 +104,9 @@ case, it usually does not.)
 
 ## Triggers and auto-attach
 
-- Owner phrases: "кто ещё это делает?", "найди конкурентов/двойников",
-  "есть ли инструмент, который это автоматизирует?", "кто строит то же
-  самое?", "verb radar".
+- Owner phrases: "who else does this?", "find competitors/twins",
+  "is there a tool that automates this?", "who builds the same
+  thing?", "verb radar".
 - Inside researcher/solution-search passes: after mapping venues, ALWAYS
   run one verb-tool query before concluding "nobody built it" — the
   ManyCP lesson: "the slot is occupied" was invisible to object-search.

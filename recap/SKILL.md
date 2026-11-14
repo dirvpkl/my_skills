@@ -1,6 +1,6 @@
 ---
 name: recap
-description: Project recap collector — when the owner asks «перескажи проект», «что я откладывал», «что мы обсуждали», «перескажи с момента X» (X = a date, topic, or phase), or "recap", rebuild the project's story from its records, not from chat memory — an rg hashtag pass over <project>\.workplanx\*\ (log.md, decision.md, afterword.md) plus git log plus the agent's memory index, reported in the fixed form from references/recap-form.md. Read-only — it summarizes, never edits, never fills gaps itself. Use this skill first on any recap request; do not answer from chat memory alone, and never present a guess as a fact. Owner phrasings also trigger — «пересказать все-все», «сделай общий саммари», «напомни весь диалог», «что я просил напомнить», «что мы тут делали», «что мы тут с тобой обсуждали».
+description: Project recap collector — when the owner asks to retell the project, what was postponed, what was discussed, or to retell from a given moment (X = a date, topic, or phase), or says "recap", rebuild the project's story from its records, not from chat memory — an rg hashtag pass over <project>\.workplanx\*\ (log.md, decision.md, afterword.md) plus git log plus the agent's memory index, reported in the fixed form from references/recap-form.md. Read-only — it summarizes, never edits, never fills gaps itself. Use this skill first on any recap request; do not answer from chat memory alone, and never present a guess as a fact.
 ---
 
 # recap
@@ -10,12 +10,13 @@ records — the answer is only as good as the collection pass.
 
 ## Trigger
 
-Owner asks to retell the project: «перескажи проект», «что я откладывал»,
-«что мы обсуждали», «перескажи с момента X», "recap". «С момента X» scopes
+Owner asks to retell the project: the project itself, what was postponed,
+what was discussed, retell from moment X, "recap". "From moment X" scopes
 the pass: only topics and records dated after X. Not for live status of
 one active task — that is the topic's own log.md.
-Also fires: «что мы тут делали», «что мы тут с тобой обсуждали» — same
-retell-the-record request.
+Also fires on the same retell-the-record request in any other owner
+phrasing (the whole dialogue, the full-process summary, what we were
+doing here).
 
 ## Process
 
@@ -23,7 +24,7 @@ retell-the-record request.
    - Full topic pass — read EVERY file of `<project>/.workplanx/*/`
      (log.md, decision.md, plan.md, search.md, afterword.md): the recap
      retells the whole project and the whole workplanx, not a highlight
-     reel. «С момента X» filters by the dates in the files.
+     reel. "From moment X" filters by the dates in the files.
    - Hashtag layer — `rg -n "#gem|#wildshot|#slot|#harvest|#open|#decision"`
      over the same folders: hashtags are only the explicitly-must-not-forget
      markers, surfaced on top of the full pass (meanings: workplanx

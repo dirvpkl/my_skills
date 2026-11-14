@@ -21,7 +21,7 @@ hits that are requests, memory index. One line each; include why it never
 happened if the record says.
 
 ## Parked by owner
-Owner explicitly deferred («потом сделай» and the like). Verbatim quote +
+Owner explicitly deferred ("do it later" and the like). Verbatim quote +
 date. Parked is not forgotten — listing it lets the owner revive it.
 
 ## Verdicts (verbatim)

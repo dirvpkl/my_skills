@@ -1,6 +1,6 @@
 ---
 name: boundaries
-description: Rules for secrets, credentials, logs, chat/transcript hygiene, browser profiles, and any access outside the project directory — when to ask before touching something, how to handle an exposed credential, and how to keep sensitive data out of chat output. Loads on ANY task that could touch a secret, sensitive data, log output, chat output, browser session data, or a file outside the project — NOT only code. Trigger phrases — «секреты», "sensitive data", «не свети», «чекни что печатаешь».
+description: Rules for secrets, credentials, logs, chat/transcript hygiene, browser profiles, and any access outside the project directory — when to ask before touching something, how to handle an exposed credential, and how to keep sensitive data out of chat output. Loads on ANY task that could touch a secret, sensitive data, log output, chat output, browser session data, or a file outside the project — NOT only code. Trigger phrases — "sensitive data".
 version: 1.0.1
 ---
 
@@ -9,7 +9,7 @@ version: 1.0.1
 <!-- v1 - 2026-11-14: promoted out of the coding bundle (was coding/security 1.0.0) and extended with the owner's sensitive-data memo — kept verbatim in references/sensitive-data-memo.md, golden rule promoted to a hard rule here. -->
 
 ## Trigger
-ANY task that could touch secrets, credentials, logs, chat or transcript output, browser profile data, or files outside the project directory — not only code (notes, research, montage, infrastructure, plain conversation all count). Fires on phrases like «секреты», "sensitive data", «не свети», «чекни что печатаешь». The `coding` dispatcher also keeps it loaded as a mandatory sibling dependency on every code write/edit — see coding's activation manifest.
+ANY task that could touch secrets, credentials, logs, chat or transcript output, browser profile data, or files outside the project directory — not only code (notes, research, montage, infrastructure, plain conversation all count). Fires on phrases like "sensitive data" and owner synonyms for "don't expose / check what you're printing". The `coding` dispatcher also keeps it loaded as a mandatory sibling dependency on every code write/edit — see coding's activation manifest.
 
 ## General permission rule
 If a task requires a secret, credential, or a file outside the project directory, ask the user directly, in plain language, before touching it. Don't infer implicit permission from context/task description — only an explicit "yes" from the user in this conversation counts as permission. Once granted, that permission applies to what was asked about; if scope expands (a different secret, a different external path), ask again.

@@ -1,41 +1,47 @@
 # requirements — skills
 
-Реестр коллекции в формате «как питоновский requirements»: кто, зачем и
-не заменяет ли уже кого-то. Один блок — один скилл: `[Skill](откуда)` —
-для чего и зачем — примечания о замещении.
+The collection's registry in Python-requirements format: what exists,
+why, and whether it already replaces something else. One block = one
+skill: `[Skill](where-from)` — what it is for — plus replacement notes.
 
-## Ядро (всегда)
+## Core (always)
 
-- [base](./base/SKILL.md) — базовые правила агента: делегирование,
-  деструктив с подтверждением, целостность данных; управляет всеми
-  задачами включая разговорные. Заменителей не имеет.
-- [chords](./chords/SKILL.md) — шорткаты хозяина: фраза → скилл/действие
-  («подумай», «что сделано?»). Заменяет собой «вспоминай мои привычки».
+- [base](./base/SKILL.md) — base agent rules: delegation, confirmed
+  destructive ops, data integrity; governs every task, including
+  talk-only turns. No replacement.
+- [chords](./chords/SKILL.md) — the owner's shortcuts: phrase →
+  skill/action ("think it through", "what's done?"). Replaces
+  "remember my habits".
 
-## Think-first (пакет thinking)
+## Think-first (thinking package)
 
-- [thinking](./thinking/SKILL.md) — диспетчер думалок; сам правил не
-  несёт, грузит тройку ниже одной пачкой.
-- [solution-search](./solution-search/SKILL.md) — метод поиска подхода:
-  глаголы, лестница less-make, URL-доказательства, 2-3 кандидата.
-- [spine](./spine/SKILL.md) — своя позиция в идеях: тейки каждый ход,
-  вайлдшоты с ярлыками, без рефлексивного согласия и лести.
-- [workplanx](./workplanx/SKILL.md) — папка топика
-  (plan/search/decision/log/gate) + голос хозяина в логе (1.10.0).
+- [thinking](./thinking/SKILL.md) — dispatcher for think-first skills;
+  carries no rules itself, loads the trio below in one bundle.
+  (NOTE: folder deleted 2026-11-14, folded into the think-first
+  mega-bundle chord — entry kept for history, link is dead.)
+- [solution-search](./solution-search/SKILL.md) — the method for finding
+  an approach: verbs, the less-make ladder, URL evidence, 2-3 candidates.
+- [spine](./spine/SKILL.md) — own position in ideation: a take every
+  turn, labeled wild-shots, no reflexive agreement or flattery.
+- [workplanx](./workplanx/SKILL.md) — topic folder
+  (plan/search/decision/log/gate) + the owner's voice in the log (1.10.0).
 
-## Код (пакет coding)
+## Code (coding package)
 
 - [coding](./coding/SKILL.md) — coding dispatcher: docker, process-tiers,
   code-quality, testing, logging, external-integrations live inside the
   package; boundaries, proxy-egress, git-workflow moved out to top level
   as mandatory sibling dependencies (split 2026-11-14).
-- [ponytail](../../.zcode/skills/ponytail/SKILL.md) — ленивый сеньор
-- [frontend-design](../../.zcode/skills/frontend-design/SKILL.md) — вкус и общий вид при сборке/редизайне UI: токены, типографика, «не AI-штамп»; ставится как критик и как проводка для сборки. Из anthropics/skills (MIT), вендор в .zcode/skills.
-  (vendored из DietrichGebert/ponytail, MIT): лестница минимального
-  изменения, уровни lite/full/ultra. ЖИВЁТ ВО ВСТРОЕННЫХ
-  (.zcode/skills), не в коллекции.
+- [ponytail](../../.zcode/skills/ponytail/SKILL.md) — lazy senior
+  (vendored from DietrichGebert/ponytail, MIT): the minimal-change
+  ladder, lite/full/ultra tiers. LIVES IN BUILT-IN
+  (.zcode/skills), not in the collection.
+- [frontend-design](../../.zcode/skills/frontend-design/SKILL.md) — taste
+  and overall look when building/redesigning UI: tokens, typography,
+  "not an AI template"; installed both as a critic and as wiring for the
+  build. From anthropics/skills (MIT), vendored into .zcode/skills.
 
-## Вынесены из coding (сплит 2026-11-14)
+## Split out of coding (split 2026-11-14)
 
 - [boundaries](./boundaries/SKILL.md) — secrets, credentials, logs,
   chat/transcript hygiene, browser data, out-of-project access; loads on
@@ -50,34 +56,36 @@
   not only code. Was coding/git-workflow; stays a mandatory coding
   dependency.
 
-## Процесс
+## Process
 
-- [fresh-eyes](./fresh-eyes/SKILL.md) — чистоглазая приёмка готового
-  (quality/conformance) свежим агентом, который не видел, как писалось.
-- [mission](./mission/SKILL.md) — большая цель → доска карточек,
-  карточные сессии.
-- [loop](./loop/SKILL.md) — гонять задачу итерациями до зелёного
-  предиката.
-- [researcher](./researcher/SKILL.md) — автономный ресёрч нового/ншого
-  на тему.
-- [watchdog](./watchdog/SKILL.md) — надзорный тик за процессом/сессией
-  без вмешательства в его работу.
+- [fresh-eyes](./fresh-eyes/SKILL.md) — clean-context acceptance of
+  finished work (quality/conformance) by a fresh agent that never saw
+  how it was written.
+- [mission](./mission/SKILL.md) — big goal → board of cards, worked
+  card-by-card in card sessions.
+- [loop](./loop/SKILL.md) — run a task in iterations until a green
+  predicate.
+- [researcher](./researcher/SKILL.md) — autonomous research for new/niche
+  findings on a topic.
+- [watchdog](./watchdog/SKILL.md) — supervision tick over a
+  process/session without interfering with its work.
 - [roi](./roi/SKILL.md) — value-scoring for produced findings: cold-model
   stock gate + six criteria (lens/staleness/actionability/cost/verifiability),
   verdict blocks. Replaces nothing; researcher finds — roi prices what was
   found.
 
-## Встроенные, вне папки коллекции
+## Built-in, outside the collection folder
 
 - [reverse-engineer-anything](../../.zcode/skills/reverse-engineer-anything/SKILL.md) —
-  REA: реверс бинарников/Electron/прошивок через REA MCP; грузится по
-  явной задаче реверса. Заменителей в коллекции нет.
-- [ponytail](../../.zcode/skills/ponytail/SKILL.md) — ленивый сеньор;
-  зависимость coding (см. строку выше в «Код»).
-- chords — [chords](./chords/SKILL.md) из коллекции; его таблица
-  биндингов — references/bindings.md, обновляется по словам хозяина.
+  REA: reverse-engineering binaries/Electron/firmware via the REA MCP;
+  loads on an explicit reverse-engineering task. No replacement in the
+  collection.
+- [ponytail](../../.zcode/skills/ponytail/SKILL.md) — lazy senior;
+  a coding dependency (see the line above in "Code").
+- chords — [chords](./chords/SKILL.md) from the collection; its bindings
+  table is references/bindings.md, updated per the owner's word.
 
-## Внешние, не в реестре
+## External, not in the registry
 
-- skill-caffolder'ы ZCode (skill-creator, plugin-creator) — встроенные,
-  живут в ZCode, не здесь.
+- ZCode's built-in scaffolders (skill-creator, plugin-creator) —
+  built in, live in ZCode, not here.

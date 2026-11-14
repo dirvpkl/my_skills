@@ -30,8 +30,8 @@ competitive class:
 - 4 OSS repos [oss-repo] — skill-publisher style, mcp-submit, mcpx-cli —
   prototypes of the same verb.
 
-Owner's verdict (verbatim): "manycp реально неплох. я даже не знаю, где
-ты его отыскала" — and the technique was promoted to memory as
+Owner's verdict (paraphrased): "manycp is actually quite good — I don't
+even know where you found it" — and the technique was promoted to memory as
 `search-the-verbs-tool-not-the-thing`.
 
 ## Teaching points

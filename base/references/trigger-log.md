@@ -10,5 +10,5 @@ resolved — the log is the queue, the descriptions are the fix.
 
 | date | utterance | fired | should | resolution |
 |---|---|---|---|---|
-| 2026-11-11 | "оцени мои проектики" | nothing (agent hand-rolled generic Explore agents) | spine (bare opinion turn) | owner ruling + sweep: spine 1.3.0 claims bare opinion turns; fresh-eyes NOT changed; thinking 1.1.0 carries the "подумай / можешь поискать чето" family — resolved |
+| 2026-11-11 | "rate my projects" (owner, translated) | nothing (agent hand-rolled generic Explore agents) | spine (bare opinion turn) | owner ruling + sweep: spine 1.3.0 claims bare opinion turns; fresh-eyes NOT changed; thinking 1.1.0 carries the "think / can you search for something" family — resolved |
 | 2026-11-11 | (session start, no utterance) base never loaded | nothing | base (always loaded by design) | harness-level fix: user-scope `~/.zcode/AGENTS.md` says "invoke Skill(base) first"; base description states the exemption explicitly — resolved |

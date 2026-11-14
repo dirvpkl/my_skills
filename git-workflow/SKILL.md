@@ -1,6 +1,6 @@
 ---
 name: git-workflow
-description: Version-control conventions for ANY project work — code, notes, brainstorms, reverse-engineering, montage, scripts, whatever lives in a repo (git is version control, and version control is not only about code). Commit discipline, branch naming and creation, merge gating, dependency-upgrade caution, and .gitignore hygiene. Use whenever a task involves making changes to a git-tracked project, not just when the user explicitly mentions git. Owner phrasings also trigger — «можешь коммитить», «коммитни», «пушни», «мердж».
+description: Version-control conventions for ANY project work — code, notes, brainstorms, reverse-engineering, montage, scripts, whatever lives in a repo (git is version control, and version control is not only about code). Commit discipline, branch naming and creation, merge gating, dependency-upgrade caution, and .gitignore hygiene. Use whenever a task involves making changes to a git-tracked project, not just when the user explicitly mentions git.
 version: 1.1.0
 ---
 
@@ -15,7 +15,7 @@ ANY task in a git-tracked project, whatever the work is — code, notes, brainst
 ## Commits
 - Always commit changes after finishing a task. No "leave it for later."
 - Conventional Commits: `feat:`, `fix:`, `chore:`, `refactor:`, `test:`, `docs:` — short imperative summary line, body only if genuinely needed.
-- Owner approval phrasings — «можешь коммитить», «коммитни», «пушни», «мердж» — are the explicit user approval the merge/push gates need.
+- Owner approval phrasings — "go ahead and commit", "commit it", "push it", "merge it" — are the explicit user approval the merge/push gates need.
 
 ## Branching
 - Any project work happens in a separate branch `<type>/<what>` (e.g. `refactor/...`, `feat/...`, `fix/...`). Ask the user before creating it.

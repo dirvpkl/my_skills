@@ -1,50 +1,51 @@
-# Sensitive data memo — owner-related agent's checklist, relayed verbatim 2026-11-14
+# Sensitive data memo — agent checklist, relayed 2026-11-14
 
-> Source: a memo handed to the owner by another agent; preserved verbatim as
-> the seed for the `boundaries` skill (see plan.md split proposal). Language
-> and structure kept as received.
+> Source: a memo handed to the owner by another agent; preserved as the
+> seed for the `boundaries` skill (see plan.md split proposal). Translated
+> to English and sanitized: project-specific names and values replaced
+> with generic placeholders; every rule and checklist item kept.
 
-## 📋 Памятка: sensitive data в логах и чате
+## Checklist: sensitive data in logs and chat
 
-### 0. Золотое правило
-Всё, что попало в чат или transcript — считай скомпрометированным. Не «приватно, но осторожно», а скомпрометировано. Диалог может логироваться, храниться, индексироваться. Отсюда единственный вопрос перед каждым выводом: «если это увидит чужой человек — что он сможет сделать?»
+### 0. Golden rule
+Anything that lands in chat or a transcript must be treated as compromised. Not "private, but careful" — compromised. A dialogue can be logged, stored, indexed. Hence the only question before every output: "if a stranger sees this — what can they do with it?"
 
-### 1. Что считать чувствительным
+### 1. What counts as sensitive
 
-| Категория | Примеры из нашего проекта |
+| Category | Examples from our project |
 |---|---|
-| Токены ботов | TELEGRAM_BOT_TOKEN (утёк через httpx-лог — кейс №1) |
-| Сессионные токены | MOBIFITNESS_TOKEN, access_token из TestPanel |
-| Одноразовые коды | pocketkey (пока жив — 60 сек дверного доступа) |
-| Личные идентификаторы | номер карты (card), телефон, ФИО клиента |
-| Секреты инфраструктуры | пароли, ключи, client_id+secret пары |
+| Bot tokens | bot token leaked via a verbose HTTP client log (case #1) |
+| Session tokens | session access tokens from an internal test panel |
+| One-time codes | short-lived door-access codes (live ~60 seconds) |
+| Personal identifiers | card number, phone, customer full name |
+| Infrastructure secrets | passwords, keys, client_id+secret pairs |
 
-Граница: длина, наличие, форма, код ошибки — не секрет. Значение — секрет. `card_len: 10` — можно. `card: 7B7D...` — нельзя.
+The line: length, presence, shape, error code — not a secret. The value — a secret. `card_len: 10` — fine. `card: 7B7D...` — not fine.
 
-### 2. Логи в коде: три уровня защиты
+### 2. Logs in code: three levels of protection
 
-**Уровень 1 — глушить болтливые библиотеки** (наш кейс: httpx печатает полный URL = токен в URL):
+**Level 1 — silence chatty libraries** (our case: an HTTP client printing the full URL = token in the URL):
 
 ```python
 import logging
 logging.getLogger("httpx").setLevel(logging.WARNING)      # python-telegram-bot
-logging.getLogger("http.client").setLevel(logging.WARNING) # urllib в некоторых версиях
+logging.getLogger("http.client").setLevel(logging.WARNING) # urllib in some versions
 logging.getLogger("urllib3").setLevel(logging.WARNING)     # requests
 ```
 
-**Уровень 2 — никогда не интерполировать секрет в сообщение:**
+**Level 2 — never interpolate a secret into a message:**
 
 ```python
-# ❌ так утекает
+# ❌ leaks
 log.info(f"minted token: {token}")
-log.info(f"request to {url}")            # url может содержать ?token=...
+log.info(f"request to {url}")            # url may contain ?token=...
 
-# ✅ так безопасно
+# ✅ safe
 log.info("minted fresh token (len=%d)", len(token))
-log.info("request done: %s", url.split("?")[0])   # путь без query
+log.info("request done: %s", url.split("?")[0])   # path without query
 ```
 
-**Уровень 3 — маскирующий хелпер на все случаи:**
+**Level 3 — a masking helper for every case:**
 
 ```python
 def mask(value: str, keep: int = 4) -> str:
@@ -53,50 +54,50 @@ def mask(value: str, keep: int = 4) -> str:
     return value[:keep] + "…" + f"({len(value)} chars)"
 ```
 
-### 3. Curl-пробы: фильтруй ДО вставки в чат
-Никогда не вставляй сырой вывод curl в неприватный чат. Сразу пайплайн в фильтр:
+### 3. Curl probes: filter BEFORE pasting into chat
+Never paste raw curl output into a non-private chat. Pipe straight into a filter:
 
 ```bash
 curl -s ... | python3 -c "import json,sys; d=json.load(sys.stdin); \
 print('result:', d.get('result'), '| code:', d.get('code'), '| errors:', d.get('errors'))"
 ```
 
-Печатай только форму: result / code / errors / наличие полей / длины. Значения полей, содержащие идентификаторы — не печатай.
+Print only the shape: result / code / errors / presence of fields / lengths. Field values that contain identifiers — do not print.
 
-Ввод секретов в команду — через `read -s` в env-переменную, значение живёт только в шелле:
+Entering secrets into a command — via `read -s` into an env variable, the value lives only in the shell:
 
 ```bash
 read -s PHONE && curl -s ... -d "{\"phone\": \"$PHONE\"}" ...
 ```
 
-И проверка, что оно подхватилось (без значения!): `echo "len: ${#PHONE}"`.
+And a check that it was picked up (without the value!): `echo "len: ${#PHONE}"`.
 
-### 4. Файлы с секретами
-- Не cat файлы с токенами «проверить, что там». Проверка — скриптом, вывод — булево/длина:
+### 4. Files with secrets
+- Do not cat token files "to check what's there". The check — by script, the output — boolean/length:
 
 ```python
 env = open(r"path/.env").read()
-print("token set:", bool(re.search(r"^TELEGRAM_BOT_TOKEN=\S+", env, re.M)))
+print("token set:", bool(re.search(r"^BOT_TOKEN=\S+", env, re.M)))
 ```
 
-- Заполнять секреты — самому пользователю (notepad/редактор), агенту это не показывать.
-- `.env` в `.gitignore` всегда, до первого коммита.
+- Filling in secrets — the user themselves (notepad/editor); the agent never sees them.
+- `.env` in `.gitignore` always, before the first commit.
 
-### 5. Docker-специфика
-- `env_file: .env` в compose — ок: механизм подставляет значения в контейнер, никто не читает файл глазами.
-- `docker logs` — вектор утечки: любые URL, заголовки, тела, которые библиотека залогировала, вывалятся наружу при первом же просмотре. Логи — это тоже публикация.
-- `docker compose restart` — безопасен: перечитывает .env, ничего не печатая. После смены секрета в .env — рестарт, не rebuild.
-- После инцидента с токеном: rebuild не спасает — секрет жил в stdout старого контейнера. Только ревокация.
+### 5. Docker specifics
+- `env_file: .env` in compose — fine: the mechanism injects values into the container, nobody reads the file by eye.
+- `docker logs` — a leak vector: any URLs, headers, bodies the library logged will spill out on the first inspection. Logs are a publication too.
+- `docker compose restart` — safe: re-reads .env without printing anything. After changing a secret in .env — restart, not rebuild.
+- After a token incident: rebuild does not help — the secret lived in the old container's stdout. Only revocation.
 
-### 6. Протокол утечки (порядок действий)
-1. Revoke немедленно — у Telegram-ботов: @BotFather → /revoke. Мёртвый токен в логах = просто мусор.
-2. Выпустить новый, вписать в файл (не в чат), рестарт контейнера.
-3. Определить круг пострадавших: что ещё жило в том же выводе (номер? карта? другой токен?).
-4. Только потом разбирать, как утекло, и ставить фильтр — в обратном порядке ты забудешь отозвать.
+### 6. Leak protocol (order of actions)
+1. Revoke immediately — for chat-platform bots: the platform's revoke flow (e.g. @BotFather → /revoke). A dead token in logs is just garbage.
+2. Issue a new one, write it into the file (not the chat), restart the container.
+3. Determine the blast radius: what else lived in that same output (phone? card? another token?).
+4. Only then dig into how it leaked and set the filter — in the reverse order you will forget to revoke.
 
-### 7. Чек-лист перед каждым «показать вывод в чат»
-- [ ] Есть ли в выводе токен/ключ/пароль? (URL тоже: `?token=`, Bearer-заголовки)
-- [ ] Есть ли персональные данные (телефон, номер карты, ФИО, адрес)?
-- [ ] Есть ли значение, которое можно использовать за меня? (даже одноразовое)
-- [ ] Прогнал через фильтр, печатающий форму, а не значения?
-- [ ] Если всё же утекло — отзываемо? (токен — да, номер карты — нет!)
+### 7. Checklist before every "show the output in chat"
+- [ ] Is there a token/key/password in the output? (URLs too: `?token=`, Bearer headers)
+- [ ] Is there personal data (phone, card number, full name, address)?
+- [ ] Is there a value that can be used as me? (even one-time)
+- [ ] Ran it through a filter that prints the shape, not the values?
+- [ ] If it leaked anyway — is it revocable? (token — yes, card number — no!)

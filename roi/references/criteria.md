@@ -119,6 +119,6 @@ base rule: machine facts resolve there, never from the owner's memory
    never logged, never printed.
 
 Known limitation: a producer prompt that leans on conversation context
-("про то, что мы обсуждали") travels badly to a cold model — the diff then
-measures a degraded prompt, note that in the verdict rather than re-running
-with a rewritten prompt.
+("about what we were discussing") travels badly to a cold model — the diff
+then measures a degraded prompt, note that in the verdict rather than
+re-running with a rewritten prompt.

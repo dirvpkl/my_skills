@@ -18,7 +18,7 @@ After implementing or changing a feature, before reporting it as done. Bundled p
 Whatever's being tested should already have logging wired in per the `logging` skill — that's not optional groundwork, it's assumed to already be there by the time testing starts. If it isn't, that's a gap to flag, not something to route around while testing.
 
 ## Coverage — concept, not line count
-- Tests verify the CONCEPT of the change: does the new behavior do what it claims. A handful of concept-level tests beat hundreds of near-duplicate asserts — a suite that grew into hundreds of line-checks is a smell, not safety (owner ruling 2026-11-14: "концепцию тестами проверять, а не ассерты бесконечные"). If existing tests already cover the concept, adding more is noise.
+- Tests verify the CONCEPT of the change: does the new behavior do what it claims. A handful of concept-level tests beat hundreds of near-duplicate asserts — a suite that grew into hundreds of line-checks is a smell, not safety (verify the concept with tests, not endless asserts). If existing tests already cover the concept, adding more is noise.
 - If the concept isn't covered and a proper test isn't feasible in the time/tooling available, write a .sh/.ps1 check script instead and explicitly tell the user coverage is incomplete and why.
 
 ## E2E — mandatory to ask

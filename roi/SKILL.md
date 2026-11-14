@@ -1,6 +1,6 @@
 ---
 name: roi
-description: Value-scoring for the agent's own findings — is this finding actually valuable, or would any cold LLM have said the same thing (the stock question)? ALWAYS invoke when the owner asks to price a find ("оцени ценность находки", "сколько стоит эта находка", "roi этих находок", bare "roi"), before publishing or selling anything derived from findings ("стоит ли это продавать"), or asks whether a find is stock ("это сток?", "любой бы это нашёл?") — the cold-model stock gate is this skill's hard core and runs before any scoring. Findings are scored and annotated append-only, never deleted or edited. NOT for reviewing finished work (fresh-eyes), NOT for ideation takes and opinions (spine), NOT for finding things (researcher finds; roi prices what was found). Owner phrasings also trigger — «приводи ценность к находкам».
+description: Value-scoring for the agent's own findings — is this finding actually valuable, or would any cold LLM have said the same thing (the stock question)? ALWAYS invoke when the owner asks to price a find (bare "roi" or any price-the-find phrasing), before publishing or selling anything derived from findings, or asks whether a find is stock (would anyone have found it) — the cold-model stock gate is this skill's hard core and runs before any scoring. Findings are scored and annotated append-only, never deleted or edited. NOT for reviewing finished work (fresh-eyes), NOT for ideation takes and opinions (spine), NOT for finding things (researcher finds; roi prices what was found).
 version: 1.0.0
 ---
 
@@ -25,10 +25,9 @@ runs.
 
 - The control arm is not hard-wired to an external API: a cold-model call,
   a fresh subagent, or a self-reflection pass all qualify — the model does
-  the thinking either way (owner ruling 2026-11-14: don't hard-restrict the
-  mechanism).
-- The owner's own formulation of the stock question: «сток ответ, какой бы
-  дал любой ллм» — same test, same gate.
+  the thinking either way.
+- The owner's own formulation of the stock question: the answer is stock,
+  the kind any LLM would give — same test, same gate.
 - Run the control on the finding's ORIGINAL formulation — never a re-written
   leading version; a prompt engineered to produce the finding proves nothing.
 - No control config, a failed control call, or a missing producer prompt is

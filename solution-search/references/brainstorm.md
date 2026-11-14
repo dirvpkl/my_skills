@@ -6,8 +6,8 @@ that already does the job. This mode answers a different question: **"we are
 stuck - what could we possibly do about it?"**
 
 Use it when the user asks for options rather than a technique ("run a
-brainstorm", "what are our options", "пусти брейншторм себе в голову"), when
-the default mode came back empty on a blocker that matters, or when the
+brainstorm", "what are our options", "let a brainstorm loose in your head"),
+when the default mode came back empty on a blocker that matters, or when the
 blocker is a dead end rather than an unknown.
 
 The output is still a decision, not the thing. This mode changes how the

@@ -87,8 +87,7 @@ nothing executed is the only exemption.
    applies, not decoration. Skills are RE-READ FROM DISK every time they
    matter — never answer a skill question from memory or assume last
    week's content: the catalog changes under you, and a stale recital is
-   a lie (owner rule 2026-11-14: skills «всегда перечитываются», «из
-   памяти нельзя»).
+   a lie.
    Long-running or unattended work also runs under `watchdog` — its
    `skills-reminder` profile (30 min) is mandatory in principle and is set
    up at task start, never remembered mid-work.
