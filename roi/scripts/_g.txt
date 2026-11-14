@@ -1,0 +1,5 @@
+The profile-mention incentive is cheap to implement: reading a user's public
+Telegram profile bio is one standard MTProto call (GetFullUser, Telethon 'Users'
+example), and the stack's accounts already do client-side calls. So 'reward users
+whose bio mentions our bot' needs no new infrastructure — just a periodic bio
+check for tracked participants and a flag in the console.

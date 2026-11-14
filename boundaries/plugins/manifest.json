@@ -1,0 +1,16 @@
+{
+  "skill": "boundaries",
+  "package_version": "1.0.1",
+  "dependencies": [],
+  "modules": [
+    {
+      "id": "sensitive-data-memo",
+      "name": "Sensitive-data memo",
+      "path": "references/sensitive-data-memo.md",
+      "type": "reference",
+      "version": "1.0.0",
+      "description": "The owner's sensitive-data memo preserved verbatim: chat/transcript golden rule, form-not-values output hygiene, mask() helper, Docker leak vectors, the pre-output checklist (section 7)."
+    }
+  ],
+  "planned": []
+}
