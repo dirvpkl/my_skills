@@ -30,3 +30,4 @@ desktop.ini
 # Lives next to the live skill catalog; shape documented by runtime.example.toml.
 runtime.toml
 .hook_errors.log
+watchdog/state/

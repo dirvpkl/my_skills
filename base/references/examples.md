@@ -11,7 +11,7 @@ Rationale: the log path is the only progress signal — silence past the natural
 ## Resolve paths at runtime
 
 **Good:** catalog location read from what the environment exposes at startup, fallback `%USERPROFILE%/.agents/skills`; local facts checked in `runtime.toml`.
-**Bad:** `C:\Users\orlando\Desktop\my_skills\...` pasted from last month's session and applied without a check.
+**Bad:** `<machine-path>\my_skills\...` pasted from last month's session and applied without a check.
 Rationale: a path frozen in the plan is already stale — runtime truth is wherever the environment says it is today.
 
 ## Repo check before the first write

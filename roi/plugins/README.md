@@ -11,5 +11,5 @@
 wild-shot. Validate after any edit:
 
 ```
-python -I C:\Users\orlando\.agents\skills\workplanx\scripts\validate_manifest.py <skill-dir>
+python -I <catalog>\workplanx\scripts\validate_manifest.py <skill-dir>
 ```

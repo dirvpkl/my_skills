@@ -8,7 +8,7 @@ import os, re, sys, datetime
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BINDINGS = os.path.normpath(os.path.join(HERE, "..", "references", "bindings.md"))
-DEFAULT_OUT = r"C:\Users\orlando\Desktop\chords-cheatsheet.md"
+DEFAULT_OUT = os.path.join(os.path.expanduser("~"), "Desktop", "chords-cheatsheet.md")
 
 def main():
     out = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_OUT
