@@ -29,3 +29,4 @@ desktop.ini
 # Machine/context runtime facts (ports, hosts, working-context tokens).
 # Lives next to the live skill catalog; shape documented by runtime.example.toml.
 runtime.toml
+.hook_errors.log
