@@ -13,8 +13,8 @@ Checks:
   - every name in "dependencies" resolves to a real sibling skill folder
     (a folder with a SKILL.md next to this one)
   - every name in "dependencies_runtime" resolves through an external root
-    declared in runtime.toml ([skills] external_roots, next to the live
-    skill catalog); an unresolved name fails loudly, listing every root tried
+    declared in the skill's own runtime.toml ([skills] external_roots);
+    an unresolved name fails loudly, listing every root tried
 
 Usage:
     python3 scripts/validate_manifest.py
@@ -55,7 +55,7 @@ def runtime_external_roots(problems: list, required: bool = False) -> list[str]:
         if required:
             problems.append(
                 f"runtime.toml not found at {RUNTIME_TOML} — create it "
-                f"(shape: runtime.example.toml in the skill-collection repo) "
+                f"(shape: runtime.example.toml beside this skill) "
                 f"with [skills] external_roots listing the directories that "
                 f"hold the declared runtime dependencies"
             )

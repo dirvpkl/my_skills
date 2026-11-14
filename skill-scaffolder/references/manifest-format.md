@@ -39,7 +39,7 @@ Without it, a growing skill tends toward one of two failure modes: either SKILL.
 
 - **`modules`** — what's *inside this skill*: reference docs, or (package-level) nested sub-skills. Read them when this skill runs.
 - **`dependencies`** — *other skills in the collection* that load alongside this one. Read them when this skill runs too, but they live in their own folders with their own `SKILL.md`.
-- **`dependencies_runtime`** — skills that load alongside this one but live *outside the collection* (harness built-ins and the like). Same "what loads with me" question as `dependencies`, different address space: those names are never resolved against the collection root. `validate_manifest.py` resolves them through the external roots declared in `runtime.toml` (`[skills] external_roots`, next to the live skill catalog — machine-local and gitignored; the repo's `runtime.example.toml` documents the shape). Optional; same shape rules as `dependencies` (names only, no self-reference), and a name that resolves in no declared root fails loudly, listing every root it searched.
+- **`dependencies_runtime`** — skills that load alongside this one but live *outside the collection* (harness built-ins and the like). Same "what loads with me" question as `dependencies`, different address space: those names are never resolved against the collection root. `validate_manifest.py` resolves them through the external roots declared in the skill's own `runtime.toml` (`[skills] external_roots` — machine-local, gitignored; the skill's tracked `runtime.example.toml` documents the shape). Optional; same shape rules as `dependencies` (names only, no self-reference), and a name that resolves in no declared root fails loudly, listing every root it searched.
 
 Putting a sibling skill into `modules` doesn't work and shouldn't be made to: the validator requires `path`/`type`/`version` and checks that the path exists, and a sibling skill has none of those. Conversely, a dependency has no manifest entry here — it's owned by its own skill.
 
@@ -78,7 +78,7 @@ This format supports two different granularities, and a skill should pick one an
 
 ## Adding a runtime dependency
 1. Add the external skill's folder name to the `dependencies_runtime` array — a name only, never a path.
-2. Confirm the directory holding it is declared in this machine's `runtime.toml` under `[skills] external_roots` (create the file from the repo's `runtime.example.toml` if this machine has none).
+2. Confirm the directory holding it is declared in the skill's own `runtime.toml` under `[skills] external_roots` (copy `runtime.example.toml` to `runtime.toml` and fill in the machine values — `runtime.toml` is gitignored).
 3. Run `scripts/validate_manifest.py` — it fails if the name resolves in no declared root, naming every root it searched.
 
 ## Removing or disabling a module
