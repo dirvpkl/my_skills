@@ -35,7 +35,7 @@ founding case demonstrated (see `case-manycp.md`).
 
 ## 4. Provider order (measured 2026-11-12/14)
 
-1. **omniroute `exa-search` FIRST** — semantic/neural retrieval; it
+1. **router `exa-search` FIRST** — semantic/neural retrieval; it
    returned the entire class in one page where keyword engines returned
    shelves.
 2. **`tavily-search` second** — works, weaker on class-level phrasing.
@@ -46,12 +46,12 @@ founding case demonstrated (see `case-manycp.md`).
 Omniroute call:
 
 ```
-POST {omniroute}/v1/search
+POST {router}/v1/search
 {"query": "<verb-tool query>", "provider": "exa-search", "count": 5}
 ```
 
-`{omniroute}` base URL and the API key come from the machine's runtime
-context (`%USERPROFILE%/.agents/skills/runtime.toml`, `[omniroute]`
+`{router}` base URL and the API key come from this skill's runtime
+context (`runtime.toml` next to this SKILL.md, `[router]`
 section), resolved at run time — never hardcoded in this skill, a
 script, or a prompt. No key available = loud fail, never a silent
 fallback to another provider without saying so.

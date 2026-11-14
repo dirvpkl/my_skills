@@ -7,9 +7,10 @@ For every directory under the repo root that contains a SKILL.md:
   3. the skill's own scripts/validate_manifest.py (if present) passes.
 
 Repo-side checks that run alongside the per-skill walk:
-  4. runtime.toml next to the live catalog parses, and every
-     [skills] external_roots entry exists on disk (an absent file is a
-     WARN: a fresh machine simply has no roots configured yet);
+  4. a skill's own runtime.toml (next to its SKILL.md, gitignored) parses,
+     and a skill declaring dependencies_runtime has [skills] external_roots
+     pointing at existing directories (absent file without such a
+     declaration is fine: the skill simply needs no runtime values);
   5. double-bracket wiki-links in skill markdown resolve to a topic or
      repo directory (dangling = WARN, workplanx semantics; backticked
      mentions are documentation, not links, and are skipped — so are
@@ -33,7 +34,6 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-RUNTIME_TOML = Path.home() / ".agents" / "skills" / "runtime.toml"
 
 
 def frontmatter(path: Path) -> dict:
@@ -76,15 +76,19 @@ def iter_skills():
         yield d
 
 
-def check_runtime_toml() -> tuple[list, list]:
-    """runtime.toml: absent = WARN (unconfigured machine), broken = error.
+def check_skill_runtime(d: Path) -> tuple[list, list]:
+    """A skill's own runtime.toml: values live per-skill, not at the root.
 
-    Also parses the committed runtime.example.toml — it documents the shape
-    every operator copies, so a syntax error in it is an error even though
-    the file is only an example.
+    A skill whose manifest declares dependencies_runtime NEEDS the file —
+    its absence is an error (the declared names cannot resolve). Without
+    such a declaration an absent file is fine; a present file must parse,
+    and its [skills] external_roots (if present) must exist on disk. The
+    tracked runtime.example.toml beside the skill documents the shape, so
+    a syntax error in it is an error too.
     """
     errors, warnings = [], []
-    example = ROOT / "runtime.example.toml"
+    runtime = d / "runtime.toml"
+    example = d / "runtime.example.toml"
     if example.exists():
         try:
             import tomllib
@@ -92,12 +96,24 @@ def check_runtime_toml() -> tuple[list, list]:
         except ModuleNotFoundError:
             pass
         except Exception as e:
-            errors.append(f"runtime.example.toml is not valid TOML: {e}")
-    if not RUNTIME_TOML.exists():
-        warnings.append(
-            f"runtime.toml not found ({RUNTIME_TOML}) — external skill roots "
-            f"unconfigured on this machine"
-        )
+            errors.append(f"{d.name}/runtime.example.toml is not valid TOML: {e}")
+
+    declared = False
+    manifest = d / "plugins" / "manifest.json"
+    if manifest.exists():
+        try:
+            declared = bool(json.loads(manifest.read_text(encoding="utf-8"))
+                            .get("dependencies_runtime"))
+        except json.JSONDecodeError:
+            pass  # the manifest check above already reports this
+
+    if not runtime.exists():
+        if declared:
+            errors.append(
+                f"{d.name}: manifest declares dependencies_runtime but "
+                f"{d.name}/runtime.toml is missing — create it (shape: "
+                f"{d.name}/runtime.example.toml) with [skills] external_roots"
+            )
         return errors, warnings
     try:
         import tomllib
@@ -105,24 +121,24 @@ def check_runtime_toml() -> tuple[list, list]:
         warnings.append("python >= 3.11 (tomllib) — cannot verify runtime.toml")
         return errors, warnings
     try:
-        data = tomllib.loads(RUNTIME_TOML.read_text(encoding="utf-8"))
+        data = tomllib.loads(runtime.read_text(encoding="utf-8"))
     except Exception as e:
-        errors.append(f"runtime.toml is not valid TOML: {e}")
+        errors.append(f"{d.name}/runtime.toml is not valid TOML: {e}")
         return errors, warnings
     skills_tbl = data.get("skills", {})
-    if not isinstance(skills_tbl, dict):
+    if skills_tbl and not isinstance(skills_tbl, dict):
         errors.append(
-            f"runtime.toml [skills] must be a table "
+            f"{d.name}/runtime.toml [skills] must be a table "
             f"(got {type(skills_tbl).__name__})"
         )
         return errors, warnings
-    roots = skills_tbl.get("external_roots", [])
+    roots = skills_tbl.get("external_roots", []) if isinstance(skills_tbl, dict) else []
     if not isinstance(roots, list):
-        errors.append("runtime.toml [skills] external_roots must be a list of paths")
+        errors.append(f"{d.name}/runtime.toml [skills] external_roots must be a list of paths")
         return errors, warnings
     for r in roots:
         if not Path(str(r)).expanduser().is_dir():
-            errors.append(f"runtime.toml external root does not exist: {r}")
+            errors.append(f"{d.name}/runtime.toml external root does not exist: {r}")
     return errors, warnings
 
 
@@ -198,9 +214,10 @@ def main() -> int:
             if r.returncode != 0:
                 errors.append(f"{rel}: own validate_manifest.py failed:\n{r.stderr.strip()}")
 
-    rt_errors, rt_warnings = check_runtime_toml()
-    errors.extend(rt_errors)
-    warnings.extend(rt_warnings)
+        rt_errors, rt_warnings = check_skill_runtime(d)
+        errors.extend(rt_errors)
+        warnings.extend(rt_warnings)
+
     warnings.extend(check_wiki_links())
 
     for w in warnings:

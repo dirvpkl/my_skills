@@ -30,7 +30,7 @@ SKILL_ROOT = Path(__file__).resolve().parent.parent
 MANIFEST_PATH = SKILL_ROOT / "plugins" / "manifest.json"
 VERSION_PATH = SKILL_ROOT / "VERSION"
 COLLECTION_ROOT = SKILL_ROOT.parent
-RUNTIME_TOML = Path.home() / ".agents" / "skills" / "runtime.toml"
+RUNTIME_TOML = Path(__file__).resolve().parent.parent / "runtime.toml"
 REQUIRED_FIELDS = ["id", "name", "path", "type", "version", "description"]
 MODULE_TYPES = ("core", "plugin", "reference")
 

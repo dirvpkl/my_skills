@@ -86,8 +86,8 @@ come with it" — different questions, don't merge them.
 `dependencies_runtime` is the sibling array for skills that load alongside but
 live OUTSIDE the collection (harness built-ins and the like). Those names are
 never resolved against the collection: `scripts/validate_manifest.py` resolves
-them through the external roots declared in `runtime.toml` (`[skills]
-external_roots`, next to the live catalog; shape documented in the repo's
+them through the external roots declared in this skill's own `runtime.toml`
+(`[skills] external_roots`; tracked shape in the skill's
 `runtime.example.toml`). Same rule as `dependencies` — the manifest is the only
 place the names are written, and a name that resolves nowhere fails
 validation loudly, listing every root it tried.

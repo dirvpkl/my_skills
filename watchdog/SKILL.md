@@ -109,7 +109,7 @@ mode), so the tick names both sides of the connection. This profile uses
 model judgment — it is the only one allowed to.
 
 1. Establish the evidence picture (read budget, in order):
-   - `runtime.toml` next to the live skill catalog: `[hotplug] skills` plus
+   - this skill's `runtime.toml`: `[hotplug] skills` plus
      any section relevant to the work at hand (instance addresses, ports);
    - the active `.workplanx/<topic>/` tail — the topic with the freshest
      `log.md` — when one exists;

@@ -1,0 +1,3 @@
+# watchdog/runtime.toml — tracked shape example; the real file is gitignored.
+[hotplug]
+skills = []

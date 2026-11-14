@@ -101,13 +101,13 @@ verdict:  0.75+ HIGH   0.4–0.75 MED   0–0.4 LOW   ×0 UNVERIFIABLE
 
 ## Config
 
-Config lives in the collection's `runtime.toml` (`[omniroute]` section) —
+Config lives in this skill's `runtime.toml` (`[router]` section) —
 base rule: machine facts resolve there, never from the owner's memory
 (owner ruling 2026-11-14). Resolve at run time, in order:
 
-1. `runtime.toml` `[omniroute]` — `url` (OpenAI-compatible router root)
+1. `runtime.toml` `[router]` — `url` (OpenAI-compatible router root)
    and `api_key` are already recorded there; the control model is ANY
-   omniroute chat model DIFFERENT from the producer's (probe `/v1/models`
+   router chat model DIFFERENT from the producer's (probe `/v1/models`
    at run time; do not reuse the producer's id or the `skill` alias if
    that is what produced the finding).
 2. Env overrides when present: `ROI_CONTROL_MODEL`,

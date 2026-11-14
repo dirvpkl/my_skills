@@ -16,7 +16,7 @@ have said the same thing?
 Before ANY scoring, the finding goes through the stock test
 (`scripts/stock_test.py`): the same prompt that produced the finding goes
 verbatim to a COLD control model — a model DIFFERENT from the producing
-one, resolved from the collection's `runtime.toml` `[omniroute]` section
+one, resolved from this skill's `runtime.toml` `[router]` section
 (env overrides win; owner ruling 2026-11-14: the config is already
 recorded there, never ask the owner for it). If the control's answer
 contains the same finding (fuzzy-diff ≥ 0.6 on the core claim), the

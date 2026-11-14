@@ -38,7 +38,7 @@ Worker-session supervision (OpenChamber and equivalent session hosts).
 The matcher tick: argues named skills into a working agent's context.
 Model judgment: yes.
 
-- Reads: `runtime.toml` next to the live skill catalog (`[hotplug]` plus
+- Reads: this skill's `runtime.toml` (`[hotplug]` plus
   sections relevant to the current work), the freshest
   `.workplanx/<topic>/log.md` tail (else the live session context), the
   `description` frontmatter line of every installed skill.
@@ -47,7 +47,7 @@ Model judgment: yes.
   never a generic "check whether a skill fits" reminder.
 - Cadence: 30 minutes (user-set).
 - Never: invokes skills, performs the matched work, edits anything except
-  `[hotplug]` in `runtime.toml` and its own log lines.
+  `[hotplug]` in this skill's `runtime.toml` and its own log lines.
 - Stop: the watched work ends or the user retires the tick — schedule task
   deleted in the same pass.
 

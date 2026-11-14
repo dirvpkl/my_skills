@@ -1,0 +1,9 @@
+# solution-search/runtime.toml — tracked shape example; the real file is gitignored.
+[router]
+url = "http://127.0.0.1:8888"
+api_key = "ask:router client key"
+
+[router.search_providers]
+working = ["exa-search", "duckduckgo-free"]
+no_credentials = []
+timeout = []

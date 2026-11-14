@@ -57,10 +57,9 @@ nothing executed is the only exemption.
    message. A path frozen here is already stale. Sibling skills are
    referenced by name only; their manifests describe their contents.
    Local facts — ports, hosts, instance addresses, model IDs, working-context
-   tokens — live in `runtime.toml` next to the live skill catalog
-   (`%USERPROFILE%/.agents/skills/runtime.toml`; gitignored everywhere,
-   shape documented by `runtime.example.toml` in the repo root). Reading it
-   is always allowed: its values are declared working context for this
+   tokens — live in the consuming skill's own `runtime.toml` beside its
+   SKILL.md (gitignored; tracked shape in the skill's
+   `runtime.example.toml`). Reading it is always allowed: its values are declared working context for this
    machine/context, not secrets. Ask the user only when the needed key is
    missing.
 4. **Check the repo before touching it.** In any project folder, the first

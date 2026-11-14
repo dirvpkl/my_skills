@@ -14,7 +14,7 @@ Usage:
     python -I stock_test.py --selftest        # offline, no network, no env
 
 Config (environment variables):
-    ROI_CONTROL_MODEL      required to run; any omniroute ":free" id works
+    ROI_CONTROL_MODEL      required to run; any router ":free" id works
     ROI_PRODUCER_MODEL     optional guard; control must differ from producer
     ROI_CONTROL_BASE_URL   OpenAI-compatible root; falls back to OPENAI_BASE_URL
     ROI_CONTROL_API_KEY    bearer key for the control endpoint (never logged)

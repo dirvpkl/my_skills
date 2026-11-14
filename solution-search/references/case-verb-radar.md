@@ -20,7 +20,7 @@ the plumbing?".
 
 `MCP server multi-registry publisher automation tool`
 
-Run through omniroute's `exa-search` provider (semantic/neural
+Run through the router's `exa-search` provider (semantic/neural
 retrieval, not keyword match). One page of results returned the ENTIRE
 competitive class:
 

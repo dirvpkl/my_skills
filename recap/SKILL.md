@@ -1,6 +1,7 @@
 ---
 name: recap
 description: Project recap collector — when the owner asks to retell the project, what was postponed, what was discussed, or to retell from a given moment (X = a date, topic, or phase), or says "recap", rebuild the project's story from its records, not from chat memory — an rg hashtag pass over <project>\.workplanx\*\ (log.md, decision.md, afterword.md) plus git log plus the agent's memory index, reported in the fixed form from references/recap-form.md. Read-only — it summarizes, never edits, never fills gaps itself. Use this skill first on any recap request; do not answer from chat memory alone, and never present a guess as a fact.
+version: 1.0.0
 ---
 
 # recap

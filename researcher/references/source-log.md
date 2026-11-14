@@ -28,7 +28,7 @@ One line per entry:
 2026-10-31 — ayautomate.com/free-models — Registries — surfaced while researching free AI agents — ~294 genuinely-free models from 40+ providers with "the catch" column and dated verification rows; monthly email digest
 2026-11-07 — TypingMind AI Skills Directory (typingmind.com/skills) — Registries — surfaced while researching agent skill triggering — structured community skill catalog with per-skill convention pages; one of the few indexed registries of published agent skills
 
-- 2026-11-12: agentskill.sh (skill hosting + profile pages) — Registries — surfaced by omniroute/exa scan "tool to publish agent skill to multiple marketplaces".
+- 2026-11-12: agentskill.sh (skill hosting + profile pages) — Registries — surfaced by router/exa scan "tool to publish agent skill to multiple marketplaces".
 - 2026-11-12: clawskills.sh (OpenClaw skill discovery) — Registries — surfaced by SearXNG "hosted SaaS skill publisher".
-- 2026-11-12: manycp.com (hosted MCP multi-directory submitter; its /directories page is a live venue registry) — Registries — surfaced by omniroute/exa "MCP server multi-registry publisher".
+- 2026-11-12: manycp.com (hosted MCP multi-directory submitter; its /directories page is a live venue registry) — Registries — surfaced by router/exa "MCP server multi-registry publisher".
 - 2026-11-12: theaicemetery.com / killedbyai.net (graveyard of dead AI products; cautionary-tale channel) — Contentsphere — surfaced by tavily "ChatGPT plugin store shutdown lessons".
