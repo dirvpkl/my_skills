@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.16.3] - 2026-11-15
+- Description: dropped the reference to the deleted `thinking` dispatcher;
+  the no-double-invoke note now points at the think-first chord.
+
 ## [1.16.2] - 2026-11-12
 - validate_manifest.py: missing-runtime.toml diagnostic and non-table [skills] guard
 

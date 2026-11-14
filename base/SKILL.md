@@ -1,7 +1,7 @@
 ---
 name: base
 description: Base operating rules for the orchestrator and every agent, always loaded — delegate by default with minimum hands-on, resolve volatile paths at runtime, ask-first on destructive/secret/out-of-scope steps, data and host integrity first. Pairs with coding on any task that executes or delegates; pure reading/explaining with nothing executed is the only exemption. Never skipped to save effort — when a request routes to another skill, that skill loads on top of base, never instead of it.
-version: 1.9.0
+version: 1.10.0
 ---
 
 # base
@@ -79,7 +79,7 @@ nothing executed is the only exemption.
    do provisional work while waiting for a yes.
 6. **Run the full bundle.** `coding` (fail-loud, checks order
    format→lint→typecheck→tests, Conventional Commits) plus whatever the
-   task needs (`workplanx` gates start, `fresh-eyes` judges the diff,
+   task needs (`workplanx` gates any non-trivial task, `fresh-eyes` judges the diff,
    `loop` drives iterate-until-green, `mission` decomposes goals).
    Skills shipping `references/examples.md`: read that file beside the
    SKILL.md — the good/bad pairs are binding context for HOW the skill
@@ -92,6 +92,9 @@ nothing executed is the only exemption.
    up at task start, never remembered mid-work.
    Overlapping rules resolve toward the stricter one; a conflict that
    blocks work is a stop-and-ask, not a silent pick.
+8. **Write English.** Everything written for a project — code, comments,
+   docs, READMEs, skill files — is English-only, regardless of the
+   conversation language; the chat itself follows the user's language.
 7. **A failed skill load is recoverable — recover it, then proceed.**
    When the harness's Skill invocation fails (skill not listed, not
    registered, load error), the task is not blocked: skill execution

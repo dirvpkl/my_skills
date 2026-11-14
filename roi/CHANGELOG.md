@@ -23,5 +23,5 @@
 - Stock-gate softened per owner ruling: control arm is not hard-wired to an
   external API — cold-model call, fresh subagent, or self-reflection pass all
   qualify; control always runs on the finding's ORIGINAL formulation (never a
-  leading rewrite). `thinking` added to dependencies (roi is a думалка that
-  connects at the end of a pass and during ИБД/forced-serendipity).
+  leading rewrite). `thinking` added to dependencies (roi closes out the think-first pass
+  and forced-serendipity sessions).
