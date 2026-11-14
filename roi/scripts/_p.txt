@@ -1,4 +1,0 @@
-Web-surf task (read-only): find fresh, non-obvious angles for a Telegram
-giveaway-farming stack (parsers -> vault -> catalog -> console -> join bots). The
-stack already parses 49k giveaway posts with AI-extracted prize/deadline/category.
-What data sources or signals would make it smarter? Report concrete finds.
