@@ -144,18 +144,37 @@ def battery() -> int:
     return 0
 
 
+def normalize(given, fixtures):
+    """Models drift around the requested scheme: they answer with a list,
+    wrap the object ({"answers": {...}}), key by utterance text instead of
+    the number, or vary the case. Grading tolerates all of it — the scheme
+    is the happy path, not a requirement the model must guess right."""
+    if isinstance(given, list):
+        return {str(i + 1): str(v) for i, v in enumerate(given)}
+    if not isinstance(given, dict):
+        return {}
+    if isinstance(given.get("answers"), (dict, list)):
+        return normalize(given["answers"], fixtures)
+    by_text = {fx["utterance"]: str(i) for i, fx in enumerate(fixtures, 1)}
+    out = {}
+    for k, v in given.items():
+        out[str(by_text.get(k, k))] = v
+    return out
+
+
 def answers(path: str) -> int:
     """The bar is 100%: each fixture tests one skill's description in
     isolation, so any miss is that description's failure."""
-    given = json.loads(Path(path).read_text(encoding="utf-8"))
+    raw = json.loads(Path(path).read_text(encoding="utf-8"))
     fixtures = json.loads(FIXTURES.read_text(encoding="utf-8"))
+    given = normalize(raw, fixtures)
     correct = 0
     misses = []
     width = max(len(fx["id"]) for fx in fixtures)
     for i, fx in enumerate(fixtures, 1):
-        got = str(given.get(str(i), given.get(fx["id"], "<missing>"))).strip()
+        got = str(given.get(str(i), given.get(fx["id"], given.get(fx["utterance"], "<missing>")))).strip()
         expected = fx.get("accept", [fx["expect"]])
-        ok = got in expected
+        ok = got.lower() in [e.lower() for e in expected]
         correct += ok
         if ok:
             print(f"PASS  {fx['id'].ljust(width)}  {fx['utterance'][:44]!r}")
