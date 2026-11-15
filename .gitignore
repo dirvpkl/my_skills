@@ -32,3 +32,8 @@ runtime.toml
 .hook_errors.log
 watchdog/state/
 .exam-set.json
+
+# exam run artifacts (machine-generated, draft sets + answers)
+.exam-set.json
+.exam-answers-*.json
+.exam-run
