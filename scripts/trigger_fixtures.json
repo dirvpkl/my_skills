@@ -12,7 +12,7 @@
   {
     "id": "check-later",
     "utterance": "чекни потом, я ушёл",
-    "expect": "fresh-eyes"
+    "expect": "watchdog"
   },
   {
     "id": "until-green",
@@ -65,7 +65,7 @@
   {
     "id": "judge-diff",
     "utterance": "оцени этот дифф перед коммитом",
-    "expect": "fresh-eyes"
+    "expect": "git-workflow"
   },
   {
     "id": "music",

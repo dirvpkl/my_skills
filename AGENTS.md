@@ -23,7 +23,14 @@ start and governs everything below.
   --battery` → several bare LLMs, several runs each, `--answers` grades
   against the fixtures; a single run proves nothing (owner ruling
   2026-11-15). The word "trigger" is retired from docs — the
-  `description` field is the surfacing text.
+  `description` field is the surfacing text. The pass bar is 100% — every
+  fixture tests one skill's description in isolation; any miss = that
+  description fails.
+- **Descriptions improve by clarity, not keywords.** Phrase variants are
+  unbounded — stuffing them fakes the pass. Fix the description's
+  clarity; generated utterances (`--gen`) and drafted variants
+  (`scripts/desc_suggest.py`) test comprehension, not memorized
+  templates.
 
 ## Layout
 
