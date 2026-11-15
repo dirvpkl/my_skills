@@ -1,7 +1,7 @@
 ---
 name: git-workflow
 description: Version-control conventions for ANY project work — code, notes, brainstorms, reverse-engineering, montage, scripts, whatever lives in a repo (git is version control, and version control is not only about code). Commit discipline, branch naming and creation, merge gating, dependency-upgrade caution, and .gitignore hygiene. Use whenever a task involves making changes to a git-tracked project, not just when the user explicitly mentions git.
-version: 1.2.0
+version: 1.3.0
 ---
 
 # git-workflow
@@ -17,6 +17,16 @@ ANY task in a git-tracked project, whatever the work is — code, notes, brainst
 Version control is the default for ANY project — a project without a
 repo gets `git init` proposed before work starts, and notes, brainstorms,
 docs count as project work exactly like code.
+
+## Repo preflight
+
+Before the first state-changing command in any project folder: check
+the folder is a repo and what is already dirty (`git rev-parse
+--is-inside-work-tree` + `git status --porcelain`) — know the branch,
+the dirty files, and whose work is in flight. Another session's
+uncommitted changes are never mixed into your commits — flag them and
+route around them. Parallel or risky work on one repo happens in a
+dedicated worktree (`git worktree add`), not the shared checkout.
 
 ## Commits
 - Always commit changes after finishing a task. No "leave it for later."

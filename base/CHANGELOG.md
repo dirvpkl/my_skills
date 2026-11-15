@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.0] - 2026-11-15
+- Owner review round 3: the self-referential Trigger section deleted
+  (base is already loaded — writing that it should be loaded was
+  circular); the git preflight item moved out to `git-workflow` (its
+  only home), Process renumbered 5-9 -> 4-8; the Trigger CONCEPT moved
+  to the README concepts doc.
+
 ## [1.14.0] - 2026-11-15
 - Owner review round 2: the delegation-situational note removed (the
   Agent tool docs cover it); the pick signs moved out of the skill text

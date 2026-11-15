@@ -1,7 +1,7 @@
 ---
 name: base
 description: Base operating rules for the orchestrator and every agent, always loaded — delegate by default with minimum hands-on, resolve volatile paths at runtime, ask-first on destructive/secret/out-of-scope steps, data and host integrity first. Pairs with coding on any task that executes or delegates; pure reading/explaining with nothing executed is the only exemption. Never skipped to save effort — when a request routes to another skill, that skill loads on top of base, never instead of it.
-version: 1.14.0
+version: 1.15.0
 ---
 
 # base
@@ -12,13 +12,6 @@ what never happens.
 
 - **plugins/manifest.json** — what loads alongside (dependencies).
   Check it instead of assuming.
-
-## Trigger
-
-base is always running: it is loaded as part of the setup and governs
-every task — you do not invoke it, you are already inside it. The one
-case its execution rules do not apply: the turn is pure reading and
-explaining — nothing runs, nothing changes, nothing is delegated.
 
 ## Process
 
@@ -59,15 +52,7 @@ explaining — nothing runs, nothing changes, nothing is delegated.
    `runtime.example.toml`). Reading it is always allowed: its values are declared working context for this
    machine/context, not secrets. Ask the user only when the needed key is
    missing.
-4. **Check the repo before touching it.** In any project folder, the first
-   state-changing command comes only after `git rev-parse --is-inside-work-tree`
-   plus `git status --porcelain`: know the branch, the dirty files, and whose
-   work is in flight. Another session's uncommitted changes are never mixed
-   into your commits — flag them and route around them. For parallel sessions
-   or risky changes on one repo, work in a dedicated git worktree
-   (`git worktree add`), not the shared checkout. The owner never has to ask
-   for either check.
-5. **Ask before crossing a line.** Load `boundaries` before the first
+4. **Ask before crossing a line.** Load `boundaries` before the first
    state-changing command; its `references/data.md` comes before touching
    volumes, databases, hosts, or running tests. Unclear
    scope, a secret, a user-only decision, an external service, a down
@@ -75,7 +60,7 @@ explaining — nothing runs, nothing changes, nothing is delegated.
    question, continue with the rest. Unclear or risky items are a user
    pick, not a guess (the concrete signs live in references/examples.md). Never route around the block, never
    do provisional work while waiting for a yes.
-6. **Run the full bundle — chords read alongside base.** chords is the
+5. **Run the full bundle — chords read alongside base.** chords is the
    shorthand layer: the user's phrases are /commands, read alongside
    base from session start, matched by MEANING — never as a literal
    string regex. Bundles (skill stacks fired by one phrase) are defined
@@ -95,11 +80,11 @@ explaining — nothing runs, nothing changes, nothing is delegated.
    up at task start, never remembered mid-work.
    Overlapping rules resolve toward the stricter one; a conflict that
    blocks work is a stop-and-ask, not a silent pick.
-8. **Write English, always.** Everything the agent touches — code,
+7. **Write English, always.** Everything the agent touches — code,
    comments, docs, READMEs, skill files, commits, tickets — is
    English-only, regardless of the conversation language. The chat with
    the user is the only exception: it mirrors the user's language.
-7. **A failed skill load is recoverable — recover it, then proceed.**
+6. **A failed skill load is recoverable — recover it, then proceed.**
    When the harness's Skill invocation fails (skill not listed, not
    registered, load error), the task is not blocked: skill execution
    outranks the broken loader, and interrupting the current flow to
@@ -113,7 +98,7 @@ explaining — nothing runs, nothing changes, nothing is delegated.
    offer the user pick — search for it, skip it, or another route; never
    route around it silently. A manual load counts as loaded: the rest of the process applies as normal, including
    re-reading the file from disk on the next use.
-9. **Read the project before acting.** Entering any project, read its
+8. **Read the project before acting.** Entering any project, read its
    .md files first — AGENTS.md, README, docs — forced, not optional:
    they carry the project's own rules, and skipping them is how an
    agent repeats mistakes the project already documented. Unsure
@@ -130,5 +115,5 @@ explaining — nothing runs, nothing changes, nothing is delegated.
 - A hardcoded path that rotted is a process failure — resolve at
   runtime.
 - A task abandoned because a skill failed to load is the failure —
-  recover it (Process item 7), never a silent give-up.
+  recover it (Process item 6), never a silent give-up.
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.0] - 2026-11-15
+- Repo preflight absorbed from base (owner: the preflight lives only
+  here): repo check + dirty-files + foreign-work routing + worktree.
+
 ## [1.2.0] - 2026-11-15
 - Git-everywhere principle written into the skill (owner: version control
   is the default for any project); repo-check example moved in from base
