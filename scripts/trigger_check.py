@@ -21,11 +21,12 @@ env ROUTER_URL / ROUTER_API_KEY first, else scripts/runtime.toml
 (gitignored; tracked shape: scripts/runtime.example.toml).
 """
 import argparse
+import http.client
 import json
 import os
 import re
 import sys
-import urllib.request
+import urllib.parse
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -77,6 +78,7 @@ def call_llm(prompt: str, model: str, schema: dict | None = None, timeout: int =
     attempts.append({"type": "json_object"})
     last = None
     resp = None
+    import time
     for rf in attempts:
         body = json.dumps({
             "model": model,
@@ -84,27 +86,45 @@ def call_llm(prompt: str, model: str, schema: dict | None = None, timeout: int =
             "temperature": 0,
             "response_format": rf,
         }).encode()
-        req = urllib.request.Request(url, data=body, headers={
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + key,
-        })
-        try:
-            with urllib.request.urlopen(req, timeout=timeout) as r:
-                resp = json.loads(r.read())
-            break
-        except urllib.error.HTTPError as e:
-            last = e
-            if last.code == 429:
+        # http.client, NOT urllib.request: the router fronting 307s
+        # Python-urllib requests to /dashboard (observed live) while plain
+        # http.client POSTs pass through — the client library is part of
+        # the contract here. 307/5xx also FLAP in bursts (the upstream pool
+        # rebalances) — retryable with backoff; 429 = throttle; 400/402 =
+        # the model itself, exit immediately.
+        u = urllib.parse.urlsplit(url)
+        for attempt in range(5):
+            conn = http.client.HTTPConnection(u.hostname, u.port, timeout=timeout)
+            conn.request("POST", u.path, body=body, headers={
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + key,
+            })
+            r = conn.getresponse()
+            raw = r.read()
+            conn.close()
+            if r.status == 200:
+                resp = json.loads(raw)
+                break
+            if r.status == 429:
                 sys.exit(
-                    f"EXCEPTION, not a fail: rate limited (HTTP 429) — the router "
-                    f"is throttling this session after heavy use. Wait a bit and "
-                    f"retry, or pick another model. Not a description failure."
+                    "EXCEPTION, not a fail: rate limited (HTTP 429) — the router "
+                    "is throttling this session after heavy use. Wait a bit and "
+                    "retry, or pick another model. Not a description failure."
                 )
-            continue
+            if r.status in (400, 402, 404):
+                sys.exit(
+                    f"EXCEPTION, not a fail: model '{model}' is not servable "
+                    f"(HTTP {r.status}): {raw[:160].decode(errors='ignore')} — "
+                    f"pick another model and it passes."
+                )
+            last = r.status
+            time.sleep(min(90, 10 * (attempt + 1)))
+        if resp is not None:
+            break
     if resp is None:
         sys.exit(
             f"EXCEPTION, not a fail: model '{model}' rejected both json_schema "
-            f"and json_object (HTTP {last.code if last else '?'}) — the model's "
+            f"and json_object (HTTP {last}) — the model's "
             f"limit, not the test's; nothing to fix on our side. Pick another "
             f"model and it passes."
         )
@@ -216,28 +236,19 @@ def normalize(given, fixtures):
     return out
 
 
-def answers(path: str, set_path: str) -> int:
-    """The bar is 100%: each test message checks one skill's description in
-    isolation, so any miss is that description's failure."""
-    ap = Path(path)
-    if not ap.exists():
-        sys.exit(f"answers file not found: {path} — run --exam first (it writes the answers file)")
-    raw = json.loads(ap.read_text(encoding="utf-8"))
-    fixtures = load_set(set_path)
-    given = normalize(raw, fixtures)
-    correct = 0
-    width = max(len(fx.get("id", "?")) for fx in fixtures)
-    for i, fx in enumerate(fixtures, 1):
-        got = str(given.get(str(i), given.get(fx.get("id", ""), given.get(fx["utterance"], "<missing>")))).strip()
-        expected = fx.get("accept", [fx["expect"]])
-        ok = got.lower() in [e.lower() for e in expected]
-        correct += ok
-        mark = "PASS" if ok else "FAIL"
-        print(f"{mark}  {fx.get('id', str(i)).ljust(width)}  {fx['utterance'][:44]!r}")
-        if not ok:
-            print(f"      expected {' / '.join(expected)} — got {got!r}")
-    print(f"\n{correct}/{len(fixtures)} — the bar is {len(fixtures)}/{len(fixtures)}.")
-    return 0 if correct == len(fixtures) else 1
+def exam_models() -> list:
+    """The exam roster from scripts/runtime.toml ([exam] models) — machine
+    config, not hardcoded aliases. Three minimum (owner ruling: a single
+    run proves nothing)."""
+    import tomllib
+    rt = Path(__file__).resolve().parent / "runtime.toml"
+    if not rt.exists():
+        sys.exit("scripts/runtime.toml missing — copy scripts/runtime.example.toml, fill [router] and [exam] models")
+    data = tomllib.loads(rt.read_text(encoding="utf-8"))
+    models = list(data.get("exam", {}).get("models", []))
+    if len(models) < 3:
+        sys.exit(f"[exam] models needs at least 3 entries (a single run proves nothing) — got {len(models)}")
+    return models
 
 
 def gen_schema() -> dict:
@@ -251,73 +262,87 @@ def gen_schema() -> dict:
 
 
 def gen(model: str, out: str) -> int:
-    """A generator model writes the test set from the descriptions:
+    """A generator model writes the test set from the descriptions —
     comprehension testing, not hand-written phrase files. The prompt stays
-    ABSTRACT (owner ruling): no style/phrasing instructions — the
-    generator infers everything from the schema and the descriptions.
-    Concrete guidance would only be allowed as examples, and examples are
-    skipped here: these are tests, token cost matters. The output is a
-    DRAFT — review before using it as the exam set."""
+    ABSTRACT (owner ruling): no style/phrasing instructions; the generator
+    infers everything from the schema and the descriptions. Skills are
+    CHUNKED (owner finding: the free upstreams cap prompts, and the full
+    list overflows — one call per small batch, drafts merge into one set).
+    The output is a DRAFT — review before using it as the exam set."""
     ss = skills()
-    lines = ["You write user messages for an agent skill collection.",
-             'Answer with a JSON object {"utterances": [{"utterance": "...", "skill": "<skill-name>"}]} covering every skill listed.', "",
-             "## Skills"]
+    head = ["You write user messages for an agent skill collection.",
+            'Answer with a JSON object {"utterances": [{"utterance": "...", "skill": "<skill-name>"}]} covering every skill listed.', ""]
+    # pack skills into batches under the upstream prompt cap
+    chunks, cur, size = [], [], 0
     for name, s in ss.items():
-        lines.append(f"- {name}: {s['description']}")
-    data = call_llm("\n".join(lines), model, gen_schema())
-    items = data.get("utterances", [])
-    if not items:
-        sys.exit(f"model '{model}' returned no messages — wrong schema or a lazy answer; try another model.")
-    draft = [{"id": f"gen-{i:02d}", "utterance": it.get("utterance", ""),
-              "expect": it.get("skill", "")} for i, it in enumerate(items, 1)]
+        block = f"- {name}: {s['description']}" + "\n"
+        if cur and size + len(block) > 4000:
+            chunks.append(cur)
+            cur, size = [], 0
+        cur.append((name, s["description"]))
+        size += len(block)
+    if cur:
+        chunks.append(cur)
+    draft = []
+    n = 0
+    for chunk in chunks:
+        lines = head[:] + ["## Skills"]
+        for name, desc in chunk:
+            lines.append(f"- {name}: {desc}")
+        prompt = "\n".join(lines)
+        data = call_llm(prompt, model, gen_schema())
+        items = data.get("utterances", [])
+        for it in items:
+            n += 1
+            draft.append({"id": f"gen-{n:02d}", "utterance": it.get("utterance", ""),
+                          "expect": it.get("skill", "")})
+    if not draft:
+        sys.exit(f"model {model} returned no messages — wrong schema or a lazy answer; try another model.")
     Path(out).write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"{len(draft)} generated messages -> {out} (DRAFT — review before use as the exam set)")
+    print(f"{len(draft)} generated messages over {len(chunks)} calls -> {out} (DRAFT — review before use as the exam set)")
     return 0
 
 
-def answers_schema(count: int) -> dict:
-    """strict: true with every message number declared — the model cannot
-    add a "reason" field, skip a number, or change a key type. Built per
-    set size, since strict requires all keys declared."""
-    props = {str(i): {"type": "string"} for i in range(1, count + 1)}
-    return {"name": "routing", "strict": True, "schema": {
-        "type": "object", "properties": props,
-        "required": list(props.keys()), "additionalProperties": False}}
-
-
-def exam(model: str, set_path: str, out: str) -> int:
-    """Send the sheet to one bare model with a forced answer schema and
-    save its answers for --answers grading. Three models minimum (owner
-    ruling); a single run proves nothing."""
-    fixtures = load_set(set_path)
-    data = call_llm("\n".join(sheet_lines(fixtures)), model, answers_schema(len(fixtures)))
-    Path(out).write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"answers ({model}) -> {out}")
-    return 0
+def run_default(models: list | None = None) -> int:
+    """No flags = the exam, by default (owner ruling: there is no
+    not-by-exam variant). Generates the set if missing, then runs the
+    per-skill exam for every model in [exam] models. The bar: every model
+    passes every description."""
+    models = models or exam_models()
+    set_path = str(DEFAULT_SET)
+    if not Path(set_path).exists():
+        print(f"no test set — generating with {models[0]}")
+        gen(models[0], set_path)
+    results = {}
+    for m in models:
+        print(f"--- exam run: {m} ---")
+        results[m] = exam(m, set_path, f".exam-answers-{m.replace('/', '_')}.json")
+    print()
+    failed = [m for m, rc in results.items() if rc != 0]
+    if not failed:
+        print(f"EXAM PASS — all {len(models)} models passed every description. Commit allowed.")
+        Path(".exam-run").write_text("", encoding="utf-8")
+        return 0
+    print(f"EXAM FAILED — failing runs: {', '.join(failed)}")
+    return 1
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--lint", action="store_true")
-    ap.add_argument("--battery", action="store_true")
-    ap.add_argument("--answers", metavar="FILE")
-    ap.add_argument("--gen", metavar="MODEL")
-    ap.add_argument("--exam", metavar="MODEL")
+    ap.add_argument("--lint", action="store_true", help="static description QA only")
+    ap.add_argument("--battery", action="store_true", help="print the exam sheet, change nothing")
+    ap.add_argument("--gen", metavar="MODEL", help="regenerate the test set with this model")
+    ap.add_argument("--models", metavar="M1,M2,M3", help="override the [exam] roster for this run")
     ap.add_argument("--set", default=str(DEFAULT_SET), help="generated test set (default .exam-set.json)")
-    ap.add_argument("--out", default=None, help="output file for --gen / --exam")
+    ap.add_argument("--out", default=None, help="output file for --gen")
     a = ap.parse_args()
     if a.lint:
         return lint()
     if a.battery:
         return battery(a.set)
-    if a.answers:
-        return answers(a.answers, a.set)
     if a.gen:
-        return gen(a.gen, a.out or str(DEFAULT_SET))
-    if a.exam:
-        return exam(a.exam, a.set, a.out or "answers.json")
-    ap.print_help()
-    return 2
+        return gen(a.gen, a.out or a.set)
+    return run_default(a.models.split(",") if a.models else None)
 
 
 if __name__ == "__main__":

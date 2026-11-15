@@ -7,3 +7,7 @@
 url = "http://router.local:PORT"
 # Literal key, or a pointer: "env:ROUTER_API_KEY".
 api_key = "env:ROUTER_API_KEY"
+
+[exam]
+# 3+ model ids from the router — one run proves nothing.
+models = ["model-a", "model-b", "model-c"]
