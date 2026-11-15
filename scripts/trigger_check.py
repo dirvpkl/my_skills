@@ -94,6 +94,12 @@ def call_llm(prompt: str, model: str, schema: dict | None = None, timeout: int =
             break
         except urllib.error.HTTPError as e:
             last = e
+            if last.code == 429:
+                sys.exit(
+                    f"EXCEPTION, not a fail: rate limited (HTTP 429) — the router "
+                    f"is throttling this session after heavy use. Wait a bit and "
+                    f"retry, or pick another model. Not a description failure."
+                )
             continue
     if resp is None:
         sys.exit(
@@ -213,7 +219,10 @@ def normalize(given, fixtures):
 def answers(path: str, set_path: str) -> int:
     """The bar is 100%: each test message checks one skill's description in
     isolation, so any miss is that description's failure."""
-    raw = json.loads(Path(path).read_text(encoding="utf-8"))
+    ap = Path(path)
+    if not ap.exists():
+        sys.exit(f"answers file not found: {path} — run --exam first (it writes the answers file)")
+    raw = json.loads(ap.read_text(encoding="utf-8"))
     fixtures = load_set(set_path)
     given = normalize(raw, fixtures)
     correct = 0
