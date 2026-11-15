@@ -1,4 +1,4 @@
 # coding/runtime.toml — tracked shape example; the real file is gitignored.
 [crawl4ai]
-url = "http://127.0.0.1:11235"
+url = "http://crawl4ai.local:11235"
 api_token = "env:CRAWL4AI_API_TOKEN"

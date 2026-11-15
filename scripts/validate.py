@@ -188,6 +188,33 @@ def check_exam_currency(warnings: list) -> None:
     )
 
 
+def check_machine_values(errors: list) -> None:
+    """Nothing machine-local lives in tracked files (owner rule, enforced —
+    not remembered): runtime literals from any runtime.toml plus generic
+    loopback/key patterns fail the validation with file:line."""
+    import subprocess
+    tracked = subprocess.run(["git", "ls-files"], capture_output=True,
+                             text=True, cwd=ROOT, timeout=30).stdout.splitlines()
+    lits = set()
+    for rt in ROOT.rglob("runtime.toml"):
+        for m in re.finditer(r'"(http://[^"]{10,}|[0-9a-f]{32,})"', rt.read_text(encoding="utf-8")):
+            lits.add(m.group(1))
+    allow = ("chords/", "proxy-egress/")
+    for f in tracked:
+        if f.startswith(allow) or f.endswith("runtime.example.toml"):
+            continue
+        try:
+            text = Path(f).read_text(encoding="utf-8", errors="ignore")
+        except Exception:
+            continue
+        for lit in lits:
+            if lit in text and len(lit) > 10:
+                errors.append(f"{f}: machine value leaked into a tracked file ({lit[:16]}...)")
+        m = re.search(r"127\.0\.0\.1:\d+|sk-[0-9a-f]{12,}", text)
+        if m:
+            errors.append(f"{f}: machine-local pattern {m.group(0)[:20]!r} — move it to a runtime.toml")
+
+
 def check_wiki_links() -> list:
     """[[target]] in skill markdown resolves like workplanx topics; dangling = WARN.
 
@@ -255,6 +282,7 @@ def main() -> int:
         warnings.extend(rt_warnings)
 
     check_exam_currency(warnings)
+    check_machine_values(errors)
     warnings.extend(check_wiki_links())
 
     for w in warnings:

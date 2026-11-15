@@ -1,6 +1,6 @@
 # roi/runtime.toml — tracked shape example; the real file is gitignored.
 [router]
 # Any OpenAI-compatible router; all routers share the same endpoint shape.
-url = "http://127.0.0.1:8888"
+url = "http://router.local:8888"
 api_key = "ask:router client key"
 model = "skill"

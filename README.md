@@ -112,7 +112,8 @@ question, never a silent workaround.
   resolution, runtime.toml parse, wiki-links).
 - **Grade the descriptions (the exam):** `python -X utf8 -I
   scripts/trigger_check.py --battery` prints the exam sheet (every
-  description + the fixture utterances from `scripts/trigger_fixtures.json`).
+  description + the user messages of the generated test set — the set
+  itself is produced by `--gen`, no hand-written phrase files).
   Give the sheet to bare LLMs — at least three runs, at least three
   models; one run proves nothing (owner ruling 2026-11-15). Save each
   model's JSON answers, then `python -X utf8 -I scripts/trigger_check.py

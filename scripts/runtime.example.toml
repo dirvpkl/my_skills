@@ -1,0 +1,9 @@
+# scripts/runtime.toml — machine values for the collection tooling
+# (gitignored; this tracked file documents the shape). Resolve at runtime:
+# env ROUTER_URL / ROUTER_API_KEY win over this file.
+
+[router]
+# OpenAI-compatible chat endpoint (chat/completions).
+url = "http://router.local:PORT"
+# Literal key, or a pointer: "env:ROUTER_API_KEY".
+api_key = "env:ROUTER_API_KEY"

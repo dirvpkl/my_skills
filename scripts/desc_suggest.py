@@ -18,7 +18,7 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-ROUTER_URL = "http://127.0.0.1:20128/v1/chat/completions"
+from trigger_check import router_creds  # same-dir sibling: runtime-resolved, never hardcoded
 
 
 SUGGEST_SCHEMA = {"name": "suggestions", "strict": True, "schema": {
@@ -33,14 +33,12 @@ SUGGEST_SCHEMA = {"name": "suggestions", "strict": True, "schema": {
 
 
 def call_llm(prompt: str, model: str, timeout: int = 600) -> dict:
-    key_line = ""
+    url, key = router_creds()
     rt = ROOT / "roi" / "runtime.toml"
     for line in rt.read_text(encoding="utf-8").splitlines():
         if line.startswith("api_key"):
             key_line = line.split('"')[1]
             break
-    if not key_line:
-        sys.exit("router key not found — expected roi/runtime.toml [router] api_key")
     attempts = [{"type": "json_schema", "json_schema": SUGGEST_SCHEMA},
                 {"type": "json_object"}]
     last = None
@@ -52,9 +50,9 @@ def call_llm(prompt: str, model: str, timeout: int = 600) -> dict:
             "temperature": 0.4,
             "response_format": rf,
         }).encode()
-        req = urllib.request.Request(ROUTER_URL, data=body, headers={
+        req = urllib.request.Request(url, data=body, headers={
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + key_line,
+            "Authorization": "Bearer " + key,
         })
         try:
             with urllib.request.urlopen(req, timeout=timeout) as r:

@@ -31,3 +31,4 @@ desktop.ini
 runtime.toml
 .hook_errors.log
 watchdog/state/
+.exam-set.json

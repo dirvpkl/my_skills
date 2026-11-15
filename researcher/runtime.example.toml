@@ -1,4 +1,4 @@
 # researcher/runtime.toml — tracked shape example; the real file is gitignored.
 [searxng]
 # Local searxng instance: GET /search?q=<query>&format=json
-url = "http://127.0.0.1:8888"
+url = "http://searxng.local:8888"
