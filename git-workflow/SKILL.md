@@ -1,7 +1,7 @@
 ---
 name: git-workflow
 description: Version-control conventions for ANY project work — code, notes, brainstorms, reverse-engineering, montage, scripts, whatever lives in a repo (git is version control, and version control is not only about code). Commit discipline, branch naming and creation, merge gating, dependency-upgrade caution, and .gitignore hygiene. Use whenever a task involves making changes to a git-tracked project, not just when the user explicitly mentions git.
-version: 1.1.0
+version: 1.2.0
 ---
 
 # git-workflow
@@ -11,6 +11,12 @@ version: 1.1.0
 
 ## Trigger
 ANY task in a git-tracked project, whatever the work is — code, notes, brainstorms, reverse-engineering, montage, scripts, whatever lives in a repo. Git is version control, and version control is not only about code. The `coding` dispatcher also keeps it loaded as a mandatory sibling dependency on every code write/edit — see coding's activation manifest, which is the real dispatch logic, not this line in isolation.
+
+## Git everywhere
+
+Version control is the default for ANY project — a project without a
+repo gets `git init` proposed before work starts, and notes, brainstorms,
+docs count as project work exactly like code.
 
 ## Commits
 - Always commit changes after finishing a task. No "leave it for later."

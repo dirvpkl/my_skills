@@ -25,3 +25,13 @@ Rationale: the thin client is the user's entry point; exercising internals direc
 **Good:** benchmarking old vs new with identical fixtures, thresholds, dedup, and thread counts — only the engine differs.
 **Bad:** "the new version is 2x faster" from runs that also changed preprocessing.
 Rationale: two changed variables make the difference unattributable — the numbers compare rigs, not approaches; a prototype that can't lose isn't an experiment.
+
+## A skipped check reported green is a lie
+
+**Good:** "typecheck green, 2 tests skipped — not green, here's why."
+**Bad:** "All done!" with the two skipped tests unmentioned.
+Rationale: fail loud is the reporting contract — a skipped check is a result, and hiding it converts a known gap into a silent lie.
+
+**Good:** environment-vs-code triage reported (broken daemon = stop-and-report, not 40 retried iterations).
+**Bad:** retrying a broken environment until something passes.
+Rationale: a green run on a broken environment proves nothing about the code — the triage IS the test result.

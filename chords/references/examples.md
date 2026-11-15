@@ -25,3 +25,41 @@ Rationale: chords never outranks the explicit path — a colliding bound phrase 
 **Good:** "какие аккорды в этой песне?" is answered directly as a music question.
 **Bad:** routing the music question through `references/bindings.md` as if it were a trigger phrase.
 Rationale: the skill name is a metaphor — chords is not a music skill, and its trigger is bound phrases, not the word "chord".
+
+## Meaning, not regex
+
+**Good:** user says «а отложим это до вечера» → recognized as the «чекни потом» binding by meaning (defer until later), not because the words match.
+**Bad:** only the exact string «чекни потом» fires, and «до вечера» passes as ordinary chat.
+Rationale: the user paraphrases constantly — a binding that needs the literal string is a binding that never fires.
+
+**Good:** a terse reply "1" to a presented pick → treated as the answer to that pick, not as an unbound phrase.
+**Bad:** treating every short message as a chord candidate and interrogating the user.
+Rationale: brevity is an answer when a pick is pending; the chord layer reads intent, not length.
+
+## Bundles are defined here
+
+**Good:** the task matches a bundle row → the whole stack loads as one obligation, and the row is the single place the stack is defined.
+**Bad:** base (or any skill) carrying its own private copy of a bundle definition.
+Rationale: bundles are owner-edited data in chords — a second copy anywhere is a drift bug.
+
+## Mode recognition (moved from base 2026-11-15)
+
+**Good:** owner pastes another agent's spec + "чудо" as a queue message → process the queue, load the stack the spec implies, no re-asking what was already answered.
+**Bad:** answering the previous reply's open question first, or "what do you want me to do with this?" when the spec already says it.
+Rationale: queue messages arrive without reply chains — the newest item supersedes.
+
+**Good:** «побрейнштормим» → think-first stack (solution-search + workplanx + spine), zero code written.
+**Bad:** jumping to implementation because the idea sounded concrete.
+Rationale: think-first requests route to the think stack; code waits for the user-pick.
+
+**Good:** «на сегодня» → afterword + fresh-eyes + morning extract, all wired, no re-negotiation.
+**Bad:** "what should I do before you go?" when the chord defines the close-out.
+Rationale: end-of-night rituals are bindings — run them.
+
+**Good:** owner mourns a lost idea («мне так грустно, что из головы вылетело») → presence first, hold the `#slot`.
+**Bad:** rebuilding the idea for them or opening a task list mid-comfort.
+Rationale: comfort register is not a task register; the slot keeps fragments safe until they re-derive it.
+
+**Good:** «много букв» → skeleton answer in chat, full state sinks to the topic folder the same turn.
+**Bad:** shrinking the answer AND the record together.
+Rationale: terse ≠ lossy — the folder remembers what the chat drops.

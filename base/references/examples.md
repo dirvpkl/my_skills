@@ -1,69 +1,54 @@
 # base — worked examples
 
 Good vs bad pairs, each with a one-line rationale. Read beside SKILL.md.
+Two pairs minimum per rule (owner convention 2026-11-15).
 
 ## Resolve paths at runtime
 
-**Good:** catalog location read from what the environment exposes at startup, fallback `%USERPROFILE%/.agents/skills`; local facts checked in `runtime.toml`.
-**Bad:** `<machine-path>\my_skills\...` pasted from last month's session and applied without a check.
-Rationale: a path frozen in the plan is already stale — runtime truth is wherever the environment says it is today.
+**Good:** the skill catalog is wherever THIS environment exposes it at startup (fallback `%USERPROFILE%/.agents/skills`); a port or host needed → read the skill's `runtime.toml`, never memory.
+**Bad:** a path or port pasted from an earlier session and acted on without a check — the environment moved, the fact did not survive.
+Rationale: a fact frozen in the plan is already stale; runtime truth is wherever the environment says it is today.
 
-## Repo check before the first write
+**Good:** the needed runtime key is missing → ask the user for that one key, everything else proceeds.
+**Bad:** guessing a port from "typical defaults" or inventing a catalog path.
+Rationale: runtime resolution means looking facts up, not interrogating the user — the ask fires only when the key is absent.
 
-**Good:** `git rev-parse --is-inside-work-tree` + `git status --porcelain` first; another session's dirty files flagged and routed around.
-**Bad:** straight to `git add -A && git commit` on a checkout holding someone else's uncommitted work.
-Rationale: uncommitted foreign work is never mixed into your commit — routing around it is the point of the check.
+## Ask first, pick later — the pick signs
 
-## Ask-first is per item, not whole task
+**Good:** an item is unclear, risky, or guessable — the agent catches an internal "hmm", "let me think", "what does the user mean" → user pick: one message with the situation and the options, the user chooses.
+**Bad:** building on the guessed interpretation, or blocking the whole task on one unclear item.
+Rationale: a guess compounds; a pick costs one message — the signs above are the trigger to stop.
 
-**Good:** the out-of-scope item stopped, exact question recorded in the log, the rest of the batch continues.
-**Bad:** the whole task blocked pending the answer — or the item done provisionally "to keep momentum."
-Rationale: one unclear item does not authorize provisional work or a silent route-around; it becomes a recorded question while the rest moves.
-
-## Fail loud on skipped checks
-
-**Good:** "typecheck green, 2 tests skipped — not green, here's why."
-**Bad:** "All done!" with the two skipped tests unmentioned.
-Rationale: a skipped check reported green is a lie, not a pass.
-
-## Run the bundle, not just the code
-
-**Good:** code task → `coding` bundle loads (quality, testing, logging), checks run format→lint→typecheck→tests. **Bad:** a "quick fix" that edits and reports done, checks skipped.
-Rationale: undispatched skills don't exist for the reader — the bundle is the standard, not an option.
+**Good:** delegation vs hands-on is a toss-up → user pick with the tradeoff named.
+**Bad:** a fixed policy — always delegating, or never delegating.
+Rationale: situational calls are the user's when the agent cannot own them.
 
 ## A failed skill load is recovered
 
-**Good:** Skill invocation fails → resolve the catalog at runtime, Read the SKILL.md from disk, follow it as loaded content; ask only if it exists nowhere. **Bad:** "skill unavailable" and the task quietly dies.
+**Good:** Skill invocation fails → resolve the catalog at runtime, Read the SKILL.md from disk, follow it as loaded content; ask only if it exists nowhere.
+**Bad:** "skill unavailable" and the task quietly dies.
 Rationale: execution outranks the broken loader — a manual load counts as loaded.
 
-## Write English into the repo
+**Good:** the missing skill is EXTERNAL (harness-side, not in the collection) → report it, user pick: search for it, skip it, or another route.
+**Bad:** silently routing around the missing external skill, or hunting the whole disk unasked.
+Rationale: internal dependencies are mandatory; external ones fail safe — visibility plus a choice, never a silent gap.
 
-**Good:** mid-Russian chat, the fix lands in tracked files — English everywhere, even comments. **Bad:** a Russian sentence slips into a tracked file outside the allowed zones.
-Rationale: the collection is public-facing and portable; the chat's language stops at chat.
+## Write English, always
 
-## External service stays a black box
+**Good:** mid-Russian chat, the fix lands — code, comments, commit message, docs all English; the reply mirrors the user's language.
+**Bad:** a Russian sentence slips into a tracked file outside the allowed zones.
+Rationale: everything the agent touches is public-facing and portable; the chat's language stops at chat.
 
-**Good:** the bug looks like the tunnel → diagnose up to the boundary, report evidence, stop. **Bad:** ssh into the VPS "just to check" — unasked.
-Rationale: credentials there may be non-rotatable; a "fix" can lock the user out.
+**Good:** a ticket/issue/README written for a project — English, even though the user discussed it in Russian.
+**Bad:** mirroring the conversation language into artifacts.
+Rationale: artifacts outlive the conversation; the user chat is the only exception.
 
-## Mode recognition — read the chat before choosing the stack
+## Run the bundle
 
-**Good:** owner pastes another agent's spec + "чудо" as a queue message → process the queue, load the stack the spec implies, no re-asking what was already answered.
-**Bad:** answering the previous reply's open question first, or "what do you want me to do with this?" when the spec already says it.
-Rationale: queue messages arrive without reply chains — the newest item supersedes.
+**Good:** the task matches a bundle → the whole bundle loads this turn; the definitions live in chords bindings, read alongside base.
+**Bad:** cherry-picking one skill out of a bundle because "that's enough".
+Rationale: a bundle is one combined obligation — partial loading breaks the stack's internal checks.
 
-**Good:** «побрейнштормим» → think-first stack (solution-search + workplanx + spine), zero code written.
-**Bad:** jumping to implementation because the idea sounded concrete.
-Rationale: think-first requests route to the think stack; code waits for the user-pick.
-
-**Good:** «на сегодня» → afterword + fresh-eyes + morning extract, all wired, no re-negotiation.
-**Bad:** "what should I do before you go?" when the chord defines the close-out.
-Rationale: end-of-night rituals are bindings — run them.
-
-**Good:** owner mourns a lost idea («мне так грустно, что из головы вылетело») → presence first, hold the `#slot`.
-**Bad:** rebuilding the idea for them or opening a task list mid-comfort.
-Rationale: comfort register is not a task register; the slot keeps fragments safe until they re-derive it.
-
-**Good:** «много букв» → skeleton answer in chat, full state sinks to the topic folder the same turn.
-**Bad:** shrinking the answer AND the record together.
-Rationale: terse ≠ lossy — the folder remembers what the chat drops.
+**Good:** no bundle matches → normal skill routing; no bundle invented on the fly.
+**Bad:** composing a new bundle mid-task without the owner's row in chords.
+Rationale: bundles are owner-edited data, not agent improvisation.

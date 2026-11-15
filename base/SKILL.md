@@ -1,7 +1,7 @@
 ---
 name: base
 description: Base operating rules for the orchestrator and every agent, always loaded — delegate by default with minimum hands-on, resolve volatile paths at runtime, ask-first on destructive/secret/out-of-scope steps, data and host integrity first. Pairs with coding on any task that executes or delegates; pure reading/explaining with nothing executed is the only exemption. Never skipped to save effort — when a request routes to another skill, that skill loads on top of base, never instead of it.
-version: 1.12.0
+version: 1.13.0
 ---
 
 # base
@@ -25,7 +25,9 @@ nothing executed is the only exemption.
    Prefer agents over subagents: the default is a separate agent — a
    session via the sessions tool (`create`/`send`), fire-and-continue,
    collect at the end; a subagent is only for a quick bounded ask.
-   Hands-on only for the trivial (one edit, one check). An agent that
+   Hands-on only for the trivial (one edit, one check). Whether to
+   delegate or work hands-on is situational — unsure means a user pick,
+   not a fixed policy. An agent that
    never saw `base` follows nothing — name it and the live catalog path
    in every delegation prompt.
 2. **Every delegation carries a log path and a heartbeat.** No agent
@@ -71,9 +73,16 @@ nothing executed is the only exemption.
    volumes, databases, hosts, or running tests. Unclear
    scope, a secret, a user-only decision, an external service, a down
    dependency, non-rotatable creds — stop that item, record the exact
-   question, continue with the rest. Never route around the block, never
+   question, continue with the rest. Unclear, risky, or guessable — any
+   internal "hmm", "let me think", "what does the user mean" — is a
+   user pick, not a guess. Never route around the block, never
    do provisional work while waiting for a yes.
-6. **Run the full bundle.** `coding` (fail-loud, checks order
+6. **Run the full bundle — chords read alongside base.** chords is the
+   shorthand layer: the user's phrases are /commands, read alongside
+   base from session start, matched by MEANING — never as a literal
+   string regex. Bundles (skill stacks fired by one phrase) are defined
+   in chords bindings, not here: a task matching a bundle loads the
+   whole bundle, not a cherry-pick. `coding` (fail-loud, checks order
    format→lint→typecheck→tests, Conventional Commits) plus whatever the
    task needs (`workplanx` gates any non-trivial task, `fresh-eyes` judges the diff,
    `loop` drives iterate-until-green, `mission` decomposes goals).
@@ -88,9 +97,10 @@ nothing executed is the only exemption.
    up at task start, never remembered mid-work.
    Overlapping rules resolve toward the stricter one; a conflict that
    blocks work is a stop-and-ask, not a silent pick.
-8. **Write English.** Everything written for a project — code, comments,
-   docs, READMEs, skill files — is English-only, regardless of the
-   conversation language; the chat itself follows the user's language.
+8. **Write English, always.** Everything the agent touches — code,
+   comments, docs, READMEs, skill files, commits, tickets — is
+   English-only, regardless of the conversation language. The chat with
+   the user is the only exception: it mirrors the user's language.
 7. **A failed skill load is recoverable — recover it, then proceed.**
    When the harness's Skill invocation fails (skill not listed, not
    registered, load error), the task is not blocked: skill execution
@@ -100,9 +110,19 @@ nothing executed is the only exemption.
    `%USERPROFILE%/.agents/skills`), Read its `SKILL.md` directly from
    disk and follow it as loaded content; not there — check the harness's
    other skill roots and the instructions already in context; ask the
-   user only when the skill exists nowhere. A manual load counts as
-   loaded: the rest of the process applies as normal, including
+   user only when the skill exists nowhere. A missing EXTERNAL skill
+   (harness-side, not part of this collection) fails safe: report it and
+   offer the user pick — search for it, skip it, or another route; never
+   route around it silently. A manual load counts as loaded: the rest of the process applies as normal, including
    re-reading the file from disk on the next use.
+9. **Read the project before acting.** Entering any project, read its
+   .md files first — AGENTS.md, README, docs — forced, not optional:
+   they carry the project's own rules, and skipping them is how an
+   agent repeats mistakes the project already documented. Unsure
+   whether a file is in scope to read → user pick. A user pick = one
+   message presenting the situation and the options; the user's choice
+   is the only thing that proceeds past it (same protocol as
+   workplanx's decision gate).
 
 ## Fail loud
 

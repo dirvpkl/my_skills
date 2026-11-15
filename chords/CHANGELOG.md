@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0] - 2026-11-15
+- Read alongside base at session start (owner ruling): phrases are
+  shorthand /commands, matched by meaning — synonyms and paraphrases
+  count, literal matching is the floor. Doubtful match = "not bound" +
+  an offer.
+
+
 All notable changes to this skill are logged here. This tracks changes to the *skill itself* — not runtime data the skill produces or logs while doing its job (that belongs in a dedicated references/ file — see references/anti-patterns.md in skill-scaffolder for why these should stay separate).
 
 ## 1.1.0 — 2026-11-11

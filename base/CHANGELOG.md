@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.13.0] - 2026-11-15
+- Forced project-.md reading (owner ruling, Process item 9): read
+  AGENTS.md/README/docs before acting; unsure = user pick; the user-pick
+  protocol defined inline.
+- Process item 5: unclear/risky/guessable ("hmm", "let me think",
+  "what does the user mean") is a user pick, not a guess. Item 1:
+  delegation-vs-hands-on is situational — unsure = user pick.
+- Item 7 extended: a missing EXTERNAL skill fails safe — report + user
+  pick (search/skip/other), never a silent route-around.
+- Item 8 widened: English in everything the agent touches, the user
+  chat is the only exception. Item 6: chords read alongside base,
+  phrases matched by meaning; bundle definitions live in chords.
+
+
 ## [1.12.0] - 2026-11-15
 - references/boundaries.md merged into the `boundaries` skill (owner:
   duplicates are forbidden) — base depends on the skill now, the file is

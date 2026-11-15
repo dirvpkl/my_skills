@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.22.3] - 2026-11-15
+- Examples moved in per the owner's base review: skipped-check-reporting
+  pairs -> testing, external-services-as-black-boxes pairs ->
+  external-integrations (the rules live in boundaries; the worked
+  examples live where the work happens).
+
+
 ## [1.22.2] - 2026-11-14
 - Split: `security` -> top-level `boundaries` skill (same rules, universal scope, extended with the owner's sensitive-data memo kept verbatim in its references/); `proxy-egress` -> top-level skill (Trigger gained the owner's proxy nuance: not always needed — ask; coding + autonomous = always proxy); `git-workflow` -> top-level skill (project-agnostic trigger: any version-controlled work, not only code). All three removed from `modules` and added to `dependencies` — they remain mandatory for coding (owner condition). In-package modules now: docker, process-tiers, code-quality, testing, logging, external-integrations.
 

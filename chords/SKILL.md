@@ -1,7 +1,7 @@
 ---
 name: chords
 description: Personal shortcut bindings — the user's shorthand phrases map straight to skills, bundles, or actions. ALWAYS invoke this skill when the user uses a bound phrase ("думалки", "пока не зелёное", "что сделано?", "разложи на карточки") or asks to see, add, change, or remove bindings ("какие шорткаты", "what are my shortcuts", "add a shortcut", "запомни шорткат", "unbind X"). A binding is a key chord — one phrase, the whole stack sounds. NOT a music skill; actual chord/music questions are answered directly.
-version: 1.1.0
+version: 1.2.0
 ---
 
 # chords
@@ -19,6 +19,8 @@ instead of remembered context.
 
 ## Trigger
 
+- Session start: chords is read alongside base (owner ruling
+  2026-11-15) — the phrase table is the shorthand /command layer.
 - The user uses a bound phrase from the table → resolve it and load the
   target in the same turn.
 - The user asks about bindings (list, add, change, remove) → operate on the
@@ -27,8 +29,10 @@ instead of remembered context.
 ## Process
 
 1. Read `references/bindings.md`.
-2. Match the user's phrase (case-insensitive substring against the phrase
-   column; RU and EN aliases live in the same row).
+2. Match the user's phrase by MEANING — the phrase column is the floor,
+   not a regex: synonyms and paraphrases that clearly mean the binding
+   count. Literal matching is the minimum, comprehension is the rule;
+   a doubtful match is "not bound" plus an offer, never a silent pick.
 3. Resolve by `kind`:
    - `skill` → invoke the one sibling skill, as if the user had typed /name;
    - `bundle` → invoke every skill in the row, one combined obligation, same
