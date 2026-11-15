@@ -1,15 +1,12 @@
 ---
 name: boundaries
-description: Rules for secrets, credentials, logs, chat/transcript hygiene, browser profiles, and any access outside the project directory — when to ask before touching something, how to handle an exposed credential, and how to keep sensitive data out of chat output. Loads on ANY task that could touch a secret, sensitive data, log output, chat output, browser session data, or a file outside the project — NOT only code. Trigger phrases — "sensitive data".
-version: 1.2.0
+description: Rules for secrets, credentials, logs, chat/transcript hygiene, browser profiles, data preservation, and any access outside the project directory — when to ask before touching something, how to handle an exposed credential, and how to keep sensitive data out of chat output. ALWAYS invoke this skill before a task could touch a secret, a credential, log output, chat output, browser session data, a volume or database, or a file outside the project — notes, research, infrastructure and plain conversation count, not only code. NOT for pure in-project work that touches no secrets, logs, or anything outside the project.
+version: 1.3.0
 ---
 
 # boundaries
 
 <!-- v1 - 2026-11-14: promoted out of the coding bundle (was coding/security 1.0.0) and extended with the owner's sensitive-data memo — kept verbatim in references/sensitive-data-memo.md, golden rule promoted to a hard rule here. -->
-
-## Trigger
-ANY task that could touch secrets, credentials, logs, chat or transcript output, browser profile data, or files outside the project directory — not only code (notes, research, montage, infrastructure, plain conversation all count). Fires on phrases like "sensitive data" and owner synonyms for "don't expose / check what you're printing". The `coding` dispatcher also keeps it loaded as a mandatory sibling dependency on every code write/edit — see coding's activation manifest.
 
 ## General permission rule
 If a task requires a secret, credential, or a file outside the project directory, ask the user directly, in plain language, before touching it. Don't infer implicit permission from context/task description — only an explicit "yes" from the user in this conversation counts as permission. Once granted, that permission applies to what was asked about; if scope expands (a different secret, a different external path), ask again.
@@ -35,9 +32,10 @@ Applies whenever a rule above requires user permission (out-of-project files, se
 ## Exposed credentials
 If a secret/credential gets exposed anywhere during the session (seen in command output, a file, a log, pasted by the user, etc.), flag it: end that response with a short, all-caps line naming which credential was exposed. Do this every time it happens, not just once.
 
-## Chat & transcript hygiene
-Data preservation and host integrity live in `references/data.md` — read it before touching volumes, databases, hosts, or running tests.
+## Data preservation and host integrity
+Live in `references/data.md` — read it before touching volumes, databases, hosts, or running tests.
 
+## Chat & transcript hygiene
 The memo's golden rule is a hard rule: **anything already in the chat or transcript is compromised.** Not "private, but careful" — compromised. Dialogue can be logged, stored, indexed, so the only question before every output is: "if a stranger reads this, what can they do with it?" The memo lives verbatim in `references/sensitive-data-memo.md`.
 
 - Before showing any command output in chat, print the FORM, not the values — result / code / errors / field presence / lengths, never field values carrying identifiers or tokens. Pipe raw output through a filter first (the memo's curl example). A URL with `?token=...` is a leaked token; Bearer headers count too.
@@ -73,7 +71,6 @@ non-rotatable, and a "fix" can lock the user out.
 ## System boundaries
 - Don't touch host-machine apps (VLC, Chrome, singbox, etc.). Docker/Python/Node/dev tooling is fine.
 - Don't run unbounded searches over huge directories — always scope depth/pattern to avoid flooding the terminal.
-- Don't touch files outside the project directory unless the user explicitly asks in that message.
 
 ## Report
 Note any secret/credential exposure flagged during the session, and any out-of-scope access that was requested and whether it was granted or denied.

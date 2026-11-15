@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.3.0] - 2026-11-15
+- Per-skill review round: the ## Trigger section removed (cargo-cult
+  restatement of the description); the description rewritten as the
+  surfacing contract (ALWAYS-invoke imperative + NOT-for, intent only —
+  no keyword lists); the data.md pointer unwedged from the Chat &
+  transcript hygiene header into its own section; System boundaries
+  bullet duplicated by Assigned scope removed; examples.md added
+  (two pairs per case).
+
 ## [1.2.0] - 2026-11-15
 - Merged in from base (owner: no duplicates — one source per rule): assigned
   scope (with the read-only-diagnosis nuance), external services as black
