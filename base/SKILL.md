@@ -1,7 +1,7 @@
 ---
 name: base
 description: Base operating rules for the orchestrator and every agent, always loaded — delegate by default with minimum hands-on, resolve volatile paths at runtime, ask-first on destructive/secret/out-of-scope steps, data and host integrity first. Pairs with coding on any task that executes or delegates; pure reading/explaining with nothing executed is the only exemption. Never skipped to save effort — when a request routes to another skill, that skill loads on top of base, never instead of it.
-version: 1.13.0
+version: 1.14.0
 ---
 
 # base
@@ -15,9 +15,10 @@ what never happens.
 
 ## Trigger
 
-Every task with execution or delegation — this skill does not wait to
-be called, it is part of the setup. Pure reading/explaining with
-nothing executed is the only exemption.
+base is always running: it is loaded as part of the setup and governs
+every task — you do not invoke it, you are already inside it. The one
+case its execution rules do not apply: the turn is pure reading and
+explaining — nothing runs, nothing changes, nothing is delegated.
 
 ## Process
 
@@ -25,9 +26,7 @@ nothing executed is the only exemption.
    Prefer agents over subagents: the default is a separate agent — a
    session via the sessions tool (`create`/`send`), fire-and-continue,
    collect at the end; a subagent is only for a quick bounded ask.
-   Hands-on only for the trivial (one edit, one check). Whether to
-   delegate or work hands-on is situational — unsure means a user pick,
-   not a fixed policy. An agent that
+   Hands-on only for the trivial (one edit, one check). An agent that
    never saw `base` follows nothing — name it and the live catalog path
    in every delegation prompt.
 2. **Every delegation carries a log path and a heartbeat.** No agent
@@ -73,9 +72,8 @@ nothing executed is the only exemption.
    volumes, databases, hosts, or running tests. Unclear
    scope, a secret, a user-only decision, an external service, a down
    dependency, non-rotatable creds — stop that item, record the exact
-   question, continue with the rest. Unclear, risky, or guessable — any
-   internal "hmm", "let me think", "what does the user mean" — is a
-   user pick, not a guess. Never route around the block, never
+   question, continue with the rest. Unclear or risky items are a user
+   pick, not a guess (the concrete signs live in references/examples.md). Never route around the block, never
    do provisional work while waiting for a yes.
 6. **Run the full bundle — chords read alongside base.** chords is the
    shorthand layer: the user's phrases are /commands, read alongside
@@ -134,7 +132,3 @@ nothing executed is the only exemption.
 - A task abandoned because a skill failed to load is the failure —
   recover it (Process item 7), never a silent give-up.
 
-## Report
-
-What was refused or asked (with reason), what ran where (host vs
-container), what the next human action is. Short, no narration.

@@ -6,6 +6,9 @@ One rule, before anything else:
 governs every task including talk-only turns. Everything you must follow
 is written there and in the skills it names.**
 
+- chords is read alongside base from session start: the user's phrases
+  are shorthand /commands, matched by MEANING (synonyms and paraphrases
+  count) — never as a literal string regex.
 - Skills are RE-READ FROM DISK every time they matter — never answer a
   skill question from memory; the catalog changes under you.
 - The collection and everything written for it (code, comments, docs,

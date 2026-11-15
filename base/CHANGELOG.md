@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.0] - 2026-11-15
+- Owner review round 2: the delegation-situational note removed (the
+  Agent tool docs cover it); the pick signs moved out of the skill text
+  into examples (skills are abstract, patterns live in examples);
+  Trigger rewritten in plain language; the Report section removed
+  (per-skill reports own the format).
+
 ## [1.13.0] - 2026-11-15
 - Forced project-.md reading (owner ruling, Process item 9): read
   AGENTS.md/README/docs before acting; unsure = user pick; the user-pick

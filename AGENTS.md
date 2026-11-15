@@ -10,6 +10,9 @@ start and governs everything below.
 - **Personal data stays out of tracked files.** Owner phrases live only in
   `chords/`; machine-local values (ports, hosts, tokens) only in a skill's
   own `runtime.toml` (gitignored). Tracked files are portable.
+- **Skills are abstract.** A skill carries method and rules only — no
+  concreteness, no personalization; every concrete pattern lives in the
+  skill's `references/examples.md`.
 - **Skill changes go through `skill-scaffolder`.** New or restructured
   skills get the modular shape (SKILL.md + plugins/manifest.json +
   references/ + VERSION + CHANGELOG); versions move with `scripts/bump.py`.
