@@ -19,6 +19,12 @@ start and governs everything below.
 - **Ask rules.** Destructive, secret, out-of-scope, mass, public-facing:
   stop and ask. Derivable calls: decide, do, report — don't ask.
 
+- **Description checks are multi-run.** `scripts/trigger_check.py
+  --battery` → several bare LLMs, several runs each, `--answers` grades
+  against the fixtures; a single run proves nothing (owner ruling
+  2026-11-15). The word "trigger" is retired from docs — the
+  `description` field is the surfacing text.
+
 ## Layout
 
 - `<skill>/` — one skill per folder: SKILL.md, plugins/manifest.json,

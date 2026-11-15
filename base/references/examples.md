@@ -17,7 +17,7 @@ Rationale: runtime resolution means looking facts up, not interrogating the user
 
 **Good:** an item is unclear, risky, or guessable — the agent catches an internal "hmm", "let me think", "what does the user mean" → user pick: one message with the situation and the options, the user chooses.
 **Bad:** building on the guessed interpretation, or blocking the whole task on one unclear item.
-Rationale: a guess compounds; a pick costs one message — the signs above are the trigger to stop.
+Rationale: a guess compounds; a pick costs one message — the signs above are the stop signal.
 
 **Good:** delegation vs hands-on is a toss-up → user pick with the tradeoff named.
 **Bad:** a fixed policy — always delegating, or never delegating.
@@ -67,6 +67,6 @@ Rationale: when both readings are defensible and the consequences differ, the he
 **Bad:** pausing to ask "may I read the config?" before every file touch.
 Rationale: hesitation over READING is not hesitation over DOING — reads are free; writes, deletes, and guesses are what the pick guards.
 
-**Good:** "do I need workplanx for this one-line rename?" → the trigger rules answer it: trivial one-line edits are exempt → skip and note why.
+**Good:** "do I need workplanx for this one-line rename?" → the written rules answer it: trivial one-line edits are exempt → skip and note why.
 **Bad:** skipping the process because the hesitation itself felt like an answer.
 Rationale: a process question is settled by the written rule first, by a pick second — never by a hunch.

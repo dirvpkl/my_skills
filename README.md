@@ -27,12 +27,12 @@ personalization — the good/bad pairs in `references/examples.md` carry
 the concrete patterns and are read beside the SKILL.md as binding
 context.
 
-**Trigger = the description.** The `description` field in SKILL.md
-frontmatter IS the trigger: the text the harness matches against what
-the user says to decide which skill to surface. The optional `## Trigger`
-section in the body is the skill's own statement of when it applies.
-A skill that is always part of the setup (like base) has neither: it is
-never invoked, it is already running.
+**The description.** The `description` field in SKILL.md frontmatter is
+the only surfacing text: the harness matches it against what the user
+says to decide which skill to load. A body section that merely restates
+the description is cargo-cult boilerplate and does not belong in a
+skill; a skill that is always part of the setup (like base) has nothing
+to restate: it is never invoked, it is already running.
 
 **base.** Always loaded, governs every task: delegation carries a log
 path, facts resolve at runtime, unclear or risky items become a user
@@ -113,7 +113,7 @@ question, never a silent workaround.
 - `requirements.md` — external skills only (vendored / built-in), with
   upstream links; collection-internal skills are not listed — the folder
   layout is the roster.
-- `scripts/` — collection-level tools (validator, trigger checker,
+- `scripts/` — collection-level tools (validator, description checker,
   version bump, scaffold helpers), not part of any skill.
 
 ## How skills teach
