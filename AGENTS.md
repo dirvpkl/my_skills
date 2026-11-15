@@ -31,10 +31,11 @@ start and governs everything below.
   `description` field is the surfacing text. The pass bar is 100% — every
   fixture tests one skill's description in isolation; any miss = that
   description fails.
-- **Descriptions improve by clarity.** Generated utterances (`--gen`) and
-  drafted variants (`scripts/desc_suggest.py`) test comprehension against
-  the fixtures — paraphrases and synonyms are welcome in the test data;
-  the bar is 100% across models.
+- **The description carries intent, not keywords.** It must not be a list
+  of the phrases the agent is supposed to surface on — that is keyword
+  bait. Synonyms are fine and often help, anywhere. Generated utterances
+  (`--gen`) and drafted variants (`scripts/desc_suggest.py`) test
+  comprehension; the bar is 100% across models.
 
 ## Layout
 

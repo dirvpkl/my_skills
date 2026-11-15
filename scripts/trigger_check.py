@@ -179,8 +179,6 @@ def lint() -> int:
         if len(d) > MAX_DESC:
             probs.append(f"description too long ({len(d)} > {MAX_DESC})")
         always_loaded = "always loaded" in low
-        if not always_loaded and not re.search(r'"[^"]{3,}"', d):
-            probs.append("no quoted literal user phrase")
         if not any(k in low for k in ("not for", "do not", "never", "not a ")):
             probs.append("no negative surfacing rule (NOT for / Do not / never)")
         for v in VAGUE:
