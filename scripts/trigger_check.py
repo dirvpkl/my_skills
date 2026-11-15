@@ -58,9 +58,11 @@ def skills():
     return out
 
 
-def call_llm(prompt: str, model: str, timeout: int = 600) -> str:
-    """One router chat call, structured-output only (owner ruling: models
-    that cannot answer JSON schema are not worth befriending)."""
+def call_llm(prompt: str, model: str, schema: dict | None = None, timeout: int = 600) -> dict:
+    """One router chat call with FORCED structured output: a json_schema
+    (strict — the shape is guaranteed by constrained decoding) when the
+    model supports it, json_object as the fallback. A model that rejects
+    both is an exception, not a fail."""
     key_line = ""
     rt = ROOT / "roi" / "runtime.toml"
     for line in rt.read_text(encoding="utf-8").splitlines():
@@ -69,34 +71,42 @@ def call_llm(prompt: str, model: str, timeout: int = 600) -> str:
             break
     if not key_line:
         sys.exit("router key not found — expected roi/runtime.toml [router] api_key")
-    body = json.dumps({
-        "model": model,
-        "messages": [{"role": "user", "content": prompt}],
-        "temperature": 0,
-        "response_format": {"type": "json_object"},
-    }).encode()
-    req = urllib.request.Request(ROUTER_URL, data=body, headers={
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + key_line,
-    })
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            resp = json.loads(r.read())
-    except urllib.error.HTTPError as e:
-        sys.exit(
-            f"EXCEPTION, not a fail: model '{model}' cannot answer structured "
-            f"JSON (HTTP {e.code}) — the model's limit, not the test's; "
-            f"nothing to fix on our side. Pick another model and it passes."
-        )
-    text = resp["choices"][0]["message"]["content"].strip()
-    text = text[text.find("{"):text.rfind("}") + 1]  # strip prose around JSON
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError as e:
-        sys.exit(
-            f"EXCEPTION, not a fail: model '{model}' returned malformed JSON — "
-            f"its limit, not the test's; pick another model and it passes."
-        )
+    attempts = []
+    if schema:
+        attempts.append({"type": "json_schema", "json_schema": schema})
+    attempts.append({"type": "json_object"})
+    last = None
+    for rf in attempts:
+        body = json.dumps({
+            "model": model,
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0,
+            "response_format": rf,
+        }).encode()
+        req = urllib.request.Request(ROUTER_URL, data=body, headers={
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + key_line,
+        })
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                resp = json.loads(r.read())
+        except urllib.error.HTTPError as e:
+            last = e
+            continue  # schema rejected by this model/router — try the weaker form
+        text = resp["choices"][0]["message"]["content"].strip()
+        text = text[text.find("{"):text.rfind("}") + 1]
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError as e:
+            sys.exit(
+                f"EXCEPTION, not a fail: model '{model}' returned malformed JSON "
+                f"({e}) — its limit, not the test's; pick another model."
+            )
+    sys.exit(
+        f"EXCEPTION, not a fail: model '{model}' rejected both json_schema and "
+        f"json_object response formats (HTTP {last.code}) — its limit, not the "
+        f"test's; nothing to fix on our side. Pick another model and it passes."
+    )
 
 
 def lint() -> int:
@@ -129,6 +139,11 @@ def lint() -> int:
 
 
 def battery() -> int:
+    print("\n".join(sheet_lines()))
+    return 0
+
+
+def battery_dead() -> int:
     ss = skills()
     fixtures = json.loads(FIXTURES.read_text(encoding="utf-8"))
     lines = ["You are an agent working in a chat with a user.",
@@ -188,6 +203,50 @@ def answers(path: str) -> int:
     return 0 if correct == len(fixtures) else 1
 
 
+GEN_SCHEMA = {"name": "utterances", "strict": True, "schema": {
+    "type": "object",
+    "properties": {"utterances": {"type": "array", "items": {
+        "type": "object",
+        "properties": {"utterance": {"type": "string"}, "skill": {"type": "string"}},
+        "required": ["utterance", "skill"], "additionalProperties": False}}},
+    "required": ["utterances"], "additionalProperties": False}}
+
+def answers_schema() -> dict:
+    """strict: true with every utterance number declared — the model cannot
+    add a "reason" field, skip a number, or change a key type. Built per
+    fixtures count, since strict requires all keys declared."""
+    fixtures = json.loads(FIXTURES.read_text(encoding="utf-8"))
+    props = {str(i): {"type": "string"} for i in range(1, len(fixtures) + 1)}
+    return {"name": "routing", "strict": True, "schema": {
+        "type": "object", "properties": props,
+        "required": list(props.keys()), "additionalProperties": False}}
+
+
+def sheet_lines() -> list:
+    ss = skills()
+    fixtures = json.loads(FIXTURES.read_text(encoding="utf-8"))
+    lines = ["You are an agent working in a chat with a user.",
+             "The following skills are available for use with the Skill tool — invoke one by exact name when its description matches what the user needs; if no skill matches, just answer the user yourself.",
+             'For each of the user messages below, name the ONE skill to invoke, or the word none. Answer with a JSON object {"<message number>": "<skill-or-none>"} only.', "",
+             "## Skills"]
+    for name, s in ss.items():
+        lines.append(f"- {name} ({s['version']}): {s['description']}")
+    lines += ["", "## User messages"]
+    for i, fx in enumerate(fixtures, 1):
+        lines.append(f"{i}. {fx['utterance']}")
+    return lines
+
+
+def exam(model: str, out: str) -> int:
+    """Send the sheet to one bare model with a forced answer schema and
+    save its answers for --answers grading. Three models minimum (owner
+    ruling); a single run proves nothing."""
+    data = call_llm("\n".join(sheet_lines()), model, answers_schema())
+    Path(out).write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(f"answers ({model}) -> {out}")
+    return 0
+
+
 def gen(model: str, out: str) -> int:
     """A generator model writes new test utterances from the descriptions:
     comprehension testing, not memorized phrase templates."""
@@ -202,7 +261,7 @@ def gen(model: str, out: str) -> int:
              "## Skills"]
     for name, s in ss.items():
         lines.append(f"- {name}: {s['description']}")
-    data = call_llm("\n".join(lines), model)
+    data = call_llm("\n".join(lines), model, GEN_SCHEMA)
     items = data.get("utterances", [])
     if not items:
         sys.exit(f"model '{model}' returned no utterances — wrong schema or a lazy answer; try another model.")
@@ -219,6 +278,7 @@ def main() -> int:
     ap.add_argument("--battery", action="store_true")
     ap.add_argument("--answers")
     ap.add_argument("--gen", metavar="MODEL")
+    ap.add_argument("--exam", metavar="MODEL")
     ap.add_argument("--out", default="fixtures-draft.json")
     a = ap.parse_args()
     if a.lint:
@@ -229,6 +289,8 @@ def main() -> int:
         return answers(a.answers)
     if a.gen:
         return gen(a.gen, a.out)
+    if a.exam:
+        return exam(a.exam, a.out)
     ap.print_help()
     return 2
 
