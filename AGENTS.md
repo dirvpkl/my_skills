@@ -19,6 +19,10 @@ start and governs everything below.
 - **Ask rules.** Destructive, secret, out-of-scope, mass, public-facing:
   stop and ask. Derivable calls: decide, do, report — don't ask.
 
+- **A description change is not done until the exam passes.** Descriptions
+  changed → run the exam (3+ models, 100%) BEFORE committing — without it
+  the surfacing behavior is unknown. The validator warns when descriptions
+  changed without the exam.
 - **Description checks are multi-run.** `scripts/trigger_check.py
   --battery` → several bare LLMs, several runs each, `--answers` grades
   against the fixtures; a single run proves nothing (owner ruling

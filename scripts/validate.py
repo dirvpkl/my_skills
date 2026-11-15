@@ -142,6 +142,52 @@ def check_skill_runtime(d: Path) -> tuple[list, list]:
     return errors, warnings
 
 
+def check_exam_currency(warnings: list) -> None:
+    """Descriptions changed in the working tree = the exam is stale.
+
+    The exam (trigger_check --exam, 3+ models, 100%) is the only way to
+    know how the changed descriptions surface — owner ruling 2026-11-15:
+    it runs by default, there is no not-by-exam variant. The check is a
+    git diff on description lines; a bare marker file (EXAM_RUN) newer
+    than the last description change silences the warning.
+    """
+    import subprocess
+    try:
+        diff = subprocess.run(
+            ["git", "diff", "HEAD", "--name-only"],
+            capture_output=True, text=True, cwd=ROOT, timeout=30,
+        ).stdout
+    except Exception:
+        return  # not a git checkout or git missing — nothing to compare
+    changed = []
+    for line in diff.splitlines():
+        line = line.strip()
+        if not line.endswith("SKILL.md") or "/" not in line:
+            continue
+        d = subprocess.run(
+            ["git", "diff", "HEAD", "--", line],
+            capture_output=True, text=True, cwd=ROOT, timeout=30,
+        ).stdout
+        for hunk in d.splitlines():
+            if (hunk.startswith("+") and hunk[1:].startswith("description:")
+                    and not hunk[1:].startswith("description: " + "#")):
+                changed.append(line)
+                break
+    if not changed:
+        return
+    marker = ROOT / ".exam-run"
+    if marker.exists():
+        import time
+        if marker.stat().st_mtime > time.time() - 3600 * 24:
+            return
+    warnings.append(
+        "descriptions changed without a fresh exam run: "
+        + ", ".join(sorted(set(changed)))
+        + " — run `python -X utf8 -I scripts/trigger_check.py --exam <model>` "
+        "(3+ models, 100%) before committing"
+    )
+
+
 def check_wiki_links() -> list:
     """[[target]] in skill markdown resolves like workplanx topics; dangling = WARN.
 
@@ -208,6 +254,7 @@ def main() -> int:
         errors.extend(rt_errors)
         warnings.extend(rt_warnings)
 
+    check_exam_currency(warnings)
     warnings.extend(check_wiki_links())
 
     for w in warnings:
