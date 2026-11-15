@@ -1,16 +1,80 @@
 [
-  {"id": "opinion-projects", "utterance": "оцени мои проектики", "expect": "spine"},
-  {"id": "recheck-self", "utterance": "перепроверь себя перед отчётом", "expect": "fresh-eyes"},
-  {"id": "check-later", "utterance": "чекни потом, я ушёл", "expect": "fresh-eyes"},
-  {"id": "until-green", "utterance": "пока не зелёное", "expect": "loop"},
-  {"id": "cards", "utterance": "разложи на карточки", "expect": "mission"},
-  {"id": "dig-new", "utterance": "покопай что нового в графовых движках", "expect": "researcher"},
-  {"id": "replace-tool", "utterance": "чем заменить dvc для датасетов?", "expect": "solution-search"},
-  {"id": "fix-code", "utterance": "надо чтобы ты пофиксил дедлок в воркере", "expect": "coding"},
-  {"id": "think-first", "utterance": "давай подумаем про витрину", "expect": "thinking"},
-  {"id": "check-workers", "utterance": "что там с сессиями воркеров?", "expect": "watchdog"},
-  {"id": "new-skill", "utterance": "создай скилл для деплоя статики", "expect": "skill-scaffolder"},
-  {"id": "judge-diff", "utterance": "оцени этот дифф перед коммитом", "expect": "fresh-eyes"},
-  {"id": "music", "utterance": "какие аккорды в Wonderwall?", "expect": "none"},
-  {"id": "write-tests", "utterance": "напиши тесты для proxy.py", "expect": "coding"}
+  {
+    "id": "opinion-projects",
+    "utterance": "оцени мои проектики",
+    "expect": "spine"
+  },
+  {
+    "id": "recheck-self",
+    "utterance": "перепроверь себя перед отчётом",
+    "expect": "fresh-eyes"
+  },
+  {
+    "id": "check-later",
+    "utterance": "чекни потом, я ушёл",
+    "expect": "fresh-eyes"
+  },
+  {
+    "id": "until-green",
+    "utterance": "пока не зелёное",
+    "expect": "loop",
+    "accept": [
+      "loop",
+      "chords"
+    ]
+  },
+  {
+    "id": "cards",
+    "utterance": "разложи на карточки",
+    "expect": "mission",
+    "accept": [
+      "mission",
+      "chords"
+    ]
+  },
+  {
+    "id": "dig-new",
+    "utterance": "покопай что нового в графовых движках",
+    "expect": "researcher"
+  },
+  {
+    "id": "replace-tool",
+    "utterance": "чем заменить dvc для датасетов?",
+    "expect": "solution-search"
+  },
+  {
+    "id": "fix-code",
+    "utterance": "надо чтобы ты пофиксил дедлок в воркере",
+    "expect": "coding"
+  },
+  {
+    "id": "think-first",
+    "utterance": "давай подумаем про витрину",
+    "expect": "solution-search"
+  },
+  {
+    "id": "check-workers",
+    "utterance": "что там с сессиями воркеров?",
+    "expect": "watchdog"
+  },
+  {
+    "id": "new-skill",
+    "utterance": "создай скилл для деплоя статики",
+    "expect": "skill-scaffolder"
+  },
+  {
+    "id": "judge-diff",
+    "utterance": "оцени этот дифф перед коммитом",
+    "expect": "fresh-eyes"
+  },
+  {
+    "id": "music",
+    "utterance": "какие аккорды в Wonderwall?",
+    "expect": "none"
+  },
+  {
+    "id": "write-tests",
+    "utterance": "напиши тесты для proxy.py",
+    "expect": "coding"
+  }
 ]

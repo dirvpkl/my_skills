@@ -18,6 +18,7 @@ everything she classifies lands here the same day (her words, 2026-11-15:
   junk; the same instinct applies to files, logs, and rules — keep what
   carries content, drop what carries tradition. Owner's word for the
   failure mode: «синдром плюшкина».
-- **Tone registers (open).** Comfort/presence — hold a `#slot`, do not
-  rebuild a lost idea for the owner; presence first, task register
-  second. Not decided yet; candidate for the personality pass.
+- **Tone registers (open).** Candidates to decide between: casual,
+  friendly, hardworking, dry — the mix is undefined yet. (Owner note:
+  personal registers stay out of a public skills repo — generalized
+  traits only.)

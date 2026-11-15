@@ -105,6 +105,24 @@ and replace.
 shape per phase (plan/search/decision/build). A red gate is a stop and a
 question, never a silent workaround.
 
+## Using the tooling
+
+- **Validate the collection:** `python -I scripts/validate.py` — one
+  walk, all checks (frontmatter, VERSION sync, lean manifests, dependency
+  resolution, runtime.toml parse, wiki-links).
+- **Grade the descriptions (the exam):** `python -X utf8 -I
+  scripts/trigger_check.py --battery` prints the exam sheet (every
+  description + the fixture utterances from `scripts/trigger_fixtures.json`).
+  Give the sheet to bare LLMs — at least three runs, at least three
+  models; one run proves nothing (owner ruling 2026-11-15). Save each
+  model's JSON answers, then `python -X utf8 -I scripts/trigger_check.py
+  --answers answers.json` grades them. Score below the threshold = a
+  description is unreadable as a surfacing text; misses on the same
+  utterance across runs = fix the description, not the model.
+- **Lint the descriptions:** `python -X utf8 -I scripts/trigger_check.py
+  --lint` — length cap, a quoted user phrase, a negative (NOT for),
+  an ALWAYS-invoke imperative, no vague filler.
+
 ## Root files
 
 - `AGENTS.md` — how agents work in this repo: the editing rules.

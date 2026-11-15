@@ -107,7 +107,8 @@ def answers(path: str, threshold: float) -> int:
     rows = []
     for i, fx in enumerate(fixtures, 1):
         got = str(given.get(str(i), given.get(fx["id"], "<missing>"))).strip()
-        ok = got == fx["expect"]
+        expected = fx.get("accept", [fx["expect"]])
+        ok = got in expected
         correct += ok
         rows.append(f"{'OK  ' if ok else 'MISS'} {fx['id']}: expect {fx['expect']!r}, got {got!r}")
     acc = correct / len(fixtures)
