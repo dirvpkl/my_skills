@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.3.0] - 2026-11-15
+- Per-skill review round. `## Trigger` and `## Does NOT trigger on`
+  sections folded away (owner ruling: trigger sections are cargo-cult,
+  the word is retired from docs) — the confirm-before-write line merged
+  into "Editing bindings", the free-form/normal-routing nuance into
+  Process step 4.
+- Description rewritten intent-only: quoted owner-phrase lists removed
+  (descriptions carry intent, not keyword lists). Exam-gated.
+- Manifest: superseded `trigger-log` planned entry removed (trigger
+  accounting lives in workplanx/references/trigger-log.md since
+  2026-11-15).
+- bindings.md: "each skill's trigger" reworded to description; the two
+  dangling wiki-links to Desktop-record topics made plain text (checker
+  stays portable, the reference keeps pointing there for humans).
+- examples.md: +1 couplet in the five single-pair sections — every case
+  now carries ≥2 pairs (boundaries convention).
+
 ## [1.2.0] - 2026-11-15
 - Read alongside base at session start (owner ruling): phrases are
   shorthand /commands, matched by meaning — synonyms and paraphrases

@@ -1,7 +1,7 @@
 ---
 name: chords
-description: Personal shortcut bindings — the user's shorthand phrases map straight to skills, bundles, or actions. ALWAYS invoke this skill when the user uses a bound phrase ("думалки", "пока не зелёное", "что сделано?", "разложи на карточки") or asks to see, add, change, or remove bindings ("какие шорткаты", "what are my shortcuts", "add a shortcut", "запомни шорткат", "unbind X"). A binding is a key chord — one phrase, the whole stack sounds. NOT a music skill; actual chord/music questions are answered directly.
-version: 1.2.0
+description: Personal shortcut bindings — the user's shorthand phrases map straight to skills, bundles, or actions. ALWAYS invoke this skill when the user uses a bound phrase — a personal shorthand word or expression established as a shortcut — or asks to see, add, change, or remove bindings. A binding is a key chord — one phrase, the whole stack sounds. Not a music skill; actual chord or music questions are answered directly.
+version: 1.3.0
 ---
 
 # chords
@@ -17,15 +17,6 @@ instead of remembered context.
 - **plugins/manifest.json** — dependencies. No modules: targets are sibling
   skills, referenced by name only.
 
-## Trigger
-
-- Session start: chords is read alongside base (owner ruling
-  2026-11-15) — the phrase table is the shorthand /command layer.
-- The user uses a bound phrase from the table → resolve it and load the
-  target in the same turn.
-- The user asks about bindings (list, add, change, remove) → operate on the
-  table; confirm the exact phrase and target before writing a row.
-
 ## Process
 
 1. Read `references/bindings.md`.
@@ -38,7 +29,10 @@ instead of remembered context.
    - `bundle` → invoke every skill in the row, one combined obligation, same
      turn;
    - `action` → do the described step; no skill loads.
-4. No match → one line: "not bound", offer to add it. Never guess a target.
+4. No match → one line: "not bound", offer to add it — but only when the
+   phrase reads as a shortcut attempt; an ordinary free-form request that
+   no row matches is normal routing (base's rules), not a forced binding.
+   Never guess a target.
 5. After resolving, step out of the way: the target skill's own process
    governs from there. chords is a keypress, not a supervisor.
 
@@ -46,15 +40,7 @@ instead of remembered context.
 
 Adding, changing, or removing a row is data, not skill semantics: edit the
 table, no version bump, no gate. Bind only what the user asked for or
-confirmed. A bound phrase that collides with an existing /command or skill
-name loses to the explicit form — note the collision in the row instead of
-removing the explicit path.
-
-## Does NOT trigger on
-
-- Actual music questions ("какие аккорды в этой песне", "what chords are
-  these") → answer directly; the name is a metaphor, not a domain.
-- A phrase that is already an explicit /command or skill name → the explicit
-  form wins; chords does nothing.
-- Free-form requests that no row matches → normal routing (base's rules),
-  not a forced binding.
+confirmed — confirm the exact phrase and target before writing a row. A
+bound phrase that collides with an existing /command or skill name loses
+to the explicit form — note the collision in the row instead of removing
+the explicit path.

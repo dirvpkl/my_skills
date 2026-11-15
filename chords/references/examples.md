@@ -8,11 +8,19 @@ Good vs bad pairs, each with a one-line rationale. Read beside SKILL.md.
 **Bad:** "I see that's one of your shortcuts — want me to load it?"
 Rationale: the binding is a keypress, not a question — resolve and load in the same turn; the target skill's own process governs from there.
 
+**Good:** the owner drops «на сегодня» mid-evening → the close-out ritual (afterword + fresh-eyes + recap) starts that same turn, not "later when we wrap up."
+**Bad:** acknowledging the phrase and deferring the load to whenever the conversation naturally ends.
+Rationale: a chord pressed later is a different note — bindings resolve immediately or they rot.
+
 ## No match says so, never guesses
 
 **Good:** the phrase isn't in the table → "not bound — want me to add it?"
 **Bad:** "that phrase is close enough to «пока не зелёное», I'll run the loop skill."
 Rationale: resolving an unbound phrase to a guessed target invents routing the user never set — no match is a one-line answer plus an offer to add the binding.
+
+**Good:** «закрепи это» — never bound → one "not bound" line, then the request is handled as ordinary chat.
+**Bad:** silently reading «закрепи» as «пиши» or any other near row because the meanings feel adjacent.
+Rationale: adjacency is not binding — near-misses resolved silently compound into a table that means nothing.
 
 ## Explicit form wins on collision
 
@@ -20,11 +28,25 @@ Rationale: resolving an unbound phrase to a guessed target invents routing the u
 **Bad:** intercepting the explicit /command because a binding "covers the same words."
 Rationale: chords never outranks the explicit path — a colliding bound phrase loses to the explicit form, and the table records the collision rather than removing the explicit route.
 
+**Good:** a row's note says the phrase collides with the /loop command → when the user then types /loop, the harness command runs untouched.
+**Bad:** "helpfully" resolving the typed /loop through the bindings table first because a row mentions it.
+Rationale: the collision note exists to document coexistence, not to redirect the explicit path through the table.
+
 ## The metaphor name doesn't hijack the domain
 
 **Good:** "какие аккорды в этой песне?" is answered directly as a music question.
 **Bad:** routing the music question through `references/bindings.md` as if it were a trigger phrase.
-Rationale: the skill name is a metaphor — chords is not a music skill, and its trigger is bound phrases, not the word "chord".
+Rationale: the skill name is a metaphor — chords is not a music skill, and its surface is bound phrases, not the word "chord".
+
+**Good:** "explain chord progressions" → a plain music answer; the chords skill never loads.
+**Bad:** loading chords because the word "chord" appeared in the message.
+Rationale: the word in the skill's own name is not a binding on the word itself — only user-established phrases fire it.
+
+## The metaphor name doesn't hijack the domain
+
+**Good:** "какие аккорды в этой песне?" is answered directly as a music question.
+**Bad:** routing the music question through `references/bindings.md` as if it were a trigger phrase.
+Rationale: the skill name is a metaphor — chords is not a music skill, and its surface is bound phrases, not the word "chord".
 
 ## Meaning, not regex
 
@@ -41,6 +63,10 @@ Rationale: brevity is an answer when a pick is pending; the chord layer reads in
 **Good:** the task matches a bundle row → the whole stack loads as one obligation, and the row is the single place the stack is defined.
 **Bad:** base (or any skill) carrying its own private copy of a bundle definition.
 Rationale: bundles are owner-edited data in chords — a second copy anywhere is a drift bug.
+
+**Good:** the think-bundle row gains a member later → the row is edited once, and every session re-reads the table from disk before resolving.
+**Bad:** an agent loading the stack from last week's memory — four skills when the row now lists five.
+Rationale: the row is live data, like every skill — re-read from disk, never recited from memory.
 
 ## Mode recognition (moved from base 2026-11-15)
 

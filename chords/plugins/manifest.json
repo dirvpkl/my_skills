@@ -3,11 +3,5 @@
   "dependencies": [
     "base"
   ],
-  "planned": [
-    {
-      "id": "trigger-log",
-      "name": "Trigger log",
-      "description": "Log of observed trigger misses folded back into bindings and descriptions (researcher/source-log pattern). Parked 2026-11-11 until misses recur."
-    }
-  ]
+  "planned": []
 }
