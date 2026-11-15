@@ -55,14 +55,18 @@ Rationale: bundles are owner-edited data, not agent improvisation.
 
 ## Hesitation signs — pick or proceed
 
-**Good:** the agent catches itself mid-task: "HMMM — yes, BUT...", "Hmmm — but the...", "is this X? NO... or...", "becoming this and afterwards... this?..." — that cluster of hesitation is the pick signal: the situation and the options go to the user in one message.
-**Bad:** talking itself into an interpretation and building on it — the hesitation was the signal, and it got argued past.
-Rationale: hesitation language means the agent is unsure; unsure work is a pick, not a private debate.
+**Good:** mid-refactor the agent catches itself: "HMMM — yes, BUT the auth module already handles this case..." — that is the pick signal: one message — "the auth module may already cover this: wire it in / write a separate check / leave it?" — and the user picks.
+**Bad:** arguing itself past the hesitation and writing the duplicate check.
+Rationale: "hmm... but..." means the agent sees two plausible paths and does not own the choice — unsure work is a pick.
 
-**Good:** "let me think..." right before re-reading the file the task pointed at → a lead-in to a read-only look; proceed.
-**Bad:** treating every filler phrase as a stop-sign and interrogating the user before touching anything.
+**Good:** "Hmmm — but the deadline in the ticket is Friday and this change touches the release branch..." → pick: merge now / wait / branch separately.
+**Bad:** a silent call between two options the user cares about.
+Rationale: when both readings are defensible and the consequences differ, the hesitation IS the question.
+
+**Good:** "let me think..." right before re-reading `config.yaml`, which the task explicitly named → a lead-in to a read-only look; proceed.
+**Bad:** pausing to ask "may I read the config?" before every file touch.
 Rationale: hesitation over READING is not hesitation over DOING — reads are free; writes, deletes, and guesses are what the pick guards.
 
-**Good:** "do I need process X?" → answered by checking the skill's trigger rules first; still unclear after checking → pick.
+**Good:** "do I need workplanx for this one-line rename?" → the trigger rules answer it: trivial one-line edits are exempt → skip and note why.
 **Bad:** skipping the process because the hesitation itself felt like an answer.
-Rationale: the check is cheap and the rules are written — a process question resolved by a hunch is how rules rot.
+Rationale: a process question is settled by the written rule first, by a pick second — never by a hunch.

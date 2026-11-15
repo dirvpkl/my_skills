@@ -27,12 +27,12 @@ personalization — the good/bad pairs in `references/examples.md` carry
 the concrete patterns and are read beside the SKILL.md as binding
 context.
 
-**Trigger.** Two layers: (a) the `description` in SKILL.md frontmatter —
-the surface the harness matches against what the user says, deciding
-which skill to offer; (b) an optional `## Trigger` section in the body —
-the skill's own statement of when it applies. A skill that is always
-part of the setup (like base) has no Trigger section: it is never
-invoked, it is already running.
+**Trigger = the description.** The `description` field in SKILL.md
+frontmatter IS the trigger: the text the harness matches against what
+the user says to decide which skill to surface. The optional `## Trigger`
+section in the body is the skill's own statement of when it applies.
+A skill that is always part of the setup (like base) has neither: it is
+never invoked, it is already running.
 
 **base.** Always loaded, governs every task: delegation carries a log
 path, facts resolve at runtime, unclear or risky items become a user
