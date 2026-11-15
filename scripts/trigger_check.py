@@ -172,9 +172,13 @@ def answers(path: str) -> int:
 def gen(model: str, out: str) -> int:
     """A generator model writes new test utterances from the descriptions:
     comprehension testing, not memorized phrase templates."""
+    # The prompt stays ABSTRACT on purpose (owner ruling 2026-11-15): no
+    # instructions about style, phrasing, paraphrasing, or how many words —
+    # the generator infers everything from the schema and the descriptions.
+    # Concrete guidance would only be allowed as examples, and examples are
+    # skipped here: these are tests, token cost matters.
     ss = skills()
-    lines = ["You write test utterances for an agent skill collection.",
-             "For every skill below write ONE short user utterance (Russian or English, casual) that should invoke exactly that skill — do not copy phrases from the description, paraphrase the intent.",
+    lines = ["You write user messages for an agent skill collection.",
              'Answer with a JSON object {"utterances": [{"utterance": "...", "skill": "<skill-name>"}]} covering every skill listed.', "",
              "## Skills"]
     for name, s in ss.items():
