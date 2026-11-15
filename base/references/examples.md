@@ -52,3 +52,17 @@ Rationale: a bundle is one combined obligation — partial loading breaks the st
 **Good:** no bundle matches → normal skill routing; no bundle invented on the fly.
 **Bad:** composing a new bundle mid-task without the owner's row in chords.
 Rationale: bundles are owner-edited data, not agent improvisation.
+
+## Hesitation signs — pick or proceed
+
+**Good:** the agent catches itself mid-task: "HMMM — yes, BUT...", "Hmmm — but the...", "is this X? NO... or...", "becoming this and afterwards... this?..." — that cluster of hesitation is the pick signal: the situation and the options go to the user in one message.
+**Bad:** talking itself into an interpretation and building on it — the hesitation was the signal, and it got argued past.
+Rationale: hesitation language means the agent is unsure; unsure work is a pick, not a private debate.
+
+**Good:** "let me think..." right before re-reading the file the task pointed at → a lead-in to a read-only look; proceed.
+**Bad:** treating every filler phrase as a stop-sign and interrogating the user before touching anything.
+Rationale: hesitation over READING is not hesitation over DOING — reads are free; writes, deletes, and guesses are what the pick guards.
+
+**Good:** "do I need process X?" → answered by checking the skill's trigger rules first; still unclear after checking → pick.
+**Bad:** skipping the process because the hesitation itself felt like an answer.
+Rationale: the check is cheap and the rules are written — a process question resolved by a hunch is how rules rot.
