@@ -93,9 +93,13 @@ def call_llm(prompt: str, model: str, schema: dict | None = None, timeout: int =
         # rebalances) — retryable with backoff; 429 = throttle; 400/402 =
         # the model itself, exit immediately.
         u = urllib.parse.urlsplit(url)
+        # A base URL without a path 307s on the empty POST path (observed
+        # live: '' and '/' both redirect to /dashboard) — default the
+        # endpoint instead of trusting the config blindly.
+        path = u.path or "/v1/chat/completions"
         for attempt in range(5):
             conn = http.client.HTTPConnection(u.hostname, u.port, timeout=timeout)
-            conn.request("POST", u.path, body=body, headers={
+            conn.request("POST", path, body=body, headers={
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + key,
             })
@@ -232,6 +236,60 @@ def normalize(given, fixtures):
     for k, v in given.items():
         out[str(by_text.get(k, k))] = v
     return out
+
+
+def exam(model: str, set_path: str, out: str) -> int:
+    """One cold model against the generated sheet: every message must
+    attract the skill its expect names and repel the others. The bar is
+    100% — a single miss fails every description it touched (recall for
+    the skill that was expected, precision for the skill that was wrongly
+    named; owner ruling: no thresholds). An upstream shape/limit error is
+    an exception raised in call_llm, never a grading fail."""
+    fixtures = load_set(set_path)
+    prompt = "\n".join(sheet_lines(fixtures))
+    given = normalize(call_llm(prompt, model), fixtures)
+    known = {n.lower() for n in skills()}
+    misses = []
+    for i, fx in enumerate(fixtures, 1):
+        want = str(fx.get("expect", "")).strip()
+        got = str(given.get(str(i), "") or "").strip()
+        got_name = got.split()[0].strip(".,;:'\"") if got else ""
+        if got_name.lower() == want.lower():
+            continue
+        misses.append({"n": i, "id": fx.get("id", str(i)),
+                       "utterance": fx.get("utterance", ""),
+                       "expect": want, "got": got, "kind": "recall"})
+        if got_name.lower() in known and got_name.lower() != want.lower():
+            misses.append({"n": i, "id": fx.get("id", str(i)),
+                           "utterance": fx.get("utterance", ""),
+                           "expect": got_name, "got": got,
+                           "kind": "precision"})
+    per = {}
+    for fx in fixtures:
+        per.setdefault(str(fx.get("expect", "")).strip(), [0, 0])[0] += 1
+    for m in misses:
+        per.setdefault(m["expect"], [0, 0])[1] += 1
+    Path(out).write_text(json.dumps(
+        {"model": model, "set": set_path,
+         "answers": {str(i): str(given.get(str(i), "")) for i in range(1, len(fixtures) + 1)},
+         "misses": misses},
+        indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    width = max(len(n) for n in per)
+    for name in sorted(per):
+        total, bad = per[name]
+        tag = "PASS" if bad == 0 else "FAIL"
+        print(f"{tag} {name.ljust(width)} {total - bad}/{total}")
+        for m in misses:
+            if m["expect"] == name:
+                if m["kind"] == "precision":
+                    print(f"     #{m['n']:>2} precision: wrongly attracted {name!r}"
+                          f" — \"{m['utterance'][:70]}\"")
+                else:
+                    print(f"     #{m['n']:>2} recall: expect={m['expect']!r} got={m['got']!r}"
+                          f" — \"{m['utterance'][:70]}\"")
+    verdict = "PASS (100%)" if not misses else f"FAIL — {len(misses)} miss(es)"
+    print(f"exam {model}: {verdict} over {len(fixtures)} messages -> answers: {out}")
+    return 1 if misses else 0
 
 
 def exam_models() -> list:
