@@ -131,13 +131,13 @@ def lint() -> int:
 def battery() -> int:
     ss = skills()
     fixtures = json.loads(FIXTURES.read_text(encoding="utf-8"))
-    lines = ["You will see skill descriptions, then user utterances.",
-             "For each utterance, name the ONE skill to invoke, or the word none.",
-             'Answer with a JSON object {"<utterance number>": "<skill-or-none>"} only.', "",
-             "## Skill descriptions"]
+    lines = ["You are an agent working in a chat with a user.",
+             "The following skills are available for use with the Skill tool — invoke one by exact name when its description matches what the user needs; if no skill matches, just answer the user yourself.",
+             'For each of the user messages below, name the ONE skill to invoke, or the word none. Answer with a JSON object {"<message number>": "<skill-or-none>"} only.', "",
+             "## Skills"]
     for name, s in ss.items():
         lines.append(f"- {name} ({s['version']}): {s['description']}")
-    lines += ["", "## Utterances"]
+    lines += ["", "## User messages"]
     for i, fx in enumerate(fixtures, 1):
         lines.append(f"{i}. {fx['utterance']}")
     print("\n".join(lines))

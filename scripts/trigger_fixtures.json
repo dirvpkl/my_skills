@@ -76,5 +76,20 @@
     "id": "write-tests",
     "utterance": "напиши тесты для proxy.py",
     "expect": "coding"
+  },
+  {
+    "id": "fake-weather",
+    "utterance": "какая погода на выходных будет?",
+    "expect": "none"
+  },
+  {
+    "id": "fake-groceries",
+    "utterance": "напомни купить хлеб по дороге домой",
+    "expect": "none"
+  },
+  {
+    "id": "fake-joke",
+    "utterance": "расскажи анекдот про программистов",
+    "expect": "none"
   }
 ]
