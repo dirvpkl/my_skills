@@ -21,6 +21,17 @@ ROOT = Path(__file__).resolve().parent.parent
 ROUTER_URL = "http://127.0.0.1:20128/v1/chat/completions"
 
 
+SUGGEST_SCHEMA = {"name": "suggestions", "strict": True, "schema": {
+    "type": "object",
+    "properties": {
+        "descriptions": {"type": "array", "items": {"type": "string"}},
+        "alt_names": {"type": "array", "items": {"type": "string"}},
+        "user_phrases": {"type": "array", "items": {"type": "string"}},
+    },
+    "required": ["descriptions", "alt_names", "user_phrases"],
+    "additionalProperties": False}}
+
+
 def call_llm(prompt: str, model: str, timeout: int = 600) -> dict:
     key_line = ""
     rt = ROOT / "roi" / "runtime.toml"
@@ -30,12 +41,16 @@ def call_llm(prompt: str, model: str, timeout: int = 600) -> dict:
             break
     if not key_line:
         sys.exit("router key not found — expected roi/runtime.toml [router] api_key")
-    body = json.dumps({
-        "model": model,
-        "messages": [{"role": "user", "content": prompt}],
-        "temperature": 0.4,
-        "response_format": {"type": "json_object"},
-    }).encode()
+    attempts = [{"type": "json_schema", "json_schema": SUGGEST_SCHEMA},
+                {"type": "json_object"}]
+    last = None
+    for rf in attempts:
+        body = json.dumps({
+            "model": model,
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0.4,
+            "response_format": rf,
+        }).encode()
     req = urllib.request.Request(ROUTER_URL, data=body, headers={
         "Content-Type": "application/json",
         "Authorization": "Bearer " + key_line,
@@ -43,11 +58,14 @@ def call_llm(prompt: str, model: str, timeout: int = 600) -> dict:
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:
             resp = json.loads(r.read())
+        break
     except urllib.error.HTTPError as e:
-        sys.exit(
-            f"EXCEPTION, not a fail: model '{model}' cannot answer structured "
-            f"JSON (HTTP {e.code}) — pick another model and it passes."
-        )
+        last = e
+        continue
+    sys.exit(
+        f"EXCEPTION, not a fail: model '{model}' rejected both json_schema and "
+        f"json_object (HTTP {last.code}) — pick another model and it passes."
+    )
     text = resp["choices"][0]["message"]["content"].strip()
     text = text[text.find("{"):text.rfind("}") + 1]
     try:
