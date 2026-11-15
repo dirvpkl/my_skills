@@ -84,10 +84,9 @@ def call_llm(prompt: str, model: str, timeout: int = 600) -> str:
             resp = json.loads(r.read())
     except urllib.error.HTTPError as e:
         sys.exit(
-            f"model '{model}' rejected the structured-output request "
-            f"(HTTP {e.code}). Not every model supports response_format — "
-            f"pick one that does; this harness does not befriend the ones "
-            f"that cannot answer JSON."
+            f"EXCEPTION, not a fail: model '{model}' cannot answer structured "
+            f"JSON (HTTP {e.code}) — the model's limit, not the test's; "
+            f"nothing to fix on our side. Pick another model and it passes."
         )
     text = resp["choices"][0]["message"]["content"].strip()
     text = text[text.find("{"):text.rfind("}") + 1]  # strip prose around JSON
@@ -95,8 +94,8 @@ def call_llm(prompt: str, model: str, timeout: int = 600) -> str:
         return json.loads(text)
     except json.JSONDecodeError as e:
         sys.exit(
-            f"model '{model}' returned malformed JSON ({e}). It answered "
-            f"outside the requested schema — pick a model that follows it."
+            f"EXCEPTION, not a fail: model '{model}' returned malformed JSON — "
+            f"its limit, not the test's; pick another model and it passes."
         )
 
 

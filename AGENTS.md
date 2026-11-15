@@ -26,11 +26,12 @@ start and governs everything below.
   `description` field is the surfacing text. The pass bar is 100% — every
   fixture tests one skill's description in isolation; any miss = that
   description fails.
-- **Descriptions improve by clarity, not keywords.** Phrase variants are
-  unbounded — stuffing them fakes the pass. Fix the description's
-  clarity; generated utterances (`--gen`) and drafted variants
-  (`scripts/desc_suggest.py`) test comprehension, not memorized
-  templates.
+- **The description defines intention — lean.** Synonyms help INSIDE the
+  skill (examples, bindings — they work after the skill loads); synonyms
+  in the description only bloat the context every session pays for.
+  Improve clarity, don't stuff variants; generated utterances (`--gen`)
+  and drafted variants (`scripts/desc_suggest.py`) test comprehension,
+  not memorized templates.
 
 ## Layout
 

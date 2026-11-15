@@ -45,15 +45,16 @@ def call_llm(prompt: str, model: str, timeout: int = 600) -> dict:
             resp = json.loads(r.read())
     except urllib.error.HTTPError as e:
         sys.exit(
-            f"model '{model}' rejected the structured-output request "
-            f"(HTTP {e.code}) — pick a model that answers JSON."
+            f"EXCEPTION, not a fail: model '{model}' cannot answer structured "
+            f"JSON (HTTP {e.code}) — pick another model and it passes."
         )
     text = resp["choices"][0]["message"]["content"].strip()
     text = text[text.find("{"):text.rfind("}") + 1]
     try:
         return json.loads(text)
     except json.JSONDecodeError as e:
-        sys.exit(f"model '{model}' returned malformed JSON ({e}) — pick another model.")
+        sys.exit(f"EXCEPTION, not a fail: model '{model}' returned malformed JSON — "
+            f"pick another model and it passes.")
 
 
 def main() -> int:

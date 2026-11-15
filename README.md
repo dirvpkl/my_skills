@@ -116,9 +116,10 @@ question, never a silent workaround.
   Give the sheet to bare LLMs — at least three runs, at least three
   models; one run proves nothing (owner ruling 2026-11-15). Save each
   model's JSON answers, then `python -X utf8 -I scripts/trigger_check.py
-  --answers answers.json` grades them. Score below the threshold = a
-  description is unreadable as a surfacing text; misses on the same
-  utterance across runs = fix the description, not the model.
+  --answers answers.json` grades them. The bar: EVERY model passes
+  100% — if every model understands the intent from the description,
+  the description is written well, and that is not hard. A consensus
+  miss on one utterance = fix that description, not the model.
 - **Lint the descriptions:** `python -X utf8 -I scripts/trigger_check.py
   --lint` — length cap, a quoted user phrase, a negative (NOT for),
   an ALWAYS-invoke imperative, no vague filler.
