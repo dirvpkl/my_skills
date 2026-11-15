@@ -44,6 +44,7 @@ def call_llm(prompt: str, model: str, timeout: int = 600) -> dict:
     attempts = [{"type": "json_schema", "json_schema": SUGGEST_SCHEMA},
                 {"type": "json_object"}]
     last = None
+    resp = None
     for rf in attempts:
         body = json.dumps({
             "model": model,
@@ -51,28 +52,30 @@ def call_llm(prompt: str, model: str, timeout: int = 600) -> dict:
             "temperature": 0.4,
             "response_format": rf,
         }).encode()
-    req = urllib.request.Request(ROUTER_URL, data=body, headers={
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + key_line,
-    })
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            resp = json.loads(r.read())
-        break
-    except urllib.error.HTTPError as e:
-        last = e
-        continue
-    sys.exit(
-        f"EXCEPTION, not a fail: model '{model}' rejected both json_schema and "
-        f"json_object (HTTP {last.code}) — pick another model and it passes."
-    )
+        req = urllib.request.Request(ROUTER_URL, data=body, headers={
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + key_line,
+        })
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                resp = json.loads(r.read())
+            break
+        except urllib.error.HTTPError as e:
+            last = e
+            continue
+    if resp is None:
+        sys.exit(
+            f"EXCEPTION, not a fail: model '{model}' rejected both json_schema "
+            f"and json_object (HTTP {last.code if last else '?'}) — the model's "
+            f"limit, not the tool's; pick another model and it passes."
+        )
     text = resp["choices"][0]["message"]["content"].strip()
     text = text[text.find("{"):text.rfind("}") + 1]
     try:
         return json.loads(text)
     except json.JSONDecodeError as e:
-        sys.exit(f"EXCEPTION, not a fail: model '{model}' returned malformed JSON — "
-            f"pick another model and it passes.")
+        sys.exit(f"EXCEPTION, not a fail: model '{model}' returned malformed JSON ({e}) — "
+                 f"pick another model and it passes.")
 
 
 def main() -> int:
