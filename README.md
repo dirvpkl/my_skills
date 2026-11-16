@@ -105,25 +105,32 @@ and replace.
 shape per phase (plan/search/decision/build). A red gate is a stop and a
 question, never a silent workaround.
 
+**Protocol words.** The owner's shorthand for meta-actions — «запиши»
+("write it down") and its English analogues — routes through chords as
+bound rows, never hardcoded in a skill: skills stay abstract, the
+personal phrase lives in the table. The recording duty itself is
+workplanx's (owner messages land verbatim in the inbox the same turn);
+a bound word just makes it explicit and fresh-agent-visible.
+
 ## Using the tooling
 
 - **Validate the collection:** `python -I scripts/validate.py` — one
   walk, all checks (frontmatter, VERSION sync, lean manifests, dependency
   resolution, runtime.toml parse, wiki-links).
-- **Grade the descriptions (the exam):** `python -X utf8 -I
-  scripts/trigger_check.py --battery` prints the exam sheet (every
-  description + the user messages of the generated test set — the set
-  itself is produced by `--gen`, no hand-written phrase files).
-  Give the sheet to bare LLMs — at least three runs, at least three
-  models; one run proves nothing (owner ruling 2026-11-15). Save each
-  model's JSON answers, then `python -X utf8 -I scripts/trigger_check.py
-  --answers answers.json` grades them. The bar: EVERY model passes
-  100% — if every model understands the intent from the description,
-  the description is written well, and that is not hard. A consensus
-  miss on one utterance = fix that description, not the model.
+- **Run the exam:** `python -X utf8 -I scripts/trigger_check.py` —
+  no flags is the exam by default (owner ruling: there is no not-by-exam
+  variant): it generates the test set if missing (`--gen <model>`
+  regenerates it; no hand-written phrase files), then grades every
+  description against every model in the roster. The bar: EVERY model
+  passes 100% — if every model understands the intent from the
+  description, the description is written well, and that is not hard.
+  `--battery` only prints the sheet (every description + the generated
+  user messages) — view, change nothing. A consensus miss on one
+  utterance = fix that description, not the model.
 - **Lint the descriptions:** `python -X utf8 -I scripts/trigger_check.py
-  --lint` — length cap, a quoted user phrase, a negative (NOT for),
-  an ALWAYS-invoke imperative, no vague filler.
+  --lint` — length cap, a negative (NOT for / never), an ALWAYS-invoke
+  imperative, no vague filler; intent, not keyword lists (quoted-phrase
+  requirement removed 2026-11-15).
 
 ## Root files
 
