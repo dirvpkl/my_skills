@@ -1,7 +1,7 @@
 ---
 name: mindstorm
 description: Pre-decision approach search for any domain — decompose into verbs, walk the ladder with URL evidence, propose 2-3 candidates with tradeoffs and one recommendation; a brainstorm mode handles the stuck case. ALWAYS invoke before anything is designed or built, and when the ask is how to do or what to use for something. Do not pick a stack or start building without the user's pick. NOT for finding what exists (researcher), NOT for wiring a chosen approach (coding).
-version: 2.0.0
+version: 2.0.1
 ---
 
 # mindstorm
@@ -69,7 +69,9 @@ disguise.
 
 ## Sibling borderline
 
-`mindstorm` owns the choice; `researcher` owns the supply. When the ask is
+`mindstorm` owns the choice; `researcher` owns the supply. Both answer
+HOW: mindstorm decides HOW to solve; researcher works out HOW TO SEARCH —
+the alternatives, the precedents, the similar cases mindstorm stands on. When the ask is
 "what exists on X" with no choice to make, researcher runs first and its
 findings feed this skill. When the ask already names candidates and wants one
 picked, this skill runs — no research detour. Neither skill builds: the pick

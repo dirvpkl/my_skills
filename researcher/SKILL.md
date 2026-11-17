@@ -1,7 +1,7 @@
 ---
 name: researcher
 description: Autonomous open-ended research — surfacing recent or non-obvious findings on a topic by walking abstraction chains and source classes, not literal one-shot queries. ALWAYS invoke when the user explicitly asks to find, dig up or check what's new on a topic. Do not answer such requests from memory or a single web search. NOT for choosing between candidates against criteria (mindstorm), NOT for finding something inside the project.
-version: 1.8.1
+version: 1.8.2
 ---
 
 # researcher
@@ -20,6 +20,10 @@ Core behavior lives here. Everything else this skill draws on — channel checkl
 
 
 ## Handoff to mindstorm (brainstorm)
+
+Both skills answer HOW: mindstorm decides HOW to solve; researcher works
+out HOW TO SEARCH — it surfaces the alternatives, precedents and similar
+cases mindstorm needs as a basis to decide from.
 `mindstorm` is declared in this skill's `dependencies` — it loads alongside this one rather than being looked up by name at runtime. If the research question is really a pre-decision choice ("what should we build this with", "is there something ready for X") — research the abstraction chains, then hand the topic to `mindstorm`: it decomposes into verbs, walks the ladder with URL evidence, and returns candidates with a user pick. Researcher surfaces findings; it never picks stacks or writes decisions. The
 borderline: if the ask names candidate classes and wants one chosen ("which of
 these should we use", "is there something ready for X"), that is
