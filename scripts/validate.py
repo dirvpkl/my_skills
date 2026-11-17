@@ -183,28 +183,42 @@ def check_exam_currency(warnings: list) -> None:
                 + " — run the exam (3+ models, 100%) before committing"
             )
 
-    # Window 2 — committed descriptions the marker does not cover. The
-    # working-tree diff goes silent after the commit (found live
-    # 2026-11-15: an exam-gated desc was committed and the check stopped
-    # looking). The last commit touching any SKILL.md must be older than
-    # the marker, or the surfacing is unverified.
-    try:
-        last = subprocess.run(
-            ["git", "log", "-1", "--format=%h %ct", "--", "*SKILL.md"],
-            capture_output=True, text=True, cwd=ROOT, timeout=30,
-        ).stdout.strip()
-    except Exception:
-        return
-    if not last:
-        return
-    sha, ts = last.rsplit(" ", 1)
+    # Window 2 — descriptions drifting after the exam. The working-tree
+    # diff goes silent after the commit (found live 2026-11-15), and a
+    # commit-time comparison false-alarms on commits that carry exactly
+    # what the exam verified. The .exam-run marker therefore stores a
+    # hash of every description at exam time; drift in either direction
+    # (edited after the exam, never re-examined) re-arms the warning.
     marker = ROOT / ".exam-run"
-    marker_time = marker.stat().st_mtime if marker.exists() else 0
-    if float(ts) > marker_time:
+    if not marker.exists():
         warnings.append(
-            f"descriptions changed in commit {sha} without a passing exam run "
-            f"(.exam-run marker is older or missing) — run the exam "
-            f"(3+ models, 100%) before treating the surfacing as verified"
+            "no exam-run marker — the surfacing of every description is "
+            "unverified; run the exam (3+ models, 100%)"
+        )
+        return
+    try:
+        import hashlib
+        import json as _json
+        import sys as _sys
+        # trigger_check.skills() is the single source of truth for how the
+        # hashed payload is built — the same function the exam-time marker
+        # was written from. The sibling import needs the script directory
+        # on sys.path (isolated mode does not put it there).
+        _sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from trigger_check import skills
+        recorded = _json.loads(marker.read_text(encoding="utf-8"))
+        payload = _json.dumps(skills(), sort_keys=True, ensure_ascii=False)
+        digest = hashlib.sha256(payload.encode()).hexdigest()[:16]
+        if digest != recorded.get("desc_hash"):
+            warnings.append(
+                "descriptions drifted after the last exam pass — run the "
+                "exam (3+ models, 100%) before treating the surfacing as "
+                "verified"
+            )
+    except Exception:
+        warnings.append(
+            "the .exam-run marker is unreadable — run the exam "
+            "(3+ models, 100%) to restore the verification record"
         )
 
 

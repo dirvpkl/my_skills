@@ -384,7 +384,17 @@ def run_default(models: list | None = None) -> int:
     failed = [m for m, rc in results.items() if rc != 0]
     if not failed:
         print(f"EXAM PASS — all {len(models)} models passed every description. Commit allowed.")
-        Path(".exam-run").write_text("", encoding="utf-8")
+        # The marker carries a hash of every current description: the
+        # validator's window-2 check compares this against the live tree,
+        # so a commit made after the exam does not false-alarm, but any
+        # desc edited after the exam does.
+        import hashlib
+        payload = json.dumps(skills(), sort_keys=True, ensure_ascii=False)
+        digest = hashlib.sha256(payload.encode()).hexdigest()[:16]
+        Path(".exam-run").write_text(
+            json.dumps({"desc_hash": digest,
+                        "time": str(int(Path(".exam-set.json").stat().st_mtime))}),
+            encoding="utf-8")
         return 0
     print(f"EXAM FAILED — failing runs: {', '.join(failed)}")
     return 1
