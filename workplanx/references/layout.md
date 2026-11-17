@@ -51,9 +51,9 @@ project = many folders, never one shared log. `.workplanx/` is gitignored.
   the pick on that line, never on the next one; a pick written below the
   colon silently fails the decision phase (regex is single-line).
 - Ladder levels are domain-neutral (`<hosted>` / `<open-project>` /
-  `<component>` / `<template>` / `<own-make>`, see `solution-search`). The gate
+  `<component>` / `<template>` / `<own-make>`, see `mindstorm`). The gate
   still accepts the older `library` / `oss` / `own-code` spellings so folders
-  written before solution-search 1.8.0 keep validating.
+  written before mindstorm 1.8.0 keep validating.
 - Phases: `plan` → `search` → `decision` → `build`. `code` is a legacy alias
   for `build`, accepted by `plan_gate.py` only — write `build` in new folders.
 - `[[wiki-links]]` — topic files may reference other topics and skills as

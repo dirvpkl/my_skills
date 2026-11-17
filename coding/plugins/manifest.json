@@ -3,7 +3,7 @@
   "dependencies": [
     "base",
     "workplanx",
-    "solution-search",
+    "mindstorm",
     "fresh-eyes",
     "loop",
     "mission",

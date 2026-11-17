@@ -1,6 +1,6 @@
 ---
 name: workplanx
-description: Task plan-and-log router — every non-trivial task opens a topic folder (plan, search, decision, log), gated structurally and closed with an afterword. ALWAYS invoke at task start, before any search or code — including when the task names code work: the topic opens first, implementation follows. A trivial one-line edit is the only exemption. Do not keep task logs in chat — the folder is the record. NOT for deciding what to build (solution-search) or for implementing (coding).
+description: Task plan-and-log router — every non-trivial task opens a topic folder (plan, search, decision, log), gated structurally and closed with an afterword. ALWAYS invoke at task start, before any search or code — including when the task names code work: the topic opens first, implementation follows. A trivial one-line edit is the only exemption. Do not keep task logs in chat — the folder is the record. NOT for deciding what to build (mindstorm) or for implementing (coding).
 version: 1.16.0
 ---
 
@@ -66,7 +66,7 @@ ceremony.
    agent did; this rule logs what the owner SAID. A ruling that lives only
    in the chat transcript is lost to the next session; the folder is the
    memory. Chat stays for the conversation — the folder stays the record.
-6. Later skills (`solution-search`, `coding`) read and extend the same folder —
+6. Later skills (`mindstorm`, `coding`) read and extend the same folder —
    they never start a second log elsewhere.
 7. **Delegation carries the record.** Every delegation prompt names the topic
    folder and the exact file the delegated agent must append to (one line per

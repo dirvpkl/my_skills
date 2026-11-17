@@ -8,11 +8,11 @@ version: 1.7.1
 <!-- v1.1 - 2026-09-13: added the test-seam exception for a thin client-boundary wrapper (one instance per project, no business logic inside). -->
 <!-- v1.2 - 2026-09-22: less-code ladder (code is last resort), decompose-into-verbs + per-subtask OSS search with evidence, dumb-constitutional gate loop (scripts/gate.py), Telegram forum topics with 3 levels (references/telegram-topics.md is canonical example), uptime-kuma heartbeat requirement. -->
 <!-- v1.2.1 - 2026-09-22: spam policy correction — info/service spammy by default, off only on explicit user opt-out, never throttled on agent initiative. -->
-<!-- v1.3 - 2026-09-22: narrowed to wiring-only — search/decompose/proposals moved to solution-search; this skill requires decision.md user-pick and never picks stacks. -->
+<!-- v1.3 - 2026-09-22: narrowed to wiring-only — search/decompose/proposals moved to mindstorm; this skill requires decision.md user-pick and never picks stacks. -->
 <!-- v1.3.1 - 2026-09-22: ladder reworded as verification lens (was: search order); trigger points at dispatcher manifest. -->
 <!-- v1.4 - 2026-09-23: removed gate.py (grep-checks deleted as useless) — verification is workplanx phase gate + fresh-eyes; rules live in this file and references/. -->
-<!-- v1.5 - 2026-09-23: portrait defaults moved in from solution-search (default-stack, known-services, holes, scan-protocol) — concrete knowledge lives on the implementation side, brainstorm keeps method only. -->
-<!-- v1.6 - 2026-09-26: decoupling — own copy of the ladder rank names removed (`solution-search` is the single vocabulary), Telegram section reduced to wiring only (levels + spam policy live in `logging`), verification points at `fresh-eyes` conformance mode. No wiring rule changed. -->
+<!-- v1.5 - 2026-09-23: portrait defaults moved in from mindstorm (default-stack, known-services, holes, scan-protocol) — concrete knowledge lives on the implementation side, brainstorm keeps method only. -->
+<!-- v1.6 - 2026-09-26: decoupling — own copy of the ladder rank names removed (`mindstorm` is the single vocabulary), Telegram section reduced to wiring only (levels + spam policy live in `logging`), verification points at `fresh-eyes` conformance mode. No wiring rule changed. -->
 <!-- Continues prior content that lived under a package-wide v3 marker before the coding package moved to per-skill versioning; see coding/CHANGELOG.md. -->
 
 # external-integrations
@@ -35,7 +35,7 @@ Every retry attempt gets logged (per the `logging` skill) — at minimum a WARNI
 ## Verify the decided level, don't hand-roll (less-code ladder)
 
 Code is the last resort, not the default. The pick arrives from
-`solution-search`; its ladder is the single vocabulary for this — this file
+`mindstorm`; its ladder is the single vocabulary for this — this file
 doesn't keep a second copy of the rank names, because two lists drift and
 then nothing can be checked against anything.
 
@@ -43,7 +43,7 @@ then nothing can be checked against anything.
   hand-rolled subprocess wrapper where the decision says project/component is
   a mismatch failure, not a shortcut.
 - Don't hardcode a specific stack choice in advance — the stack arrives from
-  `solution-search` via the topic folder. If the decision is genuinely missing
+  `mindstorm` via the topic folder. If the decision is genuinely missing
   or ambiguous, stop and route back to search — don't silently pick here
   (see below).
 
@@ -57,7 +57,7 @@ Concrete portrait knowledge lives here, not in brainstorm:
   per `references/scan-protocol.md`); `references/holes.md` — repair backlog.
 - `references/telegram-topics.md` — canonical topic wiring example.
 
-## No search here — solution-search owns it
+## No search here — mindstorm owns it
 
 - This skill never searches for alternatives and never picks stacks. The pick
   arrives via the topic folder (`decision.md` with a filled `user-pick:`,
@@ -107,7 +107,7 @@ example file is the single place the specifics live.
 - A thin wrapper around an external client, kept specifically so tests can substitute it, is a legitimate exception to "no wrapper for its own sake" — the alternative (hand-rolled async fakes per test) is more expensive and more fragile. Keep it under two conditions: exactly one instance per project (it doesn't multiply per module), and it sits only at the boundary between our code and the external client — no business logic lives inside it.
 
 ## Proposing options without prescribing a stack
-- Proposals live in `solution-search`, not here. If the topic folder has no
+- Proposals live in `mindstorm`, not here. If the topic folder has no
   filled `user-pick:`, stop and route back — don't present alternatives and
   don't build. This skill wires the pick, nothing else.
 

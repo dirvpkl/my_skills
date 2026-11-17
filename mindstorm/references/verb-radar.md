@@ -14,7 +14,7 @@ the owner names a specific product, name its class first (ampm →
 What does one DO with this thing? Pick the verbs that carry the
 business: publish, list, submit, discover, track, monetize, cross-list,
 syndicate, distribute. 1–4 verbs; each verb is one query angle. When
-solution-search is loaded, its verb decomposition is the same move —
+mindstorm is loaded, its verb decomposition is the same move —
 reuse it.
 
 ## 3. Per verb, build the tool-class query
@@ -86,7 +86,7 @@ All verbs exhausted = radar done.
 
 ## 7. Output — one block per verb, URLs never dropped
 
-No URLs = no result (solution-search rule). Exact format:
+No URLs = no result (mindstorm rule). Exact format:
 
 ```
 verb: publish (to many registries)
@@ -104,6 +104,6 @@ case, it usually does not.)
 
 ## Summoning and the pre-verdict rule
 
-- Inside researcher/solution-search passes: after mapping venues, ALWAYS
+- Inside researcher/mindstorm passes: after mapping venues, ALWAYS
   run one verb-tool query before concluding "nobody built it" — the
   ManyCP lesson: "the slot is occupied" was invisible to object-search.

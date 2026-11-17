@@ -1,4 +1,4 @@
-# solution-search — worked examples
+# mindstorm — worked examples
 
 Good vs bad pairs, each with a one-line rationale. Read beside SKILL.md.
 

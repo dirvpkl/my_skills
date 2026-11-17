@@ -1,6 +1,6 @@
 ---
 name: researcher
-description: Autonomous open-ended research — surfacing recent or non-obvious findings on a topic by walking abstraction chains and source classes, not literal one-shot queries. ALWAYS invoke when the user explicitly asks to find, dig up or check what's new on a topic. Do not answer such requests from memory or a single web search. NOT for choosing between candidates against criteria (solution-search), NOT for finding something inside the project.
+description: Autonomous open-ended research — surfacing recent or non-obvious findings on a topic by walking abstraction chains and source classes, not literal one-shot queries. ALWAYS invoke when the user explicitly asks to find, dig up or check what's new on a topic. Do not answer such requests from memory or a single web search. NOT for choosing between candidates against criteria (mindstorm), NOT for finding something inside the project.
 version: 1.8.1
 ---
 
@@ -19,11 +19,11 @@ Core behavior lives here. Everything else this skill draws on — channel checkl
 - **references/source-log.md** — a running log of research *sources/channels* (websites, hubs, aggregators) discovered mid-session that weren't already in the checklist. Not a log of findings, not a log of skill changes — specifically new places to look, so they can be folded into `sources.md` later once they've proven useful more than once. See "Self-discovery" below for when to write to it.
 
 
-## Handoff to solution-search (brainstorm)
-`solution-search` is declared in this skill's `dependencies` — it loads alongside this one rather than being looked up by name at runtime. If the research question is really a pre-decision choice ("what should we build this with", "is there something ready for X") — research the abstraction chains, then hand the topic to `solution-search`: it decomposes into verbs, walks the ladder with URL evidence, and returns candidates with a user pick. Researcher surfaces findings; it never picks stacks or writes decisions. The
+## Handoff to mindstorm (brainstorm)
+`mindstorm` is declared in this skill's `dependencies` — it loads alongside this one rather than being looked up by name at runtime. If the research question is really a pre-decision choice ("what should we build this with", "is there something ready for X") — research the abstraction chains, then hand the topic to `mindstorm`: it decomposes into verbs, walks the ladder with URL evidence, and returns candidates with a user pick. Researcher surfaces findings; it never picks stacks or writes decisions. The
 borderline: if the ask names candidate classes and wants one chosen ("which of
 these should we use", "is there something ready for X"), that is
-`solution-search` from the first line — researcher's report is input to it, not
+`mindstorm` from the first line — researcher's report is input to it, not
 a substitute. The handoff is one line in the report: what to decide + which verbs it splits into.
 
 ## Goal
@@ -39,7 +39,7 @@ This skill runs autonomously, but every step gets narrated, not just the final r
 - What came back — a real lead, noise, or nothing — and what that changes about the next move.
 - When switching angles or channels, say what didn't work about the previous one.
 - When two sources disagree, say so as it's noticed, not just in the final report.
-- Before concluding "nobody built it" / "the slot is empty": run one verb-tool query per the verb-radar method in `solution-search` references (thing + verb + tool-class) — the ManyCP lesson: the occupied slot was invisible to object-search.
+- Before concluding "nobody built it" / "the slot is empty": run one verb-tool query per the verb-radar method in `mindstorm` references (thing + verb + tool-class) — the ManyCP lesson: the occupied slot was invisible to object-search.
 
 This isn't decoration — the reasoning itself needs to be visible and followable step by step, not just the output at the end.
 

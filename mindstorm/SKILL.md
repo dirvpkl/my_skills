@@ -1,10 +1,10 @@
 ---
-name: solution-search
+name: mindstorm
 description: Pre-decision approach search for any domain — decompose into verbs, walk the ladder with URL evidence, propose 2-3 candidates with tradeoffs and one recommendation; a brainstorm mode handles the stuck case. ALWAYS invoke before anything is designed or built, and when the ask is how to do or what to use for something. Do not pick a stack or start building without the user's pick. NOT for finding what exists (researcher), NOT for wiring a chosen approach (coding).
-version: 1.19.0
+version: 2.0.0
 ---
 
-# solution-search (aka brainstorm)
+# mindstorm
 
 Finds the way to do a thing before anyone does it. Pure mechanics — no
 product names, no domain defaults, no concrete picks in this file. Anything
@@ -69,7 +69,7 @@ disguise.
 
 ## Sibling borderline
 
-`solution-search` owns the choice; `researcher` owns the supply. When the ask is
+`mindstorm` owns the choice; `researcher` owns the supply. When the ask is
 "what exists on X" with no choice to make, researcher runs first and its
 findings feed this skill. When the ask already names candidates and wants one
 picked, this skill runs — no research detour. Neither skill builds: the pick

@@ -14,7 +14,7 @@ Rationale: the wiring rules (retry, topics, heartbeat) live in one skill on purp
 
 ## Route out, don't search in place
 
-**Good:** "how should we build X?" → the pre-decision question routes to `solution-search` + `workplanx`; this package loads only after the `build` gate passes on a transcribed `user-pick:`.
+**Good:** "how should we build X?" → the pre-decision question routes to `mindstorm` + `workplanx`; this package loads only after the `build` gate passes on a transcribed `user-pick:`.
 **Bad:** picking a stack inline and starting to code "since the answer is obvious."
 Rationale: searching inside coding is a routing violation — the gate is the single enforcement point for no-implementation-before-the-pick, and it lives outside this package.
 

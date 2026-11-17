@@ -10,7 +10,7 @@ Rationale: only the narrow set of expected external failure modes gets retried, 
 
 ## No pick, no wiring
 
-**Good:** `decision.md` in the topic folder has no filled `user-pick:` — routing back to solution-search instead of wiring anything.
+**Good:** `decision.md` in the topic folder has no filled `user-pick:` — routing back to mindstorm instead of wiring anything.
 **Bad:** "the pick is missing, so I wired the lib I know best."
 Rationale: this skill wires the decided pick, never picks; searching or choosing here is the routing violation the phase gate exists to catch.
 

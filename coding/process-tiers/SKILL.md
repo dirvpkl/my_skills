@@ -1,6 +1,6 @@
 ---
 name: process-tiers
-description: How much ceremony a coding task needs — act directly vs mini-design vs plan file, how task size scales code-quality and testing, and the two delegation axes (prefer agents over subagents; shared-code location fixed before parallel work). ALWAYS invoke on every code task to calibrate autonomy. NOT for deciding whether work may start (workplanx's build gate), NOT for picking an approach (solution-search).
+description: How much ceremony a coding task needs — act directly vs mini-design vs plan file, how task size scales code-quality and testing, and the two delegation axes (prefer agents over subagents; shared-code location fixed before parallel work). ALWAYS invoke on every code task to calibrate autonomy. NOT for deciding whether work may start (workplanx's build gate), NOT for picking an approach (mindstorm).
 version: 1.2.1
 ---
 
@@ -16,7 +16,7 @@ version: 1.2.1
 
 ## Task tiers
 
-New features, integrations and replacements route through `solution-search` +
+New features, integrations and replacements route through `mindstorm` +
 `workplanx` first — a transcribed `user-pick:` in `decision.md` before any code.
 The tiers below calibrate how much ceremony the resulting work gets.
 Situational autonomy for idea → maintainable code (ceremony scales with size, approval gate never drops):

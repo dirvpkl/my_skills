@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.0] - 2026-11-18
+- RENAMED: solution-search -> mindstorm (owner pick 2026-11-18, a
+  brainstorming-adjacent name; "brainstorming" itself was ruled избитое).
+  Folder, frontmatter name and the title moved; the "aka brainstorm"
+  alias dropped — mindstorm IS the brainstorming skill now. All cross-
+  references across the collection updated in the same pass.
+
 ## [1.19.0] - 2026-11-18
 - Evidence rule widened (owner ruling): evidence = what the next agent can
   RE-CHECK — a URL for the web, a file path (+ line) for anything local, a

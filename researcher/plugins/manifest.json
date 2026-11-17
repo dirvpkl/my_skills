@@ -1,7 +1,7 @@
 {
   "skill": "researcher",
   "dependencies": [
-    "solution-search"
+    "mindstorm"
   ],
   "planned": [
     {

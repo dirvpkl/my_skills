@@ -22,7 +22,7 @@ from pathlib import Path
 PASS, FAIL, WARN = "PASS", "FAIL", "WARN"
 
 _URL_RE = re.compile(r"https://\S+/\S*")
-# Ladder vocabulary is domain-neutral (see solution-search 1.8.0). Legacy
+# Ladder vocabulary is domain-neutral (see mindstorm 1.8.0). Legacy
 # spellings are still accepted so pre-1.8.0 topic folders keep passing.
 _LADDER_RE = re.compile(
     r"hosted|open-project|oss|library|component|template|own-make|own code|own-code",
