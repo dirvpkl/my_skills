@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.1.1] - 2026-11-17
+- examples.md: every case now carries >=2 Good/Bad pairs (the collection convention) — one teaching couplet added per single-pair section.
+
 ## [1.1.0] - 2026-11-17
 - Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).
 - Per-skill review round: examples brought to two pairs per case;

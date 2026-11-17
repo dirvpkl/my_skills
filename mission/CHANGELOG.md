@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.1] - 2026-11-17
+- examples.md: every case now carries >=2 Good/Bad pairs (the collection convention) — one teaching couplet added per single-pair section.
+
 ## [1.5.0] - 2026-11-17
 - Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).
 - `## Trigger` section removed (cargo-cult per the owner ruling); its scope

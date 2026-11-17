@@ -41,3 +41,10 @@ work done.
 and the feature is still unreachable.
 Rationale: the consumer trace is the cheapest test for the most common
 half-done state: code that exists beside the product instead of inside it.
+
+**Good:** the wiring claim is runtime-verifiable — the config key is traced to
+the loader that reads it at startup, shown executing.
+**Bad:** "it should work, the key is in the example config" — a plausible story
+about a consumer nobody ran.
+Rationale: the named consumer must be shown executing, not narrated; a story
+about wiring is the dressed-up version of the same half-done state.

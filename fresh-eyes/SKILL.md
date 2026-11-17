@@ -1,7 +1,7 @@
 ---
 name: fresh-eyes
 description: Clean-context judging of finished work by an agent that never saw how it was written — quality (was it done well) and conformance (was it done as asked). ALWAYS invoke when checks pass and before reporting done, and whenever a claim of works or done needs independent backing. Do not report work as finished on the author's own word. NOT for a bare opinion with nothing built (spine).
-version: 1.3.0
+version: 1.3.1
 ---
 
 # fresh-eyes

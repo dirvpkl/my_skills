@@ -1,7 +1,7 @@
 ---
 name: proxy-egress
 description: Wire a project's outbound traffic through an authenticated proxy with no silent direct fallbacks. ALWAYS invoke when a task involves a proxy, PROXY_URL/HTTP_PROXY, egress routing, NO_PROXY, or auditing code for paths that can reach the internet unbound; do not wire or audit egress without it. NOT for a consumer of a working proxy, NOT for proxy-service internals (black box), NOT for deciding whether to proxy (ask the owner; coding and autonomous mode always proxy).
-version: 1.3.0
+version: 1.3.1
 ---
 
 # proxy-egress

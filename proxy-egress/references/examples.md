@@ -40,3 +40,11 @@ proxy's exit IP and every `NO_PROXY` target still answers directly.
 therefore assumed working.
 Rationale: static review cannot see a library ignoring the environment; only
 the exit IP proves routing.
+
+**Good:** the request comes from the client library that carries traffic (the
+app's own aiohttp session), and shows the exit IP.
+**Bad:** curl through the proxy answers correctly, so "routing works" — while
+the app's env-ignoring client still connects direct.
+Rationale: the proof must come from the library that holds the sockets, not
+from a different tool that reads the environment — per-library behavior is
+exactly what static checks miss.

@@ -1,7 +1,7 @@
 ---
 name: researcher
 description: Autonomous open-ended research — surfacing recent or non-obvious findings on a topic by walking abstraction chains and source classes, not literal one-shot queries. ALWAYS invoke when the user explicitly asks to find, dig up or check what's new on a topic. Do not answer such requests from memory or a single web search. NOT for choosing between candidates against criteria (solution-search), NOT for finding something inside the project.
-version: 1.8.0
+version: 1.8.1
 ---
 
 # researcher

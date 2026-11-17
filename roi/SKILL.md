@@ -1,7 +1,7 @@
 ---
 name: roi
 description: Value-scoring for findings — is this actually valuable, or would any cold LLM have said the same thing? The cold-model stock gate runs first and can zero the score; findings are annotated append-only, never deleted. ALWAYS invoke when the owner asks to price a find or whether it is stock, or before publishing anything derived from findings. NOT for reviewing finished work (fresh-eyes), NOT for opinions (spine), NOT for finding things (researcher).
-version: 1.1.0
+version: 1.1.1
 ---
 
 # roi — value-scoring for findings
