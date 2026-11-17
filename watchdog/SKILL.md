@@ -1,7 +1,7 @@
 ---
 name: watchdog
-description: Universal supervision tick — watches something without doing its work, one loop wait-round per tick, behavior set by a profile (what it may read, what it may send, cadence). Built-in profiles — sessions (worker-session supervision — GREEN/WORKING/STALLED/BLOCKED, nudges, escalation ladder), skills-reminder (the 30-minute matcher that argues named skills into a working agent — "you are doing X, skill Y is exactly for this"), and collection-audit (the stocktaking that walks topic folders, the skills tree, and git history, then proposes one patch set — add / fix drift / retire dead). ALWAYS invoke this skill to set up any recurring supervision tick, skill reminder, or collection audit, and when the user asks to check on workers or sessions ("check the workers", "what's happening with the sessions"); do not hand-roll scheduled nudges.
-version: 3.3.2
+description: Supervision ticks that watch without doing the watched work — one wait-round per tick, behavior fixed by a profile (sessions, skills-reminder, collection-audit). ALWAYS invoke to set up a recurring supervision tick, a skill reminder or a collection audit, or when asked to check on workers. Do not hand-roll scheduled nudges. NOT for new work arriving — supervision only watches already-running work.
+version: 3.4.0
 ---
 
 # watchdog
@@ -32,15 +32,9 @@ in the catalogue.
   not checked.
 - **plugins/manifest.json** — active modules. Check it instead of assuming.
 
-## Trigger
 
-- A tick fires — from a terminal (preferred) or a schedule — or the user
-  says "check the workers" / "watch the skills" / "set up the reminder".
-- Does NOT trigger on new work arriving: a fresh user task is handled by
-  the orchestrator, not by this skill. This skill only watches
-  already-running work.
-- The owner's own word for this skill is "watcher" — "need a watcher",
-  "check it with the watcher" fire the same trigger.
+The owner's word for this skill is "watcher" — "need a watcher", "check it
+with the watcher" mean the same thing.
 
 ## Profiles
 

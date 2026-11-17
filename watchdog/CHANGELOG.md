@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.4.0] - 2026-11-17
+- Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).
+- `## Trigger` section removed; the owner's "watcher" word moved into the
+  intro next to Profiles.
+- Examples brought to two pairs per case.
+
 ## [3.3.2] - 2026-11-12
 - validate_manifest.py: missing-runtime.toml diagnostic and non-table [skills] guard
 
