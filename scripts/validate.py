@@ -173,19 +173,39 @@ def check_exam_currency(warnings: list) -> None:
                     and not hunk[1:].startswith("description: " + "#")):
                 changed.append(line)
                 break
-    if not changed:
+    if changed:
+        marker = ROOT / ".exam-run"
+        if not (marker.exists()
+                and marker.stat().st_mtime > __import__("time").time() - 3600 * 24):
+            warnings.append(
+                "descriptions changed without a fresh exam run: "
+                + ", ".join(sorted(set(changed)))
+                + " — run the exam (3+ models, 100%) before committing"
+            )
+
+    # Window 2 — committed descriptions the marker does not cover. The
+    # working-tree diff goes silent after the commit (found live
+    # 2026-11-15: an exam-gated desc was committed and the check stopped
+    # looking). The last commit touching any SKILL.md must be older than
+    # the marker, or the surfacing is unverified.
+    try:
+        last = subprocess.run(
+            ["git", "log", "-1", "--format=%h %ct", "--", "*SKILL.md"],
+            capture_output=True, text=True, cwd=ROOT, timeout=30,
+        ).stdout.strip()
+    except Exception:
         return
+    if not last:
+        return
+    sha, ts = last.rsplit(" ", 1)
     marker = ROOT / ".exam-run"
-    if marker.exists():
-        import time
-        if marker.stat().st_mtime > time.time() - 3600 * 24:
-            return
-    warnings.append(
-        "descriptions changed without a fresh exam run: "
-        + ", ".join(sorted(set(changed)))
-        + " — run `python -X utf8 -I scripts/trigger_check.py --exam <model>` "
-        "(3+ models, 100%) before committing"
-    )
+    marker_time = marker.stat().st_mtime if marker.exists() else 0
+    if float(ts) > marker_time:
+        warnings.append(
+            f"descriptions changed in commit {sha} without a passing exam run "
+            f"(.exam-run marker is older or missing) — run the exam "
+            f"(3+ models, 100%) before treating the surfacing as verified"
+        )
 
 
 def check_machine_values(errors: list) -> None:

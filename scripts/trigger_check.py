@@ -326,8 +326,15 @@ def gen(model: str, out: str) -> int:
     list overflows — one call per small batch, drafts merge into one set).
     The output is a DRAFT — review before using it as the exam set."""
     ss = skills()
+    # Structural facts, not style guidance (the prompt stays abstract):
+    # a per-skill count so one call does not return a thin set, and the
+    # base rule — base is always loaded, a user message never invokes it,
+    # so expecting base on an utterance is a generator mislabel (observed
+    # live: "Please help me with this task" -> base).
     head = ["You write user messages for an agent skill collection.",
-            'Answer with a JSON object {"utterances": [{"utterance": "...", "skill": "<skill-name>"}]} covering every skill listed.', ""]
+            'Answer with a JSON object {"utterances": [{"utterance": "...", "skill": "<skill-name-or-none>"}]}.',
+            "For EACH skill listed below write 3 user messages that should make an agent invoke exactly that skill.",
+            "If a message matches no listed skill, use none as the skill. Never use the base skill name as an answer — base is always loaded and a user message never invokes it.", ""]
     # pack skills into batches under the upstream prompt cap
     chunks, cur, size = [], [], 0
     for name, s in ss.items():
