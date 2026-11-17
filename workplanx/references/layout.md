@@ -6,9 +6,11 @@ project = many folders, never one shared log. `.workplanx/` is gitignored.
 ## Files (in order)
 
 - `plan.md` — verbs of the task (`<verb-1>` + `<verb-2>` + ...), scope,
-  non-goals. Written by the agent at task start; proceeding past it is not
-  approval of anything — the only approval that gates code is `user-pick:`
-  in `decision.md`.
+  non-goals. Each task also names its **consumer** and its **evidence**:
+  what will be verified and what result counts as achieved, fixed before
+  the work starts ("integrated != wired"). Written by the agent at task
+  start; proceeding past it is not approval of anything — the only approval
+  that gates code is `user-pick:` in `decision.md`.
 - `search.md` — per verb: queries run, candidates (`<name>` + `<URL>` +
   ladder level), fit/no-fit, pick. Zero URLs fails — except the documented
   zero-candidate path (queries logged, no suitable candidates → decided as

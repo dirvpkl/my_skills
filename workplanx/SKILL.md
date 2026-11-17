@@ -1,7 +1,7 @@
 ---
 name: workplanx
 description: Task plan-and-log router — every non-trivial task opens a topic folder (plan, search, decision, log), gated structurally and closed with an afterword. ALWAYS invoke at task start, before any search or code; a trivial one-line edit is the only exemption. Do not keep task logs in chat — the folder is the record. NOT for deciding what to build (solution-search) or for implementing (coding).
-version: 1.13.0
+version: 1.14.0
 ---
 
 # workplanx
@@ -33,7 +33,10 @@ ceremony.
    order. Each task in `plan.md` names its **consumer** and a
    runtime-verifiable check: who uses the result and how the agent can prove
    it is actually wired, not merely written ("integrated != wired" — the
-   consumer-trace rule shared with `fresh-eyes`). `decision.md` carries a
+   consumer-trace rule shared with `fresh-eyes`), and its **evidence**:
+   what will be verified and what result counts as achieved — fixed before
+   the work starts, so the log records proof, not optimism.
+   `decision.md` carries a
    `counter:` line — the best case against
    the agent's own recommendation, written before the `user-pick:` is
    requested (duel-lite: adversarial self-review, not a second agent).
