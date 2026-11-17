@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.4.0] - 2026-11-17
+- Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).
+- Body heading renamed to the skill name (`spine`, own-takes as the alias)
+  — it still said `# own-takes`.
+- Examples brought to two pairs per case; description unchanged.
+
 ## [1.3.0] - 2026-11-11
 - Trigger contract sweep: description rewritten as a use-when / not-for / sibling contract with literal user phrases; rules and body unchanged.
 
