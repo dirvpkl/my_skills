@@ -1,7 +1,7 @@
 ---
 name: logging
-description: Structured logging rules — one format and one correlation ID across services, when a fail-loud raise also needs to be visible, and Telegram forum-topics alerts (critical/info/service, spammy-by-default). This is a base dependency every other skill (code-quality, external-integrations, testing) assumes is already applied whenever code is built or changed — not a separate feature to bolt on later.
-version: 1.2.1
+description: Structured logging rules — one format and one correlation ID across services, fail-loud made visible, forum-topic alerts, and credentials kept out of logs (URLs, headers, bodies redacted at the boundary; library loggers count as writers). ALWAYS invoke whenever code is built or changed — this is a base dependency. NOT a separate feature to bolt on later, NOT for channel wiring (external-integrations).
+version: 1.4.0
 ---
 
 <!-- v1 - 2026-09-06 -->
@@ -11,8 +11,6 @@ version: 1.2.1
 
 # logging
 
-## Trigger
-Writing or reviewing code that logs something, raises/handles errors that should be visible, or when setting up a new service that needs observability. In practice this fires alongside any code write/edit — see the `coding` dispatcher's activation manifest, which is the actual dispatch logic; don't wait to read this file only when something explicitly mentions logging by name.
 
 ## This is a base dependency, not a standalone task
 `code-quality`, `external-integrations`, and `testing` all assume this skill's rules are already applied whenever something is built or changed — logging isn't a separate feature to add later, it's part of doing the work correctly the first time.
@@ -20,6 +18,16 @@ Writing or reviewing code that logs something, raises/handles errors that should
 ## What fail-loud implies for logging
 - A loud failure (per `code-quality`'s fail-loud section, the canonical definition — this file doesn't redefine it) still needs to actually be seen. Raising an exception that dies silently in a container nobody's watching isn't meaningfully different from swallowing it — pair fail-loud with logging that surfaces the failure somewhere a human will notice.
 - Structured, consistent logs: what happened, in which service, with enough context to act on it (not just a bare stack trace with no surrounding info).
+
+## Credentials never enter a log
+
+Logs exist to carry detail — method, URL, headers, body fields — so log them.
+The exception is a credential: a token in a query string (`?token=`,
+`?api_key=`, a signed URL), an `Authorization`/`Cookie` header, a password or
+one-time code in a body. Redact those parts at the logging boundary — a
+handler filter or one masking helper — not at each call site. A library's own
+request logger is a log writer too: silence it or route it through the same
+filter. Concrete library behavior and recipes live in `references/examples.md`.
 
 ## What "structured logging" means here (baseline requirements)
 - Each log entry is a set of labeled fields (timestamp, level, service name, message, relevant IDs), not a free-text sentence — this makes logs greppable/filterable instead of just readable one at a time.

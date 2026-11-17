@@ -1,7 +1,7 @@
 ---
 name: process-tiers
-description: How much ceremony a coding task needs — when to act without asking vs. propose a mini-design vs. write a plan file and wait for approval, how task size scales which parts of code-quality/testing apply, how to delegate to other agents (prefer agents over subagents; shared-code location decided before parallel work), and worked examples for resolving conflicts between skills. Use for every code task to calibrate autonomy level, not only when a conflict actually comes up.
-version: 1.1.2
+description: How much ceremony a coding task needs — act directly vs mini-design vs plan file, how task size scales code-quality and testing, and the two delegation axes (prefer agents over subagents; shared-code location fixed before parallel work). ALWAYS invoke on every code task to calibrate autonomy. NOT for deciding whether work may start (workplanx's build gate), NOT for picking an approach (solution-search).
+version: 1.2.1
 ---
 
 # process-tiers
@@ -9,14 +9,16 @@ version: 1.1.2
 <!-- v1 - 2026-09-06 -->
 <!-- v1.1 - 2026-09-13: added rule to decide and state shared-code location before splitting work across parallel sub-agents. -->
 
-## Trigger
-Any code task, to calibrate how much autonomy/ceremony applies. Bundled by the `coding` dispatcher on every code write/edit (full set per its activation manifest — that manifest is the dispatch logic). For new features/integrations/replacements, the route goes through `solution-search` + `workplanx` first (user pick in `decision.md` before code). Read this before deciding whether to just act, ask a question, or write a plan file.
 
 ## Decide vs ask
 - Decide without asking: scope slicing within the task, technical implementation choices, parking something as explicitly out-of-scope (with a stated reason).
 - Always ask first: secrets/.env, files outside the project, docker ports, anything involving money or external side effects (sending requests, calling paid APIs, posting/publishing). See `security` and `docker` for the specifics behind these.
 
 ## Task tiers
+
+New features, integrations and replacements route through `solution-search` +
+`workplanx` first — a transcribed `user-pick:` in `decision.md` before any code.
+The tiers below calibrate how much ceremony the resulting work gets.
 Situational autonomy for idea → maintainable code (ceremony scales with size, approval gate never drops):
 - **Trivial edit** (typo, rename, comment fix, no logic change): act directly, no questions, no full checklist.
 - **Routine fix / small edit** (logic change, bounded to one file/function): act directly, no questions.

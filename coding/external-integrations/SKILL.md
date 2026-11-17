@@ -1,7 +1,7 @@
 ---
 name: external-integrations
-description: Wiring rules for an already-chosen integration — centralized retry, docs-first connection, Telegram forum-topics alerts (critical/info/service), uptime-kuma heartbeat, portrait defaults. Never searches for alternatives or picks stacks (that's solution-search via the topic folder). Use when connecting code to something external.
-version: 1.6.0
+description: Wiring rules for an already-chosen integration — centralized retry for rate limits and transient network errors, docs-first connection, forum-topic alerts, uptime-kuma heartbeat, portrait defaults. ALWAYS invoke when connecting code to something external, and only after a decision.md user-pick exists. Never search for alternatives or pick stacks here. NOT for internal function calls, NOT for proxy routing (proxy-egress).
+version: 1.7.1
 ---
 
 <!-- v1 - 2026-09-06 -->
@@ -17,8 +17,9 @@ version: 1.6.0
 
 # external-integrations
 
-## Trigger
-Wiring an already-decided external integration (a `decision.md` user-pick exists in the topic folder). Not for internal function calls, never for searching or picking stacks. Bundled per the `coding` dispatcher's activation manifest — that manifest is the dispatch logic, this Trigger line is scope only.
+
+Not for internal function calls and never for searching or picking stacks —
+this skill only wires an external integration that already won.
 
 ## Base dependency: logging
 Every retry attempt gets logged (per the `logging` skill) — at minimum a WARNING when a retry kicks in, and an ERROR when retries are exhausted and it fails loud. Without this, rate limits and transient failures happen invisibly until they pile up into a real outage nobody saw coming. This isn't optional instrumentation, it's part of what "centralized handling" means below.

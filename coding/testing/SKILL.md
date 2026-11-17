@@ -1,7 +1,7 @@
 ---
 name: testing
-description: How to verify a feature actually works after implementing or changing it — beyond just running the default test suite. Covers coverage gaps, the UX-level pass from the real entry point a user would use, respecting service boundaries when testing, regression checks against baseline, fair comparisons, and telling apart an environment failure from a code failure. Use this after any code change, before reporting it as done.
-version: 1.2.0
+description: How to verify a feature actually works after a change — coverage gaps, the UX pass from the real entry point, service boundaries, regression against baseline, fair comparisons, environment-vs-code failures, and a long-run soak for behavior that decays. ALWAYS invoke after any code change, before reporting it done. NOT a substitute for fresh-eyes judging the result, NOT the default suite alone.
+version: 1.3.1
 ---
 
 <!-- v1 - 2026-09-06 -->
@@ -11,8 +11,6 @@ version: 1.2.0
 
 # testing
 
-## Trigger
-After implementing or changing a feature, before reporting it as done. Bundled per the `coding` dispatcher's activation manifest (full set, not a subset) — see that manifest for the dispatch logic; this Trigger line is scope only.
 
 ## Base dependency: logging
 Whatever's being tested should already have logging wired in per the `logging` skill — that's not optional groundwork, it's assumed to already be there by the time testing starts. If it isn't, that's a gap to flag, not something to route around while testing.
@@ -25,6 +23,18 @@ Whatever's being tested should already have logging wired in per the `logging` s
 - After concept tests pass, ASK the owner whether this change gets a full end-to-end run (real entry point, real services, real data). Never launch a heavy e2e unasked — but the offer itself is mandatory: e2e is always proposed, the owner decides.
 - If the task had a plan file (big/architectural per `process-tiers`): cross-check it — every planned requirement maps to a task and a test. Flag gaps, don't imply coverage.
 - Regression check: for any change where it's unclear whether a failure is new or pre-existing, use `code-quality`'s baseline-comparison process (`git stash`, re-run, `git stash pop`, compare) rather than guessing from the diff alone. This applies here as much as it does during a refactor — a failing test after a feature change is not automatically "caused by" the change until compared against baseline. `scripts/baseline_diff.sh` automates the stash/re-run/pop/compare cycle.
+
+## Soak mode — long-run wear
+
+Some changes only fail under time: a poller that leaks, a reconnect loop that
+eventually gives up, a queue that deadlocks once loaded, a cache that grows
+without bound. When the change is one of those (long-running services, retries,
+reconnects, caches — anything whose correctness decays), a single green pass
+does not verify it. Run it for a real wall-clock window — an hour or two when
+the change warrants it — and report what was observed (memory, reconnect
+counts, error rate, latency drift), not just that the process stayed up. Soak
+time is a cost: state up front how long and why, and what would count as a
+failure at the end.
 
 ## Default tests are a floor, not proof it works
 - Running the existing test suite (pytest, etc.) is necessary but not sufficient. A green test suite doesn't mean the feature actually works for a real user — the tests in the repo can themselves be wrong, stale, or covering the wrong thing. Don't treat "tests pass" as equivalent to "verified."

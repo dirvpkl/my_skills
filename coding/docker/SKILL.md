@@ -1,7 +1,7 @@
 ---
 name: docker
-description: Docker networking defaults — never publish container ports to the host without an explicit, same-message ask; published ports always land on a random ephemeral host port (never a fixed default like `8080:8080`); internal-only service-to-service networking by default; required (`${VAR:?...}`) compose environment variables; unprefixed environment variable names with no project prefixes. Use whenever writing or editing docker-compose files or docker run commands.
-version: 1.5.0
+description: Docker networking defaults — never publish a container port without an explicit same-message ask; published ports land on a random ephemeral host port, never a fixed 8080:8080; internal-only service networking by default; required ${VAR:?...} compose env vars with unprefixed names. ALWAYS invoke when writing or editing docker-compose files or docker run commands. NOT for host-level Docker setup or proxy routing (proxy-egress).
+version: 1.6.1
 ---
 
 # docker
@@ -11,8 +11,6 @@ version: 1.5.0
 <!-- v1.3 - 2026-10-27: published host ports are always random ephemeral ports, never fixed defaults like 8080:8080; services inside the network stay unpublished. -->
 <!-- v1.4 - 2026-10-28: environment variables must be unprefixed — use NO_PROXY, BOT_TOKEN, HOST, etc., never PROJECT_NO_PROXY/PROJECT_BOT_TOKEN/PROJECT_HOST. -->
 
-## Trigger
-Writing or editing docker-compose files or `docker run` commands. Bundled by the `coding` dispatcher whenever Docker config is touched — see its activation manifest.
 
 ## Networking defaults
 - Never add `ports:` mappings (or otherwise publish container ports to the host) in docker-compose files or `docker run` commands unless the user explicitly asks for that port to be exposed in that message.

@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.24.0] - 2026-11-17
+- Sub-skill descriptions trimmed (code-quality 1.8.1, docker 1.6.1, external-integrations 1.7.1, process-tiers 1.2.1, testing 1.3.1, logging 1.4.0).
+- Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).
+- Description updated to match the new body classes (the surfacing contract).
+- logging 1.3.0 -> 1.4.0: credentials never enter a log; the concrete
+  library recipes (httpx/urllib3/http.client) moved into its examples.
+
+## [1.23.0] - 2026-11-17
+- Per-skill review round across the package: `## Trigger` sections removed
+  from every sub-skill (code-quality, docker, external-integrations,
+  logging, process-tiers, testing); the dispatcher bullet that pointed at
+  them now points at this activation manifest only.
+- Versions: code-quality 1.8.0, docker 1.6.0, external-integrations 1.7.0,
+  logging 1.3.0, process-tiers 1.2.0, testing 1.3.0.
+- code-quality: new "no orphan constants" rule (a constant nobody reads is
+  dead config; delete it or wire it).
+- testing: new "Soak mode" section — a real wall-clock window (an hour or
+  two) for changes whose correctness decays over time, with wear evidence
+  reported (owner directive 2026-11-15).
+- external-integrations: explicit not-for-internal-calls line moved into
+  the body when its Trigger section was removed.
+
 ## [1.22.3] - 2026-11-15
 - Examples moved in per the owner's base review: skipped-check-reporting
   pairs -> testing, external-services-as-black-boxes pairs ->

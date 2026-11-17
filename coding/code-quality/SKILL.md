@@ -1,7 +1,7 @@
 ---
 name: code-quality
-description: Architecture, coding principles, and error-handling rules for any code write or edit — new features, refactors, and cleanup requests. Covers service separation (no god-files, no bundling worker logic into API services), no-hardcoding, unprefixed env-var names with no project prefixes and no defaults, DRY/KISS, fail-loud error handling, import/typing discipline, honest async signatures, single-source contracts, lint/format/type-check order, and proactive security flagging. Use this whenever code is being written or changed, not only when explicitly asked to "clean up" or "refactor."
-version: 1.7.0
+description: Architecture, coding principles and fail-loud error handling for any code write or edit — service separation, no god-files, no hardcoding, DRY/KISS, naming, typing, contracts, lint order, security flags. ALWAYS invoke whenever code is written or changed, not only for an explicit cleanup or refactor. NOT for test design (testing), NOT for logging or retry wiring (logging, external-integrations).
+version: 1.8.1
 ---
 
 <!-- v1 - 2026-09-06 -->
@@ -14,8 +14,6 @@ version: 1.7.0
 
 # code-quality
 
-## Trigger
-Any code work — new feature, edit to existing code — or an explicit request to "clean up / refactor / de-stink" something. Bundled per the `coding` dispatcher's activation manifest (full set, not a subset) — see that manifest for the dispatch logic, not this Trigger line in isolation.
 
 ## Base dependency: logging
 Anything built or changed under this skill assumes the `logging` skill is already wired in — that's not a separate follow-up task, it's part of doing the work correctly the first time.
@@ -60,6 +58,11 @@ Anything built or changed under this skill assumes the `logging` skill is alread
 - Service identity strings (e.g. `SERVICE_NAME = "<proj>-<role>-svc"`) live once per service in its own logging/config module and are imported — never re-declared as a literal in another module. Duplicate literals across two modules, or scattered string copies of the same name, violate this; import from the owning module instead.
 
 ## Principles
+- No orphan constants. Every module-level constant is read somewhere in the
+  same package — a constant nobody consumes is dead code in a config-shaped
+  disguise: it looks authoritative, then silently drifts from the value the
+  code actually uses. Delete it or wire it; a grep for the name is the cheap
+  check until the package's checker exists.
 - No legacy: TODOs/FIXMEs, stub code, dead code, `as unknown`-style workarounds — remove, don't preserve. Rewrite unclear logic instead of wrapping it in a patch.
 - DRY: duplicated helpers get pulled into shared core code, not copy-pasted.
 - KISS: prefer the simplest design that solves the actual problem — no speculative abstraction, no premature generalization, no extra layers "just in case."
