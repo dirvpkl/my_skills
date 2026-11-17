@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.25.1] - 2026-11-17
+- description: workplanx owns the task opening — added to the NOT-for list (the exam's best-free run attracted coding on a task-start utterance).
+
+## [1.25.0] - 2026-11-17
+- `scripts/orphan_constants.py` added (the owner's parked directive): finds module-level constants with no consumer anywhere — code reference or config mention. Consumer-trace lens in script form; wired into the Skill index.
+- references/examples.md created (2 cases x 2 pairs: the whole set as one obligation; route out, don't search in place).
+
 ## [1.24.0] - 2026-11-17
 - Sub-skill descriptions trimmed (code-quality 1.8.1, docker 1.6.1, external-integrations 1.7.1, process-tiers 1.2.1, testing 1.3.1, logging 1.4.0).
 - Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).

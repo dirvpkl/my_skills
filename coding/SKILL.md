@@ -1,7 +1,7 @@
 ---
 name: coding
-description: Dispatcher for the coding package — routes to docker, process-tiers, code-quality, testing, logging, external-integrations, and loads boundaries, proxy-egress and git-workflow as mandatory siblings. ALWAYS invoke on any task that writes, edits, reviews or runs code, or touches infrastructure — once a non-trivial task has its workplanx topic folder; a trivial edit skips the folder, not this skill. Do not write or fix code without the sub-skills it routes to. NOT for approach search (solution-search), judging finished work (fresh-eyes) or repeat-until-green runs (loop).
-version: 1.24.0
+description: Dispatcher for the coding package — routes to docker, process-tiers, code-quality, testing, logging, external-integrations, and loads boundaries, proxy-egress and git-workflow as mandatory siblings. ALWAYS invoke on any task that writes, edits, reviews or runs code, or touches infrastructure — once a non-trivial task has its workplanx topic folder; a trivial edit skips the folder, not this skill. Do not write or fix code without the sub-skills it routes to. NOT for approach search (solution-search), opening the task's topic and record (workplanx does that first), judging finished work (fresh-eyes) or repeat-until-green runs (loop).
+version: 1.25.1
 ---
 
 # coding (dispatcher)
@@ -55,3 +55,4 @@ The actual rules live in sibling skill folders — read the relevant `SKILL.md` 
 - `testing/SKILL.md` — verifying a feature actually works beyond the default test suite: coverage gaps, UX-level pass from the real entry point, environment-vs-code failure distinction, fair comparisons. Applies after implementing/changing a feature. Its UX pass is the artifact a `fresh-eyes` quality-mode judge receives.
 - `external-integrations/SKILL.md` — wiring-only for a decided integration (centralized retry, docs-first, Telegram topics wiring, uptime-kuma heartbeat, portrait defaults). Never searches or picks stacks — the pick arrives via the `workplanx` topic folder from `solution-search`. Applies when connecting code to something external.
 - `logging/SKILL.md` — structured logging, one Processor TypeAlias and one request ID across services, no private-helper + public-wrapper forwarding processors, no dangling processor params, Telegram forum-topics levels and spam policy (spammy-by-default; wiring canonical in external-integrations). This isn't optional/standalone: `code-quality`, `external-integrations`, and `testing` all assume logging is wired in per this skill whenever something is built or changed — treat it as a base dependency, not a separate task to remember later.
+- `scripts/orphan_constants.py` — finds module-level constants defined but never consumed anywhere (no code reference, no config mention): the consumer-trace lens in script form. Run it before calling a batch of code changes done; an orphan is either dead config or unwired intent — wire a consumer, delete it, or record why it stays.
