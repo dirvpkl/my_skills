@@ -1,7 +1,7 @@
 ---
 name: workplanx
-description: Task plan-and-log router — every non-trivial task gets a topic folder with plan/search/decision/gate files that later skills verify structurally, plus a fresh-eyes review at the end. ALWAYS invoke this skill at task start, before any search or code, on any non-trivial task (new feature, integration, replacement, multi-step fix — "let's do it", "implement it", "make it happen" once a pick exists). Do not start working without a topic folder and do not keep task logs in chat — use this skill first. Trivial one-line edits are the only exemption.
-version: 1.12.0
+description: Task plan-and-log router — every non-trivial task opens a topic folder (plan, search, decision, log), gated structurally and closed with an afterword. ALWAYS invoke at task start, before any search or code; a trivial one-line edit is the only exemption. Do not keep task logs in chat — the folder is the record. NOT for deciding what to build (solution-search) or for implementing (coding).
+version: 1.13.0
 ---
 
 # workplanx
@@ -15,16 +15,13 @@ folder, and the gate verifies the folder's shape (not the agent's words).
   descriptions are the fix. Base's trigger-log moved here 2026-11-15 —
   trigger accounting is workplanx's domain.
 
-## Trigger
+## Sink directive
 
-- Any non-trivial task (new feature, integration, replacement, multi-step fix).
-- Does NOT trigger on trivial edits (typo, rename, comment, no logic change).
-- The "write everything into workplanx" directive (owner spelling variants,
-  this dialog 2026-11-14) — the sink directive: output the owner would
-  otherwise read as chat text goes into this topic's files instead.
-- `workplanx` is in the `dependencies` list of every other skill in the
-  collection. A skill that doesn't create a topic folder isn't skipping
-  ceremony, it's breaking its own declared dependency.
+Everything the owner would otherwise read as chat text goes into the topic's
+files instead: findings, decisions, positions, logs. Chat stays for the
+conversation; the folder is the record. A skill that does not create or extend
+a topic folder is breaking its declared `workplanx` dependency, not skipping
+ceremony.
 
 ## Process
 
@@ -33,7 +30,11 @@ folder, and the gate verifies the folder's shape (not the agent's words).
    Fallback outside a project: `%TEMP%/opencode-workplanx/<topic-slug>/`.
 2. Files inside (see `references/layout.md` for contracts):
    `plan.md` → `search.md` → `decision.md` → `log.md` → `gate.log`. In that
-   order. `decision.md` carries a `counter:` line — the best case against
+   order. Each task in `plan.md` names its **consumer** and a
+   runtime-verifiable check: who uses the result and how the agent can prove
+   it is actually wired, not merely written ("integrated != wired" — the
+   consumer-trace rule shared with `fresh-eyes`). `decision.md` carries a
+   `counter:` line — the best case against
    the agent's own recommendation, written before the `user-pick:` is
    requested (duel-lite: adversarial self-review, not a second agent).
    Cross-references between topic files and skills use `[[target]]`; the
@@ -61,7 +62,12 @@ folder, and the gate verifies the folder's shape (not the agent's words).
    memory. Chat stays for the conversation — the folder stays the record.
 6. Later skills (`solution-search`, `coding`) read and extend the same folder —
    they never start a second log elsewhere.
-7. Judging finished work is not this skill's job — when the work is done and
+7. **Delegation carries the record.** Every delegation prompt names the topic
+   folder and the exact file the delegated agent must append to (one line per
+   unit of work, plus a heartbeat line every 15 minutes inside long units).
+   A delegated agent that reports only in chat has left no record; the prompt
+   is what makes the recording duty travel with the task.
+8. Judging finished work is not this skill's job — when the work is done and
    checks passed, the pass closes with `afterword.md` (what worked, what to
    add, what was missing, cool-to-have, one labeled wild-shot), then
    `fresh-eyes` runs. The afterword carries the harvest: a `harvest:` block

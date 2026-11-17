@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.13.0] - 2026-11-17
+- Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).
+- `## Trigger` section removed; the live sink directive ("write everything
+  into workplanx") moved to its own section, the dependency fact already
+  lived below.
+- `plan.md` contract gains the consumer-trace line: every task names its
+  consumer and a runtime-verifiable check.
+- New Process item 7: delegation carries the topic folder + log path, and
+  the delegated agent records its own work.
+
 ## [1.12.0] - 2026-11-15
 - Trigger-log moved in from base (owner ruling): trigger misses are
   workplanx's domain — the queue lives here, fixes fold into skill
