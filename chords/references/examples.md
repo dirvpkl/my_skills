@@ -98,11 +98,11 @@ Rationale: a chord is recognized by what the words mean and evoke — RU and EN 
 **Bad:** trusting a decorative analogy that sounds good but mismaps the task's constraints.
 Rationale: associations are the matching engine only when they carry structure; vibes misroute.
 
-## Proposals are rare and timed
+## Notice, propose once, retire on decline
 
-**Good:** the owner used a «перепроверь»-shaped phrasing three sessions in a row → at the session's close: "this looks like a shorthand forming — want it as a chord?"
-**Bad:** proposing a chord on the first occurrence, mid-task, between two build steps.
-Rationale: watching rides along with normal work; a proposal that interrupts the task spends the task's attention on the watcher's hobby.
+**Good:** mid-work the agent notices a shorthand forming → one-line offer: "this looks like a chord — bind it?"
+**Bad:** watching as a ritual — scanning every message for chord material, announcing observations nobody asked for.
+Rationale: watching is background, as it comes to mind; the proposal is the only output the watching ever produces.
 
 **Good:** the owner declines → the pattern is retired, never raised again.
 **Bad:** re-proposing the same chord next session "since it keeps happening."

@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.7.0] - 2026-11-17
+- Chord watching goes FULL background (owner ruling): no prescribed
+  observation procedure — the agent notices what it notices, proposes the
+  chord in one line if it does; the prescriptive discipline (cross-session
+  rule, one-open-proposal cap, session-end timing) removed — "сам
+  разберётся".
+- Cheatsheet card renamed: chords-cheatsheet.md -> chords.md (Desktop),
+  script + SKILL.md term updated.
+
 ## [1.6.0] - 2026-11-17
 - "What a chord is" section (owner ruling): the chord DEFINED — a fixed
   personal association, recognized by word work (look at the words,
