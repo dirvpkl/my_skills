@@ -1,7 +1,7 @@
 ---
 name: recap
-description: Project recap collector — when the owner asks to retell the project, what was postponed, what was discussed, or to retell from a given moment (X = a date, topic, or phase), or says "recap", rebuild the project's story from its records, not from chat memory — an rg hashtag pass over <project>\.workplanx\*\ (log.md, decision.md, afterword.md) plus git log plus the agent's memory index, reported in the fixed form from references/recap-form.md. Read-only — it summarizes, never edits, never fills gaps itself. Use this skill first on any recap request; do not answer from chat memory alone, and never present a guess as a fact.
-version: 1.0.0
+description: Project recap collector — rebuild the project's story from its records, not from chat memory: a full pass over .workplanx (log, decision, plan, afterword), a hashtag layer, git log and the memory index, in the fixed form. ALWAYS invoke on any recap or retell request, including 'from moment X'. Read-only: summarizes, never edits, never fills gaps. NOT for live status of one task (its own log), NOT for handing work to another agent (handoff).
+version: 1.1.0
 ---
 
 # recap
@@ -9,15 +9,6 @@ version: 1.0.0
 The project's memory is on disk, not in chat. A recap is a rebuild from
 records — the answer is only as good as the collection pass.
 
-## Trigger
-
-Owner asks to retell the project: the project itself, what was postponed,
-what was discussed, retell from moment X, "recap". "From moment X" scopes
-the pass: only topics and records dated after X. Not for live status of
-one active task — that is the topic's own log.md.
-Also fires on the same retell-the-record request in any other owner
-phrasing (the whole dialogue, the full-process summary, what we were
-doing here).
 
 ## Process
 
@@ -48,6 +39,9 @@ doing here).
    filled by inference.
 
 ## Rules
+
+- Not for the live status of one active task — that's the topic's own
+  `log.md`. A recap rebuilds the project's story from the records.
 
 - Read-only: a recap never edits project files and never relabels a
   `#wildshot` into a recommendation.
