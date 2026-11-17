@@ -1,7 +1,7 @@
 ---
 name: chords
 description: Personal shortcut bindings — the owner's shorthand phrases map straight to skills, bundles or actions; a binding is a key chord, one phrase and the whole stack sounds. ALWAYS invoke when a bound phrase appears, or when asked to see, add, change, suggest or remove bindings. NOT a music skill — actual chord or music questions are answered directly.
-version: 1.5.0
+version: 1.6.0
 ---
 
 # chords
@@ -17,10 +17,28 @@ instead of remembered context.
 - **plugins/manifest.json** — dependencies. No modules: targets are sibling
   skills, referenced by name only.
 
-## The vocabulary
+## What a chord is
 
-- **binding** — one row: the owner's phrase(s) → a target. Bound only on
-  the owner's ask or confirmed word.
+A chord is a fixed personal association: a phrase pattern the owner uses →
+an action that must happen when it appears. Press once, the whole stack
+sounds.
+
+Recognizing one is word work, not string matching. When a phrase arrives:
+
+1. Look at the words, not the sentence — what does each one carry.
+2. Translate both ways (RU ↔ EN) — a chord often rhymes across languages.
+3. Run the associations the phrase evokes and hold them against the
+   table's targets — an analogy carries structure (faces, throws, chances),
+   not vibes.
+4. Fix what the phrase is asking for — the meaning with the wording
+   stripped.
+5. Compare with the table: a plausible match → lean in and confirm
+   (Process step 2); nothing plausible → "not bound" (step 4).
+
+The terms used below:
+
+- **binding** — one row in `chords.md`: the owner's phrase(s) → a target.
+  Bound only on the owner's ask or confirmed word.
 - **kinds**: `skill` — one sibling, loads as if the user typed /name;
   `bundle` — several skills that load together in the same turn as ONE
   combined obligation (the row is the single place the stack is defined);
@@ -51,13 +69,23 @@ instead of remembered context.
 
 ## Initiative — watch, propose, mention
 
-chords is read alongside base every session, so it can watch the
-conversation: a phrase pattern that keeps repeating (a shorthand forming in
-real time) earns a one-line proposal — "this keeps happening — want it as a
-chord?" Proposals are never silent self-binding and never repeated after a
-decline. When a chord is added or changed, say so plainly — the phrase, the
-target, the kind — and regenerate the cheatsheet in the same turn. The
-table is the owner's: the skill proposes, the owner binds.
+chords is read alongside base every session; the watching is free — it
+rides the table read and normal turns. It is never a task of its own and
+never takes attention from the work in front of the agent: if the current
+task is demanding, chord-watching yields, and no proposal appears until
+the work closes.
+
+Proposal discipline:
+
+- The pattern must repeat across sessions — a single occurrence is noise,
+  not a shorthand forming.
+- At most one open proposal at a time; offered at a natural pause or the
+  session's end, never mid-task.
+- One decline retires the pattern; it is never re-proposed.
+
+When a chord IS added or changed, say so plainly — the phrase, the target,
+the kind — and regenerate the cheatsheet in the same turn. The table is
+the owner's: the skill proposes, the owner binds.
 
 ## Editing bindings
 

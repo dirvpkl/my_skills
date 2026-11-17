@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.6.0] - 2026-11-17
+- "What a chord is" section (owner ruling): the chord DEFINED — a fixed
+  personal association, recognized by word work (look at the words,
+  translate RU/EN, run associations and hold them against targets, fix the
+  meaning, compare) — not string matching. Terms follow after the concept.
+- Initiative discipline (owner ruling): watching is free and rides normal
+  turns, never a task of its own; the task's attention wins — no proposals
+  mid-task; patterns repeat across sessions before proposing; at most one
+  open proposal; one decline retires the pattern forever.
+- examples.md: word-work case (translate/associate/fix/compare, structure-
+  carrying analogies) + proposal-discipline case (rare, timed, retired on
+  decline).
+
 ## [1.5.0] - 2026-11-17
 - SPLIT (owner ruling): the chord DATA moved to chords.md (the data file
   bound to the skill); SKILL.md now carries mechanics + the vocabulary
