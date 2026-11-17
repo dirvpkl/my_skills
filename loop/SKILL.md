@@ -1,7 +1,7 @@
 ---
 name: loop
-description: Runs a task as repeated autonomous iterations until a fixed predicate holds or a stop rule fires — fresh context per iteration, state on disk instead of in conversation, progress from ledger evidence. The predicate check is a command and/or a pre-fixed criterion (tests and deploys are examples, not the core). Covers iterate-until-met, bounded retry with a hard cap, and stagnation detection. Use when the user asks to keep going until X holds, to converge a search, or to run unattended for N iterations. Fails loud at the cap.
-version: 2.0.0
+description: Runs a task as repeated autonomous iterations until a fixed predicate holds or a stop rule fires — fresh context per iteration, state on disk, progress from ledger evidence. ALWAYS invoke when the user asks to keep going until X holds, converge a search or run unattended for N iterations; do not improvise an iteration loop by hand. NOT for a single retry (external-integrations), NOT for a goal with no decidable predicate (a conversation), NOT for decomposing a multi-session goal (mission).
+version: 2.1.0
 ---
 
 # loop
@@ -18,16 +18,6 @@ scheduler, no plugin.
   wasting iterations" actually looks like, and which ones stop the loop early.
 - **plugins/manifest.json** — active modules, check it.
 
-## Trigger
-
-- "Keep going until X holds" — the tests pass, the deploy answers, the search
-  converged, the answer stabilized, the meaningful moves are exhausted.
-- "Check your own work N times."
-- Run unattended for a bounded number of iterations, come back to a result.
-- Does NOT trigger on "retry this once" — that's an integration's centralized
-  retry (`external-integrations`), not an agent loop. The difference: a retry
-  re-sends the same request; a loop re-asks the agent to do the next unit of
-  work with what it learned.
 
 ## Process
 
@@ -77,6 +67,15 @@ scheduler, no plugin.
 - A run that ends with the predicate unmet and no failure recorded is a broken
   ledger, not a successful loop.
 
+## Done means integrated and exercised
+
+The predicate must cover the whole feature, not the artifact that was written:
+the thing is wired into the path a real user or service takes, and it has been
+exercised end to end (`testing` owns the how). "The file exists / the test
+passes" is not done — an integration nobody consumes still looks green. A
+predicate that stops at "code written" is a broken predicate: fix it before
+the first iteration, not after the cap.
+
 ## Verifying it's not wasting iterations
 
 `loop_state.py` catches what is mechanical: predicate met, cap reached,
@@ -91,6 +90,9 @@ burn a full cap while looking productive.
 - No decidable predicate can be fixed up front → there's no loop, there's a
   conversation.
 - One iteration would plausibly finish it → just do it.
+- A single retry of the same request (rate limit, transient network blip) →
+  not a loop; that's `external-integrations`' centralized retry. A loop
+  re-asks the agent for the next unit of work with what it learned.
 - The blocker is a missing secret, a decision only the user can make, or an
   environment failure → stop and write the user. `testing` owns the
   environment-vs-code distinction; a loop that retries a broken Docker daemon
