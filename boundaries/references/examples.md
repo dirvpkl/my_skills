@@ -140,3 +140,13 @@ Rationale: the size of the payload does not decide whether it is exfiltration.
 **Good:** a curl probe is piped through a one-liner that prints only `result`, `code`, `errors` and field presence, then that filtered text goes to chat.
 **Bad:** pasting the raw response body "so the shape is visible" — the token and a phone number ride along.
 Rationale: the filter has to run before the paste; after the paste the transcript already holds the values.
+
+## Host apps are the user's personal space
+
+**Good:** "the proxy stopped working" → diagnose the project's docker config; the host proxy client's config is out of scope — if its state matters, ask first.
+**Bad:** opening the user's proxy client settings or browser config to "just check what's wrong."
+Rationale: host apps carry the user's sessions and personal credentials the task never named — they are the user's space, not the project's.
+
+**Good:** Docker, Python, Node and dev tooling are worked as project infrastructure, no asking needed.
+**Bad:** treating the host browser as a debugging tool — opening the user's Chrome profile to inspect cookies "for the task."
+Rationale: the line is stated in the skill, not guessed per task: dev tooling is fair game, apps holding the user's sessions are not.

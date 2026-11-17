@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.2] - 2026-11-17
+- System boundaries: concrete host-app names (owner's personal setup) generalized to classes — media players, browsers, proxy clients; the personalization left the tracked file (owner ruling 2026-11-17).
+- examples.md: "Host apps are the user's personal space" case added (2 pairs).
+
 ## [1.4.1] - 2026-11-17
 - Chat hygiene: the checklist bullet that duplicated the pre-show check and pointed at the deleted memo file ("memo's checklist, section 7") removed — the surviving bullet (form-not-values, leak classes, revocability) is the single checklist.
 

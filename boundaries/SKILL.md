@@ -1,7 +1,7 @@
 ---
 name: boundaries
 description: Rules for secrets, credentials, logs, chat hygiene, browser data, data preservation, untrusted content, egress and any access outside the project — when to ask first, how to scope a credential, how to handle an exposure, what must never reach chat. ALWAYS invoke before a task could touch any of these: reading a log, opening a browser profile, a volume or database, a file outside the project, or sending data out; notes, research and conversation count, not only code. NOT for in-project work that touches none of them.
-version: 1.4.1
+version: 1.4.2
 ---
 
 # boundaries
@@ -100,7 +100,9 @@ followed.
 - Editing files outside the assigned projects.
 
 ## System boundaries
-- Don't touch host-machine apps (VLC, Chrome, singbox, etc.). Docker/Python/Node/dev tooling is fine.
+- Don't touch host-machine apps the user runs personally — media players,
+  browsers, proxy clients and the like: their configs and sessions are out
+  of scope. Docker/Python/Node/dev tooling is fine.
 - Don't run unbounded searches over huge directories — always scope depth/pattern to avoid flooding the terminal.
 
 ## Report
