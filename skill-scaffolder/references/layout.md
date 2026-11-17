@@ -13,7 +13,7 @@ The practical implication: put anything that's only needed *sometimes* (a specif
 ## File-by-file
 
 **SKILL.md** (required, always present)
-Frontmatter needs `name` and `description` at minimum; add `version` if the skill will evolve over time (recommended for anything beyond a one-off). The description is the *only* thing that determines whether the skill triggers — write it a little assertively (name concrete trigger phrases/contexts) rather than vaguely, since under-triggering is the more common failure mode than over-triggering.
+Frontmatter needs `name` and `description` at minimum; add `version` if the skill will evolve over time (recommended for anything beyond a one-off). The description is the *only* thing that determines whether the skill surfaces — write it as the surfacing contract (what it is + ALWAYS-invoke + NOT-for), intent over keyword lists; the exam verifies it on cold models.
 
 **VERSION**
 A bare semver string (e.g. `1.2.0`), nothing else. Exists so a script or a human can check the current version without parsing YAML frontmatter or a changelog. Keep it identical to the `version` field in SKILL.md's frontmatter — if they drift, something was updated inconsistently.

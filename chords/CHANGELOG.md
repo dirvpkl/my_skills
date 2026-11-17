@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.8.1] - 2026-11-18
+- examples.md: one leftover "trigger phrase" wording replaced (the word stays retired).
+
 ## [1.8.0] - 2026-11-17
 - The Desktop cheatsheet card is GONE (owner ruling: "зачем вообще на раб
   столе что-то? я думал список чордов в папке скилла") — chords/chords.md

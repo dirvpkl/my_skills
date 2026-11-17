@@ -24,9 +24,9 @@ If a skill produces more than one kind of record, each kind gets its own file �
 **The mistake**: creating `references/`, `plugins/`, and `scripts/` folders for a skill that's genuinely a single short, coherent set of instructions with no sub-topics and nothing that will grow modules over time. This adds ceremony without benefit and makes the skill harder to read, not easier.
 **The fix**: see "Scaling the layout down" in SKILL.md. Default to the minimum structure that fits the content today; add folders when a real second reference file, module, or script actually shows up — not preemptively.
 
-## 5. Vague or under-assertive trigger descriptions
-**The mistake**: a `description` field that's technically accurate but soft enough that the skill doesn't fire when it should — the most common failure mode for skills generally (under-triggering, not over-triggering).
-**The fix**: name concrete trigger phrases and contexts explicitly in the description, not just an abstract category. Compare "helps with dashboards" against "use whenever the user mentions dashboards, data visualization, or wants to display any kind of data, even if they don't say the word 'dashboard'" — the second is far more likely to fire when it should. This is `skill-creator`'s territory in depth (trigger-accuracy evals); scaffolding just needs to avoid writing an obviously weak description in the first place.
+## 5. Vague or under-assertive descriptions
+**The mistake**: a `description` field that's technically accurate but soft enough that the skill doesn't surface when it should — the most common failure mode for skills generally.
+**The fix**: write the description as the surfacing contract — what the skill IS, an ALWAYS-invoke imperative for its moments, and a NOT-for negative fencing the neighbors. Intent, not keyword lists: a description stuffed with phrases the user might say bloats every session's listing and still misses the paraphrases. The exam (`trigger_check`, 3+ models, 100%) verifies the wording on cold models; scaffolding just needs to avoid an obviously weak description in the first place.
 
 ## 6. Delivering a `.skill` file where the client won't render it
 **The mistake**: assuming every client/interface treats the `.skill` extension as a recognizable, openable file type. In practice this has failed silently in some mobile clients — the file arrives but nothing opens it.

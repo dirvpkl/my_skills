@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.26.0] - 2026-11-18
+- Activation manifest: the line referencing the retired `## Trigger` concept rewritten — history left to the CHANGELOG, the dispatch statement stays.
+
 ## [1.25.1] - 2026-11-17
 - description: workplanx owns the task opening — added to the NOT-for list (the exam's best-free run attracted coding on a task-start utterance).
 

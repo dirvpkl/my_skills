@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.18.1] - 2026-11-18
+- verb-radar.md: the summon-phrase list removed (the summon register lives
+  in chords, not in reference files); the pre-verdict ALWAYS rule kept,
+  section renamed off the retired word.
+
 ## [1.18.0] - 2026-11-18
 - method.md, the abstraction step: hold an association while climbing — an
   analogy whose structure maps onto the task anchors the abstract<->concrete

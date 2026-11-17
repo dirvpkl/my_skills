@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0] - 2026-11-18
+- Anti-pattern #5 + layout.md rewritten to the intent-not-keywords doctrine
+  (owner ruling 2026-11-15): the old advice literally recommended keyword
+  stuffing ("name concrete trigger phrases") — the description is the
+  surfacing contract (what it is + ALWAYS + NOT-for), verified by the exam
+  on cold models.
+
 ## [1.5.0] - 2026-11-17
 - Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).
 - `## Trigger` section removed (cargo-cult per the owner ruling); its live

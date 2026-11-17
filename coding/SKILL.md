@@ -1,7 +1,7 @@
 ---
 name: coding
 description: Dispatcher for the coding package — routes to docker, process-tiers, code-quality, testing, logging, external-integrations, and loads boundaries, proxy-egress and git-workflow as mandatory siblings. ALWAYS invoke on any task that writes, edits, reviews or runs code, or touches infrastructure — once a non-trivial task has its workplanx topic folder; a trivial edit skips the folder, not this skill. Do not write or fix code without the sub-skills it routes to. NOT for approach search (solution-search), opening the task's topic and record (workplanx does that first), judging finished work (fresh-eyes) or repeat-until-green runs (loop).
-version: 1.25.1
+version: 1.26.0
 ---
 
 # coding (dispatcher)
@@ -38,7 +38,7 @@ Skills aren't read one at a time in isolation. When a trigger below fires, the w
 - **Task involves outbound proxy/egress routing** (PROXY_URL/HTTP_PROXY, "through the proxy", NO_PROXY, egress audit) → `proxy-egress` drives. If the proxy service connection itself is a decided external integration, `external-integrations` loads alongside it (retry/heartbeat/topics live there, not in `proxy-egress`).
 - **Wiring an already-decided external integration** → adds `external-integrations` (wiring-only: retry, docs-first, topics, heartbeat) to the set above, plus `proxy-egress` when the wiring touches outbound routing. It never searches or picks stacks — the pick arrives via the topic folder.
 - **Judging finished work** → `fresh-eyes`, both modes when the task came from a plan. Not a sub-skill of this package, and not a thing to re-describe here.
-- This manifest is the actual dispatch logic. The sub-skills no longer carry `## Trigger` sections (retired 2026-11-17); each description says what that skill is for, and this list says when it loads.
+- This manifest is the actual dispatch logic: the descriptions say what each sub-skill is for, this list says when it loads.
 
 ## Skill versioning
 - Every sub-skill has its own `version` in its frontmatter and its own `VERSION` file, bumped independently as that skill's rules change.

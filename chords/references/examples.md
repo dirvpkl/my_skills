@@ -39,7 +39,7 @@ Rationale: the collision note exists to document coexistence, not to redirect th
 ## The metaphor name doesn't hijack the domain
 
 **Good:** "какие аккорды в этой песне?" is answered directly as a music question.
-**Bad:** routing the music question through `chords.md` as if it were a trigger phrase.
+**Bad:** routing the music question through `chords.md` as if it were a bound phrase.
 Rationale: the skill name is a metaphor — chords is not a music skill, and its surface is bound phrases, not the word "chord".
 
 **Good:** "explain chord progressions" → a plain music answer; the chords skill never loads.

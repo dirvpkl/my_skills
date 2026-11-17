@@ -102,11 +102,8 @@ End with one line per verb left empty (no hits after the stop condition)
 and an overall verdict: does "nobody built it" stand? (After the founding
 case, it usually does not.)
 
-## Triggers and auto-attach
+## Summoning and the pre-verdict rule
 
-- Owner phrases: "who else does this?", "find competitors/twins",
-  "is there a tool that automates this?", "who builds the same
-  thing?", "verb radar".
 - Inside researcher/solution-search passes: after mapping venues, ALWAYS
   run one verb-tool query before concluding "nobody built it" — the
   ManyCP lesson: "the slot is occupied" was invisible to object-search.
