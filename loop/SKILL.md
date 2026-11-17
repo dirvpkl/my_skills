@@ -1,7 +1,7 @@
 ---
 name: loop
-description: Runs a task as repeated autonomous iterations until a fixed predicate holds or a stop rule fires — fresh context per iteration, state on disk, progress from ledger evidence. ALWAYS invoke when the user asks to keep going until X holds, converge a search or run unattended for N iterations; do not improvise an iteration loop by hand. NOT for a single retry (external-integrations), NOT for a goal with no decidable predicate (a conversation), NOT for decomposing a multi-session goal (mission).
-version: 2.1.0
+description: Runs a task as repeated autonomous iterations until a fixed predicate holds or a stop rule fires — fresh context per iteration, state on disk, progress from ledger evidence. ALWAYS invoke when the user asks to keep going until X holds, converge a search or run unattended for N iterations; do not improvise an iteration loop by hand. NOT for a single retry (external-integrations), NOT for putting a script on a timer (scheduling is not iteration), NOT for a goal with no decidable predicate (a conversation), NOT for decomposing a multi-session goal (mission).
+version: 2.1.1
 ---
 
 # loop
