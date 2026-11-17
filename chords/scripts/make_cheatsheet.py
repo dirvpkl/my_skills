@@ -1,13 +1,13 @@
 """Render the chords bindings table into a one-page cheatsheet on the Desktop.
 
-Reads references/bindings.md, groups rows by kind (bundle / action / skill),
-emits a compact card. Run after every bindings edit (the table header says
+Reads chords.md (the data file bound to the skill), groups rows by kind (bundle / action / skill),
+emits a compact card. Run after every table edit (the table header says
 so). Usage: python -I make_cheatsheet.py [output_path]
 """
 import os, re, sys, datetime
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-BINDINGS = os.path.normpath(os.path.join(HERE, "..", "references", "bindings.md"))
+BINDINGS = os.path.normpath(os.path.join(HERE, "..", "chords.md"))
 DEFAULT_OUT = os.path.join(os.path.expanduser("~"), "Desktop", "chords-cheatsheet.md")
 
 def main():
@@ -31,7 +31,7 @@ def main():
     lines = [
         "# чорды — шпаргалка",
         "",
-        f"updated: {now} · источник: bindings.md · полный смысл — в таблице",
+        f"updated: {now} · source: chords.md · полный смысл — в таблице",
         "",
     ]
     if bundles:

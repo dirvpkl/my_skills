@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.2] - 2026-11-17
+- description: the direct quality-ask ("is this well-written?") is an ALWAYS-invoke case — the exam's coding-vs-fresh-eyes miss exposed the gap.
+
 ## [1.3.1] - 2026-11-17
 - examples.md: every case now carries >=2 Good/Bad pairs (the collection convention) — one teaching couplet added per single-pair section.
 

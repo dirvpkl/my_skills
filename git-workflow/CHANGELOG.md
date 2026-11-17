@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.4.1] - 2026-11-17
+- description: procedure questions ("how do we merge?") route here too — the skill is the knowledge home for version-control conventions, not only the change-task layer (exam miss exposed the gap).
+
 ## [1.4.0] - 2026-11-17
 - Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).
 - Per-skill review round: `## Trigger` section removed (cargo-cult per the

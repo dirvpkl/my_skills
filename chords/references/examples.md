@@ -12,11 +12,15 @@ Rationale: the binding is a keypress, not a question — resolve and load in the
 **Bad:** acknowledging the phrase and deferring the load to whenever the conversation naturally ends.
 Rationale: a chord pressed later is a different note — bindings resolve immediately or they rot.
 
-## No match says so, never guesses
+## A doubtful match leans in and confirms
 
-**Good:** the phrase isn't in the table → "not bound — want me to add it?"
-**Bad:** "that phrase is close enough to «пока не зелёное», I'll run the loop skill."
-Rationale: resolving an unbound phrase to a guessed target invents routing the user never set — no match is a one-line answer plus an offer to add the binding.
+**Good:** «а отложим это до вечера» → probably the «перепроверь» binding → named and confirmed ("это fresh-eyes?") before loading.
+**Bad:** «а отложим это до вечера» → dismissed as "not bound — want to add it?" while a plainly plausible binding exists.
+Rationale: the doubtful-match rule reversed (owner ruling 2026-11-17) — a chord exists for loose meaning, not exact strings; dismissing a plausible match is a missed chord, confirming is one line.
+
+**Good:** no plausible target at all → "not bound — want me to add it?"
+**Bad:** loading a target on a doubtful match without naming it or waiting for the yes.
+Rationale: leaning in is not guessing — the guess loads silently; the lean names the candidate and waits.
 
 **Good:** «закрепи это» — never bound → one "not bound" line, then the request is handled as ordinary chat.
 **Bad:** silently reading «закрепи» as «пиши» or any other near row because the meanings feel adjacent.
@@ -35,7 +39,7 @@ Rationale: the collision note exists to document coexistence, not to redirect th
 ## The metaphor name doesn't hijack the domain
 
 **Good:** "какие аккорды в этой песне?" is answered directly as a music question.
-**Bad:** routing the music question through `references/bindings.md` as if it were a trigger phrase.
+**Bad:** routing the music question through `chords.md` as if it were a trigger phrase.
 Rationale: the skill name is a metaphor — chords is not a music skill, and its surface is bound phrases, not the word "chord".
 
 **Good:** "explain chord progressions" → a plain music answer; the chords skill never loads.

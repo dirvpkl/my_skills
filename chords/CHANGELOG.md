@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.5.0] - 2026-11-17
+- SPLIT (owner ruling): the chord DATA moved to chords.md (the data file
+  bound to the skill); SKILL.md now carries mechanics + the vocabulary
+  (binding, kinds incl. bundle, cheatsheet).
+- INITIATIVE section (owner ruling): watch for repeating phrase patterns,
+  propose chords in one line (never self-bind, never repeat after a
+  decline); added/changed chords are mentioned when they land + cheatsheet
+  regenerates same turn.
+- Doubtful match REVERSED (owner ruling): a plausible match leans in —
+  named and confirmed before loading, never dismissed as "not bound";
+  no literal-matching floor, no hard keywords.
+- make_cheatsheet.py rewired to chords.md; examples.md doubtful-match
+  section rewritten to the reversed rule.
+- description: "suggest" added to the ask list (proposals are an ask too).
+
 ## [1.4.1] - 2026-11-17
 - examples.md: the 'The metaphor name doesn't hijack the domain' section was duplicated whole (header + first pair) by the 1.3.0 append — duplicate removed, both couplets live under one header.
 

@@ -334,7 +334,7 @@ def gen(model: str, out: str) -> int:
     head = ["You write user messages for an agent skill collection.",
             'Answer with a JSON object {"utterances": [{"utterance": "...", "skill": "<skill-name-or-none>"}]}.',
             "For EACH skill listed below write 3 user messages that should make an agent invoke exactly that skill.",
-            "If a message matches no listed skill, use none as the skill. Never use the base skill name as an answer — base is always loaded and a user message never invokes it.", ""]
+            "If a message matches no listed skill, use none as the skill — but a none message must be plainly outside EVERY listed skill (small talk, general knowledge, weather): never write a none message a listed description could plausibly attract. Never use the base skill name as an answer — base is always loaded and a user message never invokes it.", ""]
     # pack skills into batches under the upstream prompt cap
     chunks, cur, size = [], [], 0
     for name, s in ss.items():

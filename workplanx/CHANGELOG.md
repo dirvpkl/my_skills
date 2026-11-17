@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.15.0] - 2026-11-17
+- description: the ordering fact made explicit — tasks naming code work still open the topic first (the exam's weakest-model miss showed the implicit version did not carry).
+
 ## [1.14.0] - 2026-11-17
 - plan.md tasks now also state their **evidence**: what will be verified and what result counts as achieved, fixed before the work starts (the owner's evidence directive, parked 2026-11-15) — SKILL.md Process step 2 + layout.md plan.md contract.
 - examples.md: every case >=2 pairs (one teaching couplet per single-pair section).

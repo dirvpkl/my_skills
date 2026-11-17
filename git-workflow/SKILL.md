@@ -1,7 +1,7 @@
 ---
 name: git-workflow
-description: Version-control conventions for any project work — code, notes, brainstorms, scripts; version control is not only about code. Commit discipline, branch naming, merge gating, dependency caution, .gitignore. ALWAYS invoke when a task changes a git-tracked project, whether or not the user mentions git; do not commit, branch, merge or push without it. NOT for judging finished work (fresh-eyes) or converging until a condition holds (loop).
-version: 1.4.0
+description: Version-control conventions for any project work — code, notes, brainstorms, scripts; version control is not only about code. Commit discipline, branch naming, merge gating, dependency caution, .gitignore. ALWAYS invoke when a task changes a git-tracked project, whether or not the user mentions git, and when asked how the project's version-control procedures work (branching, merging, commits, .gitignore); do not commit, branch, merge or push without it. NOT for judging finished work (fresh-eyes) or converging until a condition holds (loop).
+version: 1.4.1
 ---
 
 # git-workflow
