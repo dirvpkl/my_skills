@@ -1,7 +1,7 @@
 ---
 name: handoff
 description: Structured context handover between agents — one self-sufficient file so a fresh agent with zero chat history can continue. ALWAYS invoke when the owner says handoff or asks to export work for another session or agent. Collects from the inbox, topic folder, git log and the live session; absolute paths, owner words verbatim. NOT a recap for the owner (recap), NOT a value score (roi).
-version: 1.3.0
+version: 1.4.0
 ---
 
 # handoff — context handover between agents
@@ -44,21 +44,22 @@ not silently patched. Then continue the work the handoff describes. The
 file stays the record: what happens next lands in the topic folder, never
 back into the handoff file itself.
 
-## workplanx is the resource base
+## Additional sources beyond the context
 
-Use workplanx and ALL of its resources — the topic folders, the
-owner-message inbox, the hashtag vocabulary (it is defined in workplanx's
-own docs, never restated here). Compare dates while reading: old records
-are stale, the newest ruling wins.
+The REAL base is the context the agent holds right now — the handoff file
+absorbed and the live conversation. Beyond it sit additional sources,
+extra info:
 
-And bind what you take to the CURRENT context: workplanx's records are
-durable and either agent can read them — the handoff's value is what they
-mean for the task being handed over right now, not a copy of what the
-records already say.
-
-The harness may also compress sessions on its own; when session data
-matters, ask the harness directly — where its database is, what the
-schema is, what to read from it.
+- **workplanx** — use it and ALL of its resources (topic folders, the
+  owner-message inbox, the hashtag vocabulary — defined in workplanx's own
+  docs, never restated here). Compare dates while reading: old records are
+  stale, the newest ruling wins. Bind what you take to the current
+  context: the records are durable and either agent can read them — their
+  value here is what they mean for the task being handed over right now,
+  not a copy of what they already say.
+- **the harness DB** — the harness may compress sessions on its own; when
+  session data matters, ask the harness directly — where its database is,
+  what the schema is, what to read from it.
 
 ## Rules
 

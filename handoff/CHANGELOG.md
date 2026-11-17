@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.4.0] - 2026-11-18
+- Framing corrected (owner ruling): workplanx is NOT the resource base —
+  it and the harness DB are ADDITIONAL sources, extra info; the REAL base
+  is the current context the agent holds. Section renamed accordingly.
+
 ## [1.3.0] - 2026-11-18
 - "workplanx is the resource base" section (owner rulings): USE workplanx
   and all its resources — hashtag meanings are looked up in workplanx's
