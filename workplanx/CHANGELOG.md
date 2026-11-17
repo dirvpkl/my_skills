@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.16.0] - 2026-11-18
+- plan.md tasks also state their **association**: an analogy that carries
+  the task's structure (faces, throws, chances — never a decorative vibe).
+  The owner's associations directive (2026-11-17, "мы дошли") landed: the
+  analogy makes the abstract task statement checkable and the two-way work
+  (abstract <-> concrete) easier.
+
 ## [1.15.0] - 2026-11-17
 - description: the ordering fact made explicit — tasks naming code work still open the topic first (the exam's weakest-model miss showed the implicit version did not carry).
 

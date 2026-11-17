@@ -23,6 +23,11 @@ them per task, it does not copy them.
   channel vs. a tool). Name the class and the role of every user noun
   separately, before querying — inheriting the role unexamined narrows the
   search in the wrong direction. One line in the topic folder: class + role.
+- Hold an association while climbing: what does the task look like — an
+  analogy whose structure maps onto the task (faces, throws, chances —
+  structure, not vibes). It anchors the hops in both directions: the
+  abstract verb stays tied to the concrete task, and the concrete search
+  has something to be checked against.
 - Each verb gets 2-3 queries at different abstraction levels, not one
   literal query.
 

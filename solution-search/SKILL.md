@@ -1,7 +1,7 @@
 ---
 name: solution-search
 description: Pre-decision approach search for any domain — decompose into verbs, walk the ladder with URL evidence, propose 2-3 candidates with tradeoffs and one recommendation; a brainstorm mode handles the stuck case. ALWAYS invoke before anything is designed or built, and when the ask is how to do or what to use for something. Do not pick a stack or start building without the user's pick. NOT for finding what exists (researcher), NOT for wiring a chosen approach (coding).
-version: 1.17.1
+version: 1.18.0
 ---
 
 # solution-search (aka brainstorm)

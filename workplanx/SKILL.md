@@ -1,7 +1,7 @@
 ---
 name: workplanx
 description: Task plan-and-log router — every non-trivial task opens a topic folder (plan, search, decision, log), gated structurally and closed with an afterword. ALWAYS invoke at task start, before any search or code — including when the task names code work: the topic opens first, implementation follows. A trivial one-line edit is the only exemption. Do not keep task logs in chat — the folder is the record. NOT for deciding what to build (solution-search) or for implementing (coding).
-version: 1.15.0
+version: 1.16.0
 ---
 
 # workplanx
@@ -35,7 +35,10 @@ ceremony.
    it is actually wired, not merely written ("integrated != wired" — the
    consumer-trace rule shared with `fresh-eyes`), and its **evidence**:
    what will be verified and what result counts as achieved — fixed before
-   the work starts, so the log records proof, not optimism.
+   the work starts, so the log records proof, not optimism — and its
+   **association**: the analogy that carries the task's structure (what it
+   looks like — a dice with faces, throws and chances — structure the
+   abstract statement alone does not hold, never a decorative vibe).
    `decision.md` carries a
    `counter:` line — the best case against
    the agent's own recommendation, written before the `user-pick:` is

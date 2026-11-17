@@ -6,9 +6,11 @@ project = many folders, never one shared log. `.workplanx/` is gitignored.
 ## Files (in order)
 
 - `plan.md` — verbs of the task (`<verb-1>` + `<verb-2>` + ...), scope,
-  non-goals. Each task also names its **consumer** and its **evidence**:
-  what will be verified and what result counts as achieved, fixed before
-  the work starts ("integrated != wired"). Written by the agent at task
+  non-goals. Each task also names its **consumer**, its **evidence** (what
+  will be verified and what result counts as achieved, fixed before the
+  work starts — "integrated != wired") and its **association**: an analogy
+  that carries the task's structure (faces, throws, chances — not a
+  decorative vibe). Written by the agent at task
   start; proceeding past it is not approval of anything — the only approval
   that gates code is `user-pick:` in `decision.md`.
 - `search.md` — per verb: queries run, candidates (`<name>` + `<URL>` +

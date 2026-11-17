@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.18.0] - 2026-11-18
+- method.md, the abstraction step: hold an association while climbing — an
+  analogy whose structure maps onto the task anchors the abstract<->concrete
+  hops in both directions (the owner's associations directive landed; the
+  workplanx plan.md contract carries the same association line).
+
 ## [1.17.1] - 2026-11-17
 - examples.md: every case now carries >=2 Good/Bad pairs (the collection convention) — one teaching couplet added per single-pair section.
 
