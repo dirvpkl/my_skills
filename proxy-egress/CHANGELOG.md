@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.3.0] - 2026-11-17
+- Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).
+- `## Trigger` section removed; the live owner nuance moved to a new
+  "When a proxy is required" section (ask when unsure; coding + autonomous
+  mode = always proxied).
+- Description rewritten as the surfacing contract: ALWAYS-invoke +
+  three NOT-for rules, including the black-box rule (lint was FAIL, now OK).
+- references/examples.md added (the skill had none).
+
 ## [1.2.1] - 2026-11-14
 - Manifest `dependencies` fixed: `docker` and `code-quality` were declared as top-level skills but live as package-level sub-skills inside `coding` (validate_manifest.py failed on both). Per the manifest format's package rule, the dependency is now the package itself (`["boundaries", "coding"]`); the specific sub-skills the skill pairs with (`coding/external-integrations`) stay named in SKILL.md prose.
 

@@ -1,7 +1,7 @@
 ---
 name: proxy-egress
-description: Wire a project's outbound internet traffic through an authenticated proxy with no silent direct-connection fallbacks. Use when a task involves a proxy, PROXY_URL/HTTP_PROXY, egress routing, "route everything through the proxy", NO_PROXY, or auditing a codebase for paths that can reach the internet unbound. Covers per-client-library proxy behavior (httpx, aiohttp, requests, curl_cffi, Telethon, PTB, Go), how to hunt down silent fallbacks, and how to prove routing works in a live container.
-version: 1.2.1
+description: Wire a project's outbound traffic through an authenticated proxy with no silent direct fallbacks. ALWAYS invoke when a task involves a proxy, PROXY_URL/HTTP_PROXY, egress routing, NO_PROXY, or auditing code for paths that can reach the internet unbound; do not wire or audit egress without it. NOT for a consumer of a working proxy, NOT for proxy-service internals (black box), NOT for deciding whether to proxy (ask the owner; coding and autonomous mode always proxy).
+version: 1.3.0
 ---
 
 # proxy-egress
@@ -36,25 +36,18 @@ unbound.
   `coding` dispatcher loads both on proxy-wiring tasks (see its activation
   manifest).
 
-## Trigger
-Engages when the task is about proxying outbound traffic, enforcing mandatory
-egress, or auditing for paths that can reach the internet without a proxy.
-Phrases: "through the proxy", "PROXY_URL", "HTTP_PROXY", "NO_PROXY", "egress",
-"route everything", "don't go direct", "no direct fallback", "proxy pool"
-(routing traffic through one - building the pool service itself is below).
 
-Owner nuance (2026-11-14): a proxy is NOT always needed - when unsure whether
-a task needs one, ask the owner instead of deciding yourself. During CODING
-tasks and in AUTONOMOUS mode a proxy is ALWAYS mandatory: no direct egress,
-no exceptions.
+## When a proxy is required
 
-Does NOT trigger on: a *consumer* of a proxy that already exists and is known
-to work (a single `httpx` client already reading `HTTP_PROXY` in a project with
-`NO_PROXY` in place - there is nothing to decide); proxy *service* internals
-(its own pool logic, routing, credentials storage - that is the user's system,
-treat it as a black box unless asked); or a decision about *whether* to proxy
-at all (when unsure, ask the owner - see the nuance above; during coding tasks
-and autonomous mode it is never a question: always proxy).
+A proxy is not always needed — when unsure whether a task needs one, ask the
+owner instead of deciding. During CODING tasks and in AUTONOMOUS mode a proxy
+is ALWAYS mandatory: no direct egress, no exceptions.
+
+A *consumer* of a proxy that already exists and is known to work (a single
+client already reading `HTTP_PROXY`, `NO_PROXY` in place) is not this skill's
+job. Proxy-service internals are the owner's system and stay a black box.
+Whether a task needs a proxy is a decision the owner makes — except in coding
+and autonomous mode, where it is never a question.
 
 ## Process
 
