@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.16.0] - 2026-11-17
+- Description trimmed to ~400 chars; the contract is unchanged
+  (what it is + ALWAYS invoke + NOT for).
+
 ## [1.15.0] - 2026-11-15
 - Owner review round 3: the self-referential Trigger section deleted
   (base is already loaded — writing that it should be loaded was
