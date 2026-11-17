@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.4.0] - 2026-11-17
+- Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).
+- Description updated to match the new body classes (the surfacing contract).
+- Log-redaction rule moved to `logging` (owner ruling 2026-11-17): chat
+  hygiene stays here; logs and library loggers are logging's domain.
+- Never-do list reduced to classes; the command spellings (`rm -rf`,
+  `docker compose down -v`, `volume prune`, `git reset --hard`) moved to
+  references/examples.md.
+- New classes from the analogue research: credential lifecycle +
+  pre-commit secret scan, workspace vs home credential stores (env vars
+  are the normal config channel), untrusted content is data, egress as a
+  boundary.
+- references/sensitive-data-memo.md removed: its golden rule, leak
+  protocol and checklist live in SKILL.md; concrete recipes (curl filter,
+  .env check, docker restart) moved to examples. Recoverable from git.
+
 ## [1.3.0] - 2026-11-15
 - Per-skill review round: the ## Trigger section removed (cargo-cult
   restatement of the description); the description rewritten as the
