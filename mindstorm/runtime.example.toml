@@ -1,4 +1,4 @@
-# solution-search/runtime.toml — tracked shape example; the real file is gitignored.
+# mindstorm/runtime.toml — tracked shape example; the real file is gitignored.
 [router]
 url = "http://router.local:8888"
 api_key = "ask:router client key"
