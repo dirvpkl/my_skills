@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0] - 2026-11-17
+- Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).
+- `## Trigger` section removed; the explicit-request scope line moved into
+  the intro.
+- Sibling borderline sharpened: researcher surfaces findings; a "which one"
+  ask routes to solution-search immediately.
+
 ## [1.7.2] - 2026-11-12
 - validate_manifest.py: missing-runtime.toml diagnostic and non-table [skills] guard
 

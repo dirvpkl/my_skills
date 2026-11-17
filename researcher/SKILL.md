@@ -1,10 +1,15 @@
 ---
 name: researcher
-description: Autonomous open-ended research for surfacing recent or non-obvious findings on a topic — new releases, niche tools, buried resources, underrated services. Searches abstraction chains (topic → topic class → who else solves it), not just literal queries. Hands pre-decision choices off to solution-search (brainstorm). ALWAYS invoke this skill when the user explicitly asks to find, dig up, or check what's new on a topic ("find what's new", "dig into topic X", "what's new in X"), or in any research-it phrasing (research this, google about this, search the internet for this, find me more services/sites). Do not answer such requests from memory or with a bare one-shot web search — use this skill first. Not a comparison of predefined options against criteria.
-version: 1.7.2
+description: Autonomous open-ended research — surfacing recent or non-obvious findings on a topic by walking abstraction chains and source classes, not literal one-shot queries. ALWAYS invoke when the user explicitly asks to find, dig up or check what's new on a topic. Do not answer such requests from memory or a single web search. NOT for choosing between candidates against criteria (solution-search), NOT for finding something inside the project.
+version: 1.8.0
 ---
 
 # researcher
+
+Scope: explicit requests only — an unfamiliar error or a knowledge gap
+mid-task is not a research request. An imperative ("research new sites",
+"google about this") counts as explicit and often arrives with the think-first
+chord.
 
 Core behavior lives here. Everything else this skill draws on — channel checklist, search technique, and the list of currently-loaded modules — lives in `references/` and `plugins/`, loaded on demand. Extend those, not this file.
 
@@ -13,12 +18,13 @@ Core behavior lives here. Everything else this skill draws on — channel checkl
 - **references/patterns.md** — how to search once inside a channel (sort-by-new, cross-domain transfer, raw-data-over-writeups, RSS-as-radar) and optional search engines (Brave, SearXNG, Exa, dorking).
 - **references/source-log.md** — a running log of research *sources/channels* (websites, hubs, aggregators) discovered mid-session that weren't already in the checklist. Not a log of findings, not a log of skill changes — specifically new places to look, so they can be folded into `sources.md` later once they've proven useful more than once. See "Self-discovery" below for when to write to it.
 
-## Trigger
-Only on explicit user request ("find what's new on X", "dig into topic X", "what's the current state of X"). Does not trigger itself on unfamiliar errors or knowledge gaps during other tasks.
-The owner's imperative form ("research new sites", "google about this") counts as explicit — often paired with the owner's think-first chord.
 
 ## Handoff to solution-search (brainstorm)
-`solution-search` is declared in this skill's `dependencies` — it loads alongside this one rather than being looked up by name at runtime. If the research question is really a pre-decision choice ("what should we build this with", "is there something ready for X") — research the abstraction chains, then hand the topic to `solution-search`: it decomposes into verbs, walks the ladder with URL evidence, and returns candidates with a user pick. Researcher surfaces findings; it never picks stacks or writes decisions. The handoff is one line in the report: what to decide + which verbs it splits into.
+`solution-search` is declared in this skill's `dependencies` — it loads alongside this one rather than being looked up by name at runtime. If the research question is really a pre-decision choice ("what should we build this with", "is there something ready for X") — research the abstraction chains, then hand the topic to `solution-search`: it decomposes into verbs, walks the ladder with URL evidence, and returns candidates with a user pick. Researcher surfaces findings; it never picks stacks or writes decisions. The
+borderline: if the ask names candidate classes and wants one chosen ("which of
+these should we use", "is there something ready for X"), that is
+`solution-search` from the first line — researcher's report is input to it, not
+a substitute. The handoff is one line in the report: what to decide + which verbs it splits into.
 
 ## Goal
 Not a comparison of options against criteria. The goal is to surface genuinely useful findings on a topic — things the user likely doesn't already know. A finding qualifies if it's **recent** (new release, announcement, shift in the field) **or** **non-obvious** (niche, underrated, not what shows up in a five-second search) — ideally both. Skip anything that's common knowledge, a rehash, or something the user has almost certainly already seen given their background.
