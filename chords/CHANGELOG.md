@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.4.1] - 2026-11-17
+- examples.md: the 'The metaphor name doesn't hijack the domain' section was duplicated whole (header + first pair) by the 1.3.0 append — duplicate removed, both couplets live under one header.
+
 ## [1.4.0] - 2026-11-17
 - Description trimmed to ~400 chars; the contract is unchanged
   (what it is + ALWAYS invoke + NOT for).

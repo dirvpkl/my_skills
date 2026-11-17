@@ -42,12 +42,6 @@ Rationale: the skill name is a metaphor — chords is not a music skill, and its
 **Bad:** loading chords because the word "chord" appeared in the message.
 Rationale: the word in the skill's own name is not a binding on the word itself — only user-established phrases fire it.
 
-## The metaphor name doesn't hijack the domain
-
-**Good:** "какие аккорды в этой песне?" is answered directly as a music question.
-**Bad:** routing the music question through `references/bindings.md` as if it were a trigger phrase.
-Rationale: the skill name is a metaphor — chords is not a music skill, and its surface is bound phrases, not the word "chord".
-
 ## Meaning, not regex
 
 **Good:** user says «а отложим это до вечера» → recognized as the «чекни потом» binding by meaning (defer until later), not because the words match.
