@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.3.0] - 2026-11-18
+- "workplanx is the resource base" section (owner rulings): USE workplanx
+  and all its resources — hashtag meanings are looked up in workplanx's
+  own docs, never restated here; compare dates (old records are stale);
+  bind the records to the CURRENT context — the handoff's value is the
+  current-context binding, not a copy of durable records anyone can read.
+- Harness mention: the harness may compress sessions on its own — ask it
+  directly for session data (where the DB, schema, what to read).
+- Owner declined the comprehension-receipt wildshot — the skill stays
+  simple; the receiving flow keeps verify-and-report only.
+
 ## [1.2.0] - 2026-11-17
 - Description trimmed to ~400 chars; the contract is unchanged
   (what it is + ALWAYS invoke + NOT for).

@@ -37,3 +37,13 @@ Rationale: the inbox and topic files are the durable record; chat memory is the 
 **Good:** the fresh agent reads the handoff, runs the checklist, reports "the roster in Commands & paths is dead" and continues on what still holds.
 **Bad:** the fresh agent skims the file and starts executing, discovering mid-work that the trusted model roster was retired the day before.
 Rationale: self-sufficiency is checked by the receiver too — a gap caught before work starts is a one-line report; caught after, it is rework on a wrong foundation.
+
+## Records are pointed at, bound to now
+
+**Good:** the handoff names the workplanx topics that matter and states what each means for the task being handed over ("the auth refactor topic — cards 3-4 are open, the pick landed yesterday").
+**Bad:** the handoff dumps the hashtag vocabulary and copies inbox entries verbatim instead of pointing at them.
+Rationale: workplanx's records are durable and either agent can read them — restating them adds nothing; the value is the binding to the current context.
+
+**Good:** two records contradict → the dates are checked, the newest ruling is followed and the older one is flagged stale.
+**Bad:** following the first decision found in the file because it reads like an instruction.
+Rationale: old records are stale by default — the date is what makes a record current, and a stale one followed silently poisons the continuation.
