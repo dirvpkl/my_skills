@@ -1,7 +1,7 @@
 ---
 name: roi
-description: Value-scoring for the agent's own findings — is this finding actually valuable, or would any cold LLM have said the same thing (the stock question)? ALWAYS invoke when the owner asks to price a find (bare "roi" or any price-the-find phrasing), before publishing or selling anything derived from findings, or asks whether a find is stock (would anyone have found it) — the cold-model stock gate is this skill's hard core and runs before any scoring. Findings are scored and annotated append-only, never deleted or edited. NOT for reviewing finished work (fresh-eyes), NOT for ideation takes and opinions (spine), NOT for finding things (researcher finds; roi prices what was found).
-version: 1.0.0
+description: Value-scoring for findings — is this actually valuable, or would any cold LLM have said the same thing? The cold-model stock gate runs first and can zero the score; findings are annotated append-only, never deleted. ALWAYS invoke when the owner asks to price a find or whether it is stock, or before publishing anything derived from findings. NOT for reviewing finished work (fresh-eyes), NOT for opinions (spine), NOT for finding things (researcher).
+version: 1.1.0
 ---
 
 # roi — value-scoring for findings

@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.0] - 2026-11-17
+- Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).
+- Per-skill review round: examples brought to two pairs per case;
+  description unchanged (already passes the lint contract).
+
 ## [1.0.0] - 2026-11-14
 - First release, built from the handoff spec
   (`Desktop/ampm/.workplanx/11-12-crosslist-analogs/roi-skill-spec.md`,
