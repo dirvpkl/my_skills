@@ -1,13 +1,5 @@
 {
   "skill": "spine",
   "dependencies": [],
-  "planned": [
-    {
-      "id": "personality-profiles",
-      "name": "Personality profiles",
-      "type": "plugin",
-      "status": "not built",
-      "description": "Named talking profiles (skeptic, romantic, opportunist...) for agent-personality systems — each profile biases which own-takes and wild-shots the agent offers."
-    }
-  ]
+  "planned": []
 }

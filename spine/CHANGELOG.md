@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.0] - 2026-11-18
+- Profiles SHIPPED (owner approved the idea): references/profiles.md with
+  the starter set — skeptic, opportunist, romantic, dry, hard-hitter (the
+  «spineX» register: sass-back and go-hard, never insults, tone stays
+  respectful). A profile biases the FLAVOR of takes/wild-shots, never the
+  rules; owner picks by name, calibrates by reaction. The planned
+  personality-profiles manifest entry is built and removed.
+- The hook note: profile/mode state may be injected by a harness hook
+  (metawatcher design, parked).
+- The owner's observation recorded: a grounded/подкованный spine ignores
+  the creative axis — profiles are the flavor axis answer.
+
 ## [1.5.0] - 2026-11-18
 - Wild-shot cap removed (owner: «не нравятся мне ограничения» — the same
   no-caps ruling as mindstorm): the agent judges how many to fire; labeled
