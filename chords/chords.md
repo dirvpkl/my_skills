@@ -7,9 +7,7 @@ An explicit /<skill-name> command (wherever the harness maps /name → skill)
 always beats a chord on collision — record the canonical /command in the
 row's note when one exists.
 Add new rows at the bottom, newest last; never delete a row without the
-user's word. After EVERY edit of this table, run
-`python -I scripts/make_cheatsheet.py` — it renders the one-page card to the
-Desktop (`chords-cheatsheet.md`); a stale card is a lie. What belongs here:
+user's word. What belongs here:
 phrases the user actually types and their resolved targets. What does NOT
 belong here: skill routing rules (those live in each skill's description),
 session logs, one-off jokes the user did not confirm as bindings.

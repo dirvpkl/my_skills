@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0] - 2026-11-17
+- The Desktop cheatsheet card is GONE (owner ruling: "зачем вообще на раб
+  столе что-то? я думал список чордов в папке скилла") — chords/chords.md
+  IS the list, no derived render, no second artifact. make_cheatsheet.py
+  deleted (its only job was the card); the regen instruction removed from
+  the table header and the skill; "mention the change" stays.
+
 ## [1.7.0] - 2026-11-17
 - Chord watching goes FULL background (owner ruling): no prescribed
   observation procedure — the agent notices what it notices, proposes the

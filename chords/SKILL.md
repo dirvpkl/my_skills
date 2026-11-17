@@ -1,7 +1,7 @@
 ---
 name: chords
 description: Personal shortcut bindings — the owner's shorthand phrases map straight to skills, bundles or actions; a binding is a key chord, one phrase and the whole stack sounds. ALWAYS invoke when a bound phrase appears, or when asked to see, add, change, suggest or remove bindings. NOT a music skill — actual chord or music questions are answered directly.
-version: 1.7.0
+version: 1.8.0
 ---
 
 # chords
@@ -43,9 +43,6 @@ The terms used below:
   `bundle` — several skills that load together in the same turn as ONE
   combined obligation (the row is the single place the stack is defined);
   `action` — no skill loads, the described step just runs.
-- **cheatsheet** — the one-page Desktop card (`chords.md`) rendered from
-  the table after every edit (`scripts/make_cheatsheet.py`); a stale card
-  is a lie.
 
 ## Process
 
@@ -74,8 +71,7 @@ Chord watching runs entirely in the background — as it comes to mind, no
 prescribed procedure; the agent notices what it notices. When it notices a
 shorthand forming, it proposes the chord in one line. A decline retires
 the pattern. When a chord IS added or changed, say so plainly — the
-phrase, the target, the kind — and regenerate `chords.md` (the Desktop
-card) in the same turn. The table is the owner's: the skill proposes, the
+phrase, the target, the kind — and mention it in the same turn. The table is the owner's: the skill proposes, the
 owner binds.
 
 ## Editing bindings
