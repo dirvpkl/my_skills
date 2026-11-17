@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.0] - 2026-11-17
+- Description trimmed to ~400 chars; the contract is unchanged
+  (what it is + ALWAYS invoke + NOT for).
+
 ## [1.3.0] - 2026-11-15
 - Per-skill review round. `## Trigger` and `## Does NOT trigger on`
   sections folded away (owner ruling: trigger sections are cargo-cult,
