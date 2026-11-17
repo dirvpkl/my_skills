@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.0] - 2026-11-17
+- Description trimmed to ~400 chars; the contract is unchanged
+  (what it is + ALWAYS invoke + NOT for).
+
 ## [1.1.0] - 2026-11-15
 - Per-skill review round. Trigger-restatement block removed ("Owner requests
   that summon this file...") — the description and chords bindings own the

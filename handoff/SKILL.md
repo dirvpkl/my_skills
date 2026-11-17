@@ -1,7 +1,7 @@
 ---
 name: handoff
-description: Structured context handover between agents — writes a self-sufficient handoff file so a FRESH agent (new session, zero chat history) can continue the work without the conversation. ALWAYS invoke when the owner says "handoff", or in any phrasing for handing a task to another session (export for another agent, a summary or spec for another agent). Complements /compact (which summarizes for the SAME session) — a handoff serves a DIFFERENT agent. NOT a project recap for the owner (recap) and NOT a value score (roi).
-version: 1.1.0
+description: Structured context handover between agents — one self-sufficient file so a fresh agent with zero chat history can continue. ALWAYS invoke when the owner says handoff or asks to export work for another session or agent. Collects from the inbox, topic folder, git log and the live session; absolute paths, owner words verbatim. NOT a recap for the owner (recap), NOT a value score (roi).
+version: 1.2.0
 ---
 
 # handoff — context handover between agents
