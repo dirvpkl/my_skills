@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.0] - 2026-11-17
+- Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).
+- `## Trigger` section removed; its live modes (fog, summon register) are
+  already in Process and the description.
+- New "Sibling borderline" section: what routes to researcher first and what
+  is this skill from the first line.
+
 ## [1.16.3] - 2026-11-15
 - Description: dropped the reference to the deleted `thinking` dispatcher;
   the no-double-invoke note now points at the think-first chord.

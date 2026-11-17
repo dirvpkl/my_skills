@@ -1,7 +1,7 @@
 ---
 name: solution-search
-description: Brainstorm (aka solution-search) — pre-decision approach search for any domain ("how to do X", "what to use for X", "find me a technique for X", "what to replace it with", "is there a better way") — decompose into verbs, walk the less-make ladder top-down with URL evidence, propose 2-3 candidates with tradeoffs and one recommendation. A second mode handles the stuck case ("what could we do about this", "run a brainstorm") — inventory the assets, diverge into routes with real costs, close the dead ends with their evidence, converge on a pick. ALWAYS invoke this skill before anything is designed, built, or made, and whenever the user asks how to do or what to use for something. Do not pick a stack or start building without the user's pick from this skill's candidates — use this skill first. Method only, no domain knowledge, produces a decision and never the thing itself. When the think-first chord fires, this skill is already loaded as part of the bundle; do not re-invoke it separately.
-version: 1.16.3
+description: Pre-decision approach search for any domain — decompose into verbs, walk the ladder with URL evidence, propose 2-3 candidates with tradeoffs and one recommendation; a brainstorm mode handles the stuck case. ALWAYS invoke before anything is designed or built, and when the ask is how to do or what to use for something. Do not pick a stack or start building without the user's pick. NOT for finding what exists (researcher), NOT for wiring a chosen approach (coding).
+version: 1.17.0
 ---
 
 # solution-search (aka brainstorm)
@@ -17,25 +17,6 @@ side, never here.
 - **plugins/manifest.json** — active modules. Check it, don't assume this file
   lists everything.
 
-## Trigger
-
-- Any "how to do <X>?", "what to use for <X>?", "find me a technique/reference
-  for <X>?" — any domain, digital or physical.
-- New capability, new component, or "we already made <X> ourselves, is there a
-  better way?" — before design.
-- **Brainstorm mode** — "we are stuck, what could we do about this?", "run a
-  brainstorm", "what are our options?", or a blocker that the default mode
-  already came back empty on. Same skill, different shape: see
-  `references/brainstorm.md`.
-- **Fog mode (shot-in-the-dark)** — the user says they have an idea but
-  cannot describe it, or the request is deliberately vague ("there's
-  something here, I don't know what"). React, don't interrogate: see
-  Process, fog mode.
-- Does NOT trigger on executing an already-chosen approach. That belongs to
-  whichever skill implements, and it loads only after `decision.md` carries a
-  user pick (see `workplanx`).
-- Owner summon register also counts: "fire up the solution searcher",
-  "brainstorming", "use it as the last resort" — same skill, any spelling.
 
 ## Process
 
@@ -84,6 +65,14 @@ narrows the fog; when a real question remains, the default mode takes over
 with its verbs and ladder. Stop after two fruitless rounds and ask one
 direct question instead — volleys that keep missing are interrogation in
 disguise.
+
+## Sibling borderline
+
+`solution-search` owns the choice; `researcher` owns the supply. When the ask is
+"what exists on X" with no choice to make, researcher runs first and its
+findings feed this skill. When the ask already names candidates and wants one
+picked, this skill runs — no research detour. Neither skill builds: the pick
+lands in `decision.md`, and only then does implementation load.
 
 ## Output format
 
