@@ -1,7 +1,7 @@
 ---
 name: mission
-description: Long-running objective decomposed into a board of cards, worked card-by-card in fresh sessions, each card verified on its own — the orchestrator decomposes and judges, card sessions execute. ALWAYS invoke this skill when the user gives a goal too big for one pass ("build X", "migrate Y", "research Z thoroughly", "break it into cards", "this is a big goal", "let's do it in stages") that needs hours across many steps, unattended. Do not attack such a goal in a single session or improvise the decomposition — use this skill first. Not for a single task, not for retrying one failing thing (that's `loop`).
-version: 1.4.2
+description: Long-running objective decomposed into a board of cards, worked one card per fresh session, each card verified on its own — the orchestrator decomposes and judges, cards execute. ALWAYS invoke when the user gives a goal too big for one pass that needs hours across many steps, unattended. Do not attack such a goal in one session or improvise the decomposition. NOT for a single task, NOT for retrying one failing thing (loop).
+version: 1.5.0
 ---
 
 # mission
@@ -16,16 +16,6 @@ a context that didn't do the work.
   dispatch, and the kanban/whiteboard mechanics.
 - **plugins/manifest.json** — active modules, check it.
 
-## Trigger
-
-- A goal that clearly needs more than one working session: "build the whole
-  thing", "migrate this service", "research this properly", "clean up the repo".
-- The user wants it to run unattended, or to come back to progress rather than
-  a single answer.
-- Do NOT trigger on: one task that fits in a few iterations (that's `loop`), a
-  decision about what to build (compare 2-3 approaches with tradeoffs in
-  `workplanx`), or research
-  that ends in one report (`researcher`).
 
 ## Relationship to `loop` and `workplanx`
 

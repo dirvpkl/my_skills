@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.5.0] - 2026-11-17
+- Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).
+- `## Trigger` section removed (cargo-cult per the owner ruling); its scope
+  lines already live in the description. Description unchanged.
+
 ## [1.4.2] - 2026-11-12
 - validate_manifest.py: missing-runtime.toml diagnostic and non-table [skills] guard
 
