@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0] - 2026-11-17
+- Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).
+- Per-skill review round: `## Trigger` section removed (cargo-cult per the
+  owner ruling; the coding dependency is declared in the manifest).
+- Description rewritten as the surfacing contract: ALWAYS-invoke imperative
+  + NOT-for rule (lint was FAIL, now OK).
+
 ## [1.3.0] - 2026-11-15
 - Repo preflight absorbed from base (owner: the preflight lives only
   here): repo check + dirty-files + foreign-work routing + worktree.

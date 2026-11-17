@@ -1,7 +1,7 @@
 ---
 name: git-workflow
-description: Version-control conventions for ANY project work — code, notes, brainstorms, reverse-engineering, montage, scripts, whatever lives in a repo (git is version control, and version control is not only about code). Commit discipline, branch naming and creation, merge gating, dependency-upgrade caution, and .gitignore hygiene. Use whenever a task involves making changes to a git-tracked project, not just when the user explicitly mentions git.
-version: 1.3.0
+description: Version-control conventions for any project work — code, notes, brainstorms, scripts; version control is not only about code. Commit discipline, branch naming, merge gating, dependency caution, .gitignore. ALWAYS invoke when a task changes a git-tracked project, whether or not the user mentions git; do not commit, branch, merge or push without it. NOT for judging finished work (fresh-eyes) or converging until a condition holds (loop).
+version: 1.4.0
 ---
 
 # git-workflow
@@ -9,8 +9,6 @@ version: 1.3.0
 <!-- v1 - 2026-09-06 -->
 <!-- v1.1.0 - 2026-11-14: promoted out of the coding bundle to a top-level skill; Trigger/description made project-agnostic per the owner — version control covers any project work, not only code. Owner approval phrasings carried over unchanged. -->
 
-## Trigger
-ANY task in a git-tracked project, whatever the work is — code, notes, brainstorms, reverse-engineering, montage, scripts, whatever lives in a repo. Git is version control, and version control is not only about code. The `coding` dispatcher also keeps it loaded as a mandatory sibling dependency on every code write/edit — see coding's activation manifest, which is the real dispatch logic, not this line in isolation.
 
 ## Git everywhere
 
