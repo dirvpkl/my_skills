@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.4.1] - 2026-11-17
+- Chat hygiene: the checklist bullet that duplicated the pre-show check and pointed at the deleted memo file ("memo's checklist, section 7") removed — the surviving bullet (form-not-values, leak classes, revocability) is the single checklist.
+
 ## [1.4.0] - 2026-11-17
 - Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).
 - Description updated to match the new body classes (the surfacing contract).

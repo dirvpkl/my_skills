@@ -1,7 +1,7 @@
 ---
 name: boundaries
 description: Rules for secrets, credentials, logs, chat hygiene, browser data, data preservation, untrusted content, egress and any access outside the project — when to ask first, how to scope a credential, how to handle an exposure, what must never reach chat. ALWAYS invoke before a task could touch any of these: reading a log, opening a browser profile, a volume or database, a file outside the project, or sending data out; notes, research and conversation count, not only code. NOT for in-project work that touches none of them.
-version: 1.4.0
+version: 1.4.1
 ---
 
 # boundaries
@@ -44,7 +44,6 @@ The golden rule is a hard rule: **anything already in the chat or transcript is 
 - Files with secrets are checked by script with boolean/length output, never read "to see what's there". The user fills in secret values themselves; the agent never needs to see them. `.env` goes into `.gitignore` before the first commit.
 - Docker: `env_file:` in compose is fine (values are substituted, nobody reads the file); `docker logs` is a leak vector — anything a library logged spills out on the first view; after a secret change, restart (re-reads .env silently) rather than rebuild; after a leak, rebuild doesn't help — the secret lived in the old container's stdout. Revoke.
 - Leak protocol, in this order: revoke immediately (a dead token in logs is just garbage), issue the new value into the file — not the chat — and restart, figure out what else lived in that same output (another token? card? phone?), only then investigate how it leaked and add a filter. Reversing the order means you forget to revoke.
-- Before every "show the output in chat" moment, run the memo's checklist (section 7): token/key/password present? personal data present (phone, card number, name, address)? anything usable even once? filter applied (form, not values)? if it leaks anyway — is it revocable? (a token is, a card number is not).
 
 ## Assigned scope only
 

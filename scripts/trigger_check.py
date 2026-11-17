@@ -389,7 +389,9 @@ def run_default(models: list | None = None) -> int:
         # so a commit made after the exam does not false-alarm, but any
         # desc edited after the exam does.
         import hashlib
-        payload = json.dumps(skills(), sort_keys=True, ensure_ascii=False)
+        payload = json.dumps(
+            {n: s["description"] for n, s in skills().items()},
+            sort_keys=True, ensure_ascii=False)
         digest = hashlib.sha256(payload.encode()).hexdigest()[:16]
         Path(".exam-run").write_text(
             json.dumps({"desc_hash": digest,

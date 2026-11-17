@@ -207,7 +207,9 @@ def check_exam_currency(warnings: list) -> None:
         _sys.path.insert(0, str(Path(__file__).resolve().parent))
         from trigger_check import skills
         recorded = _json.loads(marker.read_text(encoding="utf-8"))
-        payload = _json.dumps(skills(), sort_keys=True, ensure_ascii=False)
+        payload = _json.dumps(
+            {n: s["description"] for n, s in skills().items()},
+            sort_keys=True, ensure_ascii=False)
         digest = hashlib.sha256(payload.encode()).hexdigest()[:16]
         if digest != recorded.get("desc_hash"):
             warnings.append(
