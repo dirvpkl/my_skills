@@ -10,8 +10,6 @@ them per task, it does not copy them.
 - Split the feature into `<verb-1>` + `<verb-2>` + ... before any search.
 - One verb = one need (e.g. `<acquire>` + `<enrich>` + `<publish>` +
   `<observe>`). If two verbs share one query, the split is wrong — redo it.
-- The association's faces suggest the split: each face the analogy carries
-  is a candidate verb; a face with no verb is an unasked need.
 - Never emit the thing itself at this stage — no artifacts, no configs, no
   scaffolds. Verbs only.
 
@@ -56,16 +54,13 @@ fit/no-fit reason → pick. Rules:
   `<own-make>` with the query log attached as the reason. "Nothing exists"
   without a query log is not a result; with a query log, it is.
 - A candidate without a URL doesn't exist — URLs are what make a candidate real.
-- Max 2-3 candidates in the proposal. More = the verbs were too coarse.
+- The proposal grows to what the search earned — the agent judges how many to show, or shows all. A list turning unwieldy is a verb-coarseness symptom, not a trimming job.
 - Every `<own-make>` pick names the higher levels tried and why each failed.
 
 ## 5. Propose, don't build
 
 - Lead with one recommendation + why. List tradeoffs per candidate:
   scope fit, upkeep cost, lock-in. Ask for a pick. Stop.
-- Check every candidate against the association: does it keep the
-  structure (faces, throws, chances) or break it? A candidate that fights
-  the analogy is fighting the task — say so in its fit/no-fit line.
 - Output is a decision, not an execution. Doing belongs to whatever acts on
   the decision, after approval — never here.
 

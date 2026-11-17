@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.2.0] - 2026-11-18
+- NO CAPS (owner ruling: «не нравятся мне ограничения», «агент сам будет
+  предлагать, сколько показать. либо все»): the 2-3 candidate cap removed
+  from method.md + SKILL.md step 5 (a list turning unwieldy is a
+  verb-coarseness symptom, not a trimming job); the fog volley "up to
+  three" removed.
+- Instructional lines moved OUT of the method (owner: instructions live in
+  examples — the method explains how to think): the faces-suggest-verbs and
+  candidate-vs-analogy checks became worked demonstration scenes in
+  examples.md. The spine one-wild-shot cap removal is queued for spine's
+  walkthrough turn.
+
 ## [2.1.0] - 2026-11-18
 - The association now threads ALL steps (owner: «кубик должен быть во время
   майндшторма как раз, все вообще должно быть»): the analogy's faces suggest

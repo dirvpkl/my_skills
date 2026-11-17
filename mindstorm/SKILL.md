@@ -1,7 +1,7 @@
 ---
 name: mindstorm
 description: Pre-decision approach search for any domain — decompose into verbs, walk the ladder with URL evidence, propose 2-3 candidates with tradeoffs and one recommendation; a brainstorm mode handles the stuck case. ALWAYS invoke before anything is designed or built, and when the ask is how to do or what to use for something. Do not pick a stack or start building without the user's pick. NOT for finding what exists (researcher), NOT for wiring a chosen approach (coding).
-version: 2.1.0
+version: 2.2.0
 ---
 
 # mindstorm
@@ -41,10 +41,12 @@ Both end in a pick, and neither executes.
    no result — except the zero-candidate path: queries logged + zero
    suitable candidates = legitimate result, decided as `<own-make>` with
    the query log as the reason (see `method.md`).
-5. Propose 2-3 candidates max with tradeoffs (scope, upkeep cost, lock-in),
-   lead with one recommendation and why. Wait for the user's pick before
-   anything is made. This skill produces a decision, not the thing — no
-   artifacts, no configs, no scaffolding.
+5. Propose what the search earned, with tradeoffs (scope fit, upkeep cost,
+   lock-in), lead with one recommendation and why — the agent decides how
+   many to show, or shows all. A list turning unwieldy is a verb-coarseness
+   symptom, not a trimming job. Wait for the user's pick before anything is
+   made. This skill produces a decision, not the thing — no artifacts, no
+   configs, no scaffolding.
 
 **Brainstorm mode (find the routes):** when the question is what to do about
 a dead end rather than which technique to use. Inventory the spendable assets
@@ -56,7 +58,7 @@ line. The mechanics are in `references/brainstorm.md`.
 
 **Fog mode (shot-in-the-dark):** when the user has an idea they cannot
 articulate. Do not ask them to describe it — reacting to misses is easier
-than describing from scratch. Fire up to three concrete candidate
+than describing from scratch. Fire concrete candidate
 interpretations per round, each a labeled wild-shot (spine's
 one-wild-shot-per-turn cap is waived here by the user's explicit request for
 volleys), and let them correct the misses. Shots within a volley must

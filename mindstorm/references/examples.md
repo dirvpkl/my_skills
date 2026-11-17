@@ -86,3 +86,15 @@ Rationale: no URLs = no result — an unlogged run can't be checked, re-run, or 
 **Good:** a hit that fits no existing kind gets its own kind, written down.
 **Bad:** forcing every hit into the established kinds to keep the list tidy.
 Rationale: a new kind is often the finding — the taxonomy grows when reality does not fit it.
+
+## The association thinking, shown (the dice)
+
+Scene: the owner says «мне надо сделать так, чтобы пачка моих ботов симулировала человеческие действия» — abstract, unclear, needs a concept before any search.
+
+The thinking, live: the analogy forms — **a dice you keep throwing, an action falls out each time**. Now the dice carries structure: faces (a discrete set of actions exists), one throw = one action (actions fire one at a time), chances (actions differ in probability).
+
+The faces suggest the verb split: <generate action> + <pace it> + <judge plausibility> — a face with no verb is an unasked need. Climbing the ladder with the dice held keeps "bot-human behavior simulation" as the class. Every candidate is checked against the analogy: one that hardcodes a single script is a dice with one face — its fit/no-fit line says so.
+
+**Good:** the analogy is formed from the abstract statement, held through every step, and used as the check.
+**Bad:** "bots simulate humans" searched literally, one list dumped, no structure anywhere.
+Rationale: the association is what makes an abstract task checkable at every step — taught here by the scene, not by a rule.
