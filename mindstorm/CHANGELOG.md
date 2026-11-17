@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0] - 2026-11-18
+- The association now threads ALL steps (owner: «кубик должен быть во время
+  майндшторма как раз, все вообще должно быть»): the analogy's faces suggest
+  the verb split (step 1), it anchors the abstraction climb (step 2, since
+  1.18.0), and every candidate is checked against it in the proposal
+  (step 5) — a candidate fighting the analogy fights the task.
+
 ## [2.0.0] - 2026-11-18
 - RENAMED: solution-search -> mindstorm (owner pick 2026-11-18, a
   brainstorming-adjacent name; "brainstorming" itself was ruled избитое).
