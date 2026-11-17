@@ -32,9 +32,9 @@ Rationale: the filled line is the entire handoff to the executor — an invented
 **Bad:** cleaned-up prose in the pick line.
 Rationale: the verbatim mess is the record; tidiness smuggles the agent's interpretation into the one line that gates the build.
 
-## No URLs = no result
+## No evidence = no result
 
-**Good:** every candidate in `search.md` carries its URL and ladder level; zero candidates is logged with the queries that found nothing.
+**Good:** every candidate in `search.md` carries its evidence (URL, or file path + line for anything local) and ladder level; zero candidates is logged with the queries that found nothing.
 **Bad:** "I checked, nothing suitable exists — go with own-make," with no query log.
 Rationale: evidence per verb is the rule; a claim without URLs is a guess wearing a verdict.
 

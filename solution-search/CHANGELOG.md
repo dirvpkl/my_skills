@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.19.0] - 2026-11-18
+- Evidence rule widened (owner ruling): evidence = what the next agent can
+  RE-CHECK — a URL for the web, a file path (+ line) for anything local, a
+  command's output for anything runnable; never memory. "No URLs" reworded
+  to "no evidence" across method.md, SKILL.md and the serendipity block.
+
 ## [1.18.1] - 2026-11-18
 - verb-radar.md: the summon-phrase list removed (the summon register lives
   in chords, not in reference files); the pre-verdict ALWAYS rule kept,

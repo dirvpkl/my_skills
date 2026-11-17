@@ -1,7 +1,7 @@
 ---
 name: solution-search
 description: Pre-decision approach search for any domain — decompose into verbs, walk the ladder with URL evidence, propose 2-3 candidates with tradeoffs and one recommendation; a brainstorm mode handles the stuck case. ALWAYS invoke before anything is designed or built, and when the ask is how to do or what to use for something. Do not pick a stack or start building without the user's pick. NOT for finding what exists (researcher), NOT for wiring a chosen approach (coding).
-version: 1.18.1
+version: 1.19.0
 ---
 
 # solution-search (aka brainstorm)
@@ -36,7 +36,8 @@ Both end in a pick, and neither executes.
    `<component>` > `<template>` > `<own-make>`. Stop at the first level that
    fits. `<own-make>` needs a written reason why higher levels don't fit.
 4. Evidence per verb in the topic folder's `search.md`: queries run,
-   candidates with URLs, fit/no-fit reason, ladder level, pick. No URLs =
+   candidates with evidence (a URL for the web, a file path + line for
+   anything local), fit/no-fit reason, ladder level, pick. No evidence =
    no result — except the zero-candidate path: queries logged + zero
    suitable candidates = legitimate result, decided as `<own-make>` with
    the query log as the reason (see `method.md`).
@@ -78,7 +79,7 @@ lands in `decision.md`, and only then does implementation load.
 
 All output goes to the `workplanx` topic folder (see that skill's layout),
 never only chat:
-- `search.md` per verb: `verb | queries | candidates (name + URL + ladder level) | pick + why`, plus optional `serendipity:` block (max 3, URLs required).
+- `search.md` per verb: `verb | queries | candidates (name + evidence: URL or file path + ladder level) | pick + why`, plus optional `serendipity:` block (max 3, evidence required).
 - `decision.md`: max 2-3 candidates with tradeoffs, one recommendation,
   `user-pick:` filled by transcribing the user's reply verbatim (never
   invented by the agent). That filled line is the entire handoff to whoever

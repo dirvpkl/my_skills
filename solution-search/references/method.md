@@ -69,9 +69,9 @@ fit/no-fit reason → pick. Rules:
 - While surfing, the agent will trip over valuable things that don't answer
   the current verb (a tool for a neighboring problem, a better primitive).
   Don't swallow them and don't wedge them into the proposal.
-- Log up to 3 in `search.md` under a `serendipity:` block: `<name>` + `<URL>` +
-  one line why it's valuable + which future verb it might serve. Never more
-  than 3, never without a URL, never inside the decision.
+- Log up to 3 in `search.md` under a `serendipity:` block: `<name>` + evidence
+  (URL or file path) + one line why it's valuable + which future verb it might
+  serve. Never more than 3, never without evidence, never inside the decision.
 - The user decides whether any of them becomes a new verb. Unasked promotion
   of a serendipitous find into the recommendation is a violation — surfacing
   is the job, selling is not.
