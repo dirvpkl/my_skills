@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.16.1] - 2026-11-18
+- desc narrowed (exam catch): "including when the task names code work"
+  made workplanx swallow bare execution commands ("write a script", "run
+  the tests") — the topic-first rule applies to PROJECT-SCALE work; bare
+  commands go to coding without a folder.
+
 ## [1.16.0] - 2026-11-18
 - plan.md tasks also state their **association**: an analogy that carries
   the task's structure (faces, throws, chances — never a decorative vibe).

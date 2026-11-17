@@ -1,7 +1,7 @@
 ---
 name: workplanx
-description: Task plan-and-log router — every non-trivial task opens a topic folder (plan, search, decision, log), gated structurally and closed with an afterword. ALWAYS invoke at task start, before any search or code — including when the task names code work: the topic opens first, implementation follows. A trivial one-line edit is the only exemption. Do not keep task logs in chat — the folder is the record. NOT for deciding what to build (mindstorm) or for implementing (coding).
-version: 1.16.0
+description: Task plan-and-log router — every non-trivial task opens a topic folder (plan, search, decision, log), gated structurally and closed with an afterword. ALWAYS invoke at task start, before any search or code, when the work is project-scale (a feature, a refactor, a migration); bare execution commands go to coding without a folder. Do not keep task logs in chat — the folder is the record. NOT for deciding what to build (mindstorm) or for implementing (coding).
+version: 1.16.1
 ---
 
 # workplanx

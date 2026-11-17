@@ -1,7 +1,7 @@
 ---
 name: watchdog
-description: Supervision ticks that watch without doing the watched work — one wait-round per tick, behavior fixed by a profile (sessions, skills-reminder, collection-audit). ALWAYS invoke to set up a recurring supervision tick, a skill reminder or a collection audit, or when asked to check on workers. Do not hand-roll scheduled nudges. NOT for new work arriving — supervision only watches already-running work.
-version: 3.4.1
+description: Supervision ticks that watch without doing the watched work — one wait-round per tick, behavior fixed by a profile (sessions, skills-reminder, collection-audit). ALWAYS invoke for supervision ticks, skill reminders and collection audits — recurring or one-shot — or when asked to check on workers. Do not hand-roll scheduled nudges. NOT for new work arriving — supervision only watches already-running work.
+version: 3.4.2
 ---
 
 # watchdog

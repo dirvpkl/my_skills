@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.3.3] - 2026-11-18
+- desc: the quality-ask clause narrowed — a plain code-review task is
+  coding's; fresh-eyes judges FINISHED work independently (exam catch: the
+  broad clause attracted config-review tasks).
+
 ## [1.3.2] - 2026-11-17
 - description: the direct quality-ask ("is this well-written?") is an ALWAYS-invoke case — the exam's coding-vs-fresh-eyes miss exposed the gap.
 

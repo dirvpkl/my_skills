@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.4.2] - 2026-11-18
+- desc: one-shot audits and reminders are in-scope (the "to set up a
+  recurring" framing repelled direct audit/remind requests — exam miss).
+
 ## [3.4.1] - 2026-11-17
 - examples.md: every case now carries >=2 Good/Bad pairs (the collection convention) — one teaching couplet added per single-pair section.
 
