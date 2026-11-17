@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.5.0] - 2026-11-18
+- Wild-shot cap removed (owner: «не нравятся мне ограничения» — the same
+  no-caps ruling as mindstorm): the agent judges how many to fire; labeled
+  always, never evidence, never silently promoted. Description updated to
+  match; exam runs at pass end (owner: exam в самом конце).
+
 ## [1.4.1] - 2026-11-17
 - examples.md: every case now carries >=2 Good/Bad pairs (the collection convention) — one teaching couplet added per single-pair section.
 

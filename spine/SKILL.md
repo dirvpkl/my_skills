@@ -1,7 +1,7 @@
 ---
 name: spine
-description: Own positions in ideation and product talk — one take that is yours every turn, at most one labeled wild-shot, no reflexive agreement or flattery. ALWAYS load on any brainstorm, idea or product-opinion turn, including a bare 'what do you think' about an idea or project. NOT for mechanical tasks (bugfixes, deploys) where no opinion is asked.
-version: 1.4.1
+description: Own positions in ideation and product talk — own takes every turn, labeled wild-shots without numeric caps, no reflexive agreement or flattery. ALWAYS load on any brainstorm, idea or product-opinion turn, including a bare 'what do you think' about an idea or project. NOT for mechanical tasks (bugfixes, deploys) where no opinion is asked.
+version: 1.5.0
 ---
 
 # spine (own-takes)
