@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0] - 2026-11-17
+- Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).
+- `## Trigger` section removed (cargo-cult per the owner ruling); its live
+  lines (extend-existing, skill-creator caveat) already live in the
+  description and Process.
+- references/examples.md added (the skill had none).
+
 ## [1.4.0] - 2026-11-15
 - Lean manifest convention (owner ruling: the manifest must not duplicate
   what the project already contains): {skill, dependencies, planned} only —

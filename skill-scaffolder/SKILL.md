@@ -1,7 +1,7 @@
 ---
 name: skill-scaffolder
-description: Scaffold a new skill's file layout and restructure or extend an existing loose or flat skill into the same modular shape — SKILL.md + references/ + plugins/manifest.json + scripts/ + CHANGELOG.md + VERSION. ALWAYS invoke this skill when creating a new skill ("create a skill", "turn this into a skill", "new skill for X"), reorganizing skill files into proper modular structure, or adding a reference module, script, or manifest entry to a skill that already exists. Do not hand-assemble a skill folder or invent its layout — use this skill first. Not for evaluating or optimizing an existing well-formed skill's trigger accuracy — for that, defer to skill-creator if present.
-version: 1.4.0
+description: Scaffold a new skill's modular layout or restructure and extend an existing one — SKILL.md, references, plugins/manifest.json, scripts, CHANGELOG, VERSION. ALWAYS invoke when creating a skill, reorganizing a flat one, or adding a module, script or manifest entry. Do not hand-assemble a skill folder or invent its layout. NOT for evaluating a description's accuracy or running evals (skill-creator).
+version: 1.5.0
 ---
 
 # skill-scaffolder
@@ -16,12 +16,6 @@ Scaffolds a new skill's file layout AND restructures/extends an existing loose o
 - **scripts/scaffold.py** — generates the full directory structure with templates filled in, given a skill name.
 - Validation is repo-wide: `python -I scripts/validate.py --skills <name>` at the collection root (per-skill validator copies were removed 2026-11-15).
 
-## Trigger
-- User wants to create a new skill from scratch.
-- User has a rough idea, a workflow, or a pile of notes and wants it turned into a skill.
-- User has an existing skill that's a single flat file, or several loose files with no manifest/discovery, and wants it reorganized.
-- User has an existing well-formed skill and wants to EXTEND it: add a reference module, a script, a manifest entry, or a new section — scaffolding covers growth, not just birth. Read the skill's manifest first, add the piece in the right place, validate.
-- Do NOT trigger for: writing evals, running trigger-accuracy tests, optimizing a skill's `description` field for better triggering, or benchmarking skill performance — that's `skill-creator`'s job, not this one's.
 
 ## Core layout (what gets created)
 ```
