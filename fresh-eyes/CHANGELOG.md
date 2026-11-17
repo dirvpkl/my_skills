@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.0] - 2026-11-17
+- Descriptions trimmed to ~400 chars across the collection (the listing cost: 12k -> ~8k chars).
+- `## Trigger` section removed; the trivial-edit exemption moved into "What
+  the judge is for".
+- Judge input now names the parent's loaded skills + read access to the
+  workplanx topic folder (owner directive).
+- references/examples.md added (the skill had none).
+
 ## [1.2.2] - 2026-11-12
 - validate_manifest.py: missing-runtime.toml diagnostic and non-table [skills] guard
 

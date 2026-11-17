@@ -15,6 +15,7 @@ checklist.
 6. **Fail-loud violations**: any defensive try/except with no real recovery action? Any silent fallback or placeholder value standing in for a real failure?
 7. **Naming**: does every name (including test names) reflect what the thing actually does?
 8. **God-files / god-functions**: is any single file or function doing "everything" instead of being split along actual responsibilities?
+9. **Consumer trace (integrated is not wired)**: does the new code have a real consumer — an entry point that constructs and calls it — or does it exist beside the product? "Integrated" means wired into the path something actually takes, not merely present in the tree.
 
 ## What NOT to do
 - Don't fix anything — report only.

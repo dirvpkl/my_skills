@@ -1,7 +1,7 @@
 ---
 name: fresh-eyes
-description: Clean-context judging of finished work by a fresh agent that never saw how it was written — two modes — `quality` (was the work done well, against the code checklist) and `conformance` (was it done to the plan, requirement by requirement). ALWAYS invoke this skill when code and checks have passed and before reporting done, and whenever a claim of "works" / "done" needs independent backing — user phrases like "double-check it" land here whenever finished work exists to judge. Do not report work as finished on the author agent's own word — use this skill first. Reports only — never fixes, never talks to the user. NOT for bare opinion requests with nothing built (answer with a spine stance, no skill).
-version: 1.2.2
+description: Clean-context judging of finished work by an agent that never saw how it was written — quality (was it done well) and conformance (was it done as asked). ALWAYS invoke when checks pass and before reporting done, and whenever a claim of works or done needs independent backing. Do not report work as finished on the author's own word. NOT for a bare opinion with nothing built (spine).
+version: 1.3.0
 ---
 
 # fresh-eyes
@@ -16,17 +16,6 @@ procedure lives; other skills point here, none of them restate it.
 - **references/conformance.md** — mode `conformance`: plan-to-diff checking.
 - **plugins/manifest.json** — active modules, check it.
 
-## Trigger
-
-- A non-trivial change is finished and checks passed, before it's reported as
-  done. Both modes; see "Pick the mode" below.
-- Any time something is about to be claimed as working, complete, or
-  plan-conformant and that claim hasn't been checked by something that didn't
-  do the work.
-- Never on a trivial edit (typo, rename, comment) — there is nothing to judge.
-- The owner's close-of-pass summons — a review request, a fresh-eyes
-  reminder, "anything left over?" — same trigger: finished work is on
-  the table.
 
 ## Pick the mode
 
@@ -47,7 +36,10 @@ that catches scope drift.
    if there is one (`workplanx`). The judge gets artifacts, never your
    narration of how you did it.
 2. Pick the mode (or both) and hand over the matching reference file's
-   contents **verbatim** — don't summarize it, don't pre-empt findings.
+   contents **verbatim** — don't summarize it, don't pre-empt findings. The
+   judge gets the same skills the parent agent had loaded, plus read access to
+   the `workplanx` topic folder: it cross-checks the work against the records,
+   not against your account of them.
 3. Dispatch a fresh agent with clean context — prefer an agent session over a
    subagent. It reports back; it does not edit files, and it does not talk to
    the user.
@@ -63,6 +55,8 @@ that catches scope drift.
   `fresh-eyes` looks at the result of them.
 - It is **not** an oracle. A clean review does not prove the work is right —
   it only proves a second pair of eyes found nothing. Say it that way.
+- It is **not** for trivial edits (typo, rename, comment) — there is nothing
+  to judge.
 - It is **not** the phase gate. Whether the task was allowed to start at all
   is `workplanx`'s `plan_gate.py`. This skill never re-litigates that.
 
