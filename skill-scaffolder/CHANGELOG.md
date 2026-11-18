@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.0] - 2026-11-19
+- Chords section: the table moved to chords/chords.md (the data-file split)
+  and matching is by meaning — the section reworded; the suggested 2-3
+  owner phrasings per new skill stay.
+- examples.md convention: the path separator fixed, and the pair count
+  aligned with the collection convention (>=2 per case, 3-5 total to
+  start).
+
 ## [1.6.0] - 2026-11-18
 - Anti-pattern #5 + layout.md rewritten to the intent-not-keywords doctrine
   (owner ruling 2026-11-15): the old advice literally recommended keyword

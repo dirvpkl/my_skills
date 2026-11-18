@@ -1,7 +1,7 @@
 ---
 name: skill-scaffolder
 description: Scaffold a new skill's modular layout or restructure and extend an existing one — SKILL.md, references, plugins/manifest.json, scripts, CHANGELOG, VERSION. ALWAYS invoke when creating a skill, reorganizing a flat one, or adding a module, script or manifest entry. Do not hand-assemble a skill folder or invent its layout. NOT for evaluating a description's accuracy or running evals (skill-creator).
-version: 1.6.0
+version: 1.7.0
 ---
 
 # skill-scaffolder
@@ -34,7 +34,7 @@ skill-name/
 ```
 Not every skill needs all of these — see "Scaling the layout down" below. But when in doubt, this is the full shape, and it's easier to omit an empty folder than to retrofit one in later.
 
-Every scaffolded skill ships `references\examples.md` (3–5 good/bad pairs with rationales) — the owner's convention: examples teach HOW the skill applies; scaled-down skills may fold the pairs into SKILL.md itself.
+Every scaffolded skill ships `references/examples.md` — good/bad pairs with rationales, >=2 per case, 3-5 total to start. The owner's convention: examples teach HOW the skill applies; scaled-down skills may fold the pairs into SKILL.md itself.
 
 ## Process
 1. **Understand what the skill is for.** Ask (or infer from conversation) what the skill should do, when it should trigger, and roughly how it should work — same intent-capture as any skill-writing task. Don't skip straight to file structure before this is clear; structure follows content, not the other way around.
@@ -56,9 +56,9 @@ to the skill invocation — no extra wiring exists at the skill level, and
 none belongs here. Two trigger layers live above the skill, both
 harness-agnostic data, not code:
 
-- **Chords** (the `chords` skill's `references/bindings.md`) — the owner's
-  phrasal triggers, substring-matched, routing to a skill, a bundle of
-  skills, or a plain action. When scaffolding a skill, suggest 2–3 owner
+- **Chords** (the `chords` skill's `chords.md`) — the owner's phrasal
+  triggers, matched by meaning, routing to a skill, a bundle of skills, or
+  a plain action. When scaffolding a skill, suggest 2–3 owner
   phrasings for that table and record the canonical `/<name>` form in the
   row's note — an explicit /command always wins over a chord on collision.
 - **Slash commands** — harness-native config. The skill never embeds
