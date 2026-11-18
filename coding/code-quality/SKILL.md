@@ -1,7 +1,7 @@
 ---
 name: code-quality
 description: Architecture, coding principles and fail-loud error handling for any code write or edit — service separation, no god-files, no hardcoding, DRY/KISS, naming, typing, contracts, lint order, security flags. ALWAYS invoke whenever code is written or changed, not only for an explicit cleanup or refactor. NOT for test design (testing), NOT for logging or retry wiring (logging, external-integrations).
-version: 1.8.1
+version: 1.8.2
 ---
 
 <!-- v1 - 2026-09-06 -->
@@ -61,8 +61,8 @@ Anything built or changed under this skill assumes the `logging` skill is alread
 - No orphan constants. Every module-level constant is read somewhere in the
   same package — a constant nobody consumes is dead code in a config-shaped
   disguise: it looks authoritative, then silently drifts from the value the
-  code actually uses. Delete it or wire it; a grep for the name is the cheap
-  check until the package's checker exists.
+  code actually uses. Delete it or wire it; the cheap check is the package's
+  checker: `scripts/orphan_constants.py`.
 - No legacy: TODOs/FIXMEs, stub code, dead code, `as unknown`-style workarounds — remove, don't preserve. Rewrite unclear logic instead of wrapping it in a patch.
 - DRY: duplicated helpers get pulled into shared core code, not copy-pasted.
 - KISS: prefer the simplest design that solves the actual problem — no speculative abstraction, no premature generalization, no extra layers "just in case."
