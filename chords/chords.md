@@ -43,6 +43,7 @@ session logs, one-off jokes the user did not confirm as bindings.
 | "солюшнсерчер", "юзани на последок", "брейншторминг" | mindstorm | skill | relocated 2026-11-14 |
 | "оцени мои проектики", "как тебе идея", "давай spine" | spine | skill | ideation turns; wild-shot phrases moved to the mindstorm row below (owner: «все в майндшторм») |
 | "накинь вайлдшотов", "постреляй вайлдшотами", "any wild shots" | mindstorm | skill | wild-shot volleys (fog mode + thought-work — wild-shots live in mindstorm since spine 2.0.0 removed them) | relocated 2026-11-14 |
+| "чекай <skill-name>", "чекни скилл", "check the skill" | workplanx | skill | opens that skill's REVIEW turn: read it fresh, apply the standing rulings, fix, bump, report (owner wildshot landed 2026-11-18: «чекай хэндоф» worked by interpretation — the row makes the review turn a first-class citizen) |
 | "нужен ревью", "не забудь фреш айс", "ревью, что-то осталось?" | fresh-eyes | skill | relocated 2026-11-14 |
 | "спека для другого агента", "я другому агенту пихну", "запиши все-все-все" | handoff | skill | relocated 2026-11-14 (extends хендофф row) |
 | "что мы тут делали", "что мы тут с тобой обсуждали" | recap | skill | relocated 2026-11-14 (extends перескажи row) |
