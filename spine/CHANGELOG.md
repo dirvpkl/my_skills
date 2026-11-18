@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.7.0] - 2026-11-18
+- Profiles got their own folder: spine/profiles/<name>.md — one file per
+  profile, each with calibration notes; the file IS the profile (owner
+  tunes by editing it), the folder adapts them into the skill (owner
+  placement ruling). references/profiles.md removed.
+
 ## [1.6.0] - 2026-11-18
 - Profiles SHIPPED (owner approved the idea): references/profiles.md with
   the starter set — skeptic, opportunist, romantic, dry, hard-hitter (the
