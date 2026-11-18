@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0] - 2026-11-18
+- The creative machinery moved IN (owner ruling: «все в майндшторм» — no
+  separate serendipity skill): references/thought-work.md holds wild-shots
+  (moved from spine, no caps), gems (the judgment criteria; storage stays
+  workplanx's), associations and the how-to-look procedure. The wild-shot
+  example scenes moved here from spine's examples.
+
 ## [2.2.0] - 2026-11-18
 - NO CAPS (owner ruling: «не нравятся мне ограничения», «агент сам будет
   предлагать, сколько показать. либо все»): the 2-3 candidate cap removed

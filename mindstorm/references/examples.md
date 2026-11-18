@@ -98,3 +98,13 @@ The faces suggest the verb split: <generate action> + <pace it> + <judge plausib
 **Good:** the analogy is formed from the abstract statement, held through every step, and used as the check.
 **Bad:** "bots simulate humans" searched literally, one list dumped, no structure anywhere.
 Rationale: the association is what makes an abstract task checkable at every step — taught here by the scene, not by a rule.
+
+## Wild-shots, shown (moved from spine)
+
+**Good:** "wild-shot: maybe the whole onboarding should be one screen — delete the wizard." Labeled, not built on.
+**Bad:** "I'd bet the wizard is wrong, so I planned the one-screen version." Intuition silently promoted into a plan.
+Rationale: the label is what lets an evidence-free intuition be valuable without passing as evidence.
+
+**Good:** the wild-shot names what evidence would kill it: "if cohort size < 100, forget it."
+**Bad:** repeating the same wild-shot every turn until it becomes a plan by persistence.
+Rationale: a labeled shot dies or survives on named evidence — persistence is not evidence either.

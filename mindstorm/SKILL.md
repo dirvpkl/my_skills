@@ -1,7 +1,7 @@
 ---
 name: mindstorm
 description: Pre-decision approach search for any domain — decompose into verbs, walk the ladder with URL evidence, propose 2-3 candidates with tradeoffs and one recommendation; a brainstorm mode handles the stuck case. ALWAYS invoke before anything is designed or built, and when the ask is how to do or what to use for something. Do not pick a stack or start building without the user's pick. NOT for finding what exists (researcher), NOT for wiring a chosen approach (coding).
-version: 2.2.0
+version: 2.3.0
 ---
 
 # mindstorm
@@ -14,6 +14,9 @@ side, never here.
 - **references/method.md** — the abstract search method (verbs, ladders, chains).
 - **references/brainstorm.md** — the brainstorm mode: inventory, divergent
   routes with real costs, closed dead ends, convergence to a pick.
+- **references/thought-work.md** — wild-shots, gems, associations: the
+  how-to-look layer (moved here from spine, owner ruling «все в
+  майндшторм»).
 - **plugins/manifest.json** — active modules. Check it, don't assume this file
   lists everything.
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.0] - 2026-11-18
+- The radar-era take-genres table (references/take-genres.md, leftover from
+  the retired radar skill) ADOPTED into spine — owner: «жанр-таблицу ок»:
+  hunch, counterpoint, steelman, gut-flag, bridge, pre-mortem, re-ask; the
+  wild-shot row moved to mindstorm with the rest of the creative machinery;
+  the <=1-per-turn caps removed (no-caps ruling). SKILL.md gained the
+  Take genres pointer.
+
 ## [2.0.0] - 2026-11-18
 - Wild-shots REMOVED from spine (owner: «вайлдшоты убираем») — rule 2 died,
   rules renumbered to four, desc cut to position-taking only, the wild-shot

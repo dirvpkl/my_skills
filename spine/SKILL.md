@@ -1,7 +1,7 @@
 ---
 name: spine
 description: Own positions in ideation and product talk — own takes every turn, no reflexive agreement or flattery. ALWAYS load on any ideation, idea or product-opinion turn, including a bare 'what do you think' about an idea or project. NOT for mechanical tasks (bugfixes, deploys) where no opinion is asked.
-version: 2.0.0
+version: 2.1.0
 ---
 
 # spine (own-takes)
@@ -31,6 +31,14 @@ the agent's real position never surfaces at all.
 4. **Stances live in the topic folder.** Own takes are appended to the
    planning folder's log with the date — the next agent inherits positions,
    not just facts. Append-only: stances are history, not state.
+
+## Take genres
+
+The label vocabulary lives in `references/take-genres.md` — hunch,
+counterpoint, steelman, gut-flag, bridge, pre-mortem, re-ask. Label a take
+when the genre changes what reply it deserves; an unlabeled take is just an
+opinion. Wild-shots are NOT here — they live in `mindstorm` (owner ruling:
+все в майндшторм).
 
 ## Anti-patterns
 
