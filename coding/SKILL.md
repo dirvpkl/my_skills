@@ -1,7 +1,7 @@
 ---
 name: coding
 description: Dispatcher for the coding package — routes to docker, process-tiers, code-quality, testing, logging, external-integrations, and loads boundaries, proxy-egress and git-workflow as mandatory siblings. ALWAYS invoke on any task that writes, edits, reviews or runs code, or touches infrastructure — once a non-trivial task has its workplanx topic folder; a trivial edit skips the folder, not this skill. Do not write or fix code without the sub-skills it routes to. NOT for approach search (mindstorm), opening the task's topic and record (workplanx does that first), judging finished work (fresh-eyes) or repeat-until-green runs (loop).
-version: 1.26.0
+version: 1.27.0
 ---
 
 # coding (dispatcher)

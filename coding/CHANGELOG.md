@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.27.0] - 2026-11-19
+- Sub-skill dead-name sweep (security -> boundaries after the 11-14 split;
+  live text kept the old name): process-tiers 1.2.2, logging 1.4.1,
+  code-quality 1.8.2.
+- code-quality 1.8.2: no-orphan-constants rule names the real checker
+  (scripts/orphan_constants.py, shipped 2026-11-18) instead of "until the
+  checker exists".
+
 ## [1.26.0] - 2026-11-18
 - Activation manifest: the line referencing the retired `## Trigger` concept rewritten — history left to the CHANGELOG, the dispatch statement stays.
 

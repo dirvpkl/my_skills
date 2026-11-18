@@ -1,7 +1,7 @@
 ---
 name: logging
 description: Structured logging rules — one format and one correlation ID across services, fail-loud made visible, forum-topic alerts, and credentials kept out of logs (URLs, headers, bodies redacted at the boundary; library loggers count as writers). ALWAYS invoke whenever code is built or changed — this is a base dependency. NOT a separate feature to bolt on later, NOT for channel wiring (external-integrations).
-version: 1.4.0
+version: 1.4.1
 ---
 
 <!-- v1 - 2026-09-06 -->
