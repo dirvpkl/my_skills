@@ -9,7 +9,7 @@ version: 1.8.1
 <!-- v1.2 - 2026-09-15: added no-trivial-delegating-wrapper, no-unused-parameters (protocol-required _-prefix + shared TypeAlias). -->
 <!-- v1.3 - 2026-09-15: added no-single-use-helpers, typed domain payloads, expanded single-source contracts to Exceptions/BaseModels, no exception-to-bool adapters, no duplicated SERVICE_NAME literals. -->
 <!-- v1.5 - 2026-09-26: decoupling — fresh-eyes review section removed (moved to the `fresh-eyes` skill, checklist file deleted, security rule kept here as the only owner), tier rules removed from Working order (`process-tiers` owns them). Rules themselves unchanged. -->
-<!-- v1.7 - 2026-10-28: env-var discipline — unprefixed names (NO_PROXY, BOT_TOKEN, HOST, ...), no project prefixes, no defaults anywhere. Moved here from `security` (that was config hygiene, not access protection). -->
+<!-- v1.7 - 2026-10-28: env-var discipline — unprefixed names (NO_PROXY, BOT_TOKEN, HOST, ...), no project prefixes, no defaults anywhere. Moved here from `boundaries` (that was config hygiene, not access protection). -->
 <!-- Continues prior content that lived under a package-wide v3 marker before the coding package moved to per-skill versioning; see coding/CHANGELOG.md. -->
 
 # code-quality
@@ -48,13 +48,13 @@ Anything built or changed under this skill assumes the `logging` skill is alread
 
 ## No hardcoding
 - No hardcoded values anywhere: no baked-in default arguments standing in for real config, no magic constants sitting in a file. If a value can plausibly change between environments/runs, it belongs in config.
-- One config, not several: don't split into `config-1`/`config-2` or multiple ad-hoc config files/modules within a project. All non-secret config values live in a single place; secrets live in `.env` as usual (see `security`).
+- One config, not several: don't split into `config-1`/`config-2` or multiple ad-hoc config files/modules within a project. All non-secret config values live in a single place; secrets live in `.env` as usual (see `boundaries`).
 - Exceptions are discussed with the user case by case, not assumed. One clear exception: dataclasses/models describing a request shape (e.g. an API request schema) are not "config" and don't need to be pulled out.
 - This rule covers retry parameters too (max attempts, backoff) — see `external-integrations`' centralized-handling section, which is the same no-hardcoding principle applied specifically to retry logic. Don't treat retry config as a special case exempt from this section.
 - A default argument that happens to match the real production value is hidden config — it's a config value that just isn't labeled as one. Move the value into config; the function signature only references it from there.
 - Every config value lives in exactly one place. The same value repeated in a second file/module is a bug even when the two copies currently agree — they will eventually drift, silently.
 - **Environment variable names are unprefixed** — no project/app/service prefixes. Use generic names (`NO_PROXY`, `BOT_TOKEN`, `HOST`, `PORT`, `DATABASE_URL`, `API_KEY`); never `<PROJECT>_NO_PROXY`, `<APP>_BOT_TOKEN`, `<SERVICE>_HOST`. Applies to `.env`, docker-compose, shell exports, code reads, and any config file.
-- **No defaults, anywhere.** A required env var or config value must be present and fail loudly when missing — compose `${VAR:?msg}`, code raises on a missing value — never a silent `${VAR:-fallback}`, `.env.get("key", "default")`, or a default argument standing in for real config. This is the same fail-loud principle applied to configuration; it covers secrets (see `security`) and plain config alike.
+- **No defaults, anywhere.** A required env var or config value must be present and fail loudly when missing — compose `${VAR:?msg}`, code raises on a missing value — never a silent `${VAR:-fallback}`, `.env.get("key", "default")`, or a default argument standing in for real config. This is the same fail-loud principle applied to configuration; it covers secrets (see `boundaries`) and plain config alike.
 - Service identity strings (e.g. `SERVICE_NAME = "<proj>-<role>-svc"`) live once per service in its own logging/config module and are imported — never re-declared as a literal in another module. Duplicate literals across two modules, or scattered string copies of the same name, violate this; import from the owning module instead.
 
 ## Principles
@@ -82,7 +82,7 @@ This is the canonical definition of "fail loud" — `external-integrations` and 
 - No defensive try/except on every line "just in case." Only catch an exception when there's a real, specific recovery action to take.
 - If something can't be done correctly (missing config, invalid input, an unexpected state), let it fail loudly — raise/throw, don't swallow it, don't return a silent fallback or a placeholder value.
 - This applies in production too, not just dev: a loud failure that surfaces a real problem is strictly better than a quiet fallback that hides one. Don't "fix" this by adding a broad catch-all.
-- No silent defaults/fallbacks standing in for missing/invalid data (see `security`'s secrets rule for the .env-specific case — this is the general version of the same principle).
+- No silent defaults/fallbacks standing in for missing/invalid data (see `boundaries`'s secrets rule for the .env-specific case — this is the general version of the same principle).
 - This is about swallowing errors, not about handling known, expected failure modes of external things (rate limits, transient network errors, etc.) — see the `external-integrations` skill for how those should be handled (centrally, via retry, not scattered try/except). A raised exception also needs to be *seen*, not just raised — see `logging`'s "What fail-loud implies for logging" for that half.
 - Never catch an exception just to re-raise the same thing. Catching is only justified when it adds information that wasn't there — extra context in the message, a different exception type the caller actually needs — or when there's a real recovery action. A `try/except` whose body just does `raise` (or raises the identical exception) is noise; delete it and let the original propagate.
 - Don't guard against impossible types with a catch. If the type system (or the schema at the boundary) already rules a case out, a defensive `except` for it is dead code pretending to be safety.

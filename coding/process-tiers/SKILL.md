@@ -12,7 +12,7 @@ version: 1.2.1
 
 ## Decide vs ask
 - Decide without asking: scope slicing within the task, technical implementation choices, parking something as explicitly out-of-scope (with a stated reason).
-- Always ask first: secrets/.env, files outside the project, docker ports, anything involving money or external side effects (sending requests, calling paid APIs, posting/publishing). See `security` and `docker` for the specifics behind these.
+- Always ask first: secrets/.env, files outside the project, docker ports, anything involving money or external side effects (sending requests, calling paid APIs, posting/publishing). See `boundaries` and `docker` for the specifics behind these.
 
 ## Task tiers
 
@@ -29,7 +29,7 @@ No unexpected behavior, ever: if something doesn't fit any rule here or in a ski
 
 ## Skill weight by task size
 Not every code touch needs the full code-quality/testing pipeline (baseline capture, `fresh-eyes` review, structured test coverage). Weight scales with the tier above:
-- **Trivial** (typo, comment, rename with no behavior change): apply `security`/`logging` rules if touched, but skip baseline capture, skip the `fresh-eyes` review, skip formal test coverage. A quick sanity check (does it still run/import) is enough.
+- **Trivial** (typo, comment, rename with no behavior change): apply `boundaries`/`logging` rules if touched, but skip baseline capture, skip the `fresh-eyes` review, skip formal test coverage. A quick sanity check (does it still run/import) is enough.
 - **Routine fix / small feature / big architectural**: full pipeline as described in `code-quality` and `testing` — no shortcuts.
 - If unsure which tier a task falls into, default to the heavier tier — don't downgrade to trivial to save effort.
 
