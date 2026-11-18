@@ -1,7 +1,7 @@
 ---
 name: mission
 description: Long-running objective decomposed into a board of cards, worked one card per fresh session, each card verified on its own — the orchestrator drives the board and logs results; cards execute. ALWAYS invoke when the user gives a goal too big for one pass that needs hours across many steps, unattended. Do not attack such a goal in one session or improvise the decomposition. NOT for a single task, NOT for retrying one failing thing (loop).
-version: 1.6.0
+version: 1.7.0
 ---
 
 # mission
@@ -14,9 +14,13 @@ Mission's MAIN task is the board plus the result log: drive the kanban
 (dispatch cards, verify, move) and log every outcome. Mission does not
 build — card sessions build (with `coding`). The board's state is the
 source of truth; when the attachments exist, execution follows the kanban
-service and the record surfaces in the obsidian graph (owner ruling:
-«основная задача - канбан + логирование результатов. не кодинг и не что-то
-еще»).
+service and the record surfaces in the obsidian graph. The stack is PICKED
+(owner 2026-11-19): the board = **Planka** (self-hosted docker, Trello-like
+UI for the owner, REST for the agents), the graph = **Obsidian** over the
+`.workplanx/` folder. Wiring goes per `external-integrations` (REST,
+centralized retry) when deployed — until then the `.md` board in the topic
+folder is the working truth (owner ruling: «основная задача - канбан +
+логирование результатов. не кодинг и не что-то еще»).
 
 - **references/decompose.md** — how to split a goal into cards that are
   independently verifiable, and when the goal is too vague to split yet.

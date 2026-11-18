@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.7.0] - 2026-11-19
+- The board stack PICKED and named (owner ruling): Planka (docker,
+  Trello-like UI + REST) as the mission board; Obsidian over .workplanx/
+  as the graph layer. Wiring per external-integrations at deploy; the .md
+  board stays the working truth until then.
+
 ## [1.6.0] - 2026-11-19
 - Identity sharpened (owner ruling): mission's MAIN task = the board
   (dispatch, verify, move) + result logging — NOT coding, NOT anything

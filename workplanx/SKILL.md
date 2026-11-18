@@ -1,13 +1,16 @@
 ---
 name: workplanx
 description: Task plan-and-log router — every non-trivial task opens a topic folder (plan, search, decision, log), gated structurally and closed with an afterword. ALWAYS invoke at task start, before any search or code, when the work is project-scale (a feature, a refactor, a migration); bare execution commands go to coding without a folder. Do not keep task logs in chat — the folder is the record. NOT for deciding what to build (mindstorm) or for implementing (coding).
-version: 1.17.0
+version: 1.18.1
 ---
 
 # workplanx
 
 Owns the topic folder. Other skills don't log to chat — they log to the
 folder, and the gate verifies the folder's shape (not the agent's words).
+The folder is the agents' playground, not only a record: agents work FROM
+it (read the plan, the decisions, the stances) and INTO it (write the log) —
+the owner's framing: «workplanx это как бы плэйграунд для агентов».
 
 - **references/layout.md** — folder shape + per-file contracts.
 - **references/trigger-log.md** — append-only log of observed trigger
@@ -30,18 +33,16 @@ ceremony.
    Fallback outside a project: `%TEMP%/opencode-workplanx/<topic-slug>/`.
 2. Files inside (see `references/layout.md` for contracts):
    `plan.md` → `search.md` → `decision.md` → `log.md` → `gate.log`. In that
-   order. Each task in `plan.md` names its **consumer** and a
-   runtime-verifiable check: who uses the result and how the agent can prove
-   it is actually wired, not merely written ("integrated != wired" — the
-   consumer-trace rule shared with `fresh-eyes`), and its **evidence**:
-   what will be verified and what result counts as achieved — fixed before
-   the work starts, so the log records proof, not optimism — and its
-   **association**: the analogy that carries the task's structure (what it
-   looks like — a dice with faces, throws and chances — structure the
-   abstract statement alone does not hold, never a decorative vibe).
-   `decision.md` carries a
-   `counter:` line — the best case against
-   the agent's own recommendation, written before the `user-pick:` is
+   order. Every task in `plan.md` carries, fixed before the work starts:
+   - **consumer** + a runtime-verifiable check — who uses the result and
+     how the agent proves it is actually wired ("integrated != wired" —
+     the consumer-trace rule shared with `fresh-eyes`);
+   - **evidence** — what will be verified and what result counts as
+     achieved, so the log records proof, not optimism;
+   - **association** — the analogy that carries the task's structure (a
+     dice with faces, throws and chances), never a decorative vibe.
+   `decision.md` carries a `counter:` line — the best case against the
+   agent's own recommendation, written before the `user-pick:` is
    requested (duel-lite: adversarial self-review, not a second agent).
    Cross-references between topic files and skills use `[[target]]`; the
    gate warns on dangling ones. Nothing gets built before `decision.md` has
@@ -84,6 +85,29 @@ ceremony.
 
 Topic folder with the five files, each passing its phase gate. Folder path
 is reported in chat so the user can inspect it.
+
+## Attachments
+
+The folder plays with two designed attachments (built as separate
+projects, workplanx stays the record):
+
+- **Kanban service: Planka** (mission cards) — PICKED (owner
+  2026-11-19): self-hosted docker, Trello-like UI for the owner, REST for
+  the agents. Reads/writes mission cards across agent sessions; agents
+  are the primary consumers, the owner watches.
+- **Graph: Obsidian** — the `.workplanx/` folder opens as an Obsidian
+  vault: the topic graph becomes visible without an agent in the middle
+  («чтобы не просто пустые мдшки были»). Verified: no better plain-md
+  graph tool exists for the agent-raw-access requirement.
+
+Both consume the folder's plain markdown — workplanx never depends on
+them being installed.
+
+## The hook watch
+
+The metawatcher hook (parked design) watches this folder's usage: recent
+responses with no `.workplanx` mention on project-scale work = a kick to
+re-read the skills. The folder's usage is enforceable, not remembered.
 
 ## Declaring other skills as dependencies
 

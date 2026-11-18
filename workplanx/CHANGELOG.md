@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.18.1] - 2026-11-19
+- Attachments NAMED (owner pick): kanban = Planka (docker, REST), graph =
+  Obsidian vault over .workplanx/ (verified the strongest plain-md graph
+  tool for the agent-raw-access requirement — Logseq/SiYuan/Anytype break
+  the format or the agent hand).
+
+## [1.18.0] - 2026-11-19
+- The пересмотр (owner: «пересмотри воркпланх»): the folder is the agents'
+  PLAYGROUND, not only a record — agents work FROM it and INTO it (owner
+  framing); Process item 2 split into readable sub-bullets (the accreted
+  wall); the Attachments section added — kanban service (mission cards,
+  agent-facing, an open-project ready-made per the ladder) and Obsidian
+  (the .workplanx vault — the graph visible without an agent); the hook
+  watch noted (metawatcher heuristic #1: no .workplanx in recent responses
+  = kick to re-read).
+
 ## [1.17.0] - 2026-11-19
 - Self-improve machinery REMOVED (owner ruling: «воркпланх не должен
   предлагать что-то сделать, он сука логирует»): the afterword's harvest
