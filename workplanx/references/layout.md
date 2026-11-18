@@ -30,14 +30,11 @@ project = many folders, never one shared log. `.workplanx/` is gitignored.
 - `gate.log` — appended output of every `plan_gate.py` run (green or red +
   fixes). History, not a rewrite. Not a substitute for `log.md`: this is the
   gate's run history, not the work.
-- `afterword.md` — written once at pass end, before `fresh-eyes`: what
-  worked, what to add, what was missing, cool-to-have, one labeled
-  wild-shot, and a `harvest:` block — 0-N concrete skill patches born in
-  this pass, each naming the rule and the skill it belongs to (`none` is a
-  legitimate harvest). Proposals wait for the user's bump and are then
-  executed as normal edits; the pass never applies them itself. This is the
-  collection audit's input (see `watchdog`'s `collection-audit` profile).
-  The gate ignores it as an extra but scans it for dangling `[[links]]`.
+- `afterword.md` — written once at pass end, before `fresh-eyes`: a LOG —
+  what worked, what was missing, notes worth keeping. No proposals: the
+  pass records, it does not offer work (the self-improve pass lives in
+  `mindstorm`'s thought-work). The gate ignores it as an extra but scans
+  it for dangling `[[links]]`.
 
 ## Contracts
 
