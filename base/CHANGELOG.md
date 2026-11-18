@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.17.0] - 2026-11-18
+- references/harness.md added (owner question: where do harness-tool
+  specifics live — background execs, agent limits, sessions, hooks):
+  the current harness's capability catalog, resolved by skills before
+  relying on a capability. Process item 3 points at it.
+
 ## [1.16.0] - 2026-11-17
 - Description trimmed to ~400 chars; the contract is unchanged
   (what it is + ALWAYS invoke + NOT for).
