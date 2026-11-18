@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.18.0] - 2026-11-19
+- The harness reference became a FOLDER of per-harness files (owner ruling):
+  base/harness/zcode.md — ONLY the owner-told nuances (3-parallel-agent
+  limit + the empirical one-on-one fail caveat, retry on load/concurrency
+  hit, bonus tokens until 4:00 askable); the generic tool behavior agents
+  already know is explicitly excluded. Process item 3 points at the folder
+  and explains it the owner's way: agents know their tools, they do not
+  know the local nuances. references/harness.md removed.
+
 ## [1.17.0] - 2026-11-18
 - references/harness.md added (owner question: where do harness-tool
   specifics live — background execs, agent limits, sessions, hooks):

@@ -1,7 +1,7 @@
 ---
 name: base
 description: Base operating rules for the orchestrator and every agent, always loaded — delegate by default, resolve volatile paths at runtime, ask first on destructive/secret/out-of-scope steps, protect data and the host. Pairs with coding on any task that executes or delegates; pure reading with nothing executed is the only exemption. Never skipped — a routed skill loads on top of base, never instead of it.
-version: 1.17.0
+version: 1.18.0
 ---
 
 # base
@@ -51,7 +51,11 @@ what never happens.
    SKILL.md (gitignored; tracked shape in the skill's
    `runtime.example.toml`). Reading it is always allowed: its values are declared working context for this
    machine/context, not secrets. Ask the user only when the needed key is
-   missing; the harness's own capabilities (background execs, agent limits, sessions, hooks) are cataloged in `references/harness.md` — resolve them there before relying on one.
+   missing. The harness folder (`harness/<harness-name>.md`) carries the
+   owner-told nuances — local limits, quotas, retry behavior, schedules —
+   the things the tools alone do not reveal: agents know their tools, they
+   do not know the local specifics. Read it before relying on a capability,
+   and when the owner explains another nuance, it lands there the same turn.
 4. **Ask before crossing a line.** Load `boundaries` before the first
    state-changing command; its `references/data.md` comes before touching
    volumes, databases, hosts, or running tests. Unclear
