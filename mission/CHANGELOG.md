@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0] - 2026-11-19
+- Identity sharpened (owner ruling): mission's MAIN task = the board
+  (dispatch, verify, move) + result logging — NOT coding, NOT anything
+  else; card sessions build with coding; execution follows the kanban
+  service / obsidian graph when the attachments exist. Desc + intro +
+  Process step 6 (the outcome line logged the same step).
+
 ## [1.5.1] - 2026-11-17
 - examples.md: every case now carries >=2 Good/Bad pairs (the collection convention) — one teaching couplet added per single-pair section.
 

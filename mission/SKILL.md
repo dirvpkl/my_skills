@@ -1,7 +1,7 @@
 ---
 name: mission
-description: Long-running objective decomposed into a board of cards, worked one card per fresh session, each card verified on its own — the orchestrator decomposes and judges, cards execute. ALWAYS invoke when the user gives a goal too big for one pass that needs hours across many steps, unattended. Do not attack such a goal in one session or improvise the decomposition. NOT for a single task, NOT for retrying one failing thing (loop).
-version: 1.5.1
+description: Long-running objective decomposed into a board of cards, worked one card per fresh session, each card verified on its own — the orchestrator drives the board and logs results; cards execute. ALWAYS invoke when the user gives a goal too big for one pass that needs hours across many steps, unattended. Do not attack such a goal in one session or improvise the decomposition. NOT for a single task, NOT for retrying one failing thing (loop).
+version: 1.6.0
 ---
 
 # mission
@@ -9,6 +9,14 @@ version: 1.5.1
 A mission is a goal that can't be finished in one pass. It gets decomposed into
 cards, worked one at a time in a fresh session each, and judged at the end by
 a context that didn't do the work.
+
+Mission's MAIN task is the board plus the result log: drive the kanban
+(dispatch cards, verify, move) and log every outcome. Mission does not
+build — card sessions build (with `coding`). The board's state is the
+source of truth; when the attachments exist, execution follows the kanban
+service and the record surfaces in the obsidian graph (owner ruling:
+«основная задача - канбан + логирование результатов. не кодинг и не что-то
+еще»).
 
 - **references/decompose.md** — how to split a goal into cards that are
   independently verifiable, and when the goal is too vague to split yet.
@@ -56,7 +64,9 @@ against the goal.
    not use subagents for cards — they lock the orchestration cycle; the
    orchestrator session dispatches and collects, card sessions execute.
 6. **After each card: the card's own verification, then the session's
-   freshness check.** Mark done only on evidence, never on the card session's word.
+   freshness check — and the result LOGGED on the board.** Mark done only on
+   evidence, never on the card session's word; the outcome line goes to the
+   board and the topic log the same step.
 7. **When the board is empty:** a conformance review against the
    original goal, and the mission's done-condition, by the orchestrator or an
    independent session with clean context. Both. That's the same
