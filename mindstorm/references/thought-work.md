@@ -36,3 +36,13 @@ its evidence (genre: label it — hunch, counterpoint, steelman, re-ask; the
 genre vocabulary lives in spine), is it a step forward or a restatement?
 A thought that survives the look becomes a take; one that doesn't becomes
 a wild-shot with a named kill-condition.
+
+## self-improve (at pass end)
+
+When a body of work ends, look back at it once — this is the pass's own
+self-improve: what skill patches did the work BORN? A patch = a rule the
+work proved (or broke) + the skill it belongs to + the exact file and line
+it would touch. The agent proposes them to the owner and waits — the owner's
+bump applies them; the agent never self-applies. Where a patch would land is
+recorded (`#harvest` marker in the topic log) — workplanx logs it, mindstorm
+proposes it.

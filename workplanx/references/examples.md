@@ -42,16 +42,6 @@ Rationale: a recommendation that can't survive its own counter isn't ready — a
 **Bad:** a counter the recommendation obviously beats, chosen to look thorough.
 Rationale: a strawman counter is the duel-lite failure — the check exists to break weak recommendations, not to decorate them.
 
-## Harvest waits for the bump
-
-**Good:** afterword's `harvest:` block lists patches (rule + target skill), the pass ends, patches are applied only after the owner's bump.
-**Bad:** agent edits another skill's SKILL.md mid-pass because the rule "obviously belongs there."
-Rationale: the pass proposes, the owner applies — self-applied harvest is how a collection drifts out of consistency.
-
-**Good:** the harvest entry names the exact file and line the patch would touch.
-**Bad:** "should add something about timing to some skill."
-Rationale: a patch proposal without a target is a wish — the bump executes it only when it is concrete.
-
 ## Delegation carries a log path
 
 **Good:** `Session for the parser refactor: append to <project>/.workplanx/11-14-parser/log.md, one line per unit of work.`

@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.17.0] - 2026-11-19
+- Self-improve machinery REMOVED (owner ruling: «воркпланх не должен
+  предлагать что-то сделать, он сука логирует»): the afterword's harvest
+  block and the proposals-waiting-for-a-bump mechanism moved OUT — the
+  self-improve pass now lives in mindstorm's thought-work (alongside
+  wild-shots, gems, associations). The afterword is a pure LOG: what
+  worked, what was missing. The `#harvest` hashtag stays (a recording
+  marker); the proposal machinery does not.
+
 ## [1.16.1] - 2026-11-18
 - desc narrowed (exam catch): "including when the task names code work"
   made workplanx swallow bare execution commands ("write a script", "run

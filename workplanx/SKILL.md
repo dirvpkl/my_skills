@@ -1,7 +1,7 @@
 ---
 name: workplanx
 description: Task plan-and-log router — every non-trivial task opens a topic folder (plan, search, decision, log), gated structurally and closed with an afterword. ALWAYS invoke at task start, before any search or code, when the work is project-scale (a feature, a refactor, a migration); bare execution commands go to coding without a folder. Do not keep task logs in chat — the folder is the record. NOT for deciding what to build (mindstorm) or for implementing (coding).
-version: 1.16.1
+version: 1.17.0
 ---
 
 # workplanx
@@ -74,15 +74,11 @@ ceremony.
    A delegated agent that reports only in chat has left no record; the prompt
    is what makes the recording duty travel with the task.
 8. Judging finished work is not this skill's job — when the work is done and
-   checks passed, the pass closes with `afterword.md` (what worked, what to
-   add, what was missing, cool-to-have, one labeled wild-shot), then
-   `fresh-eyes` runs. The afterword carries the harvest: a `harvest:` block
-   listing 0-N concrete skill patches born in this pass — a rule from the
-   conversation plus the skill it belongs to (`none` is a legitimate
-   harvest). Proposals wait for the user's bump and are then executed as
-   normal edits; this skill never applies them itself. The afterword is the
-   collection audit's input. This
-   skill only owns the folder, the gate, and the log.
+   checks passed, the pass closes with `afterword.md` (a LOG: what worked,
+   what was missing — recording, not proposals), then `fresh-eyes` runs.
+   This skill only owns the folder, the gate, and the log — it never
+   proposes work; the self-improve pass lives in `mindstorm` (owner ruling:
+   «воркпланх не должен предлагать что-то сделать, он логирует»).
 
 ## Output format
 

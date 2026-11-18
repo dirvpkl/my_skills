@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.4.0] - 2026-11-19
+- self-improve moved IN (owner ruling: «в майндшторм — где он лучше
+  подходит наряду с шотами, гемами и прочим»): thought-work.md gains the
+  pass-end self-improve section — a patch = a rule the work proved + the
+  skill it belongs to + the exact landing spot; proposed to the owner,
+  applied only by the owner's bump. The proposal machinery left workplanx
+  (it logs, it does not propose).
+
 ## [2.3.0] - 2026-11-18
 - The creative machinery moved IN (owner ruling: «все в майндшторм» — no
   separate serendipity skill): references/thought-work.md holds wild-shots
