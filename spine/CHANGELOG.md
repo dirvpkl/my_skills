@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.0.0] - 2026-11-18
+- Wild-shots REMOVED from spine (owner: «вайлдшоты убираем») — rule 2 died,
+  rules renumbered to four, desc cut to position-taking only, the wild-shot
+  example scenes moved out. Where they land is an open fork (mindstorm fog
+  vs a new serendipity skill — the owner's proposal).
+- NOTE: a parallel process rolled spine/SKILL.md back to a pre-removal copy
+  twice this session (the cap resurrection); this commit re-lands the
+  removal immediately after the latest roll-back.
+
 ## [1.7.0] - 2026-11-18
 - Profiles got their own folder: spine/profiles/<name>.md — one file per
   profile, each with calibration notes; the file IS the profile (owner
