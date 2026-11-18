@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.4.3] - 2026-11-18
+- desc: questions ABOUT the domain ("what are the access protocols for
+  production data?") route here — the skill is the knowledge home for its
+  own rules, not only the touch-guard (exam miss, same pattern as
+  git-workflow 1.4.1's procedure questions).
+
 ## [1.4.2] - 2026-11-17
 - System boundaries: concrete host-app names (owner's personal setup) generalized to classes — media players, browsers, proxy clients; the personalization left the tracked file (owner ruling 2026-11-17).
 - examples.md: "Host apps are the user's personal space" case added (2 pairs).
