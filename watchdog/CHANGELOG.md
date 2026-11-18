@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.3] - 2026-11-19
+- 3.4.2 REVERTED (owner ruling: «обязанности вотчера это вотчить»): the
+  one-shot widening was wrong — the watcher watches (recurring ticks);
+  a bare one-shot task execution is not its job. The autonomous-boss
+  framing dropped; the merge direction (watchdog + metawatcher as one
+  watching layer) recorded in the parked metawatcher design.
+
 ## [3.4.2] - 2026-11-18
 - desc: one-shot audits and reminders are in-scope (the "to set up a
   recurring" framing repelled direct audit/remind requests — exam miss).
