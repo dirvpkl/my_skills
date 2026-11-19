@@ -1,0 +1,5 @@
+# mission runtime — tracked shape example; the real file is gitignored.
+# The mission board (Planka or the picked kanban attachment).
+[board]
+url = "http://board.local:PORT"
+compose_dir = "/path/to/mission-board"
