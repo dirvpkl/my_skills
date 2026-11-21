@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.12.0] - 2026-11-21
+- option text v3 per owner design: aliases + kind + intent sentence (I need to launch skill X) + target skills' descriptions pulled from the live catalog — the embedder matches MEANING (descriptions), not surface words; v2 aliases-only lost the semantic jumps (fuzzy layer 1/6 -> 4/6 on the honest set); cache hash covers composed texts (catalog descriptions live outside chords.md)
+
+
 ## [1.11.0] - 2026-11-21
 - B+ hybrid decider: literal substring fast-path fires ALL matched rows (multi-binding sentences decompose there), shorter-alias-contained-in-longer loses per the table's collision notes, placeholder aliases dropped; embeddings remain the single-intent fuzzy layer for the no-literal-hit remainder
 

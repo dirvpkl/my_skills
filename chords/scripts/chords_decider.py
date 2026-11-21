@@ -67,13 +67,42 @@ def prompt_from(payload: dict) -> str:
     return ""
 
 
+def read_description(skill: str) -> str:
+    """Frontmatter description of a sibling skill from the live catalog."""
+    f = Path(__file__).resolve().parent.parent.parent / skill / "SKILL.md"
+    try:
+        lines = f.read_text(encoding="utf-8", errors="ignore").splitlines()
+    except OSError:
+        return ""
+    inside, grab, desc = False, False, []
+    for line in lines:
+        s = line.strip()
+        if s == "---":
+            if inside:
+                break
+            inside = True
+            continue
+        if inside and s.startswith("description:"):
+            grab = True
+            rest = s[len("description:"):].strip()
+            if rest and rest not in (">", ">-", "|", "|-"):
+                desc.append(rest)
+            continue
+        if grab:
+            if s == "---" or re.match(r"^[A-Za-z_-]+:", s):
+                break
+            desc.append(s)
+    return " ".join(part for part in desc if part).strip()[:240]
+
+
 def binding_rows() -> list[tuple[str, list[str], str]] | None:
     """(key, aliases, option_text) rows from the chords table; None when
-    empty. Option text = the alias list + kind tag: the phrases are the
-    trigger surfaces the embedder should score; long notes blurred the
-    phrase signal in calibration (v1), so they stay for the agent only.
-    Placeholder aliases («чекай <skill-name>») are dropped from the literal
-    layer — they carry no verbatim surface."""
+    empty. Option text v3 = aliases + kind + an intent sentence + the
+    TARGET SKILLS' descriptions from the live catalog — the embedder matches
+    by meaning, and the meaning of a binding lives in what the skill does,
+    not in the alias words (owner ruling; v1 full-row notes and v2 bare
+    aliases both blurred it). Placeholder aliases («чекай <skill-name>»)
+    are dropped from the literal layer."""
     table = Path(__file__).resolve().parent.parent / "chords.md"
     try:
         lines = table.read_text(encoding="utf-8", errors="ignore").splitlines()
@@ -90,11 +119,22 @@ def binding_rows() -> list[tuple[str, list[str], str]] | None:
         key_match = re.search(r'"([^"]+)"', cells[0])
         if not key_match:
             continue
-        kind = next((c for c in cells[1:4] if c in kinds), "?")
         aliases = [a.strip().strip('"').strip() for a in cells[0].split(",")]
         aliases = [a for a in aliases if a and "<" not in a]
+        kind_pos = next((i for i, c in enumerate(cells[1:4], start=1) if c in kinds), None)
+        kind = cells[kind_pos] if kind_pos else "?"
+        if kind in ("skill", "bundle"):
+            body = cells[1]  # the target cell is always column 2 for skill/bundle rows
+        else:  # action rows carry the description in whichever cell it fits
+            body = max((c for c in cells[1:4] if c != kind), key=len, default="")
+        if kind in ("skill", "bundle"):
+            targets = [t.strip() for t in re.split(r"[+,]| {2,}", body) if t.strip()]
+            descs = [f"{t}: {read_description(t)}" for t in targets if read_description(t)]
+            intent = f"I need to launch {kind} {body}" + (": " + " | ".join(descs) if descs else "")
+        else:
+            intent = f"I need to perform this action: {body[:500]}"
         rows.append((key_match.group(1), aliases,
-                     f"{cells[0].replace(chr(34), chr(39))} [{kind}]"))
+                     f"{cells[0].replace(chr(34), chr(39))} [{kind}] — {intent[:700]}"))
     return rows or None
 
 
@@ -136,11 +176,15 @@ def cosine(a: list[float], b: list[float]) -> float:
 
 
 def row_vectors(cfg: dict, rows: list[tuple[str, list[str], str]]) -> list[list[float]] | None:
-    """Cached embeddings for the binding rows; invalidated by a chords.md hash
-    that also carries the option-text format and the embedder model."""
+    """Cached embeddings for the binding rows; invalidated by a hash over the
+    composed option texts + the embedder model (descriptions come from the
+    live catalog, OUTSIDE chords.md — a table-only hash would go stale when a
+    skill description changes)."""
+    texts = [text for _, _, text in rows]
     table_hash = hashlib.sha256(
         (Path(__file__).resolve().parent.parent / "chords.md").read_bytes()
-        + b"|v2-aliases|" + cfg.get("model", "").encode()).hexdigest()
+        + json.dumps(texts, ensure_ascii=False).encode()
+        + b"|v3-desc|" + cfg.get("model", "").encode()).hexdigest()
     if CACHE.is_file():
         try:
             cache = json.loads(CACHE.read_text(encoding="utf-8"))
@@ -148,7 +192,7 @@ def row_vectors(cfg: dict, rows: list[tuple[str, list[str], str]]) -> list[list[
                 return cache["rows"]
         except Exception:
             pass
-    vectors = embed(cfg, [text for _, _, text in rows])
+    vectors = embed(cfg, texts)
     if vectors is None:
         return None
     try:

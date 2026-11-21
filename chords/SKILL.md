@@ -1,7 +1,7 @@
 ---
 name: chords
 description: Personal shortcut bindings — the owner's shorthand phrases map straight to skills, bundles or actions; a binding is a key chord, one phrase and the whole stack sounds. ALWAYS invoke when a bound phrase appears, or when asked to see, add, change, suggest or remove bindings. NOT a music skill — actual chord or music questions are answered directly.
-version: 1.11.0
+version: 1.12.0
 ---
 
 # chords
