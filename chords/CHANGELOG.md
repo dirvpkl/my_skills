@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.9.0] - 2026-11-21
+- chords-decider hook: UserPromptSubmit -> decision model -> binding-match kick; config in runtime.toml [decider] (endpoint/api_key/model/threshold); silent pass without config or on error; meaning-match stays the agent's job
+
+
 ## [1.8.1] - 2026-11-18
 - examples.md: one leftover "trigger phrase" wording replaced (the word stays retired).
 

@@ -1,0 +1,8 @@
+# Tracked shape of chords/runtime.toml (gitignored) — machine values for the
+# chords UserPromptSubmit decider hook (chords/scripts/chords_decider.py).
+[decider]
+endpoint = "https://<host>/v1"  # chat-completions base URL of the decision model
+api_key = "<token>"             # optional; sent as Bearer
+model = "<model id>"
+protocol = "openai"             # one-shot classification adapter
+threshold = 0.75                # minimum confidence to inject the kick
