@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.13.0] - 2026-11-21
+- decider keyword-only: embeddings/tei dependency REMOVED (owner: external infra looks wrong for a hook, fuzzy layer dead weight after the FP tally) — pure local substring matcher over the chords table with v3 composed kick texts (aliases + intent + live-catalog descriptions); no config needed, runtime tomls deleted; paraphrase matching stays the always-loaded chords/base duty (semantic tier parked in brainstorm.md)
+
+
 ## [1.12.1] - 2026-11-21
 - kick text: explicit confidence + embedder name (FUZZY/certain labels), notify-duty tail (completion -> base notify.py) per owner request
 

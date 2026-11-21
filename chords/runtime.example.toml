@@ -1,8 +1,0 @@
-# Tracked shape of chords/runtime.toml (gitignored) — machine values for the
-# chords UserPromptSubmit decider hook (chords/scripts/chords_decider.py):
-# cosine matching against the chords table via an openai-compatible
-# embeddings endpoint (the owner's tei stack).
-[decider]
-endpoint = "http://127.0.0.1:30188/v1/embeddings"  # tei, pinned by the stack's own compose
-model = "Qwen/Qwen3-Embedding-0.6B"                # hint for multi-model embedders; tei ignores it
-threshold = 0.55                                   # cosine gate for the kick
