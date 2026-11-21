@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.25.0] - 2026-11-21
+- SessionStart bootstrapper hook: injects workplanx state (topics, newest activity, inbox) at session start incl. post-compact; hooks config converted to process-type spawn (diagnosing-hooks pitfall 10 - Windows shell + single quotes)
+
+
 ## [1.24.0] - 2026-11-21
 - pretty send: text goes through sendRichMessage as markdown (Bot API 10.1) — origin label is a bold header, body renders rich with zero escaping; plain-text fallback when the endpoint predates 10.1 (soft-404, stderr note); captions stay plain
 
