@@ -60,11 +60,11 @@ def bump_one(skill_dir: Path, part: str, message: str,
     manifest = skill_dir / "plugins" / "manifest.json"
     if manifest.exists():
         mtext = manifest.read_text(encoding="utf-8")
+        # Lean manifest shape (2026-11-15) dropped package_version — sync it
+        # only when the key is still there.
         m2, n = re.subn(r'("package_version"\s*:\s*")[^"]*(")', rf"\g<1>{new}\g<2>", mtext, count=1)
-        if n != 1:
-            print(f"ERROR: package_version not found in {manifest}", file=sys.stderr)
-            sys.exit(1)
-        manifest.write_text(m2, encoding="utf-8")
+        if n:
+            manifest.write_text(m2, encoding="utf-8")
 
     changelog = skill_dir / "CHANGELOG.md"
     if changelog.exists() or create_changelog:
