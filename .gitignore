@@ -37,3 +37,6 @@ watchdog/state/
 .exam-set.json
 .exam-answers-*.json
 .exam-run
+
+# chords decider embedding cache (derived, machine-local)
+chords/.emb-cache.json

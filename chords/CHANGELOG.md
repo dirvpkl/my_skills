@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.10.0] - 2026-11-21
+- decider rewritten: embeddings + cosine via the owner's tei stack (microsoft/harrier-oss-v1-0.6b, MTEB-multilingual #1) instead of the decision-model API; option text = alias list + kind (full-row notes blurred the phrase signal); row vectors cached by chords.md hash; calibrated: noise <=0.49, intent 0.61-0.72, threshold 0.55; hook wall-clock 0.66s incl. interpreter start
+
+
 ## [1.9.0] - 2026-11-21
 - chords-decider hook: UserPromptSubmit -> decision model -> binding-match kick; config in runtime.toml [decider] (endpoint/api_key/model/threshold); silent pass without config or on error; meaning-match stays the agent's job
 
