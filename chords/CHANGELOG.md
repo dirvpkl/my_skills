@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.10.1] - 2026-11-21
+- cache hash includes the embedder model - a model swap must not reuse vectors from another space
+
+
 ## [1.10.0] - 2026-11-21
 - decider rewritten: embeddings + cosine via the owner's tei stack (microsoft/harrier-oss-v1-0.6b, MTEB-multilingual #1) instead of the decision-model API; option text = alias list + kind (full-row notes blurred the phrase signal); row vectors cached by chords.md hash; calibrated: noise <=0.49, intent 0.61-0.72, threshold 0.55; hook wall-clock 0.66s incl. interpreter start
 

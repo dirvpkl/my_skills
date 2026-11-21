@@ -108,7 +108,7 @@ def row_vectors(cfg: dict, rows: list[tuple[str, str]]) -> list[list[float]] | N
     """Cached embeddings for the binding rows; invalidated by a chords.md hash."""
     table_hash = hashlib.sha256(
         (Path(__file__).resolve().parent.parent / "chords.md").read_bytes()
-        + b"|v2-aliases").hexdigest()
+        + b"|v2-aliases|" + cfg.get("model", "").encode()).hexdigest()
     if CACHE.is_file():
         try:
             cache = json.loads(CACHE.read_text(encoding="utf-8"))
