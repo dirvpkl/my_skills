@@ -16,10 +16,17 @@ USAGE
 
 ORIGIN
   Every message is auto-stamped with where it came from:
-  "<project> (<topic>): text" — project = the caller's cwd basename, topic
-  = $WORKPLANX_TOPIC when the session pins one. --from "label" overrides
+  "<project> (<topic>)" — project = the caller's cwd basename, topic =
+  $WORKPLANX_TOPIC when the session pins one. --from "label" overrides
   the stamp, --from "" removes it. Mandatory by construction — the agent
-  never has to remember it.
+  never has to remember it. The label rides as a bold header in rich
+  sends and as a "<label>: " prefix in plain fallbacks and captions.
+
+FORMATTING
+  Text sends go through sendRichMessage as markdown (Bot API 10.1): the
+  body renders rich — bullets, backticks, bold, tables — with no escaping
+  anywhere. Captions stay plain text. If the endpoint predates Bot API
+  10.1 the send falls back to plain text and a note lands on stderr.
 
 MARKER
   After a successful send the script appends a timestamped line to
@@ -107,7 +114,10 @@ def _multipart(fields: dict) -> tuple[str, bytes]:
     return boundary, bytes(body)
 
 
-def api(tg: dict, method: str, **fields) -> None:
+def api(tg: dict, method: str, soft_404: bool = False, **fields) -> dict | bool:
+    """POST one Bot API call. Returns the result JSON on success; returns
+    False only when soft_404 is set and the endpoint lacks the method
+    (formatting fallbacks). Everything else fails loud."""
     boundary, body = _multipart(fields)
     request = urllib.request.Request(
         API_URL.format(token=tg["bot_token"], method=method),
@@ -117,17 +127,30 @@ def api(tg: dict, method: str, **fields) -> None:
         with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
             result = json.load(response)
     except urllib.error.HTTPError as error:
+        if soft_404 and error.code == 404:
+            return False
         detail = error.read().decode("utf-8", "replace")[:300]
         fail(f"{method} -> HTTP {error.code}: {detail}", 1)
     except OSError as error:
         fail(f"{method} -> network error: {error}", 1)
     if not result.get("ok"):
         fail(f"{method} -> telegram rejected the send: {result}", 1)
+    return result
 
 
-def send_text(tg: dict, thread, text: str) -> None:
-    api(tg, "sendMessage", chat_id=tg["chat_id"], message_thread_id=str(thread),
-        text=text, disable_web_page_preview="true")
+def send_text(tg: dict, thread, label: str, body: str) -> None:
+    """Text send: markdown via sendRichMessage, plain fallback without it."""
+    header = f"**{label}**" if label else ""
+    markdown = f"{header}\n\n{body}".strip() if body else header
+    plain = f"{label}: {body}".strip() if body else label
+    sent_rich = markdown and api(
+        tg, "sendRichMessage", chat_id=tg["chat_id"], message_thread_id=str(thread),
+        rich_message=json.dumps({"markdown": markdown}), soft_404=True)
+    if not sent_rich:
+        if markdown != plain:
+            print("notify: rich send unavailable here — sent plain text", file=sys.stderr)
+        api(tg, "sendMessage", chat_id=tg["chat_id"], message_thread_id=str(thread),
+            text=plain, disable_web_page_preview="true")
 
 
 def send_media(tg: dict, thread, path: Path, caption: str | None) -> None:
@@ -148,13 +171,13 @@ def send_media(tg: dict, thread, path: Path, caption: str | None) -> None:
 
 
 def origin_stamp(from_label: str | None) -> str:
-    """Origin header prepended to every message: project (topic)."""
+    """Origin label carried by every message: project (topic)."""
     if from_label is not None:
         return from_label
     topic = os.environ.get("WORKPLANX_TOPIC", "").strip()
     if topic:
-        return f"{Path.cwd().name} ({topic}): "
-    return f"{Path.cwd().name}: "
+        return f"{Path.cwd().name} ({topic})"
+    return f"{Path.cwd().name}"
 
 
 def mark_sent(thread) -> None:
@@ -189,18 +212,19 @@ def main() -> None:
     tg = load_config()
     thread = tg["topic_critical"] if args.critical else tg["topic_info"]
 
-    stamp = origin_stamp(args.from_label)
-    stamped = f"{stamp}{text}" if text else stamp
-    if stamped and len(stamped) > TEXT_LIMIT:
-        fail(f"message is {len(stamped)} chars, limit is {TEXT_LIMIT} — shorten the summary", 2)
+    label = origin_stamp(args.from_label)
+    plain = f"{label}: {text}".strip() if text else label
+    if plain and len(plain) > TEXT_LIMIT:
+        fail(f"message is {len(plain)} chars, limit is {TEXT_LIMIT} — shorten the summary", 2)
 
+    text_sent = False
+    if not media or len(media) > 1 or len(plain) > CAPTION_LIMIT:
+        if label or text:
+            send_text(tg, thread, label, text)
+        text_sent = True
     caption = None
-    if not media:
-        send_text(tg, thread, stamped)
-    elif len(media) == 1 and len(stamped) <= CAPTION_LIMIT:
-        caption = stamped
-    elif stamped:
-        send_text(tg, thread, stamped)
+    if len(media) == 1 and not text_sent:
+        caption = plain
     for index, path in enumerate(media):
         send_media(tg, thread, path, caption if index == 0 else None)
     mark_sent(thread)

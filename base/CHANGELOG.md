@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.24.0] - 2026-11-21
+- pretty send: text goes through sendRichMessage as markdown (Bot API 10.1) — origin label is a bold header, body renders rich with zero escaping; plain-text fallback when the endpoint predates 10.1 (soft-404, stderr note); captions stay plain
+
+
 ## [1.23.0] - 2026-11-21
 - notify stop-hook enforcement: notify.py appends a _notify.log marker after each send, notify_stop_hook.py kicks on Stop when a fresh topic log went unnotified (15-min window; stale logs stay the metawatcher's lane); logic lives in the collection, the harness config carries one command line
 
