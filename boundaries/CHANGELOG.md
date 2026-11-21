@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.5.0] - 2026-11-21
+- PreToolUse guard hook: hard-enforces the never-do list for Bash (force-push incl. -c chains, reset --hard, root-ish rm -rf, branch -D) - exit-2 deny with reason, matcher Bash, fail-pass on unparseable input
+
+
 ## [1.4.3] - 2026-11-18
 - desc: questions ABOUT the domain ("what are the access protocols for
   production data?") route here — the skill is the knowledge home for its

@@ -1,7 +1,7 @@
 ---
 name: boundaries
 description: Rules for secrets, credentials, logs, chat hygiene, browser data, data preservation, untrusted content, egress and any access outside the project — when to ask first, how to scope a credential, how to handle an exposure, what must never reach chat. ALWAYS invoke before a task could touch any of these: reading a log, opening a browser profile, a volume or database, a file outside the project, or sending data out; notes, research and conversation count, not only code — and when asked how this domain works (access protocols, secret handling, what may reach chat), this skill is the knowledge home for those answers. NOT for in-project work that touches none of them.
-version: 1.4.3
+version: 1.5.0
 ---
 
 # boundaries
