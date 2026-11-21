@@ -1,7 +1,7 @@
 ---
 name: base
 description: Base operating rules for the orchestrator and every agent, always loaded — delegate by default, resolve volatile paths at runtime, ask first on destructive/secret/out-of-scope steps, protect data and the host. Pairs with coding on any task that executes or delegates; pure reading with nothing executed is the only exemption. Never skipped — a routed skill loads on top of base, never instead of it.
-version: 1.22.0
+version: 1.23.0
 ---
 
 # base
@@ -119,6 +119,9 @@ what never happens.
    way to reach the owner mid-work when unattended — a blocked decision
    during unattended work is a notify, not silence. The script fails
    loud when the channel is down: report that failure, never swallow it.
+   The notify stop-hook (`scripts/notify_stop_hook.py`, wired in the
+   harness config) kicks when finished work goes unnotified — treat its
+   kick as this rule's enforcement, not noise.
 
 ## Fail loud
 

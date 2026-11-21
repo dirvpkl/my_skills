@@ -21,6 +21,11 @@ ORIGIN
   the stamp, --from "" removes it. Mandatory by construction — the agent
   never has to remember it.
 
+MARKER
+  After a successful send the script appends a timestamped line to
+  .workplanx/_notify.log (when a topic folder exists) — the notify
+  stop-hook reads it to tell finished-and-notified from finished-and-silent.
+
 LEVELS
   info     — finished-work summaries, status reports (the default).
   critical — the owner is needed now: crash, blocker, exposed secret.
@@ -49,6 +54,7 @@ import argparse
 import json
 import os
 import sys
+from datetime import datetime, timezone
 import tomllib
 import urllib.error
 import urllib.request
@@ -151,6 +157,15 @@ def origin_stamp(from_label: str | None) -> str:
     return f"{Path.cwd().name}: "
 
 
+def mark_sent(thread) -> None:
+    """Append a timestamp marker so the stop-hook can tell notifies happened."""
+    marker = Path.cwd() / ".workplanx" / "_notify.log"
+    if not marker.parent.is_dir():
+        return  # no topic folder here — the notify hook skips markerless projects
+    with marker.open("a", encoding="utf-8") as f:
+        f.write(f"{datetime.now(timezone.utc).isoformat()} thread={thread}\n")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -188,6 +203,7 @@ def main() -> None:
         send_text(tg, thread, stamped)
     for index, path in enumerate(media):
         send_media(tg, thread, path, caption if index == 0 else None)
+    mark_sent(thread)
     print(f"notify: sent to {'critical' if args.critical else 'info'}"
           f" ({len(media)} media)")
 

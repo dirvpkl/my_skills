@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.23.0] - 2026-11-21
+- notify stop-hook enforcement: notify.py appends a _notify.log marker after each send, notify_stop_hook.py kicks on Stop when a fresh topic log went unnotified (15-min window; stale logs stay the metawatcher's lane); logic lives in the collection, the harness config carries one command line
+
+
 ## [1.22.0] - 2026-11-21
 - Origin auto-stamp: every message carries '<project> (<topic>):' from cwd + WORKPLANX_TOPIC, --from overrides or clears it; stamped text as caption, bare stamp covers media-only sends
 
