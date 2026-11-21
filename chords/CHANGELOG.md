@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.11.0] - 2026-11-21
+- B+ hybrid decider: literal substring fast-path fires ALL matched rows (multi-binding sentences decompose there), shorter-alias-contained-in-longer loses per the table's collision notes, placeholder aliases dropped; embeddings remain the single-intent fuzzy layer for the no-literal-hit remainder
+
+
 ## [1.10.1] - 2026-11-21
 - cache hash includes the embedder model - a model swap must not reuse vectors from another space
 
