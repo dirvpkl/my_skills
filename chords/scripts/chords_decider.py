@@ -218,8 +218,9 @@ def main() -> None:
     if hits:
         lines = [f"literal hit '{key}' -> {option_text}" for _, key, option_text in hits]
         print(json.dumps({"additionalContext":
-            "chords-decider: literal phrase hit(s):\n" + "\n".join(lines) +
-            "\nVerify against chords.md before acting."}))
+            "chords-decider: LITERAL phrase hit(s) — verbatim, certain:\n" + "\n".join(lines) +
+            "\nVerify against chords.md before acting. When this task completes, notify "
+            "the owner via base scripts/notify.py."}))
         return
     vectors = row_vectors(cfg, rows)
     if vectors is None:
@@ -234,8 +235,10 @@ def main() -> None:
         return
     phrase, aliases, option_text = rows[best_index]
     print(json.dumps({"additionalContext":
-        f"chords-decider: message matches binding '{phrase}' (cosine {best_score:.2f}) -> {option_text}. "
-        "Verify against chords.md before acting; match by meaning stays yours."}))
+        f"chords-decider: FUZZY match, confidence {best_score:.2f} (embedder "
+        f"{cfg.get('model', 'tei')}) -> binding '{phrase}' -> {option_text}. This is a "
+        "nomination — verify against chords.md before acting; match by meaning stays "
+        "yours. When this task completes, notify the owner via base scripts/notify.py."}))
 
 
 if __name__ == "__main__":

@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.12.1] - 2026-11-21
+- kick text: explicit confidence + embedder name (FUZZY/certain labels), notify-duty tail (completion -> base notify.py) per owner request
+
+
 ## [1.12.0] - 2026-11-21
 - option text v3 per owner design: aliases + kind + intent sentence (I need to launch skill X) + target skills' descriptions pulled from the live catalog — the embedder matches MEANING (descriptions), not surface words; v2 aliases-only lost the semantic jumps (fuzzy layer 1/6 -> 4/6 on the honest set); cache hash covers composed texts (catalog descriptions live outside chords.md)
 
