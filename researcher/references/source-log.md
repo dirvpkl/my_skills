@@ -32,3 +32,4 @@ One line per entry:
 - 2026-11-12: clawskills.sh (OpenClaw skill discovery) — Registries — surfaced by SearXNG "hosted SaaS skill publisher".
 - 2026-11-12: manycp.com (hosted MCP multi-directory submitter; its /directories page is a live venue registry) — Registries — surfaced by router/exa "MCP server multi-registry publisher".
 - 2026-11-12: theaicemetery.com / killedbyai.net (graveyard of dead AI products; cautionary-tale channel) — Contentsphere — surfaced by tavily "ChatGPT plugin store shutdown lessons".
+- 2026-11-20 | r/speechtech (Reddit) | Contentsphere | niche ASR/diarization community; surfaced the FoxNoseTech/diarize CPU-only library hours after posting | topic: cheap ASR with diarization

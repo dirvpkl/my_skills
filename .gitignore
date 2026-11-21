@@ -40,3 +40,6 @@ watchdog/state/
 
 # chords decider embedding cache (derived, machine-local)
 chords/.emb-cache.json
+
+# chords decider embedding cache (scripts/ subdir variant, derived, machine-local)
+chords/scripts/.emb-cache.json
