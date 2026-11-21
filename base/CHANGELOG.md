@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.21.0] - 2026-11-21
+- Telegram notify channel: scripts/notify.py (self-describing manual: usage, levels critical/info, media via -m, fail-loud, zero deps) + runtime.example.toml shape + Process item 9 (one summary per finished task, orchestrator sends, delegated agents stay in the log)
+
+
 ## [1.18.0] - 2026-11-19
 - The harness reference became a FOLDER of per-harness files (owner ruling):
   base/harness/zcode.md — ONLY the owner-told nuances (3-parallel-agent

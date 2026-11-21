@@ -1,0 +1,8 @@
+# Tracked shape of runtime.toml (gitignored) — copy beside it as runtime.toml
+# and fill real values. Telegram notify channel: a supergroup with forum
+# topics enabled (owner's reporting channel for finished harness work).
+[tg]
+bot_token = "<token from BotFather>"
+chat_id = "-100XXXXXXXXXX"  # supergroup: -100 prefix + internal id from t.me/c/<id>/...
+topic_critical = 1          # forum topic id: the owner is needed now
+topic_info = 2              # forum topic id: finished-work summaries

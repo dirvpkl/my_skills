@@ -1,7 +1,7 @@
 ---
 name: base
 description: Base operating rules for the orchestrator and every agent, always loaded — delegate by default, resolve volatile paths at runtime, ask first on destructive/secret/out-of-scope steps, protect data and the host. Pairs with coding on any task that executes or delegates; pure reading with nothing executed is the only exemption. Never skipped — a routed skill loads on top of base, never instead of it.
-version: 1.18.0
+version: 1.21.0
 ---
 
 # base
@@ -110,6 +110,15 @@ what never happens.
    message presenting the situation and the options; the user's choice
    is the only thing that proceeds past it (same protocol as
    workplanx's decision gate).
+9. **Notify the owner on completion.** When a unit of harness work
+   finishes — a task closed, a card done, a long job ended — send the
+   owner a summary through `scripts/notify.py` beside this file; the
+   script's docstring is the manual (levels, media, config). One summary
+   per task, sent by the orchestrator; delegated agents stay in the
+   workplanx log. Attach media when the work has visual output. Also the
+   way to reach the owner mid-work when unattended — a blocked decision
+   during unattended work is a notify, not silence. The script fails
+   loud when the channel is down: report that failure, never swallow it.
 
 ## Fail loud
 
