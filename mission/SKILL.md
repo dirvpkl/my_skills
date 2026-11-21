@@ -1,7 +1,7 @@
 ---
 name: mission
 description: Long-running objective decomposed into a board of cards, worked one card per fresh session, each card verified on its own — the orchestrator drives the board and logs results; cards execute. ALWAYS invoke when the user gives a goal too big for one pass that needs hours across many steps, unattended. Do not attack such a goal in one session or improvise the decomposition. NOT for a single task, NOT for retrying one failing thing (loop).
-version: 1.7.0
+version: 1.8.0
 ---
 
 # mission

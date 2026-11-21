@@ -1,5 +1,18 @@
 # mission runtime — tracked shape example; the real file is gitignored.
-# The mission board (Planka or the picked kanban attachment).
 [board]
-url = "http://board.local:PORT"
-compose_dir = "/path/to/mission-board"
+# The Planka stack (docker_containers/planka), host port pinned 127.0.0.1:23333.
+url = "http://127.0.0.1:23333"
+compose_dir = "C:/Users/orlando/docker_containers/planka"
+
+[planka]
+# Credentials for the planka_sweep stop-hook (mission/scripts/planka_sweep.py):
+# fresh #slot/#harvest/#gem/#open lines from workplanx topics become cards on
+# the pass-built board lists. Planka 2.x API: collections come as
+# {items, included}, cards require type: "story" and an explicit position.
+# Mint the token in YOUR OWN terminal — never in chat:
+#   curl -s -X POST http://127.0.0.1:23333/api/access-tokens -H "Content-Type: application/json" -d '{"emailOrUsername":"admin","password":"<your password>"}'
+# and paste the "item" value below.
+url = "http://127.0.0.1:23333"
+api_token = "<paste your Planka token here>"
+harvest_list_id = "<Собрано (harvest) list id>"
+queue_list_id = "<Очередь (queue) list id>"

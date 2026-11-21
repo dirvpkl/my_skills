@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.8.0] - 2026-11-22
+- planka_sweep stop-hook: fresh #slot/#harvest/#gem/#open lines from workplanx topics become cards on the pass-built board lists (Собрано/Очередь), swept-state keyed by content hash; Planka 2.x API learned the hard way: {items, included} envelopes, cards need type+position, admin password reset via DB (option B approved); board port pinned 127.0.0.1:23333 + BASE_URL fixed
+
+
 ## [1.7.0] - 2026-11-19
 - The board stack PICKED and named (owner ruling): Planka (docker,
   Trello-like UI + REST) as the mission board; Obsidian over .workplanx/
