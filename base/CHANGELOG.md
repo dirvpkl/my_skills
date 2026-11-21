@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.22.0] - 2026-11-21
+- Origin auto-stamp: every message carries '<project> (<topic>):' from cwd + WORKPLANX_TOPIC, --from overrides or clears it; stamped text as caption, bare stamp covers media-only sends
+
+
 ## [1.21.0] - 2026-11-21
 - Telegram notify channel: scripts/notify.py (self-describing manual: usage, levels critical/info, media via -m, fail-loud, zero deps) + runtime.example.toml shape + Process item 9 (one summary per finished task, orchestrator sends, delegated agents stay in the log)
 

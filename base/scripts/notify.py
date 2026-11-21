@@ -12,6 +12,14 @@ USAGE
   python notify.py "text"                        # info thread (default)
   python notify.py --critical "text"             # critical thread
   python notify.py "text" -m shot.png out.zip    # text + media files
+  python notify.py --from "label" "text"         # override the origin stamp
+
+ORIGIN
+  Every message is auto-stamped with where it came from:
+  "<project> (<topic>): text" — project = the caller's cwd basename, topic
+  = $WORKPLANX_TOPIC when the session pins one. --from "label" overrides
+  the stamp, --from "" removes it. Mandatory by construction — the agent
+  never has to remember it.
 
 LEVELS
   info     — finished-work summaries, status reports (the default).
@@ -22,8 +30,9 @@ LEVELS
 MEDIA
   -m takes one or more file paths (relative to the caller's cwd). Images
   (jpg/png/webp) go as photos, everything else as documents. One media file
-  carries the text as its caption when it fits (<= 1024 chars); otherwise
-  the text goes as its own message first and media follow without captions.
+  carries the stamped message as its caption when it fits (<= 1024 chars);
+  otherwise the text goes as its own message first and media follow
+  without captions.
 
 CONFIG
   ../runtime.toml (gitignored), section [tg]: bot_token, chat_id,
@@ -38,6 +47,7 @@ FAIL LOUD
 
 import argparse
 import json
+import os
 import sys
 import tomllib
 import urllib.error
@@ -131,6 +141,16 @@ def send_media(tg: dict, thread, path: Path, caption: str | None) -> None:
     api(tg, method, **fields)
 
 
+def origin_stamp(from_label: str | None) -> str:
+    """Origin header prepended to every message: project (topic)."""
+    if from_label is not None:
+        return from_label
+    topic = os.environ.get("WORKPLANX_TOPIC", "").strip()
+    if topic:
+        return f"{Path.cwd().name} ({topic}): "
+    return f"{Path.cwd().name}: "
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -139,14 +159,14 @@ def main() -> None:
                         help="send to the critical thread instead of info")
     parser.add_argument("-m", "--media", nargs="+", type=Path, metavar="FILE",
                         help="media files to attach (images as photos, rest as documents)")
+    parser.add_argument("--from", dest="from_label", default=None, metavar="LABEL",
+                        help='override the origin stamp (empty string removes it)')
     args = parser.parse_args()
 
     text = "\n".join(args.text).strip()
     media = args.media or []
     if not text and not media:
         parser.error("nothing to send — pass a text and/or -m FILE ...")
-    if text and len(text) > TEXT_LIMIT:
-        fail(f"text is {len(text)} chars, limit is {TEXT_LIMIT} — shorten the summary", 2)
     for path in media:
         if not path.is_file():
             fail(f"media file not found: {path}", 2)
@@ -154,11 +174,20 @@ def main() -> None:
     tg = load_config()
     thread = tg["topic_critical"] if args.critical else tg["topic_info"]
 
-    caption = text if (len(media) == 1 and text and len(text) <= CAPTION_LIMIT) else None
-    if text and caption is None:
-        send_text(tg, thread, text)
-    for path in media:
-        send_media(tg, thread, path, caption)
+    stamp = origin_stamp(args.from_label)
+    stamped = f"{stamp}{text}" if text else stamp
+    if stamped and len(stamped) > TEXT_LIMIT:
+        fail(f"message is {len(stamped)} chars, limit is {TEXT_LIMIT} — shorten the summary", 2)
+
+    caption = None
+    if not media:
+        send_text(tg, thread, stamped)
+    elif len(media) == 1 and len(stamped) <= CAPTION_LIMIT:
+        caption = stamped
+    elif stamped:
+        send_text(tg, thread, stamped)
+    for index, path in enumerate(media):
+        send_media(tg, thread, path, caption if index == 0 else None)
     print(f"notify: sent to {'critical' if args.critical else 'info'}"
           f" ({len(media)} media)")
 
